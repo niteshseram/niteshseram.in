@@ -1,8 +1,9 @@
 {
   "env": {
     "browser": true,
-    "es2021": true,
-    "jest": true
+    "es6": true,
+    "jest": true,
+    "node": true
   },
   "extends": [
     "eslint:recommended",
@@ -27,13 +28,14 @@
     "prettier/prettier": [
       "warn",
       {
-        "trailingComma": "es5",
+        "trailingComma": "none",
         "semi": false,
         "jsxSingleQuote": true,
         "singleQuote": true,
         "useTabs": true,
         "tabWidth": 2,
-        "arrowParens": "always"
+        "arrowParens": "always",
+        "endOfLine": "lf"
       }
     ]
   },
