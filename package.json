@@ -16,6 +16,7 @@
     "@fontsource/roboto": "^4.5.0",
     "framer-motion": "^4.1.17",
     "next": "^11.0.1",
+    "prop-types": "^15.7.2",
     "react": "17.x",
     "react-dom": "17.x"
   },
@@ -25,15 +26,17 @@
     "@storybook/addon-essentials": "^6.3.4",
     "@storybook/addon-links": "^6.3.4",
     "@storybook/react": "^6.3.4",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.2",
-    "eslint": "^7.31.0",
+    "eslint": "7.2.0",
+    "eslint-config-airbnb": "18.2.1",
     "eslint-config-next": "^11.0.1",
+    "eslint-config-node": "^4.1.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react": "7.21.5",
+    "eslint-plugin-react-hooks": "1.7.0",
     "prettier": "^2.2.1"
   }
 }
