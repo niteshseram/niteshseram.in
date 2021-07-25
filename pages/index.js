@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 import { Box, Flex, Heading, Link, Text } from '@chakra-ui/react'
+import styles from '../styles/Home.module.css'
 import '@fontsource/roboto/400.css'
 
 export default function Home() {
