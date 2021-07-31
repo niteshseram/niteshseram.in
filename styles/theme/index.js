@@ -6,14 +6,101 @@ const theme = extendTheme({
 			body: {
 				overflowX: 'hidden',
 				color: props.colorMode === 'light' ? 'black' : 'white',
-				bg: props.colorMode === 'light' ? 'white' : 'black'
-			}
-		})
+				bg: props.colorMode === 'light' ? 'white' : 'black',
+			},
+		}),
+	},
+	components: {
+		Button: {
+			// Styles for the base style
+			baseStyle: {
+				fontWeight: 'bold',
+				textTransform: 'uppercase',
+				borderRadius: 'sm',
+			},
+			// Styles for the size variations
+			sizes: {
+				sm: {
+					fontSize: 'xs',
+					px: '0.75rem',
+					py: '0.5rem',
+				},
+				md: {
+					fontSize: 'md',
+					px: '1rem',
+					py: '0.5rem',
+				},
+				lg: {
+					fontSize: 'lg',
+					px: '1.5rem',
+					py: '0.75rem',
+				},
+			},
+			// Styles for the visual style variations
+			variants: {
+				primary: {
+					border: '1px solid',
+					borderColor: 'default.dark',
+					color: 'default.dark',
+					_hover: {
+						bg: 'default.dark',
+						color: 'default.light',
+						border: 'none',
+					},
+					_active: {
+						bg: 'default.dark',
+						color: 'default.light',
+						border: 'none',
+					},
+					_disabled: {
+						borderColor: 'neutral.200',
+						color: 'neutral.200',
+					},
+				},
+				secondary: {
+					bg: 'default.dark',
+					color: 'default.light',
+					_hover: {
+						bg: 'neutral.600',
+					},
+					_active: {
+						bg: 'default.dark',
+					},
+					_disabled: {
+						bg: 'neutral.100',
+						color: 'neutral.200',
+					},
+				},
+				primaryThemed: (props) => ({
+					border: '1px solid',
+					borderColor:
+						props.colorMode === 'light' ? 'primary.500' : 'secondary.300',
+					color: props.colorMode === 'light' ? 'primary.500' : 'secondary.300',
+					_hover: {
+						bg: props.colorMode === 'light' ? 'primary.600' : 'secondary.400',
+						color:
+							props.colorMode === 'light' ? 'default.light' : 'default.dark',
+					},
+				}),
+				secondaryThemed: (props) => ({
+					bg: props.colorMode === 'light' ? 'primary.500' : 'secondary.300',
+					color: props.colorMode === 'light' ? 'default.light' : 'default.dark',
+					_hover: {
+						bg: props.colorMode === 'light' ? 'primary.600' : 'secondary.400',
+					},
+				}),
+			},
+			// The default `size` or `variant` values
+			defaultProps: {
+				size: 'md',
+				variant: 'primary',
+			},
+		},
 	},
 	colors: {
 		default: {
 			light: '#fcfcfc',
-			dark: '#232323'
+			dark: '#232323',
 		},
 		primary: {
 			100: '#D1C1F4',
@@ -22,7 +109,7 @@ const theme = extendTheme({
 			400: '#7B4ECB',
 			500: '#805AD5',
 			600: '#45248F',
-			700: '#311968'
+			700: '#311968',
 		},
 		secondary: {
 			100: '#E6FFFA',
@@ -31,7 +118,7 @@ const theme = extendTheme({
 			400: '#4FD1C5',
 			500: '#38B2AC',
 			600: '#319795',
-			700: '#2C7A7B'
+			700: '#2C7A7B',
 		},
 		neutrals: {
 			100: '#F4F4F4',
@@ -40,13 +127,13 @@ const theme = extendTheme({
 			400: '#8C8C8C',
 			500: '#737373',
 			600: '#595959',
-			700: '#404040'
-		}
+			700: '#404040',
+		},
 	},
 	fonts: {
 		heading: 'Roboto',
-		body: 'Roboto'
-	}
+		body: 'Roboto',
+	},
 })
 
 export default theme
