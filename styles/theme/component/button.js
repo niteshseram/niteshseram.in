@@ -25,37 +25,42 @@ const Button = {
 	},
 	// Styles for the visual style variations
 	variants: {
-		primary: {
+		primary: (props) => ({
 			border: '1px solid',
-			borderColor: 'default.dark',
-			color: 'default.dark',
+			borderColor:
+				props.colorMode === 'light' ? 'default.dark' : 'default.light',
+			color: props.colorMode === 'light' ? 'default.dark' : 'default.light',
 			_hover: {
-				bg: 'default.dark',
-				color: 'default.light',
+				bg: props.colorMode === 'light' ? 'default.dark' : 'default.light',
+				color: props.colorMode === 'light' ? 'default.light' : 'default.dark',
 			},
 			_active: {
-				bg: 'default.dark',
-				color: 'default.light',
+				border: '1px solid',
+				borderColor:
+					props.colorMode === 'light' ? 'default.dark' : 'default.light',
+				bg: 'transparent',
+				color: props.colorMode === 'light' ? 'default.dark' : 'default.light',
 			},
 			_disabled: {
 				borderColor: 'neutral.200',
 				color: 'neutral.200',
 			},
-		},
-		secondary: {
-			bg: 'default.dark',
-			color: 'default.light',
+		}),
+		secondary: (props) => ({
+			bg: props.colorMode === 'light' ? 'default.dark' : 'default.light',
+			color: props.colorMode === 'light' ? 'default.light' : 'default.dark',
 			_hover: {
-				bg: 'neutral.600',
+				bg: props.colorMode === 'light' ? 'neutral.600' : 'neutral.200',
 			},
 			_active: {
-				bg: 'default.dark',
+				bg: props.colorMode === 'light' ? 'default.dark' : 'default.light',
+				color: props.colorMode === 'light' ? 'default.light' : 'default.dark',
 			},
 			_disabled: {
 				bg: 'neutral.100',
 				color: 'neutral.200',
 			},
-		},
+		}),
 		primaryThemed: (props) => ({
 			border: '1px solid',
 			borderColor:
@@ -72,8 +77,22 @@ const Button = {
 			_hover: {
 				bg: props.colorMode === 'light' ? 'primary.600' : 'secondary.400',
 			},
+			_active: {
+				bg: props.colorMode === 'light' ? 'primary.500' : 'secondary.300',
+			},
+		}),
+		icon: (props) => ({
+			bg: props.colorMode === 'light' ? 'neutral.100' : 'neutral.700',
+			color: props.colorMode === 'light' ? 'default.dark' : 'default.light',
+			_hover: {
+				bg: props.colorMode === 'light' ? 'neutral.200' : 'neutral.600',
+			},
+			_active: {
+				bg: props.colorMode === 'light' ? 'neutral.100' : 'neutral.700',
+			},
 		}),
 	},
+
 	// The default `size` or `variant` values
 	defaultProps: {
 		size: 'md',

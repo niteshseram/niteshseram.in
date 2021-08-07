@@ -1,4 +1,3 @@
-import { CheckCircleIcon } from '@chakra-ui/icons'
 import { Button } from '@chakra-ui/react'
 
 export default {
@@ -37,9 +36,25 @@ const Template = (args) => <Button {...args} />
 export const Primary = Template.bind({})
 Primary.args = {
 	children: 'BUTTON',
-	size: 'md',
 	variant: 'primary',
 	isActive: false,
 	isDisabled: false,
-	leftIcon: <CheckCircleIcon />,
+}
+
+export const Secondary = Template.bind({})
+Secondary.args = {
+	...Primary.args,
+	variant: 'secondary',
+}
+
+export const PrimaryThemed = Template.bind({})
+PrimaryThemed.args = {
+	...Primary.args,
+	variant: 'primaryThemed',
+}
+
+export const SecondaryThemed = Template.bind({})
+SecondaryThemed.args = {
+	...Primary.args,
+	variant: 'secondaryThemed',
 }
