@@ -1,52 +1,51 @@
 import Head from 'next/head'
-import { Center, Flex, Heading, Icon, Link, Text, VStack } from '@chakra-ui/react'
+import {
+	Button,
+	Center,
+	Flex,
+	Heading,
+	Link,
+	useColorMode,
+	VStack,
+} from '@chakra-ui/react'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'
 import Logo from '../components/assets/logo'
+import Construction from '../components/assets/construction'
 
 export default function Home() {
+	const { colorMode, toggleColorMode } = useColorMode()
 	return (
-		<Flex
-			minH='100vh'
-			p='0 0.5rem'
-			direction='column'
-			justify='center'
-			align='center'
-		>
+		<Flex minH='100vh' direction='column'>
 			<Head>
 				<title>Nitesh Seram</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<Flex
-				as='main'
-				p='5rem 0'
-				flex='1'
-				direction='column'
-				justify='center'
-				align='center'
-			>
-				<Center>
-					<VStack textAlign='center' spacing='4'>
-						<Icon
-							order={{lg:-1}}
-							strokeWidth="2px"
-							p="8px"
-							w="64px"
-							h="64px"
-							as={Logo}
-						/>
-						<Heading as='h2' variant='h2'>
-							This site is currently under construction
-						</Heading>
-						<Text variant='preTitle'>
-							For now you can visit my current{' '}
-							<Link color='purple.600' isExternal href='https://niteshseram.in'>
-								portfolio
-							</Link>
-						</Text>
-					</VStack>
-				</Center>
+			<Flex p='2rem' justify='space-between' align='center'>
+				<Logo />
+				<Button onClick={toggleColorMode}>
+					Lights
+					{colorMode === 'light' ? ' off' : ' on'}
+				</Button>
 			</Flex>
+			<Center mt='20vh'>
+				<VStack textAlign='center' spacing='4'>
+					<Construction boxSize='7rem' />
+					<Heading as='h1' variant='h1'>
+						This site is currently under construction
+					</Heading>
+					<Heading variant='h2'>
+						For now visit my current{' '}
+						<Link
+							color={colorMode === 'light' ? 'purple.600' : 'purple.300'}
+							isExternal
+							href='https://niteshseram.in'
+						>
+							Portfolio
+						</Link>
+					</Heading>
+				</VStack>
+			</Center>
 		</Flex>
 	)
 }
