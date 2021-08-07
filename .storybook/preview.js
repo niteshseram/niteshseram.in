@@ -1,20 +1,25 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import { Button, ChakraProvider, Flex, useColorMode } from '@chakra-ui/react'
 import customTheme from '../styles/theme'
 
-export const decorators = [
-  (Story) => (
-    <ChakraProvider theme={customTheme}>
-      <Story />
-    </ChakraProvider>
-  )
-];
+const Nav = ({ children }) => {
+	const { colorMode, toggleColorMode } = useColorMode()
+	return (
+		<Flex p='0.5rem' justifyContent='space-between' align='center'>
+			{children}
+			<Button onClick={toggleColorMode}>
+				Lights
+				{colorMode === 'light' ? ' off' : ' on'}
+			</Button>
+		</Flex>
+	)
+}
 
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/
-    }
-  }
-};
+export const decorators = [
+	(Story) => (
+		<ChakraProvider theme={customTheme}>
+			<Nav>
+				<Story />
+			</Nav>
+		</ChakraProvider>
+	),
+]
