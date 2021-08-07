@@ -1,7 +1,8 @@
 import Head from 'next/head'
-import { Center, Flex, Heading, Link, Text, VStack } from '@chakra-ui/react'
+import { Center, Flex, Heading, Icon, Link, Text, VStack } from '@chakra-ui/react'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'
+import Logo from '../components/assets/logo'
 
 export default function Home() {
 	return (
@@ -26,6 +27,14 @@ export default function Home() {
 			>
 				<Center>
 					<VStack textAlign='center' spacing='4'>
+						<Icon
+							order={{lg:-1}}
+							strokeWidth="2px"
+							p="8px"
+							w="64px"
+							h="64px"
+							as={Logo}
+						/>
 						<Heading as='h2' variant='h2'>
 							This site is currently under construction
 						</Heading>
