@@ -9,7 +9,7 @@ import {
 import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
 import NextLink from 'next/link'
-import { IoMoonOutline, IoSunnyOutline } from 'react-icons/io5'
+import { IoMoon, IoSunnyOutline } from 'react-icons/io5'
 import Logo from './assets/logo'
 
 const Container = ({ children }) => {
@@ -69,12 +69,13 @@ const NavBar = () => {
 				</Flex>
 				<IconButton
 					onClick={toggleColorMode}
+					variant='icon'
 					aria-label={
 						colorMode === 'light' ? 'Toggle dark mode' : 'Toggle light mode'
 					}
 					icon={
 						colorMode === 'light' ? (
-							<IoMoonOutline size='1.5rem' />
+							<IoMoon size='1.5rem' />
 						) : (
 							<IoSunnyOutline size='1.5rem' />
 						)
@@ -86,11 +87,13 @@ const NavBar = () => {
 }
 
 const Item = ({ children, href }) => (
-	<NextLink href={href}>
-		<Link href={href} mr='1rem' as='li' listStyleType='none' variant='body'>
-			{children}
-		</Link>
-	</NextLink>
+	<Box as='li' listStyleType='none'>
+		<NextLink href={href}>
+			<Link href={href} mr='1rem' variant='body'>
+				{children}
+			</Link>
+		</NextLink>
+	</Box>
 )
 
 const Footer = () => <Heading variant='h3'>Footer</Heading>
