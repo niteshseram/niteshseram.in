@@ -1,3 +1,4 @@
+import { CheckCircleIcon } from '@chakra-ui/icons'
 import { Button } from '@chakra-ui/react'
 
 export default {
@@ -57,4 +58,12 @@ export const SecondaryThemed = Template.bind({})
 SecondaryThemed.args = {
 	...Primary.args,
 	variant: 'secondaryThemed',
+}
+
+export const Icon = Template.bind({})
+Icon.args = {
+	...Primary.args,
+	children: <CheckCircleIcon />,
+	'aria-label': 'Toogle color mode',
+	variant: 'icon',
 }
