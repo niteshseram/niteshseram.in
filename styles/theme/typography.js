@@ -43,6 +43,9 @@ export const Text = {
 			textStyle: 'small',
 		},
 	},
+	defaultProps: {
+		variant: 'body',
+	},
 }
 
 export const textStyles = {
