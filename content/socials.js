@@ -1,8 +1,4 @@
-import {
-	SiGithub,
-	SiLinkedin,
-	SiTwitter,
-} from 'react-icons/si'
+import { SiGithub, SiLinkedin, SiTwitter } from 'react-icons/si'
 
 export const github = {
 	icon: SiGithub,
