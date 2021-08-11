@@ -10,7 +10,9 @@
 		"build-storybook": "build-storybook",
 		"prettier": "prettier --check .",
 		"lint": "next lint",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"prepare": "husky install",
+		"precommit": "yarn lint && yarn format"
 	},
 	"dependencies": {
 		"@chakra-ui/icons": "^1.0.14",
@@ -44,6 +46,7 @@
 		"eslint-plugin-prettier": "^3.4.0",
 		"eslint-plugin-react": "7.21.5",
 		"eslint-plugin-react-hooks": "1.7.0",
-		"prettier": "^2.2.1"
+		"prettier": "^2.2.1",
+		"husky": "^7.0.0"
 	}
 }
