@@ -60,7 +60,7 @@ const Container = ({ children }) => {
 			>
 				<NavBar toggleIsOpen={toggleIsOpen} />
 				<VStack spacing='32rem' id='skip' as='main'>
-					{isOpen ? 'Hello' : children}
+					{isOpen ? <MobileNavMenu /> : children}
 					<Footer />
 				</VStack>
 			</Box>
@@ -99,6 +99,31 @@ const NavBar = ({ isOpen, toggleIsOpen }) => {
 		</Flex>
 	)
 }
+
+const MobileNavMenu = () => (
+	<VStack h='80vh' w='100%'>
+		<Flex
+			h='100%'
+			direction='column'
+			alignItems='center'
+			justifyContent='space-around'
+			as='ul'
+		>
+			<Item variant='large' href='/'>
+				Home
+			</Item>
+			<Item variant='large' href='/about'>
+				About
+			</Item>
+			<Item variant='large' href='/projects'>
+				Projects
+			</Item>
+			<Item variant='large' href='/blog'>
+				Blog
+			</Item>
+		</Flex>
+	</VStack>
+)
 
 const MenuButton = ({ toggleIsOpen, ...props }) => {
 	const [clicked, toggleClicked] = useToggle()
