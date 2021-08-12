@@ -23,7 +23,7 @@ const Container = ({ children }) => {
 	const router = useRouter()
 	const [isOpen, toggleIsOpen] = useToggle()
 	const meta = {
-		title: 'Nitesh Seram - Software Engineer',
+		title: 'Nitesh Seram',
 		description:
 			'Nitesh Seram is a Software Engineer and also an Open Source enthusiast. He is passionate about software development and also love learning and exploring new technologies.',
 		image: '',
