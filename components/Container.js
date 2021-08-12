@@ -31,7 +31,7 @@ const Container = ({ children }) => {
 	}
 
 	return (
-		<Box>
+		<Box w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }} m='auto'>
 			<Head>
 				<title>{meta.title}</title>
 				<link rel='icon' href='../favicons/favicon.ico' />
@@ -53,26 +53,22 @@ const Container = ({ children }) => {
 				<meta name='twitter:description' content={meta.description} />
 				<meta name='twitter:image' content={meta.image} />
 			</Head>
-			<Box
-				w={{ base: '100vw', lg: '90vw', '2xl': '72vw' }}
-				minH='100vh'
-				m='auto'
-			>
+			<Flex direction='column'>
 				<NavBar toggleIsOpen={toggleIsOpen} />
-				<VStack spacing='32rem' id='skip' as='main'>
+				<Box as='main' minH='70vh' flex='1' m='auto'>
 					{isOpen ? <MobileNavMenu /> : children}
-					<Footer />
-				</VStack>
-			</Box>
+				</Box>
+				{!isOpen && <Footer />}
+			</Flex>
 		</Box>
 	)
 }
 
-const NavBar = ({ isOpen, toggleIsOpen }) => {
+const NavBar = ({ toggleIsOpen }) => {
 	const { colorMode, toggleColorMode } = useColorMode()
 	return (
-		<Flex p='4' alignItems='center' justify='space-between'>
-			<MenuButton isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
+		<Flex h='10vh' alignItems='center' justify='space-between'>
+			<MenuButton toggleIsOpen={toggleIsOpen} />
 			<Logo />
 			<Flex alignItems='center'>
 				<Flex display={{ base: 'none', lg: 'flex' }} as='ul'>
@@ -101,7 +97,7 @@ const NavBar = ({ isOpen, toggleIsOpen }) => {
 }
 
 const MobileNavMenu = () => (
-	<VStack h='80vh' w='100%'>
+	<Box h='90vh' w='100%'>
 		<Flex
 			h='100%'
 			direction='column'
@@ -109,7 +105,7 @@ const MobileNavMenu = () => (
 			justifyContent='space-around'
 			as='ul'
 		>
-			<Item variant='large' href='/'>
+			<Item alignItems='center' variant='large' href='/'>
 				Home
 			</Item>
 			<Item variant='large' href='/about'>
@@ -122,7 +118,7 @@ const MobileNavMenu = () => (
 				Blog
 			</Item>
 		</Flex>
-	</VStack>
+	</Box>
 )
 
 const MenuButton = ({ toggleIsOpen, ...props }) => {
@@ -199,9 +195,8 @@ const Footer = () => (
 	<VStack
 		borderTop='1px solid'
 		borderColor='neutral.200'
-		h='150px'
+		h='20vh'
 		py='32px'
-		w='80%'
 		spacing={{ base: '16px' }}
 		as='footer'
 	>
@@ -214,7 +209,7 @@ const Footer = () => (
 			/>
 			<SocialLink icon={twitter.icon} href={twitter.href} name={twitter.name} />
 		</HStack>
-		<Text align='center'>© Designed &amp; Built by Nitesh Seram</Text>
+		<Text>© Designed &amp; Built by Nitesh Seram</Text>
 	</VStack>
 )
 
