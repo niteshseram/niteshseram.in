@@ -1,6 +1,7 @@
 import {
 	Box,
 	Center,
+	Divider,
 	Flex,
 	HStack,
 	Icon,
@@ -8,6 +9,7 @@ import {
 	Link,
 	Text,
 	useColorMode,
+	useMediaQuery,
 	VStack,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/dist/client/router'
@@ -31,7 +33,7 @@ const Container = ({ children }) => {
 	}
 
 	return (
-		<Box w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }} m='auto'>
+		<Box>
 			<Head>
 				<title>{meta.title}</title>
 				<link rel='icon' href='../favicons/favicon.ico' />
@@ -53,59 +55,62 @@ const Container = ({ children }) => {
 				<meta name='twitter:description' content={meta.description} />
 				<meta name='twitter:image' content={meta.image} />
 			</Head>
-			<Flex direction='column'>
+			<Box w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }} minH='70vh' m='auto'>
 				<NavBar toggleIsOpen={toggleIsOpen} />
-				<Box as='main' minH='70vh' flex='1' m='auto'>
+				<VStack as='main' minH='70vh'>
 					{isOpen ? <MobileNavMenu /> : children}
-				</Box>
-				{!isOpen && <Footer />}
-			</Flex>
+				</VStack>
+				<Footer />
+			</Box>
 		</Box>
 	)
 }
 
-const NavBar = ({ toggleIsOpen }) => {
+const NavBar = ({ isOpen, toggleIsOpen }) => {
 	const { colorMode, toggleColorMode } = useColorMode()
 	return (
-		<Flex h='10vh' alignItems='center' justify='space-between'>
-			<MenuButton toggleIsOpen={toggleIsOpen} />
+		<Flex as='nav' h='10vh' alignItems='center' justify='space-between'>
+			<MenuButton isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
 			<Logo />
-			<Flex alignItems='center'>
+			<HStack spacing={{ base: 0, md: 8 }} align='center'>
 				<Flex display={{ base: 'none', lg: 'flex' }} as='ul'>
-					<Item href='/'>Home</Item>
-					<Item href='/about'>About</Item>
-					<Item href='/projects'>Projects</Item>
-					<Item href='/blog'>Blog</Item>
+					<Item variant='noStyle' href='/'>
+						Home
+					</Item>
+					<Item variant='noStyle' href='/about'>
+						About
+					</Item>
+					<Item variant='noStyle' href='/projects'>
+						Projects
+					</Item>
+					<Item variant='noStyle' href='/blog'>
+						Blog
+					</Item>
 				</Flex>
 				<IconButton
-					onClick={toggleColorMode}
+					borderRadius='sm'
 					variant='icon'
+					onClick={toggleColorMode}
 					aria-label={
-						colorMode === 'light' ? 'Toggle dark mode' : 'Toggle light mode'
+						colorMode === 'light' ? 'Toggle dark mode' : 'Toggle light Mode'
 					}
 					icon={
 						colorMode === 'light' ? (
-							<IoMoon size='1.5rem' />
+							<IoMoon size='1.25rem' />
 						) : (
-							<IoSunnyOutline size='1.5rem' />
+							<IoSunnyOutline size='1.25rem' />
 						)
 					}
 				/>
-			</Flex>
+			</HStack>
 		</Flex>
 	)
 }
 
 const MobileNavMenu = () => (
-	<Box h='90vh' w='100%'>
-		<Flex
-			h='100%'
-			direction='column'
-			alignItems='center'
-			justifyContent='space-around'
-			as='ul'
-		>
-			<Item alignItems='center' variant='large' href='/'>
+	<VStack spacing={4} w='100%'>
+		<VStack p={4} w='100%' my={8} spacing={8} as='ul'>
+			<Item variant='large' href='/'>
 				Home
 			</Item>
 			<Item variant='large' href='/about'>
@@ -117,8 +122,8 @@ const MobileNavMenu = () => (
 			<Item variant='large' href='/blog'>
 				Blog
 			</Item>
-		</Flex>
-	</Box>
+		</VStack>
+	</VStack>
 )
 
 const MenuButton = ({ toggleIsOpen, ...props }) => {
@@ -175,21 +180,32 @@ const MenuIcon = ({ clicked }) => {
 const Line = ({ ...props }) => (
 	<Box
 		{...props}
-		borderRadius='5px'
+		borderRadius='1px'
 		as='span'
 		position='absolute'
 		height='4px'
-		transition='all 0.4s ease-in-out'
+		transition='all 0.3s ease-in-out'
 	/>
 )
 
-const Item = ({ children, href, ...props }) => (
-	<Box as='li' listStyleType='none'>
-		<StyledLink {...props} href={href}>
-			{children}
-		</StyledLink>
-	</Box>
-)
+const Item = ({ children, href, ...props }) => {
+	const [isLarge] = useMediaQuery('(min-width: 992px)')
+	return (
+		<VStack
+			align='start'
+			spacing={4}
+			w='100%'
+			h='100%'
+			as='li'
+			listStyleType='none'
+		>
+			<StyledLink {...props} href={href}>
+				{children}
+			</StyledLink>
+			{!isLarge && <Divider />}
+		</VStack>
+	)
+}
 
 const Footer = () => (
 	<VStack
