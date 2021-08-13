@@ -10,7 +10,7 @@
 		"build-storybook": "build-storybook",
 		"prettier": "prettier --check .",
 		"lint": "next lint",
-		"format": "prettier --write .",
+		"format": "prettier --write . && git add .",
 		"prepare": "husky install",
 		"precommit": "yarn lint && yarn format"
 	},
