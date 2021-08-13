@@ -66,11 +66,11 @@ const Container = ({ children }) => {
 	)
 }
 
-const NavBar = ({ isOpen, toggleIsOpen }) => {
+const NavBar = ({ toggleIsOpen }) => {
 	const { colorMode, toggleColorMode } = useColorMode()
 	return (
 		<Flex as='nav' h='10vh' alignItems='center' justify='space-between'>
-			<MenuButton isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
+			<MenuButton toggleIsOpen={toggleIsOpen} />
 			<Logo />
 			<HStack spacing={{ base: 0, md: 8 }} align='center'>
 				<Flex display={{ base: 'none', lg: 'flex' }} as='ul'>
@@ -126,7 +126,7 @@ const MobileNavMenu = () => (
 	</VStack>
 )
 
-const MenuButton = ({ toggleIsOpen, ...props }) => {
+const MenuButton = ({ toggleIsOpen }) => {
 	const [clicked, toggleClicked] = useToggle()
 
 	const handleClick = () => {
@@ -142,7 +142,6 @@ const MenuButton = ({ toggleIsOpen, ...props }) => {
 			h='48px'
 			variant='ghost'
 			_hover={{ variant: 'ghost' }}
-			{...props}
 			icon={<MenuIcon clicked={clicked} />}
 		/>
 	)
