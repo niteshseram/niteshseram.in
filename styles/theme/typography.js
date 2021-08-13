@@ -18,9 +18,6 @@ export const Heading = {
 		h4: {
 			textStyle: 'h4',
 		},
-		subtitle: {
-			textStyle: 'subtitle',
-		},
 	},
 }
 
@@ -31,17 +28,25 @@ export const Text = {
 			textStyle: 'preTitle',
 			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.200',
 		}),
+		subtitle: (props) => ({
+			textStyle: 'subtitle',
+			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.200',
+		}),
 		body: (props) => ({
 			textStyle: 'body',
-			color: props.colorMode === 'light' ? 'neutral.700' : 'neutral.200',
+			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.200',
 		}),
 		bodyLight: (props) => ({
 			textStyle: 'bodyLight',
 			color: props.colorMode === 'light' ? 'neutral.700' : 'neutral.200',
 		}),
-		small: {
+		small: (props) => ({
 			textStyle: 'small',
-		},
+			color: props.colorMode === 'light' ? 'neutral.700' : 'neutral.200',
+		}),
+	},
+	defaultProps: {
+		variant: 'body',
 	},
 }
 

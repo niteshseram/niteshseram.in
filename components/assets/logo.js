@@ -14,7 +14,7 @@ const LogoBase = createIcon({
 		</g>
 	),
 })
-const Logo = ({ boxSize = '48px', ...props }) => {
+const Logo = ({ boxSize = '36px', ...props }) => {
 	const { colorDark } = useColorModeSwitcher()
 	return (
 		<Icon
