@@ -55,12 +55,12 @@ const Container = ({ children }) => {
 				<meta name='twitter:description' content={meta.description} />
 				<meta name='twitter:image' content={meta.image} />
 			</Head>
-			<Box w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }} minH='70vh' m='auto'>
+			<Box w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }} m='auto'>
 				<NavBar toggleIsOpen={toggleIsOpen} />
 				<VStack as='main' minH='70vh'>
 					{isOpen ? <MobileNavMenu /> : children}
 				</VStack>
-				<Footer />
+				{!isOpen && <Footer />}
 			</Box>
 		</Box>
 	)
