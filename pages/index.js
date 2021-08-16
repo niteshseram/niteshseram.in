@@ -60,6 +60,7 @@ const FeaturedProjects = () => {
 				mb='2.5rem'
 				direction={{ base: 'column', lg: 'row' }}
 				justify='space-evenly'
+				align='center'
 			>
 				<Center
 					mb={!isLarge && '2.5rem'}
