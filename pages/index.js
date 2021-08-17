@@ -19,51 +19,53 @@ export default function Home() {
 	)
 }
 
-const Hero = () => {
-	const [isLarge] = useMediaQuery('(min-width: 992px)')
-	return (
+const Hero = () => (
+	<Flex
+		minH='90vh'
+		align='center'
+		justify='center'
+		direction={{ base: 'column-reverse', lg: 'row' }}
+		w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }}
+	>
 		<Flex
-			minH='90vh'
-			align='center'
+			flex='1.3'
+			align={{ base: 'center', lg: 'start' }}
 			justify='center'
-			direction={isLarge ? 'row' : 'column-reverse'}
-			w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }}
+			direction='column'
 		>
-			<Flex
-				flex='1.3'
-				justify='center'
-				direction='column'
-				align={isLarge ? 'left' : 'center'}
+			<Heading as='h1' variant='h1'>
+				Hi, I&apos;m Nitesh Seram
+			</Heading>
+			<Heading as='h4' variant='h4' mb={{ base: '1rem', lg: '2rem' }}>
+				Software Engineer based in India
+			</Heading>
+			<Text
+				mb={{ base: '2rem', lg: '3rem' }}
+				variant='subtitle'
+				align={{ base: 'center', lg: 'left' }}
 			>
-				<Heading as='h1' variant='h1'>
-					Hi, I&apos;m Nitesh Seram
-				</Heading>
-				<Heading as='h4' variant='h4' mb={{ base: '1rem', lg: '2rem' }}>
-					Software Engineer based in India
-				</Heading>
-				<Text
-					mb={{ base: '2rem', lg: '3rem' }}
-					variant='subtitle'
-					align={isLarge ? 'left' : 'center'}
-				>
-					Welcome to my digital corner where you can find my works, thoughts and
-					random things.
-				</Text>
-				<Button w='184px' h='50px' variant='primaryThemed'>
-					Get in Touch
-				</Button>
-			</Flex>
-			<Center flex='1'>
+				Welcome to my digital corner where you can find my works, thoughts and
+				random things.
+			</Text>
+			<Button w='184px' h='50px' variant='primaryThemed'>
+				Get in Touch
+			</Button>
+		</Flex>
+		<Center flex='1'>
+			<Box
+				w={{ base: '200px', lg: '400px' }}
+				h={{ base: '200px', lg: '400px' }}
+			>
 				<Image
 					src='/static/images/dp.png'
-					width={isLarge ? 400 : 200}
-					height={isLarge ? 400 : 200}
+					width={400}
+					height={400}
 					alt='Profile Picture'
 				/>
-			</Center>
-		</Flex>
-	)
-}
+			</Box>
+		</Center>
+	</Flex>
+)
 
 const FeaturedProjects = () => {
 	const [isLarge] = useMediaQuery('(min-width: 992px)')
