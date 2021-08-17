@@ -7,7 +7,7 @@ import {
 	Text,
 	useMediaQuery,
 } from '@chakra-ui/react'
-
+import Image from 'next/image'
 import Container from '../components/Container'
 
 export default function Home() {
@@ -19,37 +19,53 @@ export default function Home() {
 	)
 }
 
-const Hero = () => {
-	const [isLarge] = useMediaQuery('(min-width: 992px)')
-	return (
+const Hero = () => (
+	<Flex
+		minH='90vh'
+		align='center'
+		justify='center'
+		direction={{ base: 'column-reverse', lg: 'row' }}
+		w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }}
+	>
 		<Flex
-			minH='90vh'
-			align='center'
-			w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }}
+			flex='1.3'
+			align={{ base: 'center', lg: 'start' }}
+			justify='center'
+			direction='column'
 		>
-			<Box flex='1.3'>
-				<Heading as='h1' variant='h1'>
-					Hi, I&apos;m Nitesh Seram.
-				</Heading>
-				<Heading as='h4' variant='h4' mb={{ base: '1rem', lg: '2rem' }}>
-					Software Engineer based in India
-				</Heading>
-				<Text mb={{ base: '2rem', lg: '3rem' }} variant='subtitle'>
-					Welcome to my corner of the internet, where you can find my works,
-					thoughts and random things.
-				</Text>
-				<Button w='184px' h='50px' variant='primaryThemed'>
-					Get in Touch
-				</Button>
-			</Box>
-			{isLarge && (
-				<Center border='1px solid' flex='1'>
-					<Text>Hero Visual</Text>
-				</Center>
-			)}
+			<Heading as='h1' variant='h1'>
+				Hi, I&apos;m Nitesh Seram
+			</Heading>
+			<Heading as='h4' variant='h4' mb={{ base: '1rem', lg: '2rem' }}>
+				Software Engineer based in India
+			</Heading>
+			<Text
+				mb={{ base: '2rem', lg: '3rem' }}
+				variant='subtitle'
+				align={{ base: 'center', lg: 'left' }}
+			>
+				Welcome to my digital corner where you can find my works, thoughts and
+				random things.
+			</Text>
+			<Button w='184px' h='50px' variant='primaryThemed'>
+				Get in Touch
+			</Button>
 		</Flex>
-	)
-}
+		<Center flex='1'>
+			<Box
+				w={{ base: '200px', lg: '400px' }}
+				h={{ base: '200px', lg: '400px' }}
+			>
+				<Image
+					src='/static/images/dp.png'
+					width={400}
+					height={400}
+					alt='Profile Picture'
+				/>
+			</Box>
+		</Center>
+	</Flex>
+)
 
 const FeaturedProjects = () => {
 	const [isLarge] = useMediaQuery('(min-width: 992px)')
