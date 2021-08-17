@@ -7,7 +7,7 @@ import {
 	Text,
 	useMediaQuery,
 } from '@chakra-ui/react'
-
+import Image from 'next/image'
 import Container from '../components/Container'
 
 export default function Home() {
@@ -25,28 +25,42 @@ const Hero = () => {
 		<Flex
 			minH='90vh'
 			align='center'
+			justify='center'
+			direction={isLarge ? 'row' : 'column-reverse'}
 			w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }}
 		>
-			<Box flex='1.3'>
+			<Flex
+				flex='1.3'
+				justify='center'
+				direction='column'
+				align={isLarge ? 'left' : 'center'}
+			>
 				<Heading as='h1' variant='h1'>
-					Hi, I&apos;m Nitesh Seram.
+					Hi, I&apos;m Nitesh Seram
 				</Heading>
 				<Heading as='h4' variant='h4' mb={{ base: '1rem', lg: '2rem' }}>
 					Software Engineer based in India
 				</Heading>
-				<Text mb={{ base: '2rem', lg: '3rem' }} variant='subtitle'>
-					Welcome to my corner of the internet, where you can find my works,
-					thoughts and random things.
+				<Text
+					mb={{ base: '2rem', lg: '3rem' }}
+					variant='subtitle'
+					align={isLarge ? 'left' : 'center'}
+				>
+					Welcome to my digital corner where you can find my works, thoughts and
+					random things.
 				</Text>
 				<Button w='184px' h='50px' variant='primaryThemed'>
 					Get in Touch
 				</Button>
-			</Box>
-			{isLarge && (
-				<Center border='1px solid' flex='1'>
-					<Text>Hero Visual</Text>
-				</Center>
-			)}
+			</Flex>
+			<Center flex='1'>
+				<Image
+					src='/static/images/dp.png'
+					width={isLarge ? 400 : 200}
+					height={isLarge ? 400 : 200}
+					alt='Profile Picture'
+				/>
+			</Center>
 		</Flex>
 	)
 }
