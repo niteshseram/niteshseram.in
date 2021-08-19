@@ -17,7 +17,7 @@ import Head from 'next/head'
 import { IoMoon, IoSunnyOutline } from 'react-icons/io5'
 import useColorModeSwitcher from '../utils/hooks/useColorModeSwitcher'
 import useToggle from '../utils/hooks/useToggle'
-import { github, linkedin, twitter } from '../content/icons'
+import { github, linkedin, twitter } from '../content/socials'
 import Logo from './assets/logo'
 import StyledLink from './styled'
 

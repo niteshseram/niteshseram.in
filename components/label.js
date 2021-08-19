@@ -5,12 +5,14 @@ const Label = ({ icon, label }) => {
 	const { themed, colorLight } = useColorModeSwitcher()
 	return (
 		<Flex
-			borderRadius='0.6rem'
-			px='0.6rem'
-			py='0.1rem'
+			borderRadius='8px'
+			px='6px'
+			py='3px'
 			bg={themed}
 			align='center'
 			justify='space-between'
+			mr='6px'
+			mt='10px'
 		>
 			<Icon
 				as={icon}
@@ -19,7 +21,9 @@ const Label = ({ icon, label }) => {
 				aria-labelledby={label}
 				aria-hidden
 			/>
-			<Text color={colorLight}>{label}</Text>
+			<Text color={colorLight} variant='small'>
+				{label}
+			</Text>
 		</Flex>
 	)
 }

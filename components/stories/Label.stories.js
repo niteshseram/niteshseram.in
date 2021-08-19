@@ -1,5 +1,5 @@
 import Label from '../label'
-import { react } from '../../content/icons'
+import { react } from '../../content/tools'
 
 export default {
 	title: 'Style Guide/Components/Label',

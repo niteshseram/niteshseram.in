@@ -4,17 +4,23 @@ import {
 	Center,
 	Flex,
 	Heading,
+	List,
 	Text,
-	useMediaQuery,
+	VStack,
 } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import Image from 'next/image'
 import Container from '../components/Container'
+import ProjectCard from '../components/projectCard'
+import projects from '../content/projects'
 
 export default function Home() {
 	return (
 		<Container>
-			<Hero />
-			<FeaturedProjects />
+			<ContentWrapper>
+				<Hero />
+				<FeaturedProjects />
+			</ContentWrapper>
 		</Container>
 	)
 }
@@ -67,38 +73,56 @@ const Hero = () => (
 	</Flex>
 )
 
-const FeaturedProjects = () => {
-	const [isLarge] = useMediaQuery('(min-width: 992px)')
-	return (
-		<Box w='100%' m='auto'>
-			<FeatureHeading>Featured Projects</FeatureHeading>
-			<Flex
-				mb='2.5rem'
-				direction={{ base: 'column', lg: 'row' }}
-				justify='space-evenly'
-				align='center'
+const FeaturedProjects = () => (
+	<VStack spacing='4rem' w='100%' m='auto'>
+		<FeatureHeading>Featured Projects</FeatureHeading>
+		<Flex
+			w='100%'
+			mb='2.5rem'
+			direction={{ base: 'column', xl: 'row' }}
+			justify='space-evenly'
+		>
+			<Projects />
+		</Flex>
+		<NextLink href='/projects' passHref>
+			<Button
+				as='a'
+				textTransform='capitalize'
+				display='block'
+				textAlign='center'
+				fontSize={{ base: 'lg', lg: 'xl' }}
+				variant='secondaryThemed'
 			>
-				<Center
-					mb={!isLarge && '2.5rem'}
-					border='1px solid'
-					boxSize={{ base: '20rem', lg: '30rem' }}
-				>
-					Project 1
-				</Center>
-				<Center border='1px solid' boxSize={{ base: '20rem', lg: '30rem' }}>
-					Project 2
-				</Center>
-			</Flex>
-			<Center>
-				<Button variant='primaryThemed'>See All Projects</Button>
-			</Center>
-		</Box>
-	)
-}
+				See all projects
+			</Button>
+		</NextLink>
+	</VStack>
+)
 
-// const ContentWrapper = ({ children }) => (
-// 	<VStack spacing={{ base: '10rem', lg: '15rem' }}>{children}</VStack>
-// )
+const Projects = () => (
+	<List
+		mx='auto'
+		justify='space-between'
+		display={{ base: 'block', '2xl': 'flex' }}
+	>
+		{projects
+			.filter((project) => project.feature)
+			.map((project) => (
+				<ProjectCard
+					title={project.title}
+					description={project.description}
+					tools={project.tools}
+					live={project.live}
+					repo={project.repo}
+					key={project.id}
+				/>
+			))}
+	</List>
+)
+
+const ContentWrapper = ({ children }) => (
+	<VStack spacing={{ base: '5rem', lg: '10rem' }}>{children}</VStack>
+)
 
 const FeatureHeading = ({ children }) => (
 	<Heading
