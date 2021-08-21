@@ -55,7 +55,10 @@ const Container = ({ children }) => {
 				<meta name='twitter:description' content={meta.description} />
 				<meta name='twitter:image' content={meta.image} />
 			</Head>
-			<Box w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }} m='auto'>
+			<Box
+				w={{ base: '95vw', sm: '90vw', '2xl': '80vw', '3xl': '72vw' }}
+				m='auto'
+			>
 				<NavBar toggleIsOpen={toggleIsOpen} />
 				<VStack as='main' minH='70vh'>
 					{isOpen ? <MobileNavMenu /> : children}
@@ -110,16 +113,16 @@ const NavBar = ({ toggleIsOpen }) => {
 const MobileNavMenu = () => (
 	<VStack spacing={4} w='100%'>
 		<VStack p={4} w='100%' my={8} spacing={8} as='ul'>
-			<Item variant='large' href='/'>
+			<Item spacing={4} variant='large' href='/'>
 				Home
 			</Item>
-			<Item variant='large' href='/about'>
+			<Item spacing={4} variant='large' href='/about'>
 				About
 			</Item>
-			<Item variant='large' href='/projects'>
+			<Item spacing={4} variant='large' href='/projects'>
 				Projects
 			</Item>
-			<Item variant='large' href='/blog'>
+			<Item spacing={4} variant='large' href='/blog'>
 				Blog
 			</Item>
 		</VStack>

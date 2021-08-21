@@ -4,7 +4,6 @@ const ContentWrapper = ({ children }) => (
 	<VStack
 		maxW='550px'
 		textAlign='center'
-		borderRadius='md'
 		border='2px solid'
 		borderColor='neutral.400'
 		p={8}
