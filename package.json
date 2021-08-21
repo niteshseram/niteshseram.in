@@ -20,7 +20,7 @@
 		"@chakra-ui/theme-tools": "^1.1.9",
 		"@emotion/react": "^11.4.0",
 		"@emotion/styled": "^11.3.0",
-		"@fontsource/roboto": "^4.5.0",
+		"@fontsource/inter": "^4.5.0",
 		"framer-motion": "^4.1.17",
 		"next": "^11.0.1",
 		"prop-types": "^15.7.2",
@@ -46,7 +46,7 @@
 		"eslint-plugin-prettier": "^3.4.0",
 		"eslint-plugin-react": "7.21.5",
 		"eslint-plugin-react-hooks": "1.7.0",
-		"prettier": "^2.2.1",
-		"husky": "^7.0.0"
+		"husky": "^7.0.0",
+		"prettier": "^2.2.1"
 	}
 }

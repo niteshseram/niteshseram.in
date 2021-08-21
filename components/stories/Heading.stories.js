@@ -1,5 +1,5 @@
 import { Heading } from '@chakra-ui/react'
-import '@fontsource/roboto/700.css'
+import '@fontsource/inter/700.css'
 
 export default {
 	title: 'Style Guide/Design Tokens/Typography/Heading',
