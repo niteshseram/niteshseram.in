@@ -1,4 +1,6 @@
 import { Button, ChakraProvider, Flex, useColorMode } from '@chakra-ui/react'
+import '@fontsource/inter/500.css'
+import '@fontsource/inter/700.css'
 import customTheme from '../styles/theme'
 
 const Nav = ({ children }) => {
