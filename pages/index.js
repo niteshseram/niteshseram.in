@@ -74,7 +74,7 @@ const Hero = () => (
 )
 
 const FeaturedProjects = () => (
-	<VStack spacing='4rem' w='100%' m='auto'>
+	<VStack w='100%' m='auto'>
 		<FeatureHeading>Featured Projects</FeatureHeading>
 		<Flex
 			w='100%'
