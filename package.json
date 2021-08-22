@@ -10,9 +10,15 @@
 		"build-storybook": "build-storybook",
 		"prettier": "prettier --check .",
 		"lint": "next lint",
-		"format": "prettier --write . && git add .",
+		"format": "lint-staged",
 		"prepare": "husky install",
-		"precommit": "yarn lint && yarn format"
+		"precommit": "yarn lint && lint-staged"
+	},
+	"lint-staged": {
+		"*.{html,js,md,yml}": [
+			"prettier --write",
+			"git add"
+		]
 	},
 	"dependencies": {
 		"@chakra-ui/icons": "^1.0.14",

@@ -9,7 +9,11 @@ const useColorModeSwitcher = () => {
 
 	const colorGrey = useColorModeValue('neutral.200', 'neutral.600')
 
-	return { colorLight, colorDark, colorGrey, themed }
+	const success = useColorModeValue('successDark', 'successLight')
+
+	const error = useColorModeValue('errorDark', 'errorLight')
+
+	return { colorLight, colorDark, colorGrey, themed, success, error }
 }
 
 export default useColorModeSwitcher
