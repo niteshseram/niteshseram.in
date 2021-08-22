@@ -7,12 +7,16 @@ import {
 	List,
 	Text,
 	VStack,
+	Link,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import Image from 'next/image'
 import Container from '../components/Container'
 import ProjectCard from '../components/projectCard'
 import projects from '../content/projects'
+import ContactForm from '../components/contactForm'
+import useColorModeSwitcher from '../utils/hooks/useColorModeSwitcher'
+import { twitter } from '../content/socials'
 
 export default function Home() {
 	return (
@@ -20,6 +24,7 @@ export default function Home() {
 			<ContentWrapper>
 				<Hero />
 				<FeaturedProjects />
+				<ContactSection />
 			</ContentWrapper>
 		</Container>
 	)
@@ -121,7 +126,9 @@ const Projects = () => (
 )
 
 const ContentWrapper = ({ children }) => (
-	<VStack spacing={{ base: '5rem', lg: '10rem' }}>{children}</VStack>
+	<VStack spacing={{ base: '5rem', lg: '10rem' }} mb='5rem'>
+		{children}
+	</VStack>
 )
 
 const FeatureHeading = ({ children }) => (
@@ -134,3 +141,43 @@ const FeatureHeading = ({ children }) => (
 		{children}
 	</Heading>
 )
+
+const ContactSection = () => {
+	const { themed } = useColorModeSwitcher()
+	return (
+		<VStack w='100%' m='auto'>
+			<FeatureHeading>Get In Touch</FeatureHeading>
+			<Flex
+				borderRadius='md'
+				direction={{ base: 'column', lg: 'row' }}
+				w='100%'
+				alignItems='center'
+				justifyContent='space-around'
+			>
+				<Box
+					m={{ base: '0 0 4rem 0', xl: '0 4rem 0 0' }}
+					p={0}
+					flex='1'
+					maxW={{ base: '100%', md: '70%' }}
+				>
+					<Text mb='1rem' variant='preTitle'>
+						Let&apos;s chat!
+					</Text>
+					<Text mb='2rem'>
+						If you want to collaborate or have any questions, opportunities, or
+						might simply want to say hello then, feel free to fill out my
+						contact form and I&apos;ll without a doubt hit you up in a hurry.
+					</Text>
+					<Text>
+						Or if you would prefer to, you can also reach me on{' '}
+						<Link color={themed} href={twitter.href}>
+							Twitter
+						</Link>
+						.
+					</Text>
+				</Box>
+				<ContactForm flex='1' />
+			</Flex>
+		</VStack>
+	)
+}
