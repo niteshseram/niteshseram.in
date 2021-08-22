@@ -8,7 +8,6 @@ import {
 	Link,
 	Text,
 	useColorMode,
-	useMediaQuery,
 	VStack,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/dist/client/router'
@@ -191,7 +190,6 @@ const Line = ({ ...props }) => (
 
 const Item = ({ children, href, ...props }) => {
 	const { colorGrey } = useColorModeSwitcher()
-	const [isLarge] = useMediaQuery('(min-width: 992px)')
 	return (
 		<VStack
 			align='start'
@@ -199,8 +197,8 @@ const Item = ({ children, href, ...props }) => {
 			w='100%'
 			h='100%'
 			as='li'
-			pb={4}
-			borderBottom={!isLarge && '1px solid'}
+			pb={{ base: 4, lg: 0 }}
+			borderBottom={{ base: '1px solid', lg: 'none' }}
 			borderColor={colorGrey}
 			listStyleType='none'
 		>
