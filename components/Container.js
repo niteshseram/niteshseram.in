@@ -1,7 +1,6 @@
 import {
 	Box,
 	Center,
-	Divider,
 	Flex,
 	HStack,
 	Icon,
@@ -191,6 +190,7 @@ const Line = ({ ...props }) => (
 )
 
 const Item = ({ children, href, ...props }) => {
+	const { colorGrey } = useColorModeSwitcher()
 	const [isLarge] = useMediaQuery('(min-width: 992px)')
 	return (
 		<VStack
@@ -199,12 +199,14 @@ const Item = ({ children, href, ...props }) => {
 			w='100%'
 			h='100%'
 			as='li'
+			pb={4}
+			borderBottom={!isLarge && '1px solid'}
+			borderColor={colorGrey}
 			listStyleType='none'
 		>
 			<StyledLink {...props} href={href}>
 				{children}
 			</StyledLink>
-			{!isLarge && <Divider />}
 		</VStack>
 	)
 }
