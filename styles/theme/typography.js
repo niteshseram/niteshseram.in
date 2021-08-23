@@ -1,6 +1,6 @@
 export const fonts = {
-	heading: 'Roboto',
-	body: 'Roboto',
+	heading: 'Inter, sans-serif',
+	body: 'Inter, sans-serif',
 }
 
 export const Heading = {
@@ -26,11 +26,11 @@ export const Text = {
 	variants: {
 		preTitle: (props) => ({
 			textStyle: 'preTitle',
-			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.200',
+			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.100',
 		}),
 		subtitle: (props) => ({
 			textStyle: 'subtitle',
-			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.200',
+			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.100',
 		}),
 		body: (props) => ({
 			textStyle: 'body',
@@ -52,7 +52,7 @@ export const Text = {
 
 export const textStyles = {
 	h1: {
-		fontSize: { base: '32px', lg: '64px' },
+		fontSize: { base: '32px', lg: '56px' },
 		fontWeight: 700,
 		lineHeight: { base: '140%', lg: '125%' },
 	},
@@ -84,7 +84,7 @@ export const textStyles = {
 	},
 	body: {
 		fontSize: '16px',
-		fontWeight: 400,
+		fontWeight: 500,
 		lineHeight: '150%',
 	},
 	bodyLight: {

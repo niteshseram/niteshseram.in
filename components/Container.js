@@ -1,7 +1,6 @@
 import {
 	Box,
 	Center,
-	Divider,
 	Flex,
 	HStack,
 	Icon,
@@ -9,7 +8,6 @@ import {
 	Link,
 	Text,
 	useColorMode,
-	useMediaQuery,
 	VStack,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/dist/client/router'
@@ -55,12 +53,15 @@ const Container = ({ children }) => {
 				<meta name='twitter:description' content={meta.description} />
 				<meta name='twitter:image' content={meta.image} />
 			</Head>
-			<Box w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }} minH='70vh' m='auto'>
+			<Box
+				w={{ base: '95vw', sm: '90vw', '2xl': '80vw', '3xl': '72vw' }}
+				m='auto'
+			>
 				<NavBar toggleIsOpen={toggleIsOpen} />
 				<VStack as='main' minH='70vh'>
 					{isOpen ? <MobileNavMenu /> : children}
 				</VStack>
-				<Footer />
+				{!isOpen && <Footer />}
 			</Box>
 		</Box>
 	)
@@ -110,16 +111,16 @@ const NavBar = ({ toggleIsOpen }) => {
 const MobileNavMenu = () => (
 	<VStack spacing={4} w='100%'>
 		<VStack p={4} w='100%' my={8} spacing={8} as='ul'>
-			<Item variant='large' href='/'>
+			<Item spacing={4} variant='large' href='/'>
 				Home
 			</Item>
-			<Item variant='large' href='/about'>
+			<Item spacing={4} variant='large' href='/about'>
 				About
 			</Item>
-			<Item variant='large' href='/projects'>
+			<Item spacing={4} variant='large' href='/projects'>
 				Projects
 			</Item>
-			<Item variant='large' href='/blog'>
+			<Item spacing={4} variant='large' href='/blog'>
 				Blog
 			</Item>
 		</VStack>
@@ -188,7 +189,7 @@ const Line = ({ ...props }) => (
 )
 
 const Item = ({ children, href, ...props }) => {
-	const [isLarge] = useMediaQuery('(min-width: 992px)')
+	const { colorGrey } = useColorModeSwitcher()
 	return (
 		<VStack
 			align='start'
@@ -196,12 +197,14 @@ const Item = ({ children, href, ...props }) => {
 			w='100%'
 			h='100%'
 			as='li'
+			pb={{ base: 4, lg: 0 }}
+			borderBottom={{ base: '1px solid', lg: 'none' }}
+			borderColor={colorGrey}
 			listStyleType='none'
 		>
 			<StyledLink {...props} href={href}>
 				{children}
 			</StyledLink>
-			{!isLarge && <Divider />}
 		</VStack>
 	)
 }
