@@ -58,9 +58,11 @@ const Hero = () => (
 				Welcome to my digital corner where you can find my works, thoughts and
 				random things.
 			</Text>
-			<Button w='184px' h='50px' variant='primaryThemed'>
-				Get in Touch
-			</Button>
+			<NextLink href='#contact' passHref>
+				<Button w='184px' h='50px' variant='primaryThemed'>
+					Get in Touch
+				</Button>
+			</NextLink>
 		</Flex>
 		<Center flex='1'>
 			<Box
@@ -145,7 +147,7 @@ const FeatureHeading = ({ children }) => (
 const ContactSection = () => {
 	const { themed } = useColorModeSwitcher()
 	return (
-		<VStack w='100%' m='auto'>
+		<VStack w='100%' m='auto' id='contact'>
 			<FeatureHeading>Get In Touch</FeatureHeading>
 			<Flex
 				borderRadius='md'

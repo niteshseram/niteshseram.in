@@ -44,8 +44,10 @@ const StyledLink = ({ children, href, ...props }) => {
 								'polygon(0% 0%, 0% 100%, 50% 100%, 50% 0, 50% 0, 50% 100%, 50% 100%, 0 100%, 100% 100%, 100% 0%)',
 							bg: themed,
 						},
-						color: themed,
-						transform: 'translate3d(0, -2px, 0)',
+						span: {
+							color: themed,
+							transform: 'translate3d(0, -2px, 0)',
+						},
 					},
 					span: {
 						display: 'inline-block',
