@@ -61,33 +61,40 @@ const ContactForm = () => {
 
 		if (inputs.name && inputs.email && inputs.message) {
 			setForm({ state: 'loading' })
-			const res = await fetch(`${server}/api/contact`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(inputs),
-			})
+			try {
+				const res = await fetch(`${server}/api/contact`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(inputs),
+				})
 
-			const { error } = await res.json()
+				const { error } = await res.json()
 
-			if (error) {
+				if (error) {
+					setForm({
+						state: 'error',
+						message: error,
+					})
+					return
+				}
+
+				setForm({
+					state: 'success',
+					message: 'Your message was sent successfully.',
+				})
+				setInputs({
+					name: '',
+					email: '',
+					message: '',
+				})
+			} catch (error) {
 				setForm({
 					state: 'error',
-					message: error,
+					message: 'Something went wrong',
 				})
-				return
 			}
-
-			setForm({
-				state: 'success',
-				message: 'Your message was sent successfully.',
-			})
-			setInputs({
-				name: '',
-				email: '',
-				message: '',
-			})
 		}
 	}
 
