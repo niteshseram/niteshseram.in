@@ -2,17 +2,24 @@ import {
 	Box,
 	Button,
 	FormControl,
-	FormLabel,
 	Input as ChakraInput,
 	Textarea,
 	useColorModeValue,
 } from '@chakra-ui/react'
 import { useState } from 'react'
+import server from '../config'
 import useColorModeSwitcher from '../utils/hooks/useColorModeSwitcher'
+import { ErrorMessage, SuccessMessage } from './message'
 
 const ContactForm = () => {
 	const border = useColorModeValue('neutral.300', 'neutral.200')
 	const { themed } = useColorModeSwitcher()
+	const [form, setForm] = useState(false)
+	const [errors, setErrors] = useState({
+		name: '',
+		email: '',
+		message: '',
+	})
 	const [inputs, setInputs] = useState({
 		name: '',
 		email: '',
@@ -26,43 +33,125 @@ const ContactForm = () => {
 		}))
 	}
 
+	const onSubmitForm = async (e) => {
+		e.preventDefault()
+		setErrors(() => ({
+			name: '',
+			email: '',
+			message: '',
+		}))
+		if (!inputs.name) {
+			setErrors((prev) => ({
+				...prev,
+				name: 'Name is required',
+			}))
+		}
+		if (!inputs.email) {
+			setErrors((prev) => ({
+				...prev,
+				email: 'Email is required',
+			}))
+		}
+		if (!inputs.message) {
+			setErrors((prev) => ({
+				...prev,
+				message: 'Message is required',
+			}))
+		}
+
+		if (inputs.name && inputs.email && inputs.message) {
+			setForm({ state: 'loading' })
+			const res = await fetch(`${server}/api/contact`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(inputs),
+			})
+
+			const { error } = await res.json()
+
+			if (error) {
+				setForm({
+					state: 'error',
+					message: error,
+				})
+				return
+			}
+
+			setForm({
+				state: 'success',
+				message: 'Your message was sent successfully.',
+			})
+			setInputs({
+				name: '',
+				email: '',
+				message: '',
+			})
+		}
+	}
+
+	const iff = (condition, then, otherwise) => (condition ? then : otherwise)
+
 	return (
-		<Box as='form' w={{ base: '100%', md: '50%' }}>
+		<Box
+			as='form'
+			onSubmit={(e) => onSubmitForm(e)}
+			w={{ base: '100%', md: '50%' }}
+		>
 			<FormControl id='name'>
-				<FormLabel>Name</FormLabel>
-				<Input
-					value={inputs.name}
-					onChange={handleChange}
-					placeholder='niteshseram'
-				/>
+				<Box h='4rem'>
+					<Input
+						value={inputs.name}
+						onChange={handleChange}
+						placeholder='Name'
+					/>
+					{errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+				</Box>
 			</FormControl>
 			<FormControl id='email'>
-				<FormLabel>Email</FormLabel>
-				<Input
-					value={inputs.email}
-					onChange={handleChange}
-					type='email'
-					placeholder='niteshseram@gmail.com'
-				/>
+				<Box h='4rem'>
+					<Input
+						value={inputs.email}
+						onChange={handleChange}
+						type='email'
+						placeholder='Email'
+					/>
+					{errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+				</Box>
 			</FormControl>
 			<FormControl id='message'>
-				<FormLabel>Message</FormLabel>
-				<Textarea
-					isRequired
-					value={inputs.message}
-					onChange={handleChange}
-					_hover={{ borderColor: themed }}
-					mb='1rem'
-					borderColor={border}
-					borderRadius='sm'
-					h='8rem'
-					type='text'
-					placeholder='message...'
-				/>
+				<Box h='10rem'>
+					<Textarea
+						value={inputs.message}
+						onChange={handleChange}
+						_hover={{ borderColor: themed }}
+						borderColor={border}
+						borderRadius='sm'
+						h='8rem'
+						type='text'
+						resize='none'
+						placeholder='Message'
+					/>
+					{errors.message && <ErrorMessage>{errors.message}</ErrorMessage>}
+				</Box>
 			</FormControl>
-			<Button type='submit' w='50%' variant='primaryThemed'>
-				Send
-			</Button>
+			{form.state === 'success' ? (
+				<SuccessMessage>{form.message}</SuccessMessage>
+			) : (
+				iff(
+					form.state === 'error',
+					<ErrorMessage>Error: {form.message}</ErrorMessage>,
+					<Button
+						isLoading={form.state === 'loading'}
+						type='submit'
+						w='50%'
+						variant='primaryThemed'
+					>
+						Send
+					</Button>
+				)
+			)}
 		</Box>
 	)
 }
@@ -74,9 +163,7 @@ const Input = ({ ...props }) => {
 		<ChakraInput
 			_hover={{ borderColor: themed }}
 			borderColor={border}
-			mb='1rem'
 			borderRadius='sm'
-			isRequired
 			{...props}
 		/>
 	)
