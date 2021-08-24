@@ -1,14 +1,7 @@
 import { VStack } from '@chakra-ui/react'
 
 const ContentWrapper = ({ children }) => (
-	<VStack
-		maxW='550px'
-		textAlign='center'
-		border='2px solid'
-		borderColor='neutral.400'
-		p={8}
-		spacing={8}
-	>
+	<VStack spacing={{ base: '5rem', lg: '10rem' }} mb='5rem'>
 		{children}
 	</VStack>
 )

@@ -1,7 +1,7 @@
 import { Icon } from '@chakra-ui/icons'
 import { Flex, Text } from '@chakra-ui/react'
 import { IoAlertCircle, IoCheckmarkCircle } from 'react-icons/io5'
-import useColorModeSwitcher from '../utils/hooks/useColorModeSwitcher'
+import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
 
 export const SuccessMessage = ({ children }) => {
 	const { successColor } = useColorModeSwitcher()

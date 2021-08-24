@@ -1,6 +1,6 @@
 import { Link } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import useColorModeSwitcher from '../utils/hooks/useColorModeSwitcher'
+import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
 
 const StyledLink = ({ children, href, ...props }) => {
 	const { themed } = useColorModeSwitcher()

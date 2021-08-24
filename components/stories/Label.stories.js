@@ -1,4 +1,4 @@
-import Label from '../label'
+import { Label } from '../styled'
 import { react } from '../../content/tools'
 
 export default {
