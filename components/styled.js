@@ -1,4 +1,4 @@
-import { Box, Link } from '@chakra-ui/react'
+import { Link } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import useColorModeSwitcher from '../utils/hooks/useColorModeSwitcher'
 
@@ -7,8 +7,10 @@ const StyledLink = ({ children, href, ...props }) => {
 	return (
 		<NextLink href={href} passHref>
 			<Link
+				aria-labelledby={children}
 				{...props}
-				mr='1rem'
+				mr='2rem'
+				fontWeight='500'
 				position='relative'
 				sx={{
 					_before: {
@@ -53,7 +55,7 @@ const StyledLink = ({ children, href, ...props }) => {
 					},
 				}}
 			>
-				<Box as='span'>{children}</Box>
+				{children}
 			</Link>
 		</NextLink>
 	)
