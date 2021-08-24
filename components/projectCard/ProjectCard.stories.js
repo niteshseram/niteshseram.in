@@ -1,5 +1,5 @@
 import { react } from '../../content/tools'
-import ProjectCard from '../projectCard'
+import ProjectCard from '.'
 
 export default {
 	title: 'Style Guide/Components/Card/Project',

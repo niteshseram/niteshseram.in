@@ -11,12 +11,13 @@ import {
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import Image from 'next/image'
-import Container from '../components/Container'
+import Container from '../layout/container'
 import ProjectCard from '../components/projectCard'
 import projects from '../content/projects'
 import ContactForm from '../components/contactForm'
 import useColorModeSwitcher from '../utils/hooks/useColorModeSwitcher'
 import { twitter } from '../content/socials'
+import ContentWrapper from '../layout/contentWrapper'
 
 export default function Home() {
 	return (
@@ -36,7 +37,7 @@ const Hero = () => (
 		align='center'
 		justify='center'
 		direction={{ base: 'column-reverse', lg: 'row' }}
-		w={{ base: '95vw', lg: '90vw', '2xl': '72vw' }}
+		w='100%'
 	>
 		<Flex
 			flex='1.3'
@@ -125,12 +126,6 @@ const Projects = () => (
 				/>
 			))}
 	</List>
-)
-
-const ContentWrapper = ({ children }) => (
-	<VStack spacing={{ base: '5rem', lg: '10rem' }} mb='5rem'>
-		{children}
-	</VStack>
 )
 
 const FeatureHeading = ({ children }) => (
