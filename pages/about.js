@@ -11,12 +11,14 @@ import Container from '../layout/container'
 import ContentWrapper from '../layout/contentWrapper'
 import useToggle from '../utils/hooks/useToggle'
 import * as tool from '../content/tools'
+import Timeline from '../components/timeline'
 
 const About = () => (
 	<Container title='About | Nitesh Seram'>
 		<ContentWrapper>
 			<Intro />
 			<Skills />
+			<TimelineContainer />
 		</ContentWrapper>
 	</Container>
 )
@@ -30,7 +32,7 @@ const Intro = () => (
 			as='h1'
 			variant='h1'
 		>
-			About
+			About Me
 		</Heading>
 		<ChakraContainer maxW={{ base: '100%', sm: '30rem', md: '40rem' }} p={0}>
 			<Text mb='2rem'>
@@ -123,5 +125,16 @@ const Skill = ({ name, icon, color }) => {
 		</GridItem>
 	)
 }
+
+const TimelineContainer = () => (
+	<Box as='section' w='100%'>
+		<Heading as='h3' variant='h3' mb='0.5rem'>
+			Timeline
+		</Heading>
+		<ChakraContainer w='100%' p={0} m={0}>
+			<Timeline />
+		</ChakraContainer>
+	</Box>
+)
 
 export default About
