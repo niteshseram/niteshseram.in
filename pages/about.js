@@ -10,7 +10,7 @@ import {
 import Container from '../layout/container'
 import ContentWrapper from '../layout/contentWrapper'
 import useToggle from '../utils/hooks/useToggle'
-import * as tool from '../content/tools'
+import * as tools from '../content/tools'
 import Timeline from '../components/timeline'
 
 const About = () => (
@@ -69,7 +69,7 @@ const Intro = () => (
 )
 
 const Skills = () => {
-	const skills = Object.values(tool).slice(0, 12)
+	const skills = Object.values(tools).filter((tool) => tool.include)
 	return (
 		<Box alignSelf='center' as='section'>
 			<Heading as='h3' variant='h3' mb='0.5rem'>
