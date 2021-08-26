@@ -15,13 +15,13 @@ const LogoBase = createIcon({
 	),
 })
 const Logo = ({ boxSize = '36px', ...props }) => {
-	const { colorDark } = useColorModeSwitcher()
+	const { themed } = useColorModeSwitcher()
 	return (
 		<Icon
 			{...props}
 			strokeWidth='2px'
 			stroke='currentcolor'
-			fill={colorDark}
+			fill={themed}
 			boxSize={boxSize}
 			as={LogoBase}
 		/>
