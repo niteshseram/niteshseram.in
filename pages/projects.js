@@ -1,4 +1,4 @@
-import { Box, Heading, List, Text } from '@chakra-ui/react'
+import { Box, Grid, Heading, Text } from '@chakra-ui/react'
 import Container from '../layout/container'
 import ContentWrapper from '../layout/contentWrapper'
 import projects from '../content/projects'
@@ -13,7 +13,7 @@ const Projects = () => (
 )
 
 const Intro = () => (
-	<Box w={{ base: '100%', lg: '90%' }} as='section' mb='2rem' mt='2rem'>
+	<Box w={{ base: '100%', lg: '100%' }} as='section' mb='2rem' mt='2rem'>
 		<Heading as='h1' variant='h1'>
 			Projects
 		</Heading>
@@ -25,11 +25,10 @@ const Intro = () => (
 )
 
 const ProjectList = () => (
-	<List
+	<Grid
+		templateColumns={{ base: 'repeat(1, 1fr)', xl: 'repeat(2, 1fr)' }}
+		gap={6}
 		mx='auto'
-		justifyContent='space-between'
-		display={{ base: 'block', '2xl': 'flex' }}
-		flexWrap='wrap'
 	>
 		{projects.map((project) => (
 			<ProjectCard
@@ -42,7 +41,7 @@ const ProjectList = () => (
 				key={project.id}
 			/>
 		))}
-	</List>
+	</Grid>
 )
 
 export default Projects
