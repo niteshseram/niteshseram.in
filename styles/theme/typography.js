@@ -34,11 +34,15 @@ export const Text = {
 		}),
 		body: (props) => ({
 			textStyle: 'body',
-			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.200',
+			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.300',
 		}),
 		bodyLight: (props) => ({
 			textStyle: 'bodyLight',
 			color: props.colorMode === 'light' ? 'neutral.700' : 'neutral.200',
+		}),
+		bodyBold: (props) => ({
+			textStyle: 'bodyBold',
+			color: props.colorMode === 'light' ? 'neutral.800' : 'neutral.200',
 		}),
 		small: (props) => ({
 			textStyle: 'small',
@@ -71,6 +75,16 @@ export const textStyles = {
 		fontWeight: 700,
 		lineHeight: { base: '150%', lg: '140%' },
 	},
+	h5: {
+		fontSize: { base: '17px', xl: '22px' },
+		fontWeight: 700,
+		lineHeight: { base: '150%', lg: '140%' },
+	},
+	h6: {
+		fontSize: { base: '16px', xl: '18px' },
+		fontWeight: 700,
+		lineHeight: { base: '150%', lg: '140%' },
+	},
 	subtitle: {
 		fontSize: { base: '18px', xl: '24px' },
 		fontWeight: 400,
@@ -90,6 +104,11 @@ export const textStyles = {
 	bodyLight: {
 		fontSize: '16px',
 		fontWeight: 300,
+		lineHeight: '150%',
+	},
+	bodyBold: {
+		fontSize: '16px',
+		fontWeight: 'bold',
 		lineHeight: '150%',
 	},
 	small: {
