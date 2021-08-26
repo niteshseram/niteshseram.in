@@ -13,7 +13,9 @@ import {
 	SiSpring,
 	SiMysql,
 	SiDocker,
+	SiStyledComponents,
 } from 'react-icons/si'
+import Chakra from '../components/svg/chakraLogo'
 
 export const java = {
 	name: 'Java',
@@ -86,6 +88,16 @@ export const storybook = {
 	name: 'Storybook',
 	icon: SiStorybook,
 	color: '#FF4785',
+}
+export const styledcomponents = {
+	name: 'Styled Components',
+	icon: SiStyledComponents,
+	color: null,
+}
+export const chakra = {
+	name: 'Chakra UI',
+	icon: Chakra,
+	color: null,
 }
 export const hsql = {
 	icon: FaDatabase,

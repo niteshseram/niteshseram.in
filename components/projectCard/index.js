@@ -50,7 +50,13 @@ const ProjectCard = ({
 					</ListItem>
 				))}
 			</List>
-			<VStack spacing='2rem' p={{ base: '0.3rem', md: '1rem' }}>
+			<VStack
+				flex='1'
+				spacing='2rem'
+				p={{ base: '0.5rem', md: '1rem' }}
+				alignItems='start'
+				justifyContent='space-between'
+			>
 				<Text>{description}</Text>
 				<HStack pb='2rem'>
 					{live && (
