@@ -60,11 +60,23 @@ const ProjectCard = ({
 				<Text>{description}</Text>
 				<HStack pb='2rem'>
 					{live && (
-						<Button as='a' href={live} target='_blank' variant='primary'>
+						<Button
+							as='a'
+							href={live}
+							target='_blank'
+							variant='primary'
+							rel='noopener'
+						>
 							Visit Site
 						</Button>
 					)}
-					<Button as='a' href={repo} target='_blank' variant='secondary'>
+					<Button
+						as='a'
+						href={repo}
+						target='_blank'
+						variant='secondary'
+						rel='noopener'
+					>
 						View Code
 					</Button>
 				</HStack>
