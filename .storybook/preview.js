@@ -7,8 +7,6 @@ import {
 	useMediaQuery,
 } from '@chakra-ui/react'
 import { IoMoon, IoSunnyOutline } from 'react-icons/io5'
-import '@fontsource/inter/500.css'
-import '@fontsource/inter/700.css'
 import customTheme from '../styles/theme'
 
 const Nav = ({ children }) => {

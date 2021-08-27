@@ -12,7 +12,7 @@ const Footer = () => (
 		as='footer'
 	>
 		<HStack as='ul'>
-			<SocialLink icon={github.icon} href={github.href} />
+			<SocialLink icon={github.icon} href={github.href} name={github.name} />
 			<SocialLink
 				icon={linkedin.icon}
 				href={linkedin.href}
@@ -24,7 +24,7 @@ const Footer = () => (
 	</VStack>
 )
 
-const SocialLink = ({ children, icon, href }) => {
+const SocialLink = ({ icon, href, name }) => {
 	const [hover, toggleHover] = useToggle()
 	return (
 		<Center
@@ -40,6 +40,7 @@ const SocialLink = ({ children, icon, href }) => {
 				p={2}
 				href={href}
 				isExternal
+				aria-label={name}
 			>
 				<Icon
 					transform={hover ? 'translateY(-4px)' : 'none'}
@@ -51,7 +52,6 @@ const SocialLink = ({ children, icon, href }) => {
 					aria-hidden
 					as={icon}
 				/>
-				{children}
 			</Link>
 		</Center>
 	)

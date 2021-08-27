@@ -31,55 +31,65 @@ export default function Home() {
 	)
 }
 
-const Hero = () => (
-	<Flex
-		minH='90vh'
-		align='center'
-		justify='center'
-		direction={{ base: 'column-reverse', lg: 'row' }}
-		w='100%'
-	>
+const Hero = () => {
+	const { themed } = useColorModeSwitcher()
+	return (
 		<Flex
-			flex='1.3'
-			align={{ base: 'center', lg: 'start' }}
-			justify='center'
-			direction='column'
+			minH='90vh'
+			alignItems='center'
+			justifyContent='space-evenly'
+			direction={{ base: 'column-reverse', lg: 'row' }}
+			w='100%'
 		>
-			<Heading as='h1' variant='h1'>
-				Hi, I&apos;m Nitesh Seram
-			</Heading>
-			<Heading as='h4' variant='h4' mb={{ base: '1rem', lg: '2rem' }}>
-				Software Engineer based in India
-			</Heading>
-			<Text
-				mb={{ base: '2rem', lg: '3rem' }}
-				variant='subtitle'
-				align={{ base: 'center', lg: 'left' }}
+			<Flex
+				flex={{ base: 'none', lg: '1.3' }}
+				align={{ base: 'center', lg: 'start' }}
+				justify='center'
+				direction='column'
 			>
-				Welcome to my digital corner where you can find my works, thoughts and
-				random things.
-			</Text>
-			<NextLink href='#contact' passHref>
-				<Button w='184px' h='50px' variant='primaryThemed'>
-					Get in Touch
-				</Button>
-			</NextLink>
+				<Heading as='h1' variant='h1'>
+					Hi, I&apos;m{' '}
+					<Box as='span' color={themed}>
+						Nitesh Seram
+					</Box>
+				</Heading>
+				<Text variant='preTitle' mb={{ base: '1rem', lg: '2rem' }}>
+					Software Engineer based in India
+				</Text>
+				<Text
+					mb={{ base: '2rem', lg: '3rem' }}
+					variant='subtitle'
+					align={{ base: 'center', lg: 'left' }}
+				>
+					Welcome to my digital corner where you can find my works, thoughts and
+					random things.
+				</Text>
+				<NextLink href='#contact' passHref>
+					<Button w='184px' h='50px' variant='primaryThemed'>
+						Get in Touch
+					</Button>
+				</NextLink>
+			</Flex>
+			<Center flex={{ base: 'none', lg: '1' }}>
+				<Box
+					w={{ base: '200px', lg: '400px' }}
+					h={{ base: '200px', lg: '400px' }}
+					borderRadius='50%'
+					padding='10px'
+					border={{ base: '2px solid', lg: '5px solid' }}
+					borderColor={{ base: themed, lg: themed }}
+				>
+					<Image
+						src='/static/images/dp.png'
+						width={400}
+						height={400}
+						alt='Profile Picture'
+					/>
+				</Box>
+			</Center>
 		</Flex>
-		<Center flex='1'>
-			<Box
-				w={{ base: '200px', lg: '400px' }}
-				h={{ base: '200px', lg: '400px' }}
-			>
-				<Image
-					src='/static/images/dp.png'
-					width={400}
-					height={400}
-					alt='Profile Picture'
-				/>
-			</Box>
-		</Center>
-	</Flex>
-)
+	)
+}
 
 const FeaturedProjects = () => (
 	<VStack w='100%' m='auto'>
@@ -109,6 +119,7 @@ const FeaturedProjects = () => (
 
 const Projects = () => (
 	<List
+		role='list'
 		mx='auto'
 		justify='space-between'
 		display={{ base: 'block', '2xl': 'flex' }}
@@ -117,6 +128,7 @@ const Projects = () => (
 			.filter((project) => project.feature)
 			.map((project) => (
 				<ProjectCard
+					role='listitem'
 					title={project.title}
 					description={project.description}
 					tools={project.tools}
