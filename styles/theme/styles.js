@@ -10,7 +10,7 @@ const styles = {
 		},
 	}),
 	config: {
-		initialColorMode: 'light',
+		initialColorMode: 'dark',
 		useSystemColorMode: false,
 	},
 }
