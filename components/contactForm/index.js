@@ -7,7 +7,6 @@ import {
 	useColorModeValue,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import server from '../../config'
 import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
 import { ErrorMessage, SuccessMessage } from '../styled/message'
 
@@ -62,7 +61,7 @@ const ContactForm = () => {
 		if (inputs.name && inputs.email && inputs.message) {
 			setForm({ state: 'loading' })
 			try {
-				const res = await fetch(`${server}/api/contact`, {
+				const res = await fetch(`api/contact`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
