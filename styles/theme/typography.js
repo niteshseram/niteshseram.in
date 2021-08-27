@@ -18,6 +18,12 @@ export const Heading = {
 		h4: {
 			textStyle: 'h4',
 		},
+		h5: {
+			textStyle: 'h5',
+		},
+		h6: {
+			textStyle: 'h6',
+		},
 	},
 }
 
@@ -82,7 +88,7 @@ export const textStyles = {
 	},
 	h6: {
 		fontSize: { base: '16px', xl: '18px' },
-		fontWeight: 700,
+		fontWeight: 500,
 		lineHeight: { base: '150%', lg: '140%' },
 	},
 	subtitle: {
@@ -98,7 +104,7 @@ export const textStyles = {
 	},
 	body: {
 		fontSize: '16px',
-		fontWeight: 500,
+		fontWeight: 400,
 		lineHeight: '150%',
 	},
 	bodyLight: {
