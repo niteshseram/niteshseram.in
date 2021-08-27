@@ -53,9 +53,9 @@ const Hero = () => {
 						Nitesh Seram
 					</Box>
 				</Heading>
-				<Heading as='h4' variant='h4' mb={{ base: '1rem', lg: '2rem' }}>
+				<Text variant='preTitle' mb={{ base: '1rem', lg: '2rem' }}>
 					Software Engineer based in India
-				</Heading>
+				</Text>
 				<Text
 					mb={{ base: '2rem', lg: '3rem' }}
 					variant='subtitle'
@@ -119,6 +119,7 @@ const FeaturedProjects = () => (
 
 const Projects = () => (
 	<List
+		role='list'
 		mx='auto'
 		justify='space-between'
 		display={{ base: 'block', '2xl': 'flex' }}
@@ -127,6 +128,7 @@ const Projects = () => (
 			.filter((project) => project.feature)
 			.map((project) => (
 				<ProjectCard
+					role='listitem'
 					title={project.title}
 					description={project.description}
 					tools={project.tools}

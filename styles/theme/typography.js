@@ -97,7 +97,7 @@ export const textStyles = {
 		lineHeight: { base: '24px', lg: '140%' },
 	},
 	preTitle: {
-		fontSize: '18px',
+		fontSize: { base: '18px', xl: '24px' },
 		fontWeight: 'bold',
 		casing: 'uppercase',
 		lineHeight: '150%',
