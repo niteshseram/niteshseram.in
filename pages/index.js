@@ -36,13 +36,13 @@ const Hero = () => {
 	return (
 		<Flex
 			minH='90vh'
-			align='center'
-			justify='center'
+			alignItems='center'
+			justifyContent='space-evenly'
 			direction={{ base: 'column-reverse', lg: 'row' }}
 			w='100%'
 		>
 			<Flex
-				flex='1.3'
+				flex={{ base: 'none', lg: '1.3' }}
 				align={{ base: 'center', lg: 'start' }}
 				justify='center'
 				direction='column'
@@ -70,10 +70,14 @@ const Hero = () => {
 					</Button>
 				</NextLink>
 			</Flex>
-			<Center flex='1'>
+			<Center flex={{ base: 'none', lg: '1' }}>
 				<Box
 					w={{ base: '200px', lg: '400px' }}
 					h={{ base: '200px', lg: '400px' }}
+					borderRadius='50%'
+					padding='10px'
+					border={{ base: '2px solid', lg: '5px solid' }}
+					borderColor={{ base: themed, lg: themed }}
 				>
 					<Image
 						src='/static/images/dp.png'
