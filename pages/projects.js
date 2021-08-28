@@ -14,7 +14,7 @@ const Projects = () => (
 
 const Intro = () => (
 	<Box w={{ base: '100%', lg: '100%' }} as='section' mb='2rem' mt='2rem'>
-		<Heading as='h1' variant='h1'>
+		<Heading as='h2' variant='h2'>
 			Projects
 		</Heading>
 		<Text variant='subtitle' mb='4rem' w='100%'>

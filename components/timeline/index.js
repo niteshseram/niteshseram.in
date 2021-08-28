@@ -27,7 +27,7 @@ const Checkpoint = ({ title, children }) => {
 		<>
 			<Flex alignItems='center' mb={1}>
 				<Icon as={HiBadgeCheck} fill={successColor} boxSize={5} />
-				<Heading variant='h6' as='h6' ml={2}>
+				<Heading variant='bodyBold' as='h5' ml={2}>
 					{title}
 				</Heading>
 			</Flex>
