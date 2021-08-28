@@ -6,7 +6,6 @@ import {
 	node,
 	react,
 	springboot,
-	storybook,
 	styledcomponents,
 } from './tools'
 
@@ -16,8 +15,8 @@ export default [
 		title: 'Portfolio V2',
 		description:
 			'This site where you are right now is the 2nd iteration of my personal portfolio.',
-		tools: [next, chakra, storybook],
-		repo: 'https://github.com/niteshseram/portfolio-v2',
+		tools: [next, chakra],
+		repo: 'https://niteshseram.in',
 		feature: false,
 	},
 	{
@@ -46,7 +45,7 @@ export default [
 		description:
 			'The first iteration of my portfolio built using NextJs and Styled Components',
 		tools: [next, styledcomponents],
-		live: 'https://niteshseram.in',
+		live: 'https://niteshseram-q42jyvlvl-niteshseram.vercel.app/',
 		repo: 'https://github.com/niteshseram/Portfolio',
 		feature: false,
 	},
