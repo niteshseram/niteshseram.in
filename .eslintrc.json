@@ -10,7 +10,9 @@
 		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
 		"react/react-in-jsx-scope": "off",
 		"react/jsx-props-no-spreading": "off",
-		"react/prop-types": [0]
+		"react/no-danger": "off",
+		"react/prop-types": [0],
+		"import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
 		// "no-console": 1,
 		// "no-unused-vars": 1,
 		// "react/prop-types": [
