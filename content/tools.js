@@ -4,7 +4,6 @@ import {
 	SiCss3,
 	SiJavascript,
 	SiNextDotJs,
-	SiStorybook,
 	SiJava,
 	SiTypescript,
 	SiMongodb,
@@ -96,12 +95,7 @@ export const typescript = {
 	color: '#3178C6',
 	include: true,
 }
-export const storybook = {
-	name: 'Storybook',
-	icon: SiStorybook,
-	color: '#FF4785',
-	include: false,
-}
+
 export const styledcomponents = {
 	name: 'Styled Components',
 	icon: SiStyledComponents,

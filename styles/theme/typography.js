@@ -21,8 +21,8 @@ export const Heading = {
 		h5: {
 			textStyle: 'h5',
 		},
-		h6: {
-			textStyle: 'h6',
+		bold: {
+			textStyle: 'bodyBold',
 		},
 	},
 }
@@ -30,25 +30,20 @@ export const Heading = {
 export const Text = {
 	sizes: null,
 	variants: {
-		preTitle: (props) => ({
+		preTitle: () => ({
 			textStyle: 'preTitle',
-			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.100',
 		}),
 		subtitle: (props) => ({
 			textStyle: 'subtitle',
-			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.100',
+			color: props.colorMode === 'light' ? 'neutral.700' : 'neutral.300',
 		}),
 		body: (props) => ({
 			textStyle: 'body',
-			color: props.colorMode === 'light' ? 'neutral.600' : 'neutral.300',
+			color: props.colorMode === 'light' ? 'neutral.700' : 'neutral.300',
 		}),
 		bodyLight: (props) => ({
 			textStyle: 'bodyLight',
 			color: props.colorMode === 'light' ? 'neutral.700' : 'neutral.200',
-		}),
-		bodyBold: (props) => ({
-			textStyle: 'bodyBold',
-			color: props.colorMode === 'light' ? 'neutral.800' : 'neutral.200',
 		}),
 		small: (props) => ({
 			textStyle: 'small',
@@ -82,11 +77,6 @@ export const textStyles = {
 		lineHeight: { base: '150%', lg: '140%' },
 	},
 	h5: {
-		fontSize: { base: '17px', xl: '22px' },
-		fontWeight: 700,
-		lineHeight: { base: '150%', lg: '140%' },
-	},
-	h6: {
 		fontSize: { base: '16px', xl: '18px' },
 		fontWeight: 500,
 		lineHeight: { base: '150%', lg: '140%' },

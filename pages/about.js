@@ -29,8 +29,8 @@ const Intro = () => (
 			mt='2rem'
 			mb={{ base: '2rem', xl: '4.5rem' }}
 			w={{ base: '100%', sm: '100%' }}
-			as='h1'
-			variant='h1'
+			as='h2'
+			variant='h2'
 		>
 			About Me
 		</Heading>
