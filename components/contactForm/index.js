@@ -9,6 +9,7 @@ import {
 import { useState } from 'react'
 import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
 import { ErrorMessage, SuccessMessage } from '../styled/message'
+import { event } from '../../lib/analytics'
 
 const ContactForm = () => {
 	const border = useColorModeValue('neutral.300', 'neutral.200')
@@ -24,6 +25,15 @@ const ContactForm = () => {
 		email: '',
 		message: '',
 	})
+
+	const contactEvent = () => {
+		event({
+			action: 'contact',
+			category: 'Contact',
+			label: 'Contact',
+			value: '',
+		})
+	}
 
 	const handleChange = (e) => {
 		setInputs((prev) => ({
@@ -83,6 +93,7 @@ const ContactForm = () => {
 					state: 'success',
 					message: 'Your message was sent successfully.',
 				})
+				contactEvent()
 				setInputs({
 					name: '',
 					email: '',
