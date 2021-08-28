@@ -12,7 +12,7 @@ const Container = ({ children, ...customMeta }) => {
 		<Box>
 			<Seo {...customMeta} />
 			<Box
-				w={{ base: '95vw', sm: '90vw', '2xl': '80vw', '3xl': '72vw' }}
+				w={{ base: '92vw', sm: '90vw', '2xl': '80vw', '3xl': '72vw' }}
 				m='auto'
 			>
 				<NavBar toggleIsOpen={toggleIsOpen} />
