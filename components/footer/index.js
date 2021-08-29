@@ -1,5 +1,5 @@
 import { Center, HStack, Icon, Link, Text, VStack } from '@chakra-ui/react'
-import { github, linkedin, twitter } from '../../content/socials'
+import { github, linkedin, twitter } from '../../data/socials'
 import useToggle from '../../utils/hooks/useToggle'
 
 const Footer = () => (
