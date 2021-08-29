@@ -5,7 +5,9 @@ import {
 	IconButton,
 	useColorMode,
 	VStack,
+	Link,
 } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import { IoMoon, IoSunnyOutline } from 'react-icons/io5'
 import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
 import useToggle from '../../utils/hooks/useToggle'
@@ -17,7 +19,11 @@ export const NavBar = ({ toggleIsOpen }) => {
 	return (
 		<Flex as='nav' h='10vh' alignItems='center' justify='space-between'>
 			<MenuButton toggleIsOpen={toggleIsOpen} />
-			<Logo />
+			<NextLink href='/' passHref>
+				<Link aria-label='logo' href _focus={{ outline: 'none' }}>
+					<Logo />
+				</Link>
+			</NextLink>
 			<HStack spacing={{ base: 0, md: 8 }} align='center'>
 				<Flex display={{ base: 'none', lg: 'flex' }} as='ul'>
 					<Item variant='noStyle' href='/'>

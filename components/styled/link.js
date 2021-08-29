@@ -12,6 +12,7 @@ const StyledLink = ({ children, href, ...props }) => {
 				mr='2rem'
 				fontWeight='500'
 				position='relative'
+				_focus={{ outline: 'none' }}
 				sx={{
 					_before: {
 						content: '""',
