@@ -1,7 +1,7 @@
 import { Box, Grid, Heading, Text } from '@chakra-ui/react'
 import Container from '../layout/container'
 import ContentWrapper from '../layout/contentWrapper'
-import projects from '../content/projects'
+import projects from '../data/projects'
 import ProjectCard from '../components/projectCard'
 
 const Projects = () => (

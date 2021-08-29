@@ -10,7 +10,7 @@ import {
 import Container from '../layout/container'
 import ContentWrapper from '../layout/contentWrapper'
 import useToggle from '../utils/hooks/useToggle'
-import * as tools from '../content/tools'
+import * as tools from '../data/tools'
 import Timeline from '../components/timeline'
 
 const About = () => (
@@ -57,7 +57,7 @@ const Intro = () => (
 				<em>System Design</em> and <em>Cloud Native</em> technologies like
 				Docker, Kubernetes, etc for building highly scalable applications and
 				products. I have also always wanted to learn <em>UI/UX design </em>.
-				That&apos;s alot of learning to do, but I will get there eventually.
+				That&apos;s a lot of learning to do, but I will get there eventually.
 			</Text>
 			<Text>
 				When I&apos;m not coding, I would probably be watching a movie or a
