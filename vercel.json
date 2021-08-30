@@ -11,5 +11,15 @@
 				}
 			]
 		}
+	],
+	"redirects": [
+		{
+			"source": "/linkedin",
+			"destination": "https://linkedin.com/in/niteshseram"
+		},
+		{
+			"source": "/twitter",
+			"destination": "https://twitter.com/niteshseram"
+		}
 	]
 }
