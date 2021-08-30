@@ -9,7 +9,7 @@
 
 This is 2nd iteration of my personal website built using NextJs, ChakraUI and Vercel. This will be my digital corner where I will be sharing my thoughts, learning and random stuff. This was not built with intention to be a template but feel free to fork and customize it for your own use. If you find any issues in the website, feel free to open an issue and if you want, you can open a pull request for it too.
 
-## Understand the main folder structure
+## Main folder structure
 
 - `pages/*`- All the static pages
 - `pages/api/*`- API which is handling my contact form
