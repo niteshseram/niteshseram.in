@@ -8,8 +8,8 @@ export default async (req, res) => {
 		port: 465,
 		secure: true,
 		auth: {
-			user: process.env.NEXT_PUBLIC_USER,
-			pass: process.env.NEXT_PUBLIC_PASSWORD,
+			user: process.env.SMTP_USER,
+			pass: process.env.SMTP_PASSWORD,
 		},
 	})
 
