@@ -1,34 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center" font-weight="bold">
+  Portfolio V2
+</h1>
+<p align="center">
+  This is the 2nd iteration of my personal <a href="https://niteshseram.in" target="_blank">website</a> built with <a href="https://nextjs.org/" target="_blank">NextJs</a>, <a href="chakra-ui.com">ChakraUI</a> and <a href="https://vercel.com" target="_blank">Vercel</a>.
+</p>
 
-## Getting Started
+# Overview
 
-First, run the development server:
+This is 2nd iteration of my personal website built using NextJs, ChakraUI and Vercel. This will be my digital corner where I will be sharing my thoughts, learning and random stuff. This was not built with intention to be a template but feel free to fork and customize it for your own use. If you find any issues in the website, feel free to open an issue and if you want, you can open a pull request for it too.
+
+## Understand the main folder structure
+
+- `pages/*`- All the static pages
+- `pages/api/*`- API which is handling my contact form
+- `component/*`- All the components like Navbar, Footer, ContactForm, etc are here
+- `layout/*` - These are the containers which handle the layout of the site
+- `data/*`- It contains all the static data about projects, tools and socials
+- `styles/*` - All the styling related things like colors, typography, etc are here
+
+# Running locally
 
 ```bash
-npm run dev
-# or
+# Clone this repository
+git clone https://github.com/niteshseram/Portfolio
+# Go into the repository folder
+cd Portfolio
+# Install dependencies
+yarn
+# Run
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a `.env.local` file similar to `.env.example` with the values in it. But is not absolutely necessary thing to do to run the website locally.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- `NEXT_PUBLIC_GA_ID` - It is the Google analytics ID
+- `SMTP_USER` - It is the SMTP user name
+- `SMTP_PASSWORD` - It is the SMTP password
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+`SMTP_USER` and `SMTP_PASSWORD` is required for the [contact form](https://niteshseram.in/#contact) to work.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# Built using
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Next JS](https://nextjs.org/)
+- [Chakra UI](https://chakra-ui.com)
+- [Vercel](https://vercel.com)
