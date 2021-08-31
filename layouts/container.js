@@ -1,9 +1,9 @@
 import { Box, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
-import useToggle from '../utils/hooks/useToggle'
-import Footer from '../components/footer'
-import { MobileNavMenu, NavBar } from '../components/navBar'
+import useToggle from '@/hooks/useToggle'
+import Footer from '@/components/footer'
+import { MobileNavMenu, NavBar } from '@/components/navBar'
 
 const Container = ({ children, ...customMeta }) => {
 	const [isOpen, toggleIsOpen] = useToggle()

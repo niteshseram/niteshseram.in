@@ -1,5 +1,5 @@
 import { createIcon, defaultProps, Icon } from '@chakra-ui/react'
-import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
+import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
 
 const ChakraBase = createIcon({
 	defaultProps,

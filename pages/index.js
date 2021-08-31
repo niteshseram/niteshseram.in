@@ -11,13 +11,13 @@ import {
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import Image from 'next/image'
-import Container from '../layout/container'
-import ProjectCard from '../components/projectCard'
-import ContactForm from '../components/contactForm'
-import useColorModeSwitcher from '../utils/hooks/useColorModeSwitcher'
-import projects from '../data/projects'
-import { twitter } from '../data/socials'
-import ContentWrapper from '../layout/contentWrapper'
+import Container from '@/layouts/container'
+import ProjectCard from '@/components/projectCard'
+import ContactForm from '@/components/contactForm'
+import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
+import projects from '@/data/projects'
+import { twitter } from '@/data/socials'
+import ContentWrapper from '@/layouts/contentWrapper'
 
 export default function Home() {
 	return (

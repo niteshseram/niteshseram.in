@@ -1,5 +1,5 @@
 import { Heading, Link, Text } from '@chakra-ui/react'
-import Container from '../layout/container'
+import Container from '@/layouts/container'
 
 const Blog = () => (
 	<Container title='Blog | Nitesh Seram'>

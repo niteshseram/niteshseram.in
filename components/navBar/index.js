@@ -9,10 +9,10 @@ import {
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { IoMoon, IoSunnyOutline } from 'react-icons/io5'
-import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
-import useToggle from '../../utils/hooks/useToggle'
-import Logo from '../svg/logo'
-import { StyledLink } from '../styled'
+import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
+import useToggle from '@/hooks/useToggle'
+import Logo from '@/components/svg/logo'
+import { StyledLink } from '@/components/styled'
 
 export const NavBar = ({ toggleIsOpen }) => {
 	const { colorMode, toggleColorMode } = useColorMode()

@@ -8,7 +8,7 @@ import {
 	Text,
 } from '@chakra-ui/react'
 import { HiBadgeCheck } from 'react-icons/hi'
-import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
+import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
 
 const Divider = () => {
 	const { colorGrey } = useColorModeSwitcher()

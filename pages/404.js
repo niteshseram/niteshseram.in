@@ -1,7 +1,7 @@
 import { Box, Button, Heading, Text, VStack } from '@chakra-ui/react'
 import Link from 'next/link'
-import Container from '../layout/container'
-import useColorModeSwitcher from '../utils/hooks/useColorModeSwitcher'
+import Container from '@/layouts/container'
+import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
 
 const Blog = () => {
 	const { themed } = useColorModeSwitcher()
@@ -21,7 +21,7 @@ const Blog = () => {
 				<Text variant='subtitle' pb={1}>
 					Let&apos;s get you back...
 				</Text>
-				<Link href='/'>
+				<Link href='/' passHref>
 					<Button variant='primaryThemed'>Go Back Home</Button>
 				</Link>
 			</VStack>

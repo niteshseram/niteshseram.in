@@ -7,9 +7,9 @@ import {
 	react,
 	springboot,
 	styledcomponents,
-} from './tools'
+} from '@/data/tools'
 
-export default [
+const projects = [
 	{
 		id: 1,
 		title: 'Portfolio V2',
@@ -50,3 +50,5 @@ export default [
 		feature: false,
 	},
 ]
+
+export default projects

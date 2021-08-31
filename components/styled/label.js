@@ -1,5 +1,5 @@
 import { Flex, Icon, Text } from '@chakra-ui/react'
-import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
+import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
 
 const Label = ({ icon, label }) => {
 	const { themed, colorLight } = useColorModeSwitcher()
