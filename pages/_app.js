@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { ChakraProvider } from '@chakra-ui/react'
-import '../styles/globals.css'
-import customTheme from '../styles/theme'
-import { pageview } from '../lib/analytics'
+import '@/styles/globals.css'
+import customTheme from '@/styles/theme'
+import { pageview } from '@/lib/analytics'
 
 function MyApp({ Component, pageProps }) {
 	const router = useRouter()

@@ -7,11 +7,11 @@ import {
 	GridItem,
 	Icon,
 } from '@chakra-ui/react'
-import Container from '../layout/container'
-import ContentWrapper from '../layout/contentWrapper'
-import useToggle from '../utils/hooks/useToggle'
-import * as tools from '../data/tools'
-import Timeline from '../components/timeline'
+import Container from '@/layouts/container'
+import ContentWrapper from '@/layouts/contentWrapper'
+import useToggle from '@/hooks/useToggle'
+import * as tools from '@/data/tools'
+import Timeline from '@/components/timeline'
 
 const About = () => (
 	<Container title='About | Nitesh Seram'>

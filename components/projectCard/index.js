@@ -8,8 +8,8 @@ import {
 	Text,
 	VStack,
 } from '@chakra-ui/react'
-import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
-import { Label } from '../styled'
+import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
+import { Label } from '@/components/styled'
 
 const ProjectCard = ({ title, description, tools, live, repo, ...props }) => {
 	const { colorGrey, colorDark, colorLight } = useColorModeSwitcher()

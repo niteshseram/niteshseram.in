@@ -7,9 +7,9 @@ import {
 	useColorModeValue,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
-import { ErrorMessage, SuccessMessage } from '../styled/message'
-import { event } from '../../lib/analytics'
+import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
+import { ErrorMessage, SuccessMessage } from '@/components/styled/message'
+import { event } from '@/lib/analytics'
 
 const ContactForm = () => {
 	const border = useColorModeValue('neutral.300', 'neutral.200')
