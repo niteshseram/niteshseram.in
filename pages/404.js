@@ -21,7 +21,7 @@ const Blog = () => {
 				<Text variant='subtitle' pb={1}>
 					Let&apos;s get you back...
 				</Text>
-				<Link href='/'>
+				<Link href='/' passHref>
 					<Button variant='primaryThemed'>Go Back Home</Button>
 				</Link>
 			</VStack>
