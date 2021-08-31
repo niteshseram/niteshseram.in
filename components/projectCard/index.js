@@ -11,15 +11,7 @@ import {
 import useColorModeSwitcher from '../../utils/hooks/useColorModeSwitcher'
 import { Label } from '../styled'
 
-const ProjectCard = ({
-	title,
-	description,
-	tools,
-	live,
-	proto,
-	repo,
-	...props
-}) => {
+const ProjectCard = ({ title, description, tools, live, repo, ...props }) => {
 	const { colorGrey, colorDark, colorLight } = useColorModeSwitcher()
 	return (
 		<VStack

@@ -1,35 +1,3 @@
 {
-	"env": {
-		"browser": true,
-		"es6": true,
-		"node": true
-	},
-	"extends": ["plugin:react/recommended", "airbnb", "prettier"],
-	"plugins": ["react", "prettier"],
-	"rules": {
-		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-		"react/react-in-jsx-scope": "off",
-		"react/jsx-props-no-spreading": "off",
-		"react/no-danger": "off",
-		"react/prop-types": [0],
-		"import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
-		// "no-console": 1,
-		// "no-unused-vars": 1,
-		// "react/prop-types": [
-		// 	"enabled",
-		// 	{ "ignore": "ignore", "customValidators": "customValidator" }
-		// ]
-	},
-	"parserOptions": {
-		"ecmaFeatures": {
-			"jsx": true
-		},
-		"ecmaVersion": 12,
-		"sourceType": "module"
-	},
-	"settings": {
-		"react": {
-			"version": "detect"
-		}
-	}
+	"extends": ["eslint:recommended", "next", "prettier"]
 }
