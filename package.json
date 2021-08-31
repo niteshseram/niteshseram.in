@@ -7,8 +7,6 @@
 		"build": "next build",
 		"postbuild": "node ./scripts/generate-sitemap.mjs",
 		"start": "next start",
-		"storybook": "start-storybook -p 6006",
-		"build-storybook": "build-storybook",
 		"prettier": "prettier --check .",
 		"lint": "next lint",
 		"format": "lint-staged",
