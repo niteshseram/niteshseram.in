@@ -34,7 +34,7 @@ const Intro = () => (
 		>
 			About Me
 		</Heading>
-		<ChakraContainer maxW={{ base: '100%', sm: '30rem', md: '40rem' }} p={0}>
+		<ChakraContainer maxW={{ base: '100%', sm: '30rem', md: '42rem' }} p={0}>
 			<Text mb='2rem'>
 				Hello there! I&apos;m Seram Nitesh Singh, a Software Engineer and also
 				an Open Source enthusiast. I have done my graduation in Computer Science
@@ -75,7 +75,7 @@ const Skills = () => {
 			<Heading as='h3' variant='h3' mb='0.5rem'>
 				Tools & Technologies
 			</Heading>
-			<ChakraContainer maxW={{ base: '100%', sm: '30rem', md: '40rem' }} p={0}>
+			<ChakraContainer maxW={{ base: '100%', sm: '30rem', md: '42rem' }} p={0}>
 				<Text mb='1rem'>
 					Here are all the tools and technologies that I used most frequently
 					but It doesn&apos;t mean I am an expert in all these.
