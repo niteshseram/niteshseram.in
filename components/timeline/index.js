@@ -72,6 +72,7 @@ const FullTimeline = () => (
 				Open Source and trying to be active as much as possible.
 			</Checkpoint>
 		</List>
+		<Divider />
 		<Year>2020</Year>
 		<List>
 			<Checkpoint title='Joined Cognizant'>
