@@ -59,7 +59,7 @@ const FullTimeline = () => (
 			<Checkpoint title='Started Open Source contribution ❤️'>
 				Started Open Source contribution mainly in{' '}
 				<Link
-					href='https://github.com/pulls?q=author%3Aniteshseram+org%3Akubernetes+'
+					href='https://github.com/kubernetes/website/pulls?q=author%3Aniteshseram+'
 					aria-label='kubernetes contribution'
 					target='_blank'
 					rel='noopener noreferrer'
