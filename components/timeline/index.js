@@ -6,6 +6,7 @@ import {
 	List,
 	ListItem,
 	Text,
+	Link,
 } from '@chakra-ui/react'
 import { HiBadgeCheck } from 'react-icons/hi'
 import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
@@ -50,8 +51,34 @@ const Checkpoint = ({ title, children }) => {
 
 const FullTimeline = () => (
 	<>
+		<Year>2021</Year>
+		<List>
+			<Checkpoint title='Joining a Startup as a Software Engineer'>
+				Will be joining a startup as a Software Engineer in the month of October
+			</Checkpoint>
+			<Checkpoint title='Started Open Source contribution ❤️'>
+				Started Open Source contribution mainly in{' '}
+				<Link
+					href='https://github.com/pulls?q=author%3Aniteshseram+org%3Akubernetes+'
+					aria-label='kubernetes contribution'
+					target='_blank'
+					rel='noopener noreferrer'
+				>
+					Kubernetes
+				</Link>{' '}
+				docs and other projects here and there. Although there were not any big
+				major contributions being made, I learnt a lot about how to contribute
+				and collaborate in such a big project in general. I am still exploring
+				Open Source and trying to be active as much as possible.
+			</Checkpoint>
+		</List>
 		<Year>2020</Year>
 		<List>
+			<Checkpoint title='Joined Cognizant'>
+				At the end of 2020 after graduation, I joined Cognizant as a Programmer
+				Analyst Trainee. I learnt about Java Full Stack development while
+				working here.
+			</Checkpoint>
 			<Checkpoint title='Graduated 🧑‍🎓'>
 				Sadly graduated with a virtual convocation
 			</Checkpoint>
@@ -86,7 +113,8 @@ const FullTimeline = () => (
 				liked other than engineering.
 			</Checkpoint>
 			<Checkpoint title='Completed higher secondary 🧑‍🏫'>
-				Decided to try for medical entrance examination
+				Completed my higher secondary and decided to try for medical entrance
+				examination
 			</Checkpoint>
 		</List>
 
