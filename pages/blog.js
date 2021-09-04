@@ -6,15 +6,15 @@ import BlogCard from '@/components/blogCard'
 const Blog = ({ posts }) => (
 	<Container
 		title='Blog | Nitesh Seram'
-		description='A small digital corner sharing my thoughts, learning, and random things'
+		description='A digital corner sharing my thoughts, learning, and random things'
 	>
 		<Box maxW={{ base: '100%', sm: '30rem', md: '42rem' }}>
 			<Heading as='h2' variant='h2' mt='2rem' mb='2rem'>
 				Blog
 			</Heading>
 			<Text>
-				A small digital corner where I would be sharing my thoughts, learning,
-				and some random things.😅
+				My digital corner where I would be sharing my thoughts, learning, and
+				some random things.😅
 			</Text>
 			<List mt={5}>
 				{posts.map((post, index) => (
