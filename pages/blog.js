@@ -28,8 +28,8 @@ const Blog = ({ posts }) => (
 )
 
 export const getStaticProps = async () => {
-	const posts = await getAllFilesFrontMatter('blog')
-	console.log(posts)
+	let posts = await getAllFilesFrontMatter('blog')
+	posts.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
 	return {
 		props: { posts },
 	}

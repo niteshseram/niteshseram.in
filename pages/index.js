@@ -2,9 +2,10 @@ import {
 	Box,
 	Button,
 	Center,
-	Flex,
 	Heading,
 	List,
+	Flex,
+	ListItem,
 	Text,
 	VStack,
 	Link,
@@ -18,12 +19,15 @@ import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
 import projects from '@/data/projects'
 import { twitter } from '@/data/socials'
 import ContentWrapper from '@/layouts/contentWrapper'
+import { getAllFilesFrontMatter } from '@/lib/mdx'
+import BlogCard from '@/components/blogCard'
 
-export default function Home() {
+export default function Home({ posts }) {
 	return (
 		<Container>
 			<ContentWrapper>
 				<Hero />
+				<BlogSection posts={posts} />
 				<FeaturedProjects />
 				<ContactSection />
 			</ContentWrapper>
@@ -90,6 +94,19 @@ const Hero = () => {
 		</Flex>
 	)
 }
+
+const BlogSection = ({ posts }) => (
+	<VStack w='100%'>
+		<FeatureHeading>Recent Blogs</FeatureHeading>
+		<List mt={5} flex='0 0 auto' w={{ base: '100%', md: '80%', lg: '70%' }}>
+			{posts.map((post, index) => (
+				<ListItem key={index}>
+					<BlogCard post={post} />
+				</ListItem>
+			))}
+		</List>
+	</VStack>
+)
 
 const FeaturedProjects = () => (
 	<VStack w='100%' m='auto'>
@@ -189,4 +206,14 @@ const ContactSection = () => {
 			</Flex>
 		</VStack>
 	)
+}
+
+export const getStaticProps = async () => {
+	const posts = await getAllFilesFrontMatter('blog')
+	posts
+		.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+		.slice(0, 4)
+	return {
+		props: { posts },
+	}
 }
