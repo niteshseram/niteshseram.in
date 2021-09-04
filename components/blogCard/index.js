@@ -7,7 +7,7 @@ const BlogCard = ({ post }) => {
 	return (
 		<BlogWrapper>
 			<Link href={`/blog/${post.slug}`} passHref>
-				<Box cursor='pointer' p={2}>
+				<Box cursor='pointer' p={{ base: 2, md: '4' }}>
 					<Stack>
 						<Heading as='h4' variant='h4'>
 							{post.title}

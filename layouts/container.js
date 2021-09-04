@@ -31,7 +31,7 @@ const Seo = ({ ...customMeta }) => {
 		title: 'Nitesh Seram - Software Engineer',
 		description:
 			'Nitesh Seram is a Software Engineer and also an Open Source enthusiast. He is passionate about software development and also love learning and exploring new technologies.',
-		image: '',
+		image: '/static/images/banner.PNG',
 		type: 'website',
 		...customMeta,
 	}
@@ -56,6 +56,9 @@ const Seo = ({ ...customMeta }) => {
 			<meta name='twitter:title' content={meta.title} />
 			<meta name='twitter:description' content={meta.description} />
 			<meta name='twitter:image' content={meta.image} />
+			{meta.date && (
+				<meta property='article:published_time' content={meta.date} />
+			)}
 		</Head>
 	)
 }
