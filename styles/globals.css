@@ -23,3 +23,14 @@ a {
 	box-sizing: border-box;
 	scroll-behavior: smooth;
 }
+
+.mdx hr {
+	margin: 50px 0;
+	display: block;
+}
+
+.mdx ol,
+.mdx ul {
+	margin: 1rem;
+	margin-left: 1.5rem;
+}
