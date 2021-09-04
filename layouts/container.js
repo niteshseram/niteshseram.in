@@ -30,8 +30,8 @@ const Seo = ({ ...customMeta }) => {
 	const meta = {
 		title: 'Nitesh Seram - Software Engineer',
 		description:
-			'Nitesh Seram is a Software Engineer and also an Open Source enthusiast. He is passionate about software development and also love learning and exploring new technologies.',
-		image: 'https://niteshseram.in/static/images/banner.PNG',
+			'Software Engineer, Full Stack Developer, and Open Source enthusiast',
+		image: 'https://niteshseram.in/static/images/banner.png',
 		type: 'website',
 		...customMeta,
 	}
