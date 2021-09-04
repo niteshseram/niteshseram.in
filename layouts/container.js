@@ -56,6 +56,9 @@ const Seo = ({ ...customMeta }) => {
 			<meta name='twitter:title' content={meta.title} />
 			<meta name='twitter:description' content={meta.description} />
 			<meta name='twitter:image' content={meta.image} />
+			{meta.date && (
+				<meta property='article:published_time' content={meta.date} />
+			)}
 		</Head>
 	)
 }
