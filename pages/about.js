@@ -11,7 +11,7 @@ import Container from '@/layouts/Container'
 import ContentWrapper from '@/layouts/ContentWrapper'
 import useToggle from '@/hooks/useToggle'
 import * as tools from '@/data/tools'
-import Timeline from '@/components/timeline'
+import Timeline from '@/components/Timeline'
 
 const About = () => (
 	<Container title='About | Nitesh Seram'>
