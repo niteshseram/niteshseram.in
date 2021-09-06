@@ -16,6 +16,7 @@ This is 2nd iteration of my personal website built using NextJs, ChakraUI, and V
 - `component/*`- All the components like Navbar, Footer, ContactForm, etc are here
 - `layout/*` - These are the containers which handle the layout of the site
 - `data/*`- It contains all the static data about projects, tools and socials
+- `data/blog` - It contains all the mdx files for blog
 - `styles/*` - All the styling related things like colors, typography, etc are here
 
 # Running locally
