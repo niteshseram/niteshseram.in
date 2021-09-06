@@ -1,7 +1,7 @@
 import { Box, Heading, List, ListItem, Text } from '@chakra-ui/react'
-import Container from '@/layouts/container'
+import Container from '@/layouts/Container'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
-import BlogCard from '@/components/blogCard'
+import BlogCard from '@/components/BlogCard'
 
 const Blog = ({ posts }) => (
 	<Container

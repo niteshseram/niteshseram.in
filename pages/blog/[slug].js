@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { getMDXComponent } from 'mdx-bundler/client'
 import { getFiles, getFileBySlug } from '@/lib/mdx'
-import BlogLayout from '@/layouts/blog'
-import MDXComponenets from '@/components/mdx'
+import BlogLayout from '@/layouts/BlogLayout'
+import MDXComponenets from '@/components/MDXComponent'
 
 const Blog = ({ code, frontMatter }) => {
 	const Component = useMemo(() => getMDXComponent(code), [code])

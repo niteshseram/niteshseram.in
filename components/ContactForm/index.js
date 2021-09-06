@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
-import { ErrorMessage, SuccessMessage } from '@/components/styled/message'
+import { ErrorMessage, SuccessMessage } from '@/components/styled/Message'
 import { event } from '@/lib/analytics'
 
 const ContactForm = () => {

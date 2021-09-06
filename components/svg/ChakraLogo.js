@@ -10,9 +10,9 @@ const ChakraBase = createIcon({
 	),
 })
 
-const Chakra = ({ ...props }) => {
+const ChakraLogo = ({ ...props }) => {
 	const { colorLight } = useColorModeSwitcher()
 	return <Icon {...props} fill={colorLight} boxSize='32rem' as={ChakraBase} />
 }
 
-export default Chakra
+export default ChakraLogo

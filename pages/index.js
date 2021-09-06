@@ -12,15 +12,15 @@ import {
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import Image from 'next/image'
-import Container from '@/layouts/container'
-import ProjectCard from '@/components/projectCard'
-import ContactForm from '@/components/contactForm'
+import Container from '@/layouts/Container'
+import ProjectCard from '@/components/ProjectCard'
+import ContactForm from '@/components/ContactForm'
 import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
 import projects from '@/data/projects'
 import { twitter } from '@/data/socials'
-import ContentWrapper from '@/layouts/contentWrapper'
+import ContentWrapper from '@/layouts/ContentWrapper'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
-import BlogCard from '@/components/blogCard'
+import BlogCard from '@/components/BlogCard'
 
 export default function Home({ posts }) {
 	return (

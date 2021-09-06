@@ -4,7 +4,7 @@ import { parseISO, format } from 'date-fns'
 import { Box, Heading, Flex, Text } from '@chakra-ui/react'
 import { Icon } from '@chakra-ui/icon'
 import { Global } from '@emotion/react'
-import Container from './container'
+import Container from './Container'
 import { MdTimelapse } from 'react-icons/md'
 import { prismDarkTheme, prismLightTheme } from '@/styles/prism'
 

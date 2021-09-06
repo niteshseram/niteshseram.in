@@ -48,7 +48,7 @@ const CImage = (props) => (
 	</Box>
 )
 
-const MDXComponenets = {
+const MDXComponent = {
 	a: CustomLink,
 	h1,
 	h2,
@@ -57,4 +57,4 @@ const MDXComponenets = {
 	CImage,
 }
 
-export default MDXComponenets
+export default MDXComponent
