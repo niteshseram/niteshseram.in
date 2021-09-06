@@ -54,7 +54,7 @@ const FullTimeline = () => (
 		<Year>2021</Year>
 		<List>
 			<Checkpoint title='Joining a Startup as a Software Engineer'>
-				Will be joining a startup as a Software Engineer in the month of October
+				Will be joining a startup as a Software Engineer in October
 			</Checkpoint>
 			<Checkpoint title='Started Open Source contribution ❤️'>
 				Started Open Source contribution mainly in{' '}
