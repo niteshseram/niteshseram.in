@@ -1,9 +1,6 @@
-<h1 align="center" font-weight="bold">
-  Portfolio V2
-</h1>
-<p align="center">
-  This is the 2nd iteration of my personal <a href="https://niteshseram.in" target="_blank">website</a> built with <a href="https://nextjs.org/" target="_blank">NextJs</a>, <a href="chakra-ui.com">ChakraUI</a> and <a href="https://vercel.com" target="_blank">Vercel</a>.
-</p>
+# Portfolio V2
+
+This is the 2nd iteration of my personal <a href="https://niteshseram.in" target="_blank">website</a> built with <a href="https://nextjs.org/" target="_blank">NextJs</a>, <a href="chakra-ui.com">ChakraUI</a>, <a href="https://github.com/mdx-js/mdx">MDX</a> and <a href="https://vercel.com" target="_blank">Vercel</a>.
 
 # Overview
 
@@ -45,3 +42,4 @@ Create a `.env.local` file similar to `.env.example` with the values in it. But 
 - [Next JS](https://nextjs.org/)
 - [Chakra UI](https://chakra-ui.com)
 - [Vercel](https://vercel.com)
+- [MDX](https://github.com/mdx-js/mdx)
