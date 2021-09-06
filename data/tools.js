@@ -14,7 +14,7 @@ import {
 	SiDocker,
 	SiStyledComponents,
 } from 'react-icons/si'
-import Chakra from '@/components/svg/chakraLogo'
+import Chakra from '@/components/svg/ChakraLogo'
 
 export const java = {
 	name: 'Java',

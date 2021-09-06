@@ -1,6 +1,6 @@
 import { Box, Button, Heading, Text, VStack } from '@chakra-ui/react'
 import Link from 'next/link'
-import Container from '@/layouts/container'
+import Container from '@/layouts/Container'
 import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
 
 const Blog = () => {

@@ -1,8 +1,8 @@
 import { Box, Grid, Heading, Text } from '@chakra-ui/react'
-import Container from '@/layouts/container'
-import ContentWrapper from '@/layouts/contentWrapper'
+import Container from '@/layouts/Container'
+import ContentWrapper from '@/layouts/ContentWrapper'
 import projects from '@/data/projects'
-import ProjectCard from '@/components/projectCard'
+import ProjectCard from '@/components/ProjectCard'
 
 const Projects = () => (
 	<Container title='Projects | Nitesh Seram'>

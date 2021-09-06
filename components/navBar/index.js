@@ -11,7 +11,7 @@ import NextLink from 'next/link'
 import { IoMoon, IoSunnyOutline } from 'react-icons/io5'
 import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
 import useToggle from '@/hooks/useToggle'
-import Logo from '@/components/svg/logo'
+import Logo from '@/components/svg/Logo'
 import { StyledLink } from '@/components/styled'
 
 export const NavBar = ({ toggleIsOpen }) => {

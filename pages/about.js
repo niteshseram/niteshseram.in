@@ -7,8 +7,8 @@ import {
 	GridItem,
 	Icon,
 } from '@chakra-ui/react'
-import Container from '@/layouts/container'
-import ContentWrapper from '@/layouts/contentWrapper'
+import Container from '@/layouts/Container'
+import ContentWrapper from '@/layouts/ContentWrapper'
 import useToggle from '@/hooks/useToggle'
 import * as tools from '@/data/tools'
 import Timeline from '@/components/timeline'
