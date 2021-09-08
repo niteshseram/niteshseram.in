@@ -62,6 +62,11 @@ const Seo = ({ ...customMeta }) => {
 			{meta.date && (
 				<meta property='article:published_time' content={meta.date} />
 			)}
+			<meta
+				name='google-site-verification'
+				content='cTvq0i7fkRjh7wtvWKlnG42rayvxZBES7MzLl8CoC4k'
+			/>
+			<meta name='yandex-verification' content='75318e4097177399' />
 		</Head>
 	)
 }
