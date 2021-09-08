@@ -33,6 +33,8 @@ const Seo = ({ ...customMeta }) => {
 			'Software Engineer, Full Stack Developer, and Open Source enthusiast',
 		image: 'https://niteshseram.in/static/images/banner.png',
 		type: 'website',
+		keywords:
+			'Software Engineer, Full Stack Developer, Open Source, Web Developer, Programmer, Seram Nitesh Singh, Nitesh Seram, Nitesh Singh',
 		...customMeta,
 	}
 
@@ -56,6 +58,7 @@ const Seo = ({ ...customMeta }) => {
 			<meta name='twitter:title' content={meta.title} />
 			<meta name='twitter:description' content={meta.description} />
 			<meta name='twitter:image' content={meta.image} />
+			<meta name='keywords' content={meta.keywords} />
 			{meta.date && (
 				<meta property='article:published_time' content={meta.date} />
 			)}
