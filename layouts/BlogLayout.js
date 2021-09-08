@@ -16,6 +16,7 @@ const BlogLayout = ({ children, frontMatter }) => {
 			title={`${frontMatter.title} | Nitesh Seram`}
 			description={frontMatter.summary}
 			image={`https://niteshseram.in${frontMatter.image}`}
+			keywords={frontMatter.keywords}
 			date={new Date(frontMatter.publishedAt).toISOString()}
 			type='article'
 		>
