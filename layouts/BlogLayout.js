@@ -10,6 +10,7 @@ import { prismDarkTheme, prismLightTheme } from '@/styles/prism'
 
 const BlogLayout = ({ children, frontMatter }) => {
 	const prismColor = useColorModeValue(prismLightTheme, prismDarkTheme)
+	const color = useColorModeValue('neutral.700', 'neutral.300')
 	return (
 		<Container
 			title={`${frontMatter.title} | Nitesh Seram`}
@@ -25,6 +26,7 @@ const BlogLayout = ({ children, frontMatter }) => {
 				maxW={{ base: '100%', sm: '30rem', md: '42rem' }}
 				display='flex'
 				flexDirection='column'
+				color={color}
 				className='mdx'
 			>
 				<Global styles={prismColor} />
