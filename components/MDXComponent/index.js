@@ -28,9 +28,9 @@ const CustomLink = (props) => {
 		<Link
 			target='_blank'
 			rel='noopener noreferrer'
-			color='link'
 			className='mdx'
 			fontWeight='bold'
+			color={themed}
 			{...props}
 		>
 			{props.children}
@@ -42,6 +42,9 @@ const h1 = (props) => <Heading as='h1' variant='h1' mt={8} mb={4} {...props} />
 const h2 = (props) => <Heading as='h2' variant='h2' mt={8} mb={4} {...props} />
 const h3 = (props) => <Heading as='h3' variant='h3' mt={8} mb={4} {...props} />
 const h4 = (props) => <Heading as='h4' variant='h4' mt={8} mb={4} {...props} />
+const strong = (props) => (
+	<Heading as='strong' variant='bold' mt={8} mb={4} {...props} />
+)
 const CImage = (props) => (
 	<Box mb={4}>
 		<Image alt={props.alt} {...props} />
@@ -54,7 +57,9 @@ const MDXComponent = {
 	h2,
 	h3,
 	h4,
+	strong,
 	CImage,
+	Image,
 }
 
 export default MDXComponent

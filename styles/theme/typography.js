@@ -6,24 +6,30 @@ export const fonts = {
 export const Heading = {
 	sizes: null,
 	variants: {
-		h1: {
+		h1: (props) => ({
 			textStyle: 'h1',
-		},
-		h2: {
+			color: props.colorMode === 'light' ? 'default.dark' : 'default.light',
+		}),
+		h2: (props) => ({
 			textStyle: 'h2',
-		},
-		h3: {
+			color: props.colorMode === 'light' ? 'default.dark' : 'default.light',
+		}),
+		h3: (props) => ({
 			textStyle: 'h3',
-		},
-		h4: {
+			color: props.colorMode === 'light' ? 'default.dark' : 'default.light',
+		}),
+		h4: (props) => ({
 			textStyle: 'h4',
-		},
-		h5: {
+			color: props.colorMode === 'light' ? 'default.dark' : 'default.light',
+		}),
+		h5: (props) => ({
 			textStyle: 'h5',
-		},
-		bold: {
+			color: props.colorMode === 'light' ? 'default.dark' : 'default.light',
+		}),
+		bold: (props) => ({
 			textStyle: 'bodyBold',
-		},
+			color: props.colorMode === 'light' ? 'default.dark' : 'default.light',
+		}),
 	},
 }
 
