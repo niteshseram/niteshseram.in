@@ -31,6 +31,7 @@ const CustomLink = (props) => {
 			className='mdx'
 			fontWeight='bold'
 			color={themed}
+			_focus={{ outline: 'none' }}
 			{...props}
 		>
 			{props.children}
