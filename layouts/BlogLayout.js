@@ -29,6 +29,7 @@ const BlogLayout = ({ children, frontMatter }) => {
 				flexDirection='column'
 				color={color}
 				className='mdx'
+				mb='5rem'
 			>
 				<Global styles={prismColor} />
 				<Heading as='h2' variant='h2'>

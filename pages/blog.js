@@ -8,7 +8,7 @@ const Blog = ({ posts }) => (
 		title='Blog | Nitesh Seram'
 		description='A digital corner sharing my thoughts, learning, and random things'
 	>
-		<Box maxW={{ base: '100%', sm: '30rem', md: '42rem' }}>
+		<Box maxW={{ base: '100%', sm: '30rem', md: '42rem' }} mb='5rem'>
 			<Heading as='h2' variant='h2' mt='2rem' mb='2rem'>
 				Blog
 			</Heading>
