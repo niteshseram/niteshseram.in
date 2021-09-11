@@ -9,7 +9,7 @@ const BlogCard = ({ post }) => {
 			<Link href={`/blog/${post.slug}`} passHref>
 				<Box cursor='pointer' p={{ base: 2, md: '4' }}>
 					<Stack>
-						<Heading as='h4' variant='h4'>
+						<Heading as='h3' variant='h4'>
 							{post.title}
 						</Heading>
 						<Text>{post.summary}</Text>

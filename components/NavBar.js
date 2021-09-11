@@ -102,7 +102,13 @@ const MenuButton = ({ toggleIsOpen }) => {
 const MenuIcon = ({ clicked }) => {
 	const { colorDark } = useColorModeSwitcher()
 	return (
-		<Box w='100%' h='100%' position='relative' aria-label='Menu Icon'>
+		<Box
+			w='100%'
+			h='100%'
+			position='relative'
+			aria-label='Menu Icon'
+			role='button'
+		>
 			<Line
 				left={clicked ? '8px' : '4px'}
 				bg={colorDark}
