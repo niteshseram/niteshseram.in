@@ -41,7 +41,7 @@ const FooterContent = () => (
 				<FooterLink href='/projects'>Projects</FooterLink>
 				<FooterLink href='/blog'>Blog</FooterLink>
 			</VStack>
-			<VStack alignItems='start' ml={{ base: '3rem', sm: '5rem', md: '10rem' }}>
+			<VStack alignItems='start' ml={{ base: '100%', sm: '5rem', md: '10rem' }}>
 				<Heading>SOCIALS</Heading>
 				<FooterLink href={github.href} name={github.name}>
 					Github
