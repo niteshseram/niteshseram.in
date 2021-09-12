@@ -4,12 +4,13 @@ import { parseISO, format } from 'date-fns'
 import useColorModeSwitcher from '@/utils/hooks/useColorModeSwitcher'
 
 const BlogCard = ({ post }) => {
+	const { themed } = useColorModeSwitcher()
 	return (
 		<BlogWrapper>
 			<Link href={`/blog/${post.slug}`} passHref>
 				<Box cursor='pointer' p={{ base: 2, md: '4' }}>
 					<Stack>
-						<Heading as='h3' variant='h4'>
+						<Heading as='h3' variant='h4' _hover={{ color: themed }}>
 							{post.title}
 						</Heading>
 						<Text>{post.summary}</Text>
