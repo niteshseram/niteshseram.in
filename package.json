@@ -1,7 +1,10 @@
 {
-	"name": "nextjs",
+	"name": "niteshseram.in",
 	"version": "0.1.0",
-	"private": true,
+	"private": false,
+	"description": "My personal website built using Next.js, ChakraUI and MDX",
+	"license": "MIT",
+	"author": "Nitesh Seram <niteshseram@gmail.com>",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
@@ -52,6 +55,15 @@
 		"rehype-code-titles": "1.0.3",
 		"rehype-prism-plus": "^0.0.5",
 		"rehype-slug": "5.0.0",
-		"remark-gfm": "^2.0.0"
-	}
+		"remark-gfm": "^2.0.0",
+		"sitemap": "^7.0.0"
+	},
+	"keywords": [
+		"next.js",
+		"react.js",
+		"mdx",
+		"portfolio",
+		"personal website",
+		"chakra"
+	]
 }

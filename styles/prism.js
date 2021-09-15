@@ -49,6 +49,15 @@ const prismBaseTheme = css`
 		border-radius: 0.3em;
 		white-space: normal;
 	}
+
+	:not(pre) > code {
+		font-size: ${theme.fontSizes['sm']};
+	}
+	:not(pre) > code:before,
+	:not(pre) > code:after {
+		content: '\`';
+	}
+
 	.token.comment,
 	.token.prolog,
 	.token.doctype,
@@ -151,6 +160,9 @@ export const prismLightTheme = css`
 		background: ${theme.colors.gray[50]};
 		border: 1px solid ${theme.colors.gray[200]};
 	}
+	:not(pre) > code {
+		color: ${theme.colors.blue[600]};
+	}
 	.mdx-marker {
 		background-color: hsla(204, 45%, 96%, 1);
 	}
@@ -160,6 +172,9 @@ export const prismDarkTheme = css`
 	${prismBaseTheme};
 	:not(pre) > code[class*='language-'] {
 		background: #011627;
+	}
+	:not(pre) > code {
+		color: ${theme.colors.yellow[400]};
 	}
 	.token.attr-name {
 		color: rgb(173, 219, 103);
