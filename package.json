@@ -1,5 +1,5 @@
 {
-	"name": "portfolio",
+	"name": "niteshseram.in",
 	"version": "0.1.0",
 	"private": false,
 	"description": "My personal website built using Next.js, ChakraUI and MDX",
@@ -55,7 +55,8 @@
 		"rehype-code-titles": "1.0.3",
 		"rehype-prism-plus": "^0.0.5",
 		"rehype-slug": "5.0.0",
-		"remark-gfm": "^2.0.0"
+		"remark-gfm": "^2.0.0",
+		"sitemap": "^7.0.0"
 	},
 	"keywords": [
 		"next.js",
