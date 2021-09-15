@@ -48,9 +48,9 @@ npm run dev
 
 ### Create the contact form
 
-Let's create the contact form directly inside our **_pages/index.js_** file.
+Let's create the contact form directly inside our `pages/index.js` file.
 
-Clean up everything from **_index.js_** file which was present previously and paste the below code.
+Clean up everything from `index.js` file which was present previously and paste the below code.
 
 ```js:pages/index.js
 import { useState } from 'react'
@@ -167,13 +167,13 @@ const [inputs, setInputs] = useState({
 })
 ```
 
-The above code is simply initializing state **_inputs_** by an object which includes all the fields to store its value.
+The above code is simply initializing state `inputs` by an object which includes all the fields to store its value.
 
 ```js
 const [form, setForm] = useState('')
 ```
 
-The above code is also declaring a state **_form_** for storing any state related to the form like if it is still sending or if there is an error or if the message has been sent successfully.
+The above code is also declaring a state `form` for storing any state related to the form like if it is still sending or if there is an error or if the message has been sent successfully.
 
 ```js
 const handleChange = (e) => {
@@ -184,9 +184,9 @@ const handleChange = (e) => {
 }
 ```
 
-The above code is for handling any change in each input field. Every time when we enter a character in each input field, an event **_e_** is triggered which is passed into **_handleChange()_** function as a parameter that update the **_inputs_** state.
+The above code is for handling any change in each input field. Every time when we enter a character in each input field, an event _e_ is triggered which is passed into _handleChange()_ function as a parameter that update the `inputs` state.
 
-So, **_handleChange()_** function is triggered every time when we enter a character in each field.
+So, _handleChange()_ function is triggered every time when we enter a character in each field.
 
 ```js
 <input
@@ -200,7 +200,7 @@ So, **_handleChange()_** function is triggered every time when we enter a charac
 />
 ```
 
-In the above code, we set the value of the field using **_inputs.name_** state. Also, we use onChange properties which call the **_handleChange()_** function.
+In the above code, we set the value of the field using `inputs.name` state. Also, we use onChange properties which call the _handleChange()_ function.
 
 ```js
 const onSubmitForm = async (e) => {
@@ -246,21 +246,21 @@ const onSubmitForm = async (e) => {
 }
 ```
 
-Now, the above code is for handling on submit action. So, what we are doing here is that first, we are checking if all the fields are filled and it's not empty just for the safe side. If all the fields are not empty then, we are doing a POST request to the API endpoint URL **_api/contact_**. In the body of the POST request, we are passing the inputs state.
+Now, the above code is for handling on submit action. So, what we are doing here is that first, we are checking if all the fields are filled and it's not empty just for the safe side. If all the fields are not empty then, we are doing a POST request to the API endpoint URL `api/contact`. In the body of the POST request, we are passing the inputs state.
 
-Then, we get the value of the **_error_** from respond JSON and check if there is an error being sent in the response.
+Then, we get the value of the `error` from respond JSON and check if there is an error being sent in the response.
 
-So, we set the form state using **_setForm_** with an object with **_state_** and **_message_** properties correspondingly for when an error is present and when no error is present.
+So, we set the form state using `setForm` with an object with `state` and `message` properties correspondingly for when an error is present and when no error is present.
 
-We wrapped the **_fetch_** code with try and catch because when there is any error related to the API endpoint **_/api/contact_** like if the URL is incorrect, it will be caught by the catch block.
+We wrapped the `fetch` code with try and catch because when there is any error related to the API endpoint `/api/contact` like if the URL is incorrect, it will be caught by the catch block.
 
-So, this **_onSubmitForm()_** method is called when we click the submit button.
+So, this _onSubmitForm()_ method is called when we click the submit button.
 
 <br />
 Now, let's do some simple styling for the contact form. I will keep it simple since
 we are focusing more on implementing the contact form functionality and not on design.
 
-As we can see, in our **_index.js_** file we are importing **_Home.module.css_** file at the top. So, let's see how the CSS file looks like.
+As we can see, in our `index.js` file we are importing `Home.module.css` file at the top. So, let's see how the CSS file looks like.
 
 ```css:styles/Home.module.css
 .container {
@@ -292,16 +292,16 @@ So, this is the simple CSS for the contact form and is not too fancy.
 <br />
 Now, let's try to run and see if the application is working fine. When we run our
 app and try to submit the form, we will see an error in the console related to **_POST
-404_**. It is because the POST request to the API endpoint **_api/contact_** is not
-successful because the URL is not found.
+404_**. It is because the POST request to the API endpoint `api/contact` is not successful
+because the URL is not found.
 
 Now, we are done with the frontend part of the implementation.
 
 ### Implement the API endpoint
 
-Go to the **_pages/api_** folder and create the **_contact.js_** file inside it.
+Go to the `pages/api` folder and create the `contact.js` file inside it.
 
-In Next.js, any file inside the folder **_pages/api_** is mapped to **_/api/\*_** and will be treated as an API endpoint instead of a page. So, after creating your **_contact.js_** file, your API endpoint will be **_/api/contact_**.
+In Next.js, any file inside the folder `pages/api` is mapped to `/api/*` and will be treated as an API endpoint instead of a page. So, after creating your `contact.js` file, your API endpoint will be `/api/contact`.
 
 ```js:pages/api/contact.js
 export default async (req, res) => {
@@ -311,7 +311,7 @@ export default async (req, res) => {
 }
 ```
 
-Paste the above code inside your **_contact.js_** file. Here, we are simply destructuring the name, email, and message from the request's body that you have sent from the front end. Then, simply print those values in your terminal.
+Paste the above code inside your `contact.js` file. Here, we are simply destructuring the name, email, and message from the request's body that you have sent from the front end. Then, simply print those values in your terminal.
 
 Now, run your app and you should see those values in your terminal when you click the submit button of the form.
 
@@ -325,7 +325,7 @@ yarn add nodemailer
 npm i nodemailer
 ```
 
-Now paste the below code in your **_contact.js_** file by removing all the previous code.
+Now paste the below code in your `contact.js` file by removing all the previous code.
 
 ```js:pages/api/contact.js
 import nodemailer from "nodemailer";
@@ -373,11 +373,11 @@ const transporter = nodemailer.createTransport({
 })
 ```
 
-Then, we create a transporter object which helps in sending the email. There are multiple ways to create a transporter object using different transport methods. Here, we are using **_SMTP_** with Gmail.
+Then, we create a transporter object which helps in sending the email. There are multiple ways to create a transporter object using different transport methods. Here, we are using `SMTP` with Gmail.
 
 Then, we provide the username and password for that SMTP server.
 
-We then call the **_sendMail()_** method using that transporter object. Inside that method, we pass an object which contains mainly-
+We then call the _sendMail()_ method using that transporter object. Inside that method, we pass an object which contains mainly-
 
 - **from**- the sender email address
 - **to**- your email address in which you want to receive this contact form submission
@@ -388,7 +388,7 @@ We then call the **_sendMail()_** method using that transporter object. Inside t
 process.env.SMTP_USER
 ```
 
-The above code is for accessing the **_SMTP_USER_** value from the environment variables and the same goes for **_SMTP_PASSWORD_**. But before setting the environment variables, let's first get the **_SMTP_USER_** and **_SMTP_PASSWORD_**.
+The above code is for accessing the `SMTP_USER` value from the environment variables and the same goes for `SMTP_PASSWORD`. But before setting the environment variables, let's first get the `SMTP_USER` and `SMTP_PASSWORD`.
 
 ### Create the Gmail account for SMTP user and password
 
@@ -403,9 +403,9 @@ You can go ahead and create the Gmail account by yourself like we do normally.
 	width={1083}
 	height={605}
 />
-After creating the account, go to **_Manage Google Account_**, then go to
-**_Security_** option and configure the 2-Step Verification. If you have
-configured from before, then you will see the **_App passwords_** option.
+After creating the account, go to _Manage Google Account_, then go to _Security_
+option and configure the 2-Step Verification. If you have configured from
+before, then you will see the _App passwords_ option.
 <br />
 <CImage
 	alt='2 Step Verification'
@@ -428,25 +428,25 @@ Click on App passwords and select the options as below image.
 	width={929}
 	height={339}
 />
-Then, we will get your password which is going to be your **_SMTP_PASSWORD_**.
-And your **_SMTP_USER_** will be that Gmail address.
+Then, we will get your password which is going to be your `SMTP_PASSWORD`. And
+your `SMTP_USER` will be that Gmail address.
 
-Now, we have got the **_SMTP_USER_** and **_SMTP_PASSWORD_**, let's see how to set up the environment variable.
+Now, we have got the `SMTP_USER` and`_SMTP_PASSWORD`, let's see how to set up the environment variable.
 
 ### Set up the environment variable
 
-For **_local development_**, create a **_.env.local_** file in the root directory and add the values in the file like given below.
+For **_local development_**, create a `_.env.local` file in the root directory and add the values in the file like given below.
 
 ```js
 SMTP_USER=example@gmail.com
 SMTP_PASSWORD=your app password
 ```
 
-These values can be accessed like **_process.env.SMTP_USER_** and **_process.env.SMTP_PASSWORD_** as we did in **_contact.js_** file.
+These values can be accessed like `process.env.SMTP_USER` and `process.env.SMTP_PASSWORD` as we did in `contact.js` file.
 
 <br />
-Don't forget to add this **_.env.local_** file inside your **_.gitignore_** if you're
-pushing this code in GitHub.
+Don't forget to add this `.env.local` file inside your `.gitignore` if you're pushing
+this code in GitHub.
 <br />
 For **_production_**, you have to put those environment variables in the platform
 of the hosting provider. Let's take [Vercel](https://vercel.com) for our case and
@@ -462,7 +462,7 @@ In Vercel, go to your Project settings and then go to the Environment Variables 
 	height={757}
 />
 
-Then, you have to provide the name and value for that environment variables **_SMTP_USER_** and **_SMTP_PASSWORD_** like below image.
+Then, you have to provide the name and value for that environment variables `SMTP_USER` and `SMTP_PASSWORD` like below image.
 
 <br />
 <CImage
