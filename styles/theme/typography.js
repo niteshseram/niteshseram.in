@@ -1,6 +1,8 @@
 export const fonts = {
-	heading: 'Inter, sans-serif',
-	body: 'Inter, sans-serif',
+	heading:
+		'Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial',
+	body:
+		'Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial',
 }
 
 export const Heading = {
