@@ -1,3 +1,4 @@
+import { ColorModeScript } from '@chakra-ui/color-mode'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 class MyDocument extends Document {
@@ -41,6 +42,7 @@ class MyDocument extends Document {
 					<meta name='yandex-verification' content='75318e4097177399' />
 				</Head>
 				<body>
+					<ColorModeScript />
 					<Main />
 					<NextScript />
 				</body>

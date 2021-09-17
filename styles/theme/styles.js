@@ -9,10 +9,6 @@ const styles = {
 			borderRadius: 'sm',
 		},
 	}),
-	config: {
-		initialColorMode: 'dark',
-		useSystemColorMode: false,
-	},
 }
 
 export default styles
