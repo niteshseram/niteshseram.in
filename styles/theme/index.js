@@ -14,6 +14,10 @@ const breakpoints = createBreakpoints({
 	'2xl': '90em',
 	'3xl': '120em',
 })
+const config = {
+	initialColorMode: 'dark',
+	useSystemColorMode: false,
+}
 
 const overrides = {
 	breakpoints,
@@ -21,6 +25,7 @@ const overrides = {
 	colors,
 	fonts,
 	textStyles,
+	config,
 	components: {
 		Button,
 		Link,
