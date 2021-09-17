@@ -42,7 +42,7 @@ class MyDocument extends Document {
 					<meta name='yandex-verification' content='75318e4097177399' />
 				</Head>
 				<body>
-					<ColorModeScript />
+					<ColorModeScript initialColorMode='dark' />
 					<Main />
 					<NextScript />
 				</body>
