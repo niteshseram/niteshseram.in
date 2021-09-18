@@ -1,84 +1,66 @@
-import {
-	Box,
-	Flex,
-	HStack,
-	IconButton,
-	useColorMode,
-	VStack,
-	Link,
-} from '@chakra-ui/react'
-import NextLink from 'next/link'
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
+import useToggle from '@/utils/hooks/useToogle'
 import { IoMoon, IoSunnyOutline } from 'react-icons/io5'
-import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
-import useToggle from '@/hooks/useToggle'
-import Logo from '@/components/svg/Logo'
-import { StyledLink } from '@/components/styled'
+import Link from 'next/link'
+import Logo from './svg/Logo'
 
-export const NavBar = ({ toggleIsOpen }) => {
-	const { colorMode, toggleColorMode } = useColorMode()
+const NavBar = ({ toggleIsOpen }) => {
+	const { theme, setTheme } = useTheme()
+	const [mounted, setMounted] = useState(false)
+
+	useEffect(() => setMounted(true), [])
+
 	return (
-		<Flex as='nav' h='10vh' alignItems='center' justify='space-between'>
-			<MenuButton toggleIsOpen={toggleIsOpen} />
-			<NextLink href='/' passHref>
-				<Link aria-label='logo' href _focus={{ outline: 'none' }}>
-					<Logo />
-				</Link>
-			</NextLink>
-			<HStack spacing={{ base: 0, md: 8 }} align='center'>
-				<Flex display={{ base: 'none', lg: 'flex' }} as='ul'>
-					<Item variant='noStyle' href='/'>
-						Home
-					</Item>
-					<Item variant='noStyle' href='/about'>
-						About
-					</Item>
-					<Item variant='noStyle' href='/projects'>
-						Projects
-					</Item>
-					<Item variant='noStyle' href='/blog'>
-						Blog
-					</Item>
-				</Flex>
-				<IconButton
-					borderRadius='sm'
-					variant='icon'
-					onClick={toggleColorMode}
+		<nav className='h-[10vh] flex items-center justify-between'>
+			<MenuButton toggleIsOpen={toggleIsOpen} theme={theme} mounted={mounted} />
+			<Link href='/'>
+				{mounted && theme === 'dark' ? (
+					<a aria-label='Logo'>
+						<Logo color='#05B19A' />
+					</a>
+				) : (
+					<a aria-label='Logo'>
+						<Logo color='#8F46AF' />
+					</a>
+				)}
+			</Link>
+			<div className='flex items-center'>
+				<div className='hidden lg:flex  flex-column'>
+					<Item href='/'>Home</Item>
+					<Item href='/about'>About</Item>
+					<Item href='/projects'>Projects</Item>
+					<Item href='/blog'>Blog</Item>
+				</div>
+				<button
+					type='button'
+					className='w-10 h-10 p-3 bg-gray-200 rounded dark:bg-gray-800 flex items-center justify-center'
 					aria-label={
-						colorMode === 'light' ? 'Toggle dark mode' : 'Toggle light Mode'
+						theme === 'dark' ? 'Toggle light mode' : 'Toggle dark mode'
 					}
-					icon={
-						colorMode === 'light' ? (
-							<IoMoon size='1.25rem' />
-						) : (
-							<IoSunnyOutline size='1.25rem' />
-						)
-					}
-				/>
-			</HStack>
-		</Flex>
+					onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+				>
+					{mounted && theme === 'dark' ? (
+						<IoSunnyOutline size='1.25rem' />
+					) : (
+						<IoMoon size='1.25rem' />
+					)}
+				</button>
+			</div>
+		</nav>
 	)
 }
 
 export const MobileNavMenu = () => (
-	<VStack spacing={4} w='100%'>
-		<VStack p={4} w='100%' my={8} spacing={8} as='ul'>
-			<Item spacing={4} variant='large' href='/'>
-				Home
-			</Item>
-			<Item spacing={4} variant='large' href='/about'>
-				About
-			</Item>
-			<Item spacing={4} variant='large' href='/projects'>
-				Projects
-			</Item>
-			<Item spacing={4} variant='large' href='/blog'>
-				Blog
-			</Item>
-		</VStack>
-	</VStack>
+	<div className='p-4 w-full my-8 flex flex-col'>
+		<Item href='/'>Home</Item>
+		<Item href='/about'>About</Item>
+		<Item href='/projects'>Projects</Item>
+		<Item href='/blog'>Blog</Item>
+	</div>
 )
 
-const MenuButton = ({ toggleIsOpen }) => {
+const MenuButton = ({ toggleIsOpen, theme, mounted }) => {
 	const [clicked, toggleClicked] = useToggle()
 
 	const handleClick = () => {
@@ -86,82 +68,96 @@ const MenuButton = ({ toggleIsOpen }) => {
 		toggleClicked()
 	}
 	return (
-		<IconButton
-			borderRadius='sm'
+		<div
 			onClick={handleClick}
-			display={{ base: 'block', lg: 'none' }}
-			w='48px'
-			h='48px'
-			variant='ghost'
-			_hover={{ variant: 'ghost' }}
-			icon={<MenuIcon clicked={clicked} />}
-		/>
+			className='lg:hidden rounded-sm w-[48px] h-[48px] block'
+		>
+			{mounted && theme === 'dark' ? (
+				<MenuIconDark clicked={clicked} />
+			) : (
+				<MenuIcon clicked={clicked} />
+			)}
+		</div>
 	)
 }
 
-const MenuIcon = ({ clicked }) => {
-	const { colorDark } = useColorModeSwitcher()
+const MenuIconDark = ({ clicked }) => {
 	return (
-		<Box
-			w='100%'
-			h='100%'
-			position='relative'
+		<div
+			className='w-[100%] h-[100%] relative'
 			aria-label='Menu Icon'
 			role='button'
 		>
 			<Line
-				left={clicked ? '8px' : '4px'}
-				bg={colorDark}
-				top={clicked ? '22px' : '10px'}
-				transform={clicked ? 'rotate(45deg)' : 'none'}
-				width={clicked ? '32px' : '40px'}
+				className={`bg-light ${
+					clicked
+						? 'left-[8px] top-[22px] w-[32px] transform rotate-45'
+						: 'left-[4px] top-[10px] w-[40px]'
+				}`}
 			/>
 			<Line
-				left={clicked ? '8px' : '4px'}
-				top={clicked ? '22px' : '20px'}
-				transform={clicked ? 'translateX(30px)' : 'none'}
-				bg={clicked ? 'transparent' : colorDark}
-				width={clicked ? '32px' : '26px'}
+				className={
+					clicked
+						? 'bg-transparent left-[8px] top-[22px] transform translate-x-[30px] w-[32px]'
+						: 'left-[4px] top-[20px] bg-light w-[26px]'
+				}
 			/>
 			<Line
-				left={clicked ? '8px' : '4px'}
-				transform={clicked ? 'rotate(-45deg)' : 'none'}
-				bg={colorDark}
-				bottom={clicked ? '22px' : '14px'}
-				width={clicked ? '32px' : '16px'}
+				className={`bg-light ${
+					clicked
+						? 'left-[8px] bottom-[22px] transform -rotate-45 w-[32px]'
+						: 'left-[4px] bottom-[14px] w-[16px]'
+				}`}
 			/>
-		</Box>
+		</div>
 	)
 }
-
-const Line = ({ ...props }) => (
-	<Box
-		{...props}
-		borderRadius='1px'
-		as='span'
-		position='absolute'
-		height='4px'
-		transition='all 0.3s ease-in-out'
-	/>
-)
-
-const Item = ({ children, href, ...props }) => {
-	const { colorGrey } = useColorModeSwitcher()
+const MenuIcon = ({ clicked }) => {
 	return (
-		<VStack
-			align='start'
-			spacing={4}
-			w='100%'
-			h='100%'
-			as='li'
-			pb={{ base: 4, lg: 0 }}
-			borderBottom={{ base: '1px solid', lg: 'none' }}
-			borderColor={colorGrey}
-			listStyleType='none'
+		<div
+			className='w-[100%] h-[100%] relative'
+			aria-label='Menu Icon'
+			role='button'
 		>
-			<StyledLink {...props} href={href}>
-				{children}
-			</StyledLink>
-		</VStack>
+			<Line
+				className={`bg-dark ${
+					clicked
+						? 'left-[8px] top-[22px] w-[32px] transform rotate-45'
+						: 'left-[4px] top-[10px] w-[40px]'
+				}`}
+			/>
+			<Line
+				className={
+					clicked
+						? 'bg-transparent left-[8px] top-[22px] transform translate-x-[30px] w-[32px]'
+						: 'left-[4px] top-[20px] bg-dark w-[26px]'
+				}
+			/>
+			<Line
+				className={`bg-dark ${
+					clicked
+						? 'left-[8px] bottom-[22px] transform -rotate-45 w-[32px]'
+						: 'left-[4px] bottom-[14px] w-[16px]'
+				}`}
+			/>
+		</div>
 	)
 }
+
+const Line = (props) => {
+	return (
+		<div
+			className={`rounded-[1px] absolute h-[4px] transition-all duration-300 ease-in-out ${props.className}`}
+		/>
+	)
+}
+
+const Item = ({ children, href }) => {
+	return (
+		<div className='lg:mr-[2rem] mb-5 lg:mb-0 pb-4 lg:pb-0 border-b-[1px] border-gray-200 dark:border-gray-600 lg:border-none'>
+			<Link href={href}>{children}</Link>
+		</div>
+	)
+}
+
+export default NavBar
