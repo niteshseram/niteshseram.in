@@ -1,31 +1,25 @@
-import { createIcon, Icon } from '@chakra-ui/react'
-import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
-
-const LogoBase = createIcon({
-	displayName: 'Logo',
-	viewBox: '0 0 188.000000 200.000000',
-	path: (
-		<g transform='translate(0.000000,200.000000) scale(0.100000,-0.100000)'>
-			<path d='M90 1000 l0 -910 360 0 360 0 0 910 0 910 -360 0 -360 0 0 -910z' />
-			<path
-				d='M1060 1001 l0 -911 370 0 370 0 0 668 c-1 750 -3 774 -66 900 -84
-165 -239 238 -526 249 l-148 6 0 -912z'
-			/>
-		</g>
-	),
-})
-const Logo = ({ boxSize = '36px', ...props }) => {
-	const { themed } = useColorModeSwitcher()
+const Logo = ({ width = '36px', height = '36px', color }) => {
 	return (
-		<Icon
-			{...props}
-			strokeWidth='2px'
-			stroke='currentcolor'
-			fill={themed}
-			boxSize={boxSize}
-			as={LogoBase}
-		/>
+		<svg
+			version='1.0'
+			xmlns='http://www.w3.org/2000/svg'
+			width={width}
+			height={height}
+			viewBox='0 0 188.000000 200.000000'
+			preserveAspectRatio='xMidYMid meet'
+		>
+			<g
+				transform='translate(0.000000,200.000000) scale(0.100000,-0.100000)'
+				fill={color}
+				stroke='none'
+			>
+				<path d='M90 1000 l0 -910 360 0 360 0 0 910 0 910 -360 0 -360 0 0 -910z' />
+				<path
+					d='M1060 1001 l0 -911 370 0 370 0 0 668 c-1 750 -3 774 -66 900 -84
+165 -239 238 -526 249 l-148 6 0 -912z'
+				/>
+			</g>
+		</svg>
 	)
 }
-
 export default Logo
