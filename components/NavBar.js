@@ -153,7 +153,7 @@ const Line = (props) => {
 
 const Item = ({ children, href }) => {
 	return (
-		<div className='lg:mr-[2rem] mb-5 lg:mb-0 pb-4 lg:pb-0 border-b-[1px] border-gray-200 dark:border-gray-600 lg:border-none'>
+		<div className='lg:mr-[2rem] mb-5 lg:mb-0 pb-4 lg:pb-0 border-b-[1px] border-gray-200 dark:border-gray-600 lg:border-none text-dark dark:text-light '>
 			<Link href={href}>{children}</Link>
 		</div>
 	)
