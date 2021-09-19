@@ -10,7 +10,6 @@ const NavBar = ({ toggleIsOpen }) => {
 	const [mounted, setMounted] = useState(false)
 
 	useEffect(() => setMounted(true), [])
-
 	return (
 		<nav className='h-[10vh] flex items-center justify-between'>
 			<MenuButton toggleIsOpen={toggleIsOpen} theme={theme} mounted={mounted} />
