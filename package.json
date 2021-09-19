@@ -35,7 +35,6 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.14.6",
-		"@next/eslint-plugin-next": "^11.1.2",
 		"autoprefixer": "^10.3.4",
 		"esbuild": "^0.12.20",
 		"eslint": "7.2.0",
