@@ -18,23 +18,39 @@ body {
 	margin: 0;
 }
 
-a {
-	color: inherit;
-	text-decoration: none;
-}
-
 * {
 	box-sizing: border-box;
 	scroll-behavior: smooth;
 }
-
-.mdx hr {
-	margin: 50px 0;
-	display: block;
+@layer base {
+	body {
+		@apply text-dark dark:text-light;
+	}
+	p {
+		@apply text-gray-600 dark:text-gray-400;
+	}
 }
 
-.mdx ol,
-.mdx ul {
-	margin: 1rem;
-	margin-left: 1.5rem;
+@layer components {
+	.btn {
+		@apply px-6 py-2 text-base font-bold border-solid border duration-200 ease-in-out;
+	}
+	.btn-themed {
+		@apply text-primary dark:text-secondary border-primary dark:border-secondary hover:bg-primary dark:hover:bg-secondary hover:text-light dark:hover:text-dark;
+	}
+	.btn-secondary-themed {
+		@apply bg-primary dark:bg-secondary text-light dark:text-dark border-none hover:bg-opacity-80 dark:hover:bg-opacity-80;
+	}
+	.btn-primary {
+		@apply px-3 text-dark dark:text-light border-dark dark:border-light hover:bg-dark dark:hover:bg-light hover:text-light dark:hover:text-dark;
+	}
+	.btn-secondary {
+		@apply px-3 text-light dark:text-dark border-dark dark:border-light bg-dark dark:bg-light hover:bg-transparent dark:hover:bg-transparent hover:text-dark dark:hover:text-light;
+	}
+	.heading {
+		@apply mb-12 text-2xl md:text-3xl font-bold;
+	}
+	.label {
+		@apply text-dark dark:text-light font-bold text-sm px-4 py-1 mt-1 mx-1 flex items-center justify-center rounded-3xl border-2 border-solid border-primary dark:border-secondary;
+	}
 }
