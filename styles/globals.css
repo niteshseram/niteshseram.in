@@ -18,23 +18,13 @@ body {
 	margin: 0;
 }
 
-a {
-	color: inherit;
-	text-decoration: none;
-}
-
 * {
 	box-sizing: border-box;
 	scroll-behavior: smooth;
 }
 
-.mdx hr {
-	margin: 50px 0;
-	display: block;
-}
-
-.mdx ol,
-.mdx ul {
-	margin: 1rem;
-	margin-left: 1.5rem;
+@layer components {
+	.btn-primary {
+		@apply uppercase px-6 py-2 text-base text-primary font-bold dark:text-secondary border-solid border border-primary dark:border-secondary hover:bg-primary dark:hover:bg-secondary hover:text-light dark:hover:text-dark duration-200 ease-in-out;
+	}
 }

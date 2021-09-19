@@ -9,7 +9,7 @@ const Container = ({ children, ...customMeta }) => {
 		<div className='bg-light dark:bg-dark w-[92vw] sm:w-[90vw] 2xl:w-[80vw] mx-auto'>
 			<Seo {...customMeta} />
 			<NavBar toggleIsOpen={toggleIsOpen} />
-			<main className='flex flex-col bg-light dark:bg-dark min-h-[100vh]'>
+			<main className='flex flex-col bg-light dark:bg-dark min-h-[70vh]'>
 				{isOpen ? <MobileNavMenu /> : children}
 			</main>
 		</div>
