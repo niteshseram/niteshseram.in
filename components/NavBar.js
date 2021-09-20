@@ -12,7 +12,7 @@ const NavBar = ({ toggleIsOpen }) => {
 	useEffect(() => setMounted(true), [])
 	return (
 		<nav className='h-[10vh] flex items-center justify-between'>
-			<MenuButton toggleIsOpen={toggleIsOpen} theme={theme} mounted={mounted} />
+			<MenuButton toggleIsOpen={toggleIsOpen} />
 			<Link href='/'>
 				<a aria-label='Logo'>
 					<Logo />
@@ -54,7 +54,7 @@ export const MobileNavMenu = () => (
 	</div>
 )
 
-const MenuButton = ({ toggleIsOpen, theme, mounted }) => {
+const MenuButton = ({ toggleIsOpen }) => {
 	const [clicked, toggleClicked] = useToggle()
 
 	const handleClick = () => {
@@ -66,47 +66,11 @@ const MenuButton = ({ toggleIsOpen, theme, mounted }) => {
 			onClick={handleClick}
 			className='lg:hidden rounded-sm w-[48px] h-[48px] block'
 		>
-			{mounted &&
-				(theme === 'dark' ? (
-					<MenuIconDark clicked={clicked} />
-				) : (
-					<MenuIcon clicked={clicked} />
-				))}
+			<MenuIcon clicked={clicked} />
 		</div>
 	)
 }
 
-const MenuIconDark = ({ clicked }) => {
-	return (
-		<div
-			className='w-[100%] h-[100%] relative'
-			aria-label='Menu Icon'
-			role='button'
-		>
-			<Line
-				className={`bg-light ${
-					clicked
-						? 'left-[8px] top-[22px] w-[32px] transform rotate-45'
-						: 'left-[4px] top-[10px] w-[40px]'
-				}`}
-			/>
-			<Line
-				className={
-					clicked
-						? 'bg-transparent left-[8px] top-[22px] transform translate-x-[30px] w-[32px]'
-						: 'left-[4px] top-[20px] bg-light w-[26px]'
-				}
-			/>
-			<Line
-				className={`bg-light ${
-					clicked
-						? 'left-[8px] bottom-[22px] transform -rotate-45 w-[32px]'
-						: 'left-[4px] bottom-[14px] w-[16px]'
-				}`}
-			/>
-		</div>
-	)
-}
 const MenuIcon = ({ clicked }) => {
 	return (
 		<div
@@ -115,7 +79,7 @@ const MenuIcon = ({ clicked }) => {
 			role='button'
 		>
 			<Line
-				className={`bg-dark ${
+				className={`bg-dark dark:bg-light ${
 					clicked
 						? 'left-[8px] top-[22px] w-[32px] transform rotate-45'
 						: 'left-[4px] top-[10px] w-[40px]'
@@ -125,11 +89,11 @@ const MenuIcon = ({ clicked }) => {
 				className={
 					clicked
 						? 'bg-transparent left-[8px] top-[22px] transform translate-x-[30px] w-[32px]'
-						: 'left-[4px] top-[20px] bg-dark w-[26px]'
+						: 'left-[4px] top-[20px] bg-dark dark:bg-light w-[26px]'
 				}
 			/>
 			<Line
-				className={`bg-dark ${
+				className={`bg-dark dark:bg-light ${
 					clicked
 						? 'left-[8px] bottom-[22px] transform -rotate-45 w-[32px]'
 						: 'left-[4px] bottom-[14px] w-[16px]'
