@@ -26,7 +26,7 @@ const Hero = () => (
 			<h2 className='font-bold text-md md:text-xl lg:text-2xl mb-4 lg:mb-8'>
 				Software Engineer based in India
 			</h2>
-			<p className='text-center lg:text-left text-base md:text-lg lg:text-xl pb-4 lg:pb-8'>
+			<p className='text-center lg:text-left text-lg lg:text-xl pb-4 lg:pb-8'>
 				Welcome to my digital corner where you can find my works, thoughts and
 				random things.
 			</p>

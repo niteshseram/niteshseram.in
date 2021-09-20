@@ -46,7 +46,7 @@ const NavBar = ({ toggleIsOpen }) => {
 }
 
 export const MobileNavMenu = () => (
-	<div className='p-4 w-full my-8 flex flex-col'>
+	<div className='p-4 w-full my-8 space-y-8 flex flex-col'>
 		<Item href='/'>Home</Item>
 		<Item href='/about'>About</Item>
 		<Item href='/projects'>Projects</Item>
@@ -106,14 +106,14 @@ const MenuIcon = ({ clicked }) => {
 const Line = (props) => {
 	return (
 		<div
-			className={`rounded-[1px] absolute h-[4px] transition-all duration-300 ease-in-out ${props.className}`}
+			className={`rounded absolute h-[4px] transition-all duration-300 ease-in-out ${props.className}`}
 		/>
 	)
 }
 
 const Item = ({ children, href }) => {
 	return (
-		<div className='lg:mr-[2rem] mb-5 lg:mb-0 pb-4 lg:pb-0 border-b-[1px] border-gray-200 dark:border-gray-600 lg:border-none text-dark dark:text-light '>
+		<div className='font-semibold text-xl lg:text-base lg:mr-[2rem] pb-4 lg:pb-0 border-b-[1px] border-gray-200 dark:border-gray-600 lg:border-none text-dark dark:text-light'>
 			<Link href={href}>{children}</Link>
 		</div>
 	)
