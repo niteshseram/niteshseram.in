@@ -1,3 +1,4 @@
+import ContactForm from '@/components/ContactForm'
 import ProjectCard from '@/components/ProjectCard'
 import projects from '@/data/projects'
 import Container from '@/layouts/Container'
@@ -11,6 +12,7 @@ export default function Home() {
 			<ContentWrapper>
 				<Hero />
 				<FeaturedProjects />
+				<ContactSection />
 			</ContentWrapper>
 		</Container>
 	)
@@ -30,7 +32,7 @@ const Hero = () => (
 				Welcome to my digital corner where you can find my works, thoughts and
 				random things.
 			</p>
-			<Link href='/' passHref>
+			<Link href='#contact' passHref>
 				<button className='btn btn-themed uppercase'>Get in Touch</button>
 			</Link>
 		</div>
@@ -50,7 +52,7 @@ const Hero = () => (
 const FeaturedProjects = () => (
 	<div className='flex flex-col w-full m-auto'>
 		<h2 className='text-center heading'>Featured Projects</h2>
-		<div className='flex flex-col xl:flex-row justify-evenly w-full mb-10'>
+		<div className='flex flex-col xl:flex-row justify-evenly w-full'>
 			<Projects />
 		</div>
 		<Link href='/projects' passHref>
@@ -76,5 +78,34 @@ const Projects = () => (
 					key={project.id}
 				/>
 			))}
+	</div>
+)
+
+const ContactSection = () => (
+	<div className='flex flex-col w-full m-auto pt-10' id='contact'>
+		<h2 className='text-center heading'>Get In Touch</h2>
+		<div className='flex flex-col lg:flex-row w-full items-center justify-around'>
+			<div className='mb-16 xl:mr-16 flex-1 max-w-full md:max-w-[70%]'>
+				<h3>Let&apos;s chat!</h3>
+				<p className='mb-8'>
+					If you want to collaborate or have any questions, opportunities, or
+					might simply want to say hello then, feel free to fill out my contact
+					form and I&apos;ll without a doubt hit you up in a hurry.
+				</p>
+				<p>
+					Or if you would prefer to, you can also reach me on{' '}
+					<a
+						className='link'
+						href='https://twitter.com/niteshseram'
+						target='_blank'
+						rel='noreferrer noopener'
+					>
+						Twitter
+					</a>
+					.
+				</p>
+			</div>
+			<ContactForm />
+		</div>
 	</div>
 )
