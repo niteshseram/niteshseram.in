@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer'
 import NavBar, { MobileNavMenu } from '@/components/NavBar'
 import useToggle from '@/utils/hooks/useToogle'
 import Head from 'next/head'
@@ -12,6 +13,7 @@ const Container = ({ children, ...customMeta }) => {
 			<main className='flex flex-col bg-light dark:bg-dark min-h-[70vh]'>
 				{isOpen ? <MobileNavMenu /> : children}
 			</main>
+			<Footer />
 		</div>
 	)
 }
