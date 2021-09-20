@@ -11,12 +11,6 @@ module.exports = {
 				light: '#fcfcfc',
 				primary: '#8f46af',
 				secondary: '#05B19A',
-				accent: {
-					successLight: '#68D391',
-					successDark: '#276749',
-					errorLight: '#FC8181',
-					errorDark: '#AA0000',
-				},
 			},
 			fontFamily: {
 				sans: ['Inter', ...fontFamily.sans],

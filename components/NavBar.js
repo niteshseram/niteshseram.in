@@ -12,17 +12,11 @@ const NavBar = ({ toggleIsOpen }) => {
 	useEffect(() => setMounted(true), [])
 	return (
 		<nav className='h-[10vh] flex items-center justify-between'>
-			<MenuButton toggleIsOpen={toggleIsOpen} theme={theme} mounted={mounted} />
+			<MenuButton toggleIsOpen={toggleIsOpen} />
 			<Link href='/'>
-				{mounted && theme === 'dark' ? (
-					<a aria-label='Logo'>
-						<Logo color='#05B19A' />
-					</a>
-				) : (
-					<a aria-label='Logo'>
-						<Logo color='#8F46AF' />
-					</a>
-				)}
+				<a aria-label='Logo'>
+					<Logo />
+				</a>
 			</Link>
 			<div className='flex items-center'>
 				<div className='hidden lg:flex  flex-column'>
@@ -39,11 +33,12 @@ const NavBar = ({ toggleIsOpen }) => {
 					}
 					onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
 				>
-					{mounted && theme === 'dark' ? (
-						<IoSunnyOutline size='1.25rem' />
-					) : (
-						<IoMoon size='1.25rem' />
-					)}
+					{mounted &&
+						(theme === 'dark' ? (
+							<IoSunnyOutline size='1.25rem' />
+						) : (
+							<IoMoon size='1.25rem' />
+						))}
 				</button>
 			</div>
 		</nav>
@@ -51,7 +46,7 @@ const NavBar = ({ toggleIsOpen }) => {
 }
 
 export const MobileNavMenu = () => (
-	<div className='p-4 w-full my-8 flex flex-col'>
+	<div className='p-4 w-full my-8 space-y-8 flex flex-col'>
 		<Item href='/'>Home</Item>
 		<Item href='/about'>About</Item>
 		<Item href='/projects'>Projects</Item>
@@ -59,7 +54,7 @@ export const MobileNavMenu = () => (
 	</div>
 )
 
-const MenuButton = ({ toggleIsOpen, theme, mounted }) => {
+const MenuButton = ({ toggleIsOpen }) => {
 	const [clicked, toggleClicked] = useToggle()
 
 	const handleClick = () => {
@@ -71,46 +66,11 @@ const MenuButton = ({ toggleIsOpen, theme, mounted }) => {
 			onClick={handleClick}
 			className='lg:hidden rounded-sm w-[48px] h-[48px] block'
 		>
-			{mounted && theme === 'dark' ? (
-				<MenuIconDark clicked={clicked} />
-			) : (
-				<MenuIcon clicked={clicked} />
-			)}
+			<MenuIcon clicked={clicked} />
 		</div>
 	)
 }
 
-const MenuIconDark = ({ clicked }) => {
-	return (
-		<div
-			className='w-[100%] h-[100%] relative'
-			aria-label='Menu Icon'
-			role='button'
-		>
-			<Line
-				className={`bg-light ${
-					clicked
-						? 'left-[8px] top-[22px] w-[32px] transform rotate-45'
-						: 'left-[4px] top-[10px] w-[40px]'
-				}`}
-			/>
-			<Line
-				className={
-					clicked
-						? 'bg-transparent left-[8px] top-[22px] transform translate-x-[30px] w-[32px]'
-						: 'left-[4px] top-[20px] bg-light w-[26px]'
-				}
-			/>
-			<Line
-				className={`bg-light ${
-					clicked
-						? 'left-[8px] bottom-[22px] transform -rotate-45 w-[32px]'
-						: 'left-[4px] bottom-[14px] w-[16px]'
-				}`}
-			/>
-		</div>
-	)
-}
 const MenuIcon = ({ clicked }) => {
 	return (
 		<div
@@ -119,7 +79,7 @@ const MenuIcon = ({ clicked }) => {
 			role='button'
 		>
 			<Line
-				className={`bg-dark ${
+				className={`bg-dark dark:bg-light ${
 					clicked
 						? 'left-[8px] top-[22px] w-[32px] transform rotate-45'
 						: 'left-[4px] top-[10px] w-[40px]'
@@ -129,11 +89,11 @@ const MenuIcon = ({ clicked }) => {
 				className={
 					clicked
 						? 'bg-transparent left-[8px] top-[22px] transform translate-x-[30px] w-[32px]'
-						: 'left-[4px] top-[20px] bg-dark w-[26px]'
+						: 'left-[4px] top-[20px] bg-dark dark:bg-light w-[26px]'
 				}
 			/>
 			<Line
-				className={`bg-dark ${
+				className={`bg-dark dark:bg-light ${
 					clicked
 						? 'left-[8px] bottom-[22px] transform -rotate-45 w-[32px]'
 						: 'left-[4px] bottom-[14px] w-[16px]'
@@ -146,14 +106,14 @@ const MenuIcon = ({ clicked }) => {
 const Line = (props) => {
 	return (
 		<div
-			className={`rounded-[1px] absolute h-[4px] transition-all duration-300 ease-in-out ${props.className}`}
+			className={`rounded absolute h-[4px] transition-all duration-300 ease-in-out ${props.className}`}
 		/>
 	)
 }
 
 const Item = ({ children, href }) => {
 	return (
-		<div className='lg:mr-[2rem] mb-5 lg:mb-0 pb-4 lg:pb-0 border-b-[1px] border-gray-200 dark:border-gray-600 lg:border-none text-dark dark:text-light '>
+		<div className='font-semibold text-xl lg:text-base lg:mr-[2rem] pb-4 lg:pb-0 border-b-[1px] border-gray-200 dark:border-gray-600 lg:border-none text-dark dark:text-light'>
 			<Link href={href}>{children}</Link>
 		</div>
 	)

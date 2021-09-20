@@ -17,11 +17,18 @@ body {
 	padding: 0;
 	margin: 0;
 }
-
 * {
 	box-sizing: border-box;
 	scroll-behavior: smooth;
 }
+
+input[type='text'],
+input[type='email'] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
 @layer base {
 	body {
 		@apply text-dark dark:text-light;
@@ -52,5 +59,11 @@ body {
 	}
 	.label {
 		@apply text-dark dark:text-light font-bold text-sm px-4 py-1 mt-1 mx-1 flex items-center justify-center rounded-3xl border-2 border-solid border-primary dark:border-secondary;
+	}
+	.input {
+		@apply outline-none transition px-4 py-2 mt-1 border border-dark dark:border-light block w-full rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:border-primary dark:focus:border-secondary;
+	}
+	.link {
+		@apply font-bold text-primary dark:text-secondary underline;
 	}
 }
