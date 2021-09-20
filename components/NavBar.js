@@ -14,13 +14,8 @@ const NavBar = ({ toggleIsOpen }) => {
 		<nav className='h-[10vh] flex items-center justify-between'>
 			<MenuButton toggleIsOpen={toggleIsOpen} theme={theme} mounted={mounted} />
 			<Link href='/'>
-				<a aria-label='Logo' className='h-[36px] w-[36px]'>
-					{mounted &&
-						(theme === 'dark' ? (
-							<Logo color='#05B19A' />
-						) : (
-							<Logo color='#8F46AF' />
-						))}
+				<a aria-label='Logo'>
+					<Logo />
 				</a>
 			</Link>
 			<div className='flex items-center'>

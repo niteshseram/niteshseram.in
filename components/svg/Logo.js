@@ -1,4 +1,4 @@
-const Logo = ({ width = '36px', height = '36px', color }) => {
+const Logo = ({ width = '36px', height = '36px' }) => {
 	return (
 		<svg
 			version='1.0'
@@ -10,7 +10,7 @@ const Logo = ({ width = '36px', height = '36px', color }) => {
 		>
 			<g
 				transform='translate(0.000000,200.000000) scale(0.100000,-0.100000)'
-				fill={color}
+				fill='currentColor'
 				stroke='none'
 			>
 				<path d='M90 1000 l0 -910 360 0 360 0 0 910 0 910 -360 0 -360 0 0 -910z' />
