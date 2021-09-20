@@ -86,7 +86,7 @@ const ContactSection = () => (
 		<h2 className='text-center heading'>Get In Touch</h2>
 		<div className='flex flex-col lg:flex-row w-full items-center justify-around'>
 			<div className='mb-16 xl:mr-16 flex-1 max-w-full md:max-w-[70%]'>
-				<h3>Let&apos;s chat!</h3>
+				<h3 className='font-bold text-xl md:text-lg mb-2'>Let&apos;s chat!</h3>
 				<p className='mb-8'>
 					If you want to collaborate or have any questions, opportunities, or
 					might simply want to say hello then, feel free to fill out my contact
