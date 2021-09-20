@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 const Footer = () => (
-	<footer className='flex flex-col border-t-2 border-gray-200 dark:border-gray-800 py-12 px-8 sm:px-16 space-x-8 items-start md:items-center'>
+	<footer className='flex flex-col border-t-2 border-gray-200 dark:border-gray-800 py-12 px-8 sm:px-16 space-y-8 items-start md:items-center'>
 		<FooterContent />
 		<p>&copy; Nitesh Seram 2021</p>
 	</footer>
