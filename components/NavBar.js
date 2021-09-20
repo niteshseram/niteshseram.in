@@ -14,15 +14,14 @@ const NavBar = ({ toggleIsOpen }) => {
 		<nav className='h-[10vh] flex items-center justify-between'>
 			<MenuButton toggleIsOpen={toggleIsOpen} theme={theme} mounted={mounted} />
 			<Link href='/'>
-				{mounted && theme === 'dark' ? (
-					<a aria-label='Logo'>
-						<Logo color='#05B19A' />
-					</a>
-				) : (
-					<a aria-label='Logo'>
-						<Logo color='#8F46AF' />
-					</a>
-				)}
+				<a aria-label='Logo' className='h-[36px] w-[36px]'>
+					{mounted &&
+						(theme === 'dark' ? (
+							<Logo color='#05B19A' />
+						) : (
+							<Logo color='#8F46AF' />
+						))}
+				</a>
 			</Link>
 			<div className='flex items-center'>
 				<div className='hidden lg:flex  flex-column'>
@@ -72,11 +71,12 @@ const MenuButton = ({ toggleIsOpen, theme, mounted }) => {
 			onClick={handleClick}
 			className='lg:hidden rounded-sm w-[48px] h-[48px] block'
 		>
-			{mounted && theme === 'dark' ? (
-				<MenuIconDark clicked={clicked} />
-			) : (
-				<MenuIcon clicked={clicked} />
-			)}
+			{mounted &&
+				(theme === 'dark' ? (
+					<MenuIconDark clicked={clicked} />
+				) : (
+					<MenuIcon clicked={clicked} />
+				))}
 		</div>
 	)
 }
