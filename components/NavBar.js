@@ -39,11 +39,12 @@ const NavBar = ({ toggleIsOpen }) => {
 					}
 					onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
 				>
-					{mounted && theme === 'dark' ? (
-						<IoSunnyOutline size='1.25rem' />
-					) : (
-						<IoMoon size='1.25rem' />
-					)}
+					{mounted &&
+						(theme === 'dark' ? (
+							<IoSunnyOutline size='1.25rem' />
+						) : (
+							<IoMoon size='1.25rem' />
+						))}
 				</button>
 			</div>
 		</nav>
