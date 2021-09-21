@@ -58,7 +58,6 @@ const FooterLink = ({ href, name, children }) => {
 			href={href}
 			className='text-gray-600 dark:text-gray-400 transition mt-2'
 			aria-label={name}
-			isExternal
 		>
 			{children}
 		</a>

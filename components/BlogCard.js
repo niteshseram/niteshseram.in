@@ -9,11 +9,11 @@ const BlogCard = ({ post }) => (
 					<h3 className='font-bold text-xl mb-2'>{post.title}</h3>
 					<p>{post.summary}</p>
 				</div>
-				<div className='flex flex-row spac-x-4'>
+				<p className='mt-2 text-sm'>
 					{format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
 					{` • `}
 					{post.frontMatter.readingTime.text}
-				</div>
+				</p>
 			</div>
 		</Link>
 	</div>
