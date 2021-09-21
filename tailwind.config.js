@@ -3,7 +3,7 @@ const { spacing, fontFamily } = require('tailwindcss/defaultTheme')
 module.exports = {
 	mode: 'jit',
 	purge: ['./pages/**/*.js', './components/**/*.js', './layouts/**/*.js'],
-	darkMode: 'class', // or 'media' or 'class'
+	darkMode: 'class',
 	theme: {
 		extend: {
 			colors: {
@@ -20,7 +20,7 @@ module.exports = {
 					css: {
 						color: theme('colors.neutral.700'),
 						a: {
-							color: theme('colors.primary.500'),
+							color: theme('colors.primary'),
 							code: { color: theme('colors.blue.400') },
 						},
 						'h2,h3,h4': {
@@ -33,9 +33,9 @@ module.exports = {
 				},
 				dark: {
 					css: {
-						color: theme('colors.neutral.300'),
+						color: theme('colors.gray.400'),
 						a: {
-							color: theme('colors.secondary.300'),
+							color: theme('colors.secondary'),
 							code: { color: theme('colors.blue.400') },
 						},
 						blockquote: {
@@ -43,13 +43,13 @@ module.exports = {
 							color: theme('colors.gray.300'),
 						},
 						'h2,h3,h4': {
-							color: theme('colors.gray.100'),
+							color: theme('colors.light'),
 							'scroll-margin-top': spacing[32],
 						},
 						hr: { borderColor: theme('colors.gray.700') },
 						ol: {
 							li: {
-								'&:before': { color: theme('colors.gray.500') },
+								'&:before': { color: theme('colors.gray.400') },
 							},
 						},
 						ul: {
