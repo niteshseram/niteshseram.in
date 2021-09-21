@@ -55,7 +55,7 @@ input[type='email'] {
 		@apply px-3 text-light dark:text-dark border-dark dark:border-light bg-dark dark:bg-light hover:bg-transparent dark:hover:bg-transparent hover:text-dark dark:hover:text-light;
 	}
 	.heading {
-		@apply mb-12 text-2xl md:text-3xl font-bold;
+		@apply mb-8 md:mb-12 text-2xl md:text-3xl font-bold;
 	}
 	.label {
 		@apply text-dark dark:text-light font-bold text-sm px-4 py-1 mt-1 mx-1 flex items-center justify-center rounded-3xl border-2 border-solid border-primary dark:border-secondary;
