@@ -14,7 +14,7 @@ const About = () => (
 	</Container>
 )
 const Intro = () => (
-	<section>
+	<section className='mt-4 md:mt-8'>
 		<h1 className='heading'>About Me</h1>
 		<p className='mb-2 md:mb-4'>
 			Hello there! I&apos;m Seram Nitesh Singh, a Software Engineer and also an

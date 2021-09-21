@@ -1,5 +1,7 @@
-const ProjectCard = ({ title, description, tools, live, repo }) => (
-	<div className='flex flex-col border-solid border-2 border-gray-200 dark:border-gray-600 w-full md:w-[33rem] mb-12 md:mx-4 bg-light dark:bg-dark space-y-4 md:space-y-6'>
+const ProjectCard = ({ title, description, tools, live, repo, ...props }) => (
+	<div
+		className={`flex flex-col border-solid border-2 border-gray-200 dark:border-gray-600 w-full md:w-[33rem] mb-12 md:mx-4 bg-light dark:bg-dark space-y-4 md:space-y-6 ${props.className}`}
+	>
 		<div className='flex items-center justify-center bg-dark dark:bg-light h-20'>
 			<h3 className='text-light font-bold text-lg md:text-2xl dark:text-dark'>
 				{title}
