@@ -40,7 +40,7 @@ class MyDocument extends Document {
 					/>
 					<meta name='yandex-verification' content='75318e4097177399' />
 				</Head>
-				<body className='bg-light dark:bg-dark'>
+				<body className='antialiased bg-light dark:bg-dark'>
 					<Main />
 					<NextScript />
 				</body>

@@ -1,16 +1,19 @@
+import BlogCard from '@/components/BlogCard'
 import ContactForm from '@/components/ContactForm'
 import ProjectCard from '@/components/ProjectCard'
 import projects from '@/data/projects'
 import Container from '@/layouts/Container'
 import ContentWrapper from '@/layouts/ContentWrapper'
+import { getAllFilesFrontMatter } from '@/lib/mdx'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function Home() {
+export default function Home({ posts }) {
 	return (
 		<Container>
 			<ContentWrapper>
 				<Hero />
+				<BlogSection posts={posts} />
 				<FeaturedProjects />
 				<ContactSection />
 			</ContentWrapper>
@@ -46,6 +49,19 @@ const Hero = () => (
 				/>
 			</div>
 		</div>
+	</div>
+)
+
+const BlogSection = ({ posts }) => (
+	<div className='flex flex-col w-full'>
+		<h2 className='text-center heading'>Recent Blogs</h2>
+		<ul className='self-center mt-5 w-full md:max-w-[80%] lg:max-w-[70%]'>
+			{posts.map((post, index) => (
+				<li key={index}>
+					<BlogCard post={post} />
+				</li>
+			))}
+		</ul>
 	</div>
 )
 
@@ -109,3 +125,13 @@ const ContactSection = () => (
 		</div>
 	</div>
 )
+
+export const getStaticProps = async () => {
+	const posts = await getAllFilesFrontMatter('blog')
+	posts
+		.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+		.slice(0, 4)
+	return {
+		props: { posts },
+	}
+}

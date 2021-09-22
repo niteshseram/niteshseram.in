@@ -1,38 +1,44 @@
 import { writeFileSync } from 'fs'
 import { globby } from 'globby'
-import { Readable } from 'stream'
-import { SitemapStream, streamToPromise }  from 'sitemap'
+import prettier from 'prettier'
 
-async function generate() {
-	const baseUrl = 'https://niteshseram.in'
-
+(async function generate() {
+	const prettierConfig = await prettier.resolveConfig('./.prettierrc')
 	const pages = await globby([
 		'pages/*.js',
 		'data/**/*.mdx',
-		'!data/*.mdx',
 		'!pages/_*.js',
 		'!pages/api',
 		'!pages/404.js',
 	])
 
-	const links = pages.map((page) => {
-		const path = page
-			.replace('pages', '')
-			.replace('data', '')
-			.replace('.js', '')
-			.replace('.mdx', '')
-		return path === '/index'
-			? { url: '/', changefreq: 'daily', priority: 0.7 }
-			: { url: path, changefreq: 'daily', priority: 0.7 }
+	const sitemap = `
+    <?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        ${pages
+					.map((page) => {
+						const path = page
+							.replace('pages', '')
+							.replace('data', '')
+							.replace('.js', '')
+							.replace('.mdx', '')
+						const route = path === '/index' ? '' : path
+						return `
+              <url>
+                  <loc>${`https://niteshseram.in${route}`}</loc>
+              </url>
+            `
+					})
+					.join('')}
+    </urlset>
+    `
+
+	const formatted = prettier.format(sitemap, {
+		...prettierConfig,
+		parser: 'html',
 	})
-	
-	const stream = new SitemapStream({ hostname: baseUrl })
 
-	const xml = await streamToPromise(
-		Readable.from(links).pipe(stream)
-	).then((data) => data.toString())
+	// eslint-disable-next-line no-sync
+	writeFileSync('public/sitemap.xml', formatted)
+})()
 
-	writeFileSync('public/sitemap.xml', xml)
-}
-
-generate()
