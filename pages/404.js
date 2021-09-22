@@ -1,32 +1,22 @@
-import { Box, Button, Heading, Text, VStack } from '@chakra-ui/react'
-import Link from 'next/link'
 import Container from '@/layouts/Container'
-import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
+import Link from 'next/link'
 
-const Blog = () => {
-	const { themed } = useColorModeSwitcher()
-	return (
-		<Container title='404 | Nitesh Seram'>
-			<VStack alignItems='center' justifyContent='center' h='70vh'>
-				<Heading fontSize={{ base: '6xl', md: '9xl' }}>
-					4
-					<Box as='span' color={themed}>
-						0
-					</Box>
-					4
-				</Heading>
-				<Text variant='preTitle' textAlign='center' pt={2}>
-					Oops! I think you&apos;re lost.
-				</Text>
-				<Text variant='subtitle' pb={1}>
-					Let&apos;s get you back...
-				</Text>
-				<Link href='/' passHref>
-					<Button variant='primaryThemed'>Go Back Home</Button>
-				</Link>
-			</VStack>
-		</Container>
-	)
-}
+const PageNotFound = () => (
+	<Container title='404 | Nitesh Seram'>
+		<div className='flex flex-col items-center justify-center h-[70vh]'>
+			<h1 className='font-bold text-6xl md:text-9xl'>
+				4<span className='text-primary dark:text-secondary'>0</span>4
+			</h1>
+			<p className='font-medium text-lg md:text-xl text-center mt-2'>
+				Oops! I think you&apos;re lost.
+			</p>
+			<p className='md:text-lg mb-4'>Let&apos;s get you back...</p>
 
-export default Blog
+			<Link href='/' passHref>
+				<button className='btn btn-themed'>Go Back Home</button>
+			</Link>
+		</div>
+	</Container>
+)
+
+export default PageNotFound

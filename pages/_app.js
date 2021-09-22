@@ -1,11 +1,9 @@
-import { useEffect } from 'react'
+import { ThemeProvider } from 'next-themes'
 import { useRouter } from 'next/router'
-import { ChakraProvider } from '@chakra-ui/react'
-import '@/styles/globals.css'
-import customTheme from '@/styles/theme'
-import { pageview } from '@/lib/analytics'
 import Script from 'next/script'
-import { GA_TRACKING_ID } from '@/lib/analytics'
+import { useEffect } from 'react'
+import '@/styles/globals.css'
+import { pageview, GA_TRACKING_ID } from '@/lib/analytics'
 
 function MyApp({ Component, pageProps }) {
 	const router = useRouter()
@@ -19,30 +17,26 @@ function MyApp({ Component, pageProps }) {
 			router.events.off('routeChangeComplete', handleRouteChange)
 		}
 	}, [router.events])
-
 	return (
 		<>
-			{/* Global Site Tag (gtag.js) - Google Analytics */}
 			<Script
 				strategy='afterInteractive'
 				src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
 			/>
-			<Script
-				strategy='afterInteractive'
-				dangerouslySetInnerHTML={{
-					__html: `
+
+			<Script strategy='afterInteractive' id='ga-script'>
+				{`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${GA_TRACKING_ID}', {
               page_path: window.location.pathname,
             });
-          `,
-				}}
-			/>
-			<ChakraProvider theme={customTheme}>
+        `}
+			</Script>
+			<ThemeProvider attribute='class' enableSystem={false}>
 				<Component {...pageProps} />
-			</ChakraProvider>
+			</ThemeProvider>
 		</>
 	)
 }

@@ -1,9 +1,6 @@
-import { VStack } from '@chakra-ui/react'
-
-const ContentWrapper = ({ children }) => (
-	<VStack spacing={{ base: '5rem', lg: '10rem' }} mb='5rem'>
+const ContentWrapper = ({ children, ...props }) => (
+	<div className={`flex flex-col mb-20 space-y-20 ${props.className}`}>
 		{children}
-	</VStack>
+	</div>
 )
-
 export default ContentWrapper

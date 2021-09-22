@@ -1,39 +1,22 @@
-import { Box, Heading, Stack, Text } from '@chakra-ui/layout'
 import Link from 'next/link'
 import { parseISO, format } from 'date-fns'
-import useColorModeSwitcher from '@/utils/hooks/useColorModeSwitcher'
 
-const BlogCard = ({ post }) => {
-	const { themed } = useColorModeSwitcher()
-	return (
-		<BlogWrapper>
-			<Link href={`/blog/${post.slug}`} passHref>
-				<Box cursor='pointer' p={{ base: 2, md: '4' }}>
-					<Stack>
-						<Heading as='h3' variant='h4' _hover={{ color: themed }}>
-							{post.title}
-						</Heading>
-						<Text>{post.summary}</Text>
-					</Stack>
-					<Stack direction='row' spacing={4} align='center'>
-						<Text variant='small' mt={2}>
-							{format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
-							{` • `}
-							{post.frontMatter.readingTime.text}
-						</Text>
-					</Stack>
-				</Box>
-			</Link>
-		</BlogWrapper>
-	)
-}
+const BlogCard = ({ post }) => (
+	<div className='border rounded border-gray-200 dark:border-gray-600 mb-4'>
+		<Link href={`/blog/${post.slug}`} passHref>
+			<div className='cursor-pointer p-2 md:p-4'>
+				<div className='flex flex-col'>
+					<h3 className='font-bold text-lg md:text-xl mb-2'>{post.title}</h3>
+					<p>{post.summary}</p>
+				</div>
+				<p className='mt-2 text-sm'>
+					{format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
+					{` • `}
+					{post.frontMatter.readingTime.text}
+				</p>
+			</div>
+		</Link>
+	</div>
+)
 
-const BlogWrapper = ({ children }) => {
-	const { colorGrey } = useColorModeSwitcher()
-	return (
-		<Box border='1px solid' borderColor={colorGrey} mb={4}>
-			{children}
-		</Box>
-	)
-}
 export default BlogCard

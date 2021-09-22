@@ -1,27 +1,20 @@
-import { Box, VStack } from '@chakra-ui/react'
-import { useRouter } from 'next/dist/client/router'
-import Head from 'next/head'
-import useToggle from '@/hooks/useToggle'
 import Footer from '@/components/Footer'
-import { MobileNavMenu, NavBar } from '@/components/NavBar'
+import NavBar, { MobileNavMenu } from '@/components/NavBar'
+import useToggle from '@/utils/hooks/useToogle'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 const Container = ({ children, ...customMeta }) => {
 	const [isOpen, toggleIsOpen] = useToggle()
-
 	return (
-		<Box>
+		<div className='bg-light dark:bg-dark w-[92vw] sm:w-[90vw] 2xl:w-[80vw] mx-auto'>
 			<Seo {...customMeta} />
-			<Box
-				w={{ base: '92vw', sm: '90vw', '2xl': '80vw', '3xl': '72vw' }}
-				m='auto'
-			>
-				<NavBar toggleIsOpen={toggleIsOpen} />
-				<VStack as='main' minH='70vh'>
-					{isOpen ? <MobileNavMenu /> : children}
-				</VStack>
-				{!isOpen && <Footer />}
-			</Box>
-		</Box>
+			<NavBar toggleIsOpen={toggleIsOpen} />
+			<main className='flex flex-col bg-light dark:bg-dark min-h-[70vh]'>
+				{isOpen ? <MobileNavMenu /> : children}
+			</main>
+			{!isOpen && <Footer />}
+		</div>
 	)
 }
 

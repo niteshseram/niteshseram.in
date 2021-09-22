@@ -18,20 +18,15 @@
 	},
 	"lint-staged": {
 		"*.{html,js,md,yml}": [
-			"prettier --write",
-			"git add"
+			"prettier --write"
 		]
 	},
 	"dependencies": {
-		"@chakra-ui/icons": "^1.0.14",
-		"@chakra-ui/react": "^1.6.5",
-		"@chakra-ui/theme-tools": "^1.1.9",
-		"@emotion/react": "^11.4.0",
-		"@emotion/styled": "^11.3.0",
+		"@tailwindcss/typography": "^0.4.1",
 		"date-fns": "^2.23.0",
-		"framer-motion": "^4.1.17",
 		"mdx-bundler": "^6.0.1",
 		"next": "^11.1",
+		"next-themes": "^0.0.15",
 		"nodemailer": "^6.6.3",
 		"preact": "^10.5.14",
 		"react": "17.x",
@@ -40,6 +35,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.14.6",
+		"autoprefixer": "^10.3.4",
 		"esbuild": "^0.12.20",
 		"eslint": "7.2.0",
 		"eslint-config-next": "^11.1.0",
@@ -48,6 +44,7 @@
 		"gray-matter": "^4.0.3",
 		"husky": "^7.0.0",
 		"lint-staged": "^11.1.2",
+		"postcss": "^8.3.6",
 		"prettier": "^2.2.1",
 		"reading-time": "^1.4.0",
 		"rehype": "^12.0.0",
@@ -56,7 +53,7 @@
 		"rehype-prism-plus": "^0.0.5",
 		"rehype-slug": "5.0.0",
 		"remark-gfm": "^2.0.0",
-		"sitemap": "^7.0.0"
+		"tailwindcss": "^2.2.15"
 	},
 	"keywords": [
 		"next.js",

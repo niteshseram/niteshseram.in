@@ -1,107 +1,77 @@
-import {
-	Text,
-	VStack,
-	Flex,
-	Heading,
-	Link,
-	useColorModeValue,
-} from '@chakra-ui/react'
-import { github, linkedin, twitter } from '@/data/socials'
-import NextLink from 'next/link'
-import useColorModeSwitcher from '@/utils/hooks/useColorModeSwitcher'
+import Link from 'next/link'
 
-const Footer = () => {
-	const { colorGrey } = useColorModeSwitcher()
-	return (
-		<VStack
-			borderTop='1px solid'
-			borderColor={colorGrey}
-			py='32px'
-			px={{ base: '15px', sm: '32px' }}
-			spacing={{ base: '16px' }}
-			as='footer'
-			alignItems={{ base: 'start', md: 'center' }}
-		>
-			<FooterContent />
-			<Text>&copy; Nitesh Seram 2021</Text>
-		</VStack>
-	)
+const FooterEvent = async (action, value) => {
+	const { event } = await import('@/lib/analytics')
+	event({
+		action: action,
+		category: 'Footer',
+		label: value,
+		value: '',
+	})
 }
 
+const Footer = () => (
+	<footer className='flex flex-col border-t-2 border-gray-200 dark:border-gray-800 py-12 px-8 sm:px-16 space-y-8 items-start md:items-center'>
+		<FooterContent />
+		<p>&copy; Nitesh Seram 2021</p>
+	</footer>
+)
+
 const FooterContent = () => (
-	<Flex
-		flexDirection={{ base: 'column', sm: 'row' }}
-		mb={{ base: '1rem', md: '2rem' }}
-	>
-		<Flex flexDirection='row'>
-			<VStack alignItems='start'>
-				<Heading>PAGES</Heading>
+	<div className='flex flex-col sm:flex-row mb-4 md:mb-8'>
+		<div className='flex flex-row'>
+			<div className='flex flex-col items-start'>
+				<h4 className='font-bold'>PAGES</h4>
 				<FooterLink href='/'>Home</FooterLink>
 				<FooterLink href='/about'>About</FooterLink>
 				<FooterLink href='/projects'>Projects</FooterLink>
 				<FooterLink href='/blog'>Blog</FooterLink>
-			</VStack>
-			<VStack alignItems='start' ml={{ base: '100%', sm: '5rem', md: '10rem' }}>
-				<Heading>SOCIALS</Heading>
-				<FooterLink href={github.href} name={github.name}>
-					Github
-				</FooterLink>
-				<FooterLink href={linkedin.href} name={linkedin.name}>
+			</div>
+			<div className='flex flex-col items-start ml-[100%] sm:ml-20 md:ml-40'>
+				<h4 className='font-bold'>SOCIALS</h4>
+				<FooterLink href='https://github.com/niteshseram'>Github</FooterLink>
+				<FooterLink href='https://twitter.com/niteshseram'>Twitter</FooterLink>
+				<FooterLink href='https://linkedin.com/in/niteshseram'>
 					LinkedIn
 				</FooterLink>
-				<FooterLink href={twitter.href} name={twitter.name}>
-					Twitter
-				</FooterLink>
-			</VStack>
-		</Flex>
-		<VStack
-			alignItems='start'
-			ml={{ base: 0, sm: '5rem', md: '10rem' }}
-			mt={{ base: '3rem', sm: 0 }}
-		>
-			<Heading>EXTRA</Heading>
+			</div>
+		</div>
+		<div className='flex flex-col items-start ml-0 sm:ml-20 md:ml-40 mt-12 sm:mt-0'>
+			<h4 className='font-bold'>EXTRA</h4>
 			<FooterLink href='https://github.com/niteshseram/niteshseram.in'>
-				Source code
+				Source Code
 			</FooterLink>
-		</VStack>
-	</Flex>
+		</div>
+	</div>
 )
 
 const FooterLink = ({ href, name, children }) => {
-	const color = useColorModeValue('neutral.700', 'neutral.300')
 	const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'))
 	if (isInternalLink) {
 		return (
-			<NextLink href={href}>
-				<Link
-					color={color}
+			<Link href={href}>
+				<a
+					className='text-gray-600 dark:text-gray-400 mt-2'
 					href={href}
-					_focus={{ outline: 'none' }}
-					_hover={{ textDecoration: 'none' }}
-					textDecoration='none'
 					aria-label={name}
 				>
 					{children}
-				</Link>
-			</NextLink>
+				</a>
+			</Link>
 		)
 	}
 
 	return (
-		<Link
+		<a
 			target='_blank'
 			rel='noopener noreferrer'
-			color={color}
 			href={href}
-			_focus={{ outline: 'none' }}
-			_hover={{ textDecoration: 'none' }}
-			textDecoration='none'
+			onClick={() => FooterEvent(children, children)}
+			className='text-gray-600 dark:text-gray-400 transition mt-2'
 			aria-label={name}
-			isExternal
 		>
 			{children}
-		</Link>
+		</a>
 	)
 }
-
 export default Footer

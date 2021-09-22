@@ -1,26 +1,12 @@
-import {
-	Box,
-	Button,
-	Center,
-	Heading,
-	List,
-	Flex,
-	ListItem,
-	Text,
-	VStack,
-	Link,
-} from '@chakra-ui/react'
-import NextLink from 'next/link'
-import Image from 'next/image'
-import Container from '@/layouts/Container'
-import ProjectCard from '@/components/ProjectCard'
+import BlogCard from '@/components/BlogCard'
 import ContactForm from '@/components/ContactForm'
-import useColorModeSwitcher from '@/hooks/useColorModeSwitcher'
+import ProjectCard from '@/components/ProjectCard'
 import projects from '@/data/projects'
-import { twitter } from '@/data/socials'
+import Container from '@/layouts/Container'
 import ContentWrapper from '@/layouts/ContentWrapper'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
-import BlogCard from '@/components/BlogCard'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Home({ posts }) {
 	return (
@@ -35,112 +21,66 @@ export default function Home({ posts }) {
 	)
 }
 
-const Hero = () => {
-	const { themed } = useColorModeSwitcher()
-	return (
-		<Flex
-			minH='90vh'
-			alignItems='center'
-			justifyContent='space-evenly'
-			direction={{ base: 'column-reverse', lg: 'row' }}
-			w='100%'
-		>
-			<Flex
-				flex={{ base: 'none', lg: '1.3' }}
-				align={{ base: 'center', lg: 'start' }}
-				justify='center'
-				direction='column'
-			>
-				<Heading as='h1' variant='h1'>
-					Hi, I&apos;m{' '}
-					<Box as='span' color={themed}>
-						Nitesh Seram
-					</Box>
-				</Heading>
-				<Text variant='preTitle' mb={{ base: '1rem', lg: '2rem' }}>
-					Software Engineer based in India
-				</Text>
-				<Text
-					mb={{ base: '2rem', lg: '3rem' }}
-					variant='subtitle'
-					align={{ base: 'center', lg: 'left' }}
-				>
-					Welcome to my digital corner where you can find my works, thoughts and
-					random things.
-				</Text>
-				<NextLink href='#contact' passHref>
-					<Button w='184px' h='50px' variant='primaryThemed'>
-						Get in Touch
-					</Button>
-				</NextLink>
-			</Flex>
-			<Center flex={{ base: 'none', lg: '1' }}>
-				<Box
-					w={{ base: '200px', lg: '400px' }}
-					h={{ base: '200px', lg: '400px' }}
-					borderRadius='50%'
-					padding='10px'
-					border={{ base: '2px solid', lg: '5px solid' }}
-					borderColor={{ base: themed, lg: themed }}
-				>
-					<Image
-						src='/static/images/dp.png'
-						width={400}
-						height={400}
-						alt='Profile Picture'
-					/>
-				</Box>
-			</Center>
-		</Flex>
-	)
-}
+const Hero = () => (
+	<div className='flex items-center justify-evenly lg:justify-between flex-col-reverse lg:flex-row w-full min-h-[90vh]'>
+		<div className='flex lg:flex-1 items-center lg:items-start justify-center flex-col max-w-xl'>
+			<h1 className='font-bold text-3xl md:text-5xl lg:text-6xl tracking-tight text-dark dark:text-light'>
+				Hi, I&apos;m
+				<span className='text-primary dark:text-secondary'> Nitesh Seram</span>
+			</h1>
+			<h2 className='font-bold text-md md:text-xl lg:text-2xl mb-4 lg:mb-8'>
+				Software Engineer based in India
+			</h2>
+			<p className='text-center lg:text-left text-lg lg:text-xl pb-4 lg:pb-8'>
+				Welcome to my digital corner where you can find my works, thoughts and
+				random things.
+			</p>
+			<Link href='#contact' passHref>
+				<button className='btn btn-themed uppercase'>Get in Touch</button>
+			</Link>
+		</div>
+		<div className='flex items-center justify-center flex-none lg:flex-1'>
+			<div className='w-[200px] lg:w-[400px] h-[200px] lg:h-[400px] p-1 lg:p-2 border-2 lg:border-4 border-solid border-primary dark:border-secondary rounded-full'>
+				<Image
+					src='/static/images/dp.png'
+					width={400}
+					height={400}
+					alt='Profile Picture'
+				/>
+			</div>
+		</div>
+	</div>
+)
 
 const BlogSection = ({ posts }) => (
-	<VStack w='100%'>
-		<FeatureHeading>Recent Blogs</FeatureHeading>
-		<List mt={5} flex='0 0 auto' w={{ base: '100%', md: '80%', lg: '70%' }}>
+	<div className='flex flex-col w-full'>
+		<h2 className='text-center heading'>Recent Blogs</h2>
+		<ul className='self-center mt-5 w-full md:max-w-[80%] lg:max-w-[70%]'>
 			{posts.map((post, index) => (
-				<ListItem key={index}>
+				<li key={index}>
 					<BlogCard post={post} />
-				</ListItem>
+				</li>
 			))}
-		</List>
-	</VStack>
+		</ul>
+	</div>
 )
 
 const FeaturedProjects = () => (
-	<VStack w='100%' m='auto'>
-		<FeatureHeading>Featured Projects</FeatureHeading>
-		<Flex
-			w='100%'
-			mb='2.5rem'
-			direction={{ base: 'column', xl: 'row' }}
-			justify='space-evenly'
-		>
+	<div className='flex flex-col w-full m-auto'>
+		<h2 className='text-center heading'>Featured Projects</h2>
+		<div className='flex flex-col xl:flex-row justify-evenly w-full'>
 			<Projects />
-		</Flex>
-		<NextLink href='/projects' passHref>
-			<Button
-				as='a'
-				textTransform='capitalize'
-				display='block'
-				textAlign='center'
-				fontSize={{ base: 'lg', lg: 'xl' }}
-				variant='secondaryThemed'
-			>
-				See all projects
-			</Button>
-		</NextLink>
-	</VStack>
+		</div>
+		<Link href='/projects' passHref>
+			<a className='btn btn-secondary-themed capitalize text-center self-center'>
+				Sell all projects
+			</a>
+		</Link>
+	</div>
 )
 
 const Projects = () => (
-	<List
-		role='list'
-		mx='auto'
-		justify='space-between'
-		display={{ base: 'block', '2xl': 'flex' }}
-	>
+	<div className='mx-auto justify-between block 2xl:flex'>
 		{projects
 			.filter((project) => project.feature)
 			.map((project) => (
@@ -154,59 +94,37 @@ const Projects = () => (
 					key={project.id}
 				/>
 			))}
-	</List>
+	</div>
 )
 
-const FeatureHeading = ({ children }) => (
-	<Heading
-		textAlign='center'
-		mb={{ base: '2.5rem', lg: '4rem' }}
-		as='h2'
-		variant='h2'
-	>
-		{children}
-	</Heading>
+const ContactSection = () => (
+	<div className='flex flex-col w-full m-auto pt-10' id='contact'>
+		<h2 className='text-center heading'>Get In Touch</h2>
+		<div className='flex flex-col lg:flex-row w-full items-center justify-around'>
+			<div className='mb-16 xl:mr-16 flex-1 max-w-full md:max-w-[70%]'>
+				<h3 className='font-bold text-xl md:text-lg mb-2'>Let&apos;s chat!</h3>
+				<p className='mb-8'>
+					If you want to collaborate or have any questions, opportunities, or
+					might simply want to say hello then, feel free to fill out my contact
+					form and I&apos;ll without a doubt hit you up in a hurry.
+				</p>
+				<p>
+					Or if you would prefer to, you can also reach me on{' '}
+					<a
+						className='link'
+						href='https://twitter.com/niteshseram'
+						target='_blank'
+						rel='noreferrer noopener'
+					>
+						Twitter
+					</a>
+					.
+				</p>
+			</div>
+			<ContactForm />
+		</div>
+	</div>
 )
-
-const ContactSection = () => {
-	const { themed } = useColorModeSwitcher()
-	return (
-		<VStack w='100%' m='auto' id='contact'>
-			<FeatureHeading>Get In Touch</FeatureHeading>
-			<Flex
-				borderRadius='md'
-				direction={{ base: 'column', lg: 'row' }}
-				w='100%'
-				alignItems='center'
-				justifyContent='space-around'
-			>
-				<Box
-					m={{ base: '0 0 4rem 0', xl: '0 4rem 0 0' }}
-					p={0}
-					flex='1'
-					maxW={{ base: '100%', md: '70%' }}
-				>
-					<Text mb='1rem' variant='preTitle'>
-						Let&apos;s chat!
-					</Text>
-					<Text mb='2rem'>
-						If you want to collaborate or have any questions, opportunities, or
-						might simply want to say hello then, feel free to fill out my
-						contact form and I&apos;ll without a doubt hit you up in a hurry.
-					</Text>
-					<Text>
-						Or if you would prefer to, you can also reach me on{' '}
-						<Link color={themed} href={twitter.href}>
-							Twitter
-						</Link>
-						.
-					</Text>
-				</Box>
-				<ContactForm flex='1' />
-			</Flex>
-		</VStack>
-	)
-}
 
 export const getStaticProps = async () => {
 	const posts = await getAllFilesFrontMatter('blog')

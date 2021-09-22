@@ -14,7 +14,6 @@ import {
 	SiDocker,
 	SiStyledComponents,
 } from 'react-icons/si'
-import Chakra from '@/components/svg/ChakraLogo'
 
 export const java = {
 	name: 'Java',
@@ -104,7 +103,6 @@ export const styledcomponents = {
 }
 export const chakra = {
 	name: 'Chakra UI',
-	icon: Chakra,
 	color: null,
 	include: false,
 }

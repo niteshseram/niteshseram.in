@@ -256,7 +256,6 @@ We wrapped the `fetch` code with try and catch because when there is any error r
 
 So, this _onSubmitForm()_ method is called when we click the submit button.
 
-<br />
 Now, let's do some simple styling for the contact form. I will keep it simple since
 we are focusing more on implementing the contact form functionality and not on design.
 
@@ -289,7 +288,6 @@ As we can see, in our `index.js` file we are importing `Home.module.css` file at
 
 So, this is the simple CSS for the contact form and is not too fancy.
 
-<br />
 Now, let's try to run and see if the application is working fine. When we run our
 app and try to submit the form, we will see an error in the console related to **_POST
 404_**. It is because the POST request to the API endpoint `api/contact` is not successful
@@ -315,7 +313,6 @@ Paste the above code inside your `contact.js` file. Here, we are simply destruct
 
 Now, run your app and you should see those values in your terminal when you click the submit button of the form.
 
-<br />
 Now, let's get into the main implementation with [Nodemailer](https://nodemailer.com/).
 First, install Nodemailer in your Next.js app. To install, run the below command-
 
@@ -396,24 +393,23 @@ You can use your personal Gmail account if you want. But, I will suggest you cre
 
 You can go ahead and create the Gmail account by yourself like we do normally.
 
-<br />
-<CImage
+<Image
 	alt='Manage Google Account'
 	src='/static/blog/nextjs-with-nodemailer/img1.PNG'
 	width={1083}
 	height={605}
 />
 After creating the account, go to _Manage Google Account_, then go to _Security_
-option and configure the 2-Step Verification. If you have configured from
-before, then you will see the _App passwords_ option.
-<br />
-<CImage
+option and configure the 2-Step Verification. If you have configured from before,
+then you will see the _App passwords_ option.
+
+<Image
 	alt='2 Step Verification'
 	src='/static/blog/nextjs-with-nodemailer/img2.PNG'
 	width={1558}
 	height={504}
 />
-<CImage
+<Image
 	alt='App passwords'
 	src='/static/blog/nextjs-with-nodemailer/img3.PNG'
 	width={1464}
@@ -421,15 +417,14 @@ before, then you will see the _App passwords_ option.
 />
 Click on App passwords and select the options as below image.
 
-<br />
-<CImage
+<Image
 	alt='App passwords options'
 	src='/static/blog/nextjs-with-nodemailer/img4.PNG'
 	width={929}
 	height={339}
 />
-Then, we will get your password which is going to be your `SMTP_PASSWORD`. And
-your `SMTP_USER` will be that Gmail address.
+Then, we will get your password which is going to be your `SMTP_PASSWORD`. And your
+`SMTP_USER` will be that Gmail address.
 
 Now, we have got the `SMTP_USER` and`_SMTP_PASSWORD`, let's see how to set up the environment variable.
 
@@ -444,18 +439,16 @@ SMTP_PASSWORD=your app password
 
 These values can be accessed like `process.env.SMTP_USER` and `process.env.SMTP_PASSWORD` as we did in `contact.js` file.
 
-<br />
 Don't forget to add this `.env.local` file inside your `.gitignore` if you're pushing
 this code in GitHub.
-<br />
+
 For **_production_**, you have to put those environment variables in the platform
 of the hosting provider. Let's take [Vercel](https://vercel.com) for our case and
 see how can we set the environment variables in Vercel.
 
 In Vercel, go to your Project settings and then go to the Environment Variables option from the left.
 
-<br />
-<CImage
+<Image
 	alt='Vercel Project settings'
 	src='/static/blog/nextjs-with-nodemailer/img5.PNG'
 	width={1330}
@@ -464,8 +457,7 @@ In Vercel, go to your Project settings and then go to the Environment Variables 
 
 Then, you have to provide the name and value for that environment variables `SMTP_USER` and `SMTP_PASSWORD` like below image.
 
-<br />
-<CImage
+<Image
 	alt='Vercel Environment variables'
 	src='/static/blog/nextjs-with-nodemailer/img6.PNG'
 	width={1342}
@@ -478,5 +470,4 @@ After adding the environment variables, make sure to redeploy the project. Other
 
 Now, run your app locally or in production and try submitting the contact form. You will see the message _Your message was sent successfully_ below your contact form and you will finally receive the mail upon the contact form submission.
 
-<br />
 Hooray! We are done.🎉

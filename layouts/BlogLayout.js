@@ -1,69 +1,41 @@
-import Image from 'next/image'
-import { useColorModeValue } from '@chakra-ui/react'
-import { parseISO, format } from 'date-fns'
-import { Box, Heading, Flex, Text } from '@chakra-ui/react'
-import { Icon } from '@chakra-ui/icon'
-import { Global } from '@emotion/react'
 import Container from './Container'
+import Image from 'next/image'
+import { parseISO, format } from 'date-fns'
 import { MdTimelapse } from 'react-icons/md'
-import { prismDarkTheme, prismLightTheme } from '@/styles/prism'
 
-const BlogLayout = ({ children, frontMatter }) => {
-	const prismColor = useColorModeValue(prismLightTheme, prismDarkTheme)
-	const color = useColorModeValue('neutral.700', 'neutral.300')
-	return (
-		<Container
-			title={`${frontMatter.title} | Nitesh Seram`}
-			description={frontMatter.summary}
-			image={`https://niteshseram.in${frontMatter.image}`}
-			keywords={frontMatter.keywords}
-			date={new Date(frontMatter.publishedAt).toISOString()}
-			type='article'
-		>
-			<Box
-				as='article'
-				mx='auto'
-				my='2rem'
-				maxW={{ base: '100%', sm: '30rem', md: '42rem' }}
-				display='flex'
-				flexDirection='column'
-				color={color}
-				className='mdx'
-				mb='5rem'
-			>
-				<Global styles={prismColor} />
-				<Heading as='h2' variant='h2'>
-					{frontMatter.title}
-				</Heading>
-				<Flex
-					alignItems={{ base: 'start', md: 'center' }}
-					flexDirection={{ base: 'column', md: 'row' }}
-					mt={4}
-					mb={2}
-					justifyContent='space-between'
-				>
-					<Flex alignItems='center'>
-						<Image
-							alt='Nitesh Seram'
-							height={24}
-							width={24}
-							src='/static/images/dp.png'
-						/>
-						<Text ml={2} variant='small'>
-							{frontMatter.by}
-							{'Nitesh Seram / '}
-							{format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy')}
-						</Text>
-					</Flex>
-					<Text variant='small' mt={{ base: 2, md: 0 }}>
-						<Icon as={MdTimelapse} boxSize={5} mr={1} />
-						{frontMatter.readingTime.text}
-					</Text>
-				</Flex>
-				{children}
-			</Box>
-		</Container>
-	)
-}
+const BlogLayout = ({ children, frontMatter }) => (
+	<Container
+		title={`${frontMatter.title} | Nitesh Seram`}
+		description={frontMatter.summary}
+		image={`https://niteshseram.in${frontMatter.image}`}
+		keywords={frontMatter.keywords}
+		date={new Date(frontMatter.publishedAt).toISOString()}
+		type='article'
+	>
+		<article className='mx-auto my-8 flex flex-col max-w-full sm:max-w-[30rem] w-full md:max-w-[42rem] mb-16'>
+			<h2 className='heading mb-2'>{frontMatter.title}</h2>
+			<div className='flex flex-col md:flex-row items-start md:items-center mt-4 mb-2 justify-between'>
+				<div className='flex items-center'>
+					<Image
+						alt='Nitesh Seram'
+						height={24}
+						width={24}
+						src='/static/images/dp.png'
+					/>
+					<p className='ml-2 text-sm'>
+						{frontMatter.by}
+						{'Nitesh Seram / '}
+						{format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy')}
+					</p>
+				</div>
+				<p className='text-sm mt-2 md:mt-0'>
+					<MdTimelapse className='mr-1 h-4 w-4 inline' />
+					{frontMatter.readingTime.text}
+				</p>
+			</div>
+			<div className='prose dark:prose-dark max-w-none w-full'>{children}</div>
+		</article>
+	</Container>
+)
 
 export default BlogLayout
