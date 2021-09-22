@@ -106,14 +106,14 @@ const MenuIcon = ({ clicked }) => {
 const Line = (props) => {
 	return (
 		<div
-			className={`rounded absolute h-[4px] transition-all duration-300 ease-in-out ${props.className}`}
+			className={`rounded absolute h-[4px] duration-300 ease-in-out ${props.className}`}
 		/>
 	)
 }
 
 const Item = ({ children, href }) => {
 	return (
-		<div className='font-semibold text-xl lg:text-base lg:mr-[2rem] pb-4 lg:pb-0 border-b-[1px] border-gray-200 dark:border-gray-600 lg:border-none text-dark dark:text-light'>
+		<div className='font-medium text-xl lg:text-base lg:mr-[2rem] pb-4 lg:pb-0 border-b-[1px] border-gray-200 dark:border-gray-600 lg:border-none text-dark dark:text-light'>
 			<Link href={href}>{children}</Link>
 		</div>
 	)

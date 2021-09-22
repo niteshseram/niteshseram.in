@@ -13,7 +13,7 @@ const BlogLayout = ({ children, frontMatter }) => (
 		type='article'
 	>
 		<article className='mx-auto my-8 flex flex-col max-w-full sm:max-w-[30rem] w-full md:max-w-[42rem] mb-16'>
-			<h1 className='heading mb-2'>{frontMatter.title}</h1>
+			<h2 className='heading mb-2'>{frontMatter.title}</h2>
 			<div className='flex flex-col md:flex-row items-start md:items-center mt-4 mb-2 justify-between'>
 				<div className='flex items-center'>
 					<Image

@@ -13,7 +13,7 @@ const Container = ({ children, ...customMeta }) => {
 			<main className='flex flex-col bg-light dark:bg-dark min-h-[70vh]'>
 				{isOpen ? <MobileNavMenu /> : children}
 			</main>
-			<Footer />
+			{!isOpen && <Footer />}
 		</div>
 	)
 }

@@ -6,7 +6,7 @@ const BlogCard = ({ post }) => (
 		<Link href={`/blog/${post.slug}`} passHref>
 			<div className='cursor-pointer p-2 md:p-4'>
 				<div className='flex flex-col'>
-					<h3 className='font-bold text-xl mb-2'>{post.title}</h3>
+					<h3 className='font-bold text-lg md:text-xl mb-2'>{post.title}</h3>
 					<p>{post.summary}</p>
 				</div>
 				<p className='mt-2 text-sm'>

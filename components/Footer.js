@@ -41,7 +41,7 @@ const FooterLink = ({ href, name, children }) => {
 		return (
 			<Link href={href}>
 				<a
-					className='text-gray-600 dark:text-gray-400 transition mt-2'
+					className='text-gray-600 dark:text-gray-400 mt-2'
 					href={href}
 					aria-label={name}
 				>
