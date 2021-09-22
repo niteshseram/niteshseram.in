@@ -1,3 +1,13 @@
+const ProjectEvent = async (action, value) => {
+	const { event } = await import('@/lib/analytics')
+	event({
+		action: action,
+		category: 'Project',
+		label: value,
+		value: '',
+	})
+}
+
 const ProjectCard = ({ title, description, tools, live, repo, ...props }) => (
 	<div
 		className={`flex flex-col border-solid border-2 border-gray-200 dark:border-gray-600 w-full md:w-[33rem] mb-12 md:mx-4 bg-light dark:bg-dark space-y-4 md:space-y-6 ${props.className}`}
@@ -20,6 +30,7 @@ const ProjectCard = ({ title, description, tools, live, repo, ...props }) => (
 				{live && (
 					<a
 						href={live}
+						onClick={() => ProjectEvent('live-view', title)}
 						target='_blank'
 						rel='noopener noreferrer'
 						className='btn btn-primary uppercase'
@@ -30,6 +41,7 @@ const ProjectCard = ({ title, description, tools, live, repo, ...props }) => (
 				{repo && (
 					<a
 						href={repo}
+						onClick={() => ProjectEvent('repo-view', title)}
 						target='_blank'
 						rel='noopener noreferrer'
 						className='btn btn-secondary uppercase ml-4'

@@ -10,6 +10,16 @@ const ContactForm = () => {
 		message: '',
 	})
 
+	const contactEvent = async () => {
+		const { event } = await import('@/lib/analytics')
+		event({
+			action: 'contact',
+			category: 'Contact',
+			label: 'Contact',
+			value: '',
+		})
+	}
+
 	const handleChange = (e) => {
 		setInputs((prev) => ({
 			...prev,
@@ -44,7 +54,7 @@ const ContactForm = () => {
 					state: 'success',
 					message: 'Sent Successfully',
 				})
-
+				contactEvent()
 				setInputs({
 					name: '',
 					email: '',

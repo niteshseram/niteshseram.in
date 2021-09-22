@@ -1,5 +1,15 @@
 import Link from 'next/link'
 
+const FooterEvent = async (action, value) => {
+	const { event } = await import('@/lib/analytics')
+	event({
+		action: action,
+		category: 'Footer',
+		label: value,
+		value: '',
+	})
+}
+
 const Footer = () => (
 	<footer className='flex flex-col border-t-2 border-gray-200 dark:border-gray-800 py-12 px-8 sm:px-16 space-y-8 items-start md:items-center'>
 		<FooterContent />
@@ -56,6 +66,7 @@ const FooterLink = ({ href, name, children }) => {
 			target='_blank'
 			rel='noopener noreferrer'
 			href={href}
+			onClick={() => FooterEvent(children, children)}
 			className='text-gray-600 dark:text-gray-400 transition mt-2'
 			aria-label={name}
 		>
