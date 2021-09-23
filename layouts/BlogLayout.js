@@ -28,7 +28,7 @@ const BlogLayout = ({ children, frontMatter }) => (
 						{format(parseISO(frontMatter.publishedAt), 'MMMM dd, yyyy')}
 					</p>
 				</div>
-				<p className='text-sm mt-2 md:mt-0'>
+				<p className='flex items-center text-sm mt-2 md:mt-0'>
 					<MdTimelapse className='mr-1 h-4 w-4 inline' />
 					{frontMatter.readingTime.text}
 				</p>
