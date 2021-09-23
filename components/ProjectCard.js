@@ -33,7 +33,7 @@ const ProjectCard = ({ title, description, tools, live, repo, ...props }) => (
 						onClick={() => ProjectEvent('live-view', title)}
 						target='_blank'
 						rel='noopener noreferrer'
-						className='btn btn-primary uppercase'
+						className='btn btn-primary uppercase mr-4'
 					>
 						Visit Site
 					</a>
@@ -44,7 +44,7 @@ const ProjectCard = ({ title, description, tools, live, repo, ...props }) => (
 						onClick={() => ProjectEvent('repo-view', title)}
 						target='_blank'
 						rel='noopener noreferrer'
-						className='btn btn-secondary uppercase ml-4'
+						className='btn btn-secondary uppercase'
 					>
 						View Code
 					</a>
