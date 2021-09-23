@@ -1,12 +1,13 @@
 import {
-	chakra,
 	hsql,
+	MDX,
 	monogdb,
 	next,
 	node,
 	react,
 	springboot,
 	styledcomponents,
+	tailwind,
 } from '@/data/tools'
 
 const projects = [
@@ -15,7 +16,7 @@ const projects = [
 		title: 'Portfolio V2',
 		description:
 			'This site where you are right now is the 2nd iteration of my personal portfolio.',
-		tools: [next, chakra],
+		tools: [next, tailwind, MDX],
 		repo: 'https://niteshseram.in',
 		feature: false,
 	},

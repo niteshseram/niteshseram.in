@@ -98,17 +98,22 @@ export const typescript = {
 export const styledcomponents = {
 	name: 'Styled Components',
 	icon: SiStyledComponents,
-	color: null,
 	include: false,
 }
 export const chakra = {
 	name: 'Chakra UI',
-	color: null,
+	include: false,
+}
+export const tailwind = {
+	name: 'Tailwind CSS',
+	include: false,
+}
+export const MDX = {
+	name: 'MDX',
 	include: false,
 }
 export const hsql = {
 	icon: FaDatabase,
 	name: 'HSQL Database',
-	color: null,
 	include: false,
 }

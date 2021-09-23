@@ -51,7 +51,7 @@ const FooterLink = ({ href, name, children }) => {
 		return (
 			<Link href={href}>
 				<a
-					className='text-gray-600 dark:text-gray-400 mt-2'
+					className='text-gray-900 dark:text-gray-400 mt-2'
 					href={href}
 					aria-label={name}
 				>
@@ -67,7 +67,7 @@ const FooterLink = ({ href, name, children }) => {
 			rel='noopener noreferrer'
 			href={href}
 			onClick={() => FooterEvent(children, children)}
-			className='text-gray-600 dark:text-gray-400 transition mt-2'
+			className='text-gray-900 dark:text-gray-400 transition mt-2'
 			aria-label={name}
 		>
 			{children}

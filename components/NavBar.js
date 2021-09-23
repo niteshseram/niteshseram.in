@@ -2,6 +2,7 @@ import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import useToggle from '@/utils/hooks/useToogle'
 import { IoMoon, IoSunnyOutline } from 'react-icons/io5'
+import { RiMenu2Line, RiCloseFill } from 'react-icons/ri'
 import Link from 'next/link'
 import Logo from './svg/Logo'
 
@@ -64,50 +65,10 @@ const MenuButton = ({ toggleIsOpen }) => {
 	return (
 		<div
 			onClick={handleClick}
-			className='lg:hidden rounded-sm w-[48px] h-[48px] block'
+			className='lg:hidden rounded-sm flex items-center justify-center -ml-1'
 		>
-			<MenuIcon clicked={clicked} />
+			{clicked ? <RiCloseFill size='35' /> : <RiMenu2Line size='35' />}
 		</div>
-	)
-}
-
-const MenuIcon = ({ clicked }) => {
-	return (
-		<div
-			className='w-[100%] h-[100%] relative'
-			aria-label='Menu Icon'
-			role='button'
-		>
-			<Line
-				className={`bg-dark dark:bg-light ${
-					clicked
-						? 'left-[8px] top-[22px] w-[32px] transform rotate-45'
-						: 'left-[4px] top-[10px] w-[40px]'
-				}`}
-			/>
-			<Line
-				className={
-					clicked
-						? 'bg-transparent left-[8px] top-[22px] transform translate-x-[30px] w-[32px]'
-						: 'left-[4px] top-[20px] bg-dark dark:bg-light w-[26px]'
-				}
-			/>
-			<Line
-				className={`bg-dark dark:bg-light ${
-					clicked
-						? 'left-[8px] bottom-[22px] transform -rotate-45 w-[32px]'
-						: 'left-[4px] bottom-[14px] w-[16px]'
-				}`}
-			/>
-		</div>
-	)
-}
-
-const Line = (props) => {
-	return (
-		<div
-			className={`rounded absolute h-[4px] duration-300 ease-in-out ${props.className}`}
-		/>
 	)
 }
 
