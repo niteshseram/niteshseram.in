@@ -73,7 +73,7 @@ const FeaturedProjects = () => (
 		</div>
 		<Link href='/projects' passHref>
 			<a className='btn btn-secondary-themed capitalize text-center self-center'>
-				Sell all projects
+				See all projects
 			</a>
 		</Link>
 	</div>
