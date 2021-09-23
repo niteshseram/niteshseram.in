@@ -34,7 +34,7 @@ input[type='email'] {
 		@apply text-dark dark:text-light;
 	}
 	p {
-		@apply text-gray-600 dark:text-gray-400;
+		@apply text-gray-900 dark:text-gray-400;
 	}
 }
 
@@ -67,7 +67,9 @@ input[type='email'] {
 		@apply font-bold text-primary dark:text-secondary underline;
 	}
 }
-
+.prose p {
+	@apply mb-2 mt-0;
+}
 .prose .anchor {
 	@apply absolute invisible cursor-pointer;
 	margin-left: -1em;
