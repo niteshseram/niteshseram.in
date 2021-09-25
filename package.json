@@ -12,12 +12,14 @@
 		"start": "next start",
 		"prettier": "prettier --check .",
 		"lint": "next lint",
-		"format": "lint-staged",
 		"prepare": "husky install",
-		"precommit": "yarn lint && lint-staged"
+		"precommit": "lint-staged"
 	},
 	"lint-staged": {
-		"*.{html,js,md,yml}": [
+		"*.js": [
+			"eslint --fix"
+		],
+		"*.{html,js,md,mdx,yml}": [
 			"prettier --write"
 		]
 	},
