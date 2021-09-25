@@ -1,4 +1,8 @@
-module.exports = {
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+	enabled: process.env.ANALYZE === 'true',
+})
+
+module.exports = withBundleAnalyzer({
 	experimental: { esmExternals: true },
 	reactStrictMode: true,
 	webpack: (config, { dev, isServer }) => {
@@ -16,4 +20,4 @@ module.exports = {
 	eslint: {
 		dirs: ['components', 'pages', 'lib', 'layouts', 'scripts', 'utils'], // Only run ESLint on the 'pages' and 'utils' directories during production builds (next build)
 	},
-}
+})

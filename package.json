@@ -12,12 +12,15 @@
 		"start": "next start",
 		"prettier": "prettier --check .",
 		"lint": "next lint",
-		"format": "lint-staged",
 		"prepare": "husky install",
-		"precommit": "yarn lint && lint-staged"
+		"precommit": "lint-staged",
+		"analyze": "cross-env ANALYZE=true next build"
 	},
 	"lint-staged": {
-		"*.{html,js,md,yml}": [
+		"*.js": [
+			"eslint --fix"
+		],
+		"*.{html,js,md,mdx,yml}": [
 			"prettier --write"
 		]
 	},
@@ -35,7 +38,9 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.14.6",
+		"@next/bundle-analyzer": "^11.1.2",
 		"autoprefixer": "^10.3.4",
+		"cross-env": "^7.0.3",
 		"esbuild": "^0.12.20",
 		"eslint": "7.2.0",
 		"eslint-config-next": "^11.1.0",
