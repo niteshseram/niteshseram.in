@@ -68,7 +68,7 @@ input[type='email'] {
 	}
 }
 .prose p {
-	@apply mb-2 mt-0;
+	@apply mb-4 mt-0;
 }
 .prose .anchor {
 	@apply absolute invisible cursor-pointer;
