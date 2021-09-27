@@ -188,7 +188,7 @@ Then, again in [`package.json`](https://github.com/niteshseram/nextjs-linting-pr
 	}
 ```
 
-This `lint-staged` object will run ESLint and Prettier to only those files which are git staged.
+This `lint-staged` object will run ESLint and Prettier to only those files which are git staged. But wait for a second, why running `eslint --fix` instead of `next lint` in the above `lint-staged` script? The reason is Next.js is having an [issue](https://github.com/vercel/next.js/issues/27997) running next lint with lint-staged and hopefully it will be fixed soon. So, for time being, you can use `eslint --fix`.
 
 Then, add a script `"precommit": "lint-staged"` inside the scripts object of your [`package.json`](https://github.com/niteshseram/nextjs-linting-project/blob/411c201baeade8f51900e95d32ddf099db1587f8/package.json#L12) which will allow you to run the `lint-staged` object as a script by running `yarn precommit` or `npm run precommit`.
 
