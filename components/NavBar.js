@@ -90,7 +90,7 @@ const MenuButton = ({ toggleIsOpen }) => {
 				viewBox='0 0 24 24'
 				className='w-8 h-8 fill-current'
 				aria-label='Menu Button'
-				role='Navigation'
+				role='button'
 			>
 				{clicked ? (
 					<g>

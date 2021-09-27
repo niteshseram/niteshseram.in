@@ -19,14 +19,9 @@ module.exports = {
 				DEFAULT: {
 					css: {
 						color: theme('colors.neutral.700'),
-						a: {
-							color: theme('colors.primary'),
-							code: { color: theme('colors.blue.400') },
-						},
 						'h2,h3,h4': {
 							'scroll-margin-top': spacing[32],
 						},
-						code: { color: theme('colors.pink.500') },
 						'blockquote p:first-of-type::before': false,
 						'blockquote p:last-of-type::after': false,
 					},
@@ -34,10 +29,6 @@ module.exports = {
 				dark: {
 					css: {
 						color: theme('colors.gray.400'),
-						a: {
-							color: theme('colors.secondary'),
-							code: { color: theme('colors.blue.400') },
-						},
 						blockquote: {
 							borderLeftColor: theme('colors.gray.700'),
 							color: theme('colors.gray.300'),

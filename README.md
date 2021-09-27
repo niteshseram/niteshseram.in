@@ -20,10 +20,13 @@ This is 2nd iteration of my personal website built using NextJs, Tailwind CSS, a
 ```bash
 # Clone this repository
 git clone https://github.com/niteshseram/niteshseram.in.git
+
 # Go into the repository folder
 cd niteshseram.in
+
 # Install dependencies
 yarn
+
 # Run
 yarn dev
 ```
