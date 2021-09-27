@@ -71,11 +71,17 @@ input[type='email'] {
 	@apply mb-4 mt-0;
 }
 .prose .anchor {
-	@apply absolute invisible cursor-pointer;
-	margin-left: -1em;
-	padding-right: 0.5em;
+	@apply absolute invisible cursor-pointer -ml-4;
 	width: 80%;
 	max-width: 700px;
+}
+.prose :not(pre) > code {
+	@apply text-pink-500 px-1 py-0.5 border border-gray-300 dark:border-gray-800 rounded-md bg-gray-100 dark:bg-gray-900;
+}
+
+.prose a,
+.prose a > code {
+	@apply text-blue-800 dark:text-blue-500;
 }
 
 .anchor:hover {
