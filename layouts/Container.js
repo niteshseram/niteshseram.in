@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 const Container = ({ children, ...customMeta }) => {
 	const [isOpen, toggleIsOpen] = useToggle()
 	return (
-		<div className='bg-light dark:bg-dark w-[92vw] sm:w-[90vw] 2xl:w-[80vw] px-2 md:px-0 mx-auto'>
+		<div className='bg-light dark:bg-dark w-[92vw] sm:w-[90vw] 2xl:w-[80vw] px-1 md:px-0 mx-auto'>
 			<Seo {...customMeta} />
 			<NavBar toggleIsOpen={toggleIsOpen} />
 			<main className='flex flex-col bg-light dark:bg-dark min-h-[70vh]'>
