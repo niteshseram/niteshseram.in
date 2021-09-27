@@ -76,7 +76,7 @@ input[type='email'] {
 	max-width: 700px;
 }
 .prose :not(pre) > code {
-	@apply text-pink-500 px-1 py-0.5 border border-gray-300 dark:border-gray-800 rounded-md bg-gray-100 dark:bg-gray-900;
+	@apply text-gray-800 dark:text-gray-300 px-1 py-0.5 border border-gray-300 dark:border-gray-800 rounded-md bg-gray-100 dark:bg-gray-900;
 }
 
 .prose a,
@@ -99,7 +99,7 @@ input[type='email'] {
 
 /* Code title styles */
 .rehype-code-title {
-	@apply px-5 py-3 font-mono text-sm font-bold text-gray-200 bg-gray-700 rounded-t-lg;
+	@apply px-5 py-3 font-mono text-sm font-bold text-gray-200 bg-gray-700 rounded-t-md;
 }
 
 .rehype-code-title + pre {
