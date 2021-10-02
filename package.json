@@ -12,6 +12,7 @@
 		"start": "next start",
 		"prettier": "prettier --check .",
 		"lint": "next lint",
+		"format": "prettier --write .",
 		"prepare": "husky install",
 		"precommit": "lint-staged",
 		"analyze": "cross-env ANALYZE=true next build"
