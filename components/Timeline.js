@@ -27,7 +27,7 @@ const FullTimeline = () => (
 	<>
 		<Year>2021</Year>
 		<ul>
-			<Checkpoint title='Joined Auzmor'>
+			<Checkpoint title='Joined Auzmor as a Software Engineer'>
 				I&apos;m really excited and looking forward to learning more here.
 			</Checkpoint>
 			<Checkpoint title='Started Open Source contribution ❤️'>
