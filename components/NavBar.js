@@ -26,7 +26,7 @@ const NavBar = ({ toggleIsOpen }) => {
 				</div>
 				<button
 					type='button'
-					className='w-10 h-10 p-3 bg-gray-200 rounded dark:bg-gray-800 flex items-center justify-center'
+					className='w-10 h-10 p-3 bg-gray-200 rounded dark:bg-gray-800 flex items-center justify-center hover:ring-2 ring-gray-400 transition-all'
 					aria-label={
 						theme === 'dark' ? 'Toggle light mode' : 'Toggle dark mode'
 					}
@@ -64,7 +64,7 @@ const NavBar = ({ toggleIsOpen }) => {
 }
 
 export const MobileNavMenu = () => (
-	<div className='p-4 w-full my-8 space-y-8 flex flex-col'>
+	<div className='p-4 w-full my-8 space-y-8 flex flex-col pl-0'>
 		<Item href='/'>Home</Item>
 		<Item href='/about'>About</Item>
 		<Item href='/projects'>Projects</Item>
@@ -84,7 +84,7 @@ const MenuButton = ({ toggleIsOpen }) => {
 			type='button'
 			aria-label='Menu Button'
 			onClick={handleClick}
-			className='lg:hidden text-dark dark:text-light flex items-center justify-center -ml-1'
+			className='lg:hidden text-dark dark:text-light flex items-center justify-center -ml-2 rounded p-1 hover:ring-2 ring-gray-400 transition-all'
 		>
 			<svg
 				viewBox='0 0 24 24'
