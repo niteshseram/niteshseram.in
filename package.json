@@ -15,7 +15,8 @@
 		"format": "prettier --write .",
 		"prepare": "husky install",
 		"precommit": "lint-staged",
-		"analyze": "cross-env ANALYZE=true next build"
+		"analyze": "cross-env ANALYZE=true next build",
+		"postinstall": "prisma generate"
 	},
 	"lint-staged": {
 		"*.js": [
