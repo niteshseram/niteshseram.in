@@ -10,7 +10,7 @@ const BlogCard = ({ post }) => {
 
 	return (
 		<div className='border rounded border-gray-200 dark:border-gray-600 mb-4'>
-			<Link href={`/blog/${post.slug}`} passHref>
+			<Link href={`/blog/${post.slug}`} passHref legacyBehavior>
 				<div className='cursor-pointer p-2 md:p-4'>
 					<div className='flex flex-col'>
 						<h3 className='font-bold text-lg md:text-xl mb-2'>{post.title}</h3>

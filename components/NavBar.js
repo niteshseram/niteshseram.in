@@ -12,10 +12,8 @@ const NavBar = ({ toggleIsOpen }) => {
 	return (
 		<nav className='h-[10vh] flex items-center justify-between'>
 			<MenuButton toggleIsOpen={toggleIsOpen} />
-			<Link href='/'>
-				<a aria-label='Logo'>
-					<Logo />
-				</a>
+			<Link href='/' aria-label='Logo'>
+				<Logo />
 			</Link>
 			<div className='flex items-center'>
 				<div className='hidden lg:flex  flex-column'>
@@ -112,7 +110,9 @@ const MenuButton = ({ toggleIsOpen }) => {
 const Item = ({ children, href }) => {
 	return (
 		<div className='font-medium text-xl lg:text-base lg:mr-[2rem] pb-4 lg:pb-0 border-b-[1px] border-gray-200 dark:border-gray-600 lg:border-none text-dark dark:text-light'>
-			<Link href={href}>{children}</Link>
+			<Link href={href} legacyBehavior>
+				{children}
+			</Link>
 		</div>
 	)
 }

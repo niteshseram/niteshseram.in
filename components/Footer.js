@@ -49,14 +49,12 @@ const FooterLink = ({ href, name, children }) => {
 	const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'))
 	if (isInternalLink) {
 		return (
-			<Link href={href}>
-				<a
-					className='text-gray-900 dark:text-gray-400 mt-2'
-					href={href}
-					aria-label={name}
-				>
-					{children}
-				</a>
+			<Link
+				href={href}
+				className='text-gray-900 dark:text-gray-400 mt-2'
+				aria-label={name}
+			>
+				{children}
 			</Link>
 		)
 	}

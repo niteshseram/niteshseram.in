@@ -12,7 +12,7 @@ const PageNotFound = () => (
 			</p>
 			<p className='md:text-lg mb-4'>Let&apos;s get you back...</p>
 
-			<Link href='/' passHref>
+			<Link href='/' passHref legacyBehavior>
 				<button className='btn btn-themed'>Go Back Home</button>
 			</Link>
 		</div>

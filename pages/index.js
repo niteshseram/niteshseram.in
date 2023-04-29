@@ -35,7 +35,7 @@ const Hero = () => (
 				Welcome to my digital corner where you can find my works, thoughts and
 				random things.
 			</p>
-			<Link href='#contact' passHref>
+			<Link href='#contact' passHref legacyBehavior>
 				<button className='btn btn-themed uppercase'>Get in Touch</button>
 			</Link>
 		</div>
@@ -71,10 +71,12 @@ const FeaturedProjects = () => (
 		<div className='flex flex-col xl:flex-row justify-evenly w-full'>
 			<Projects />
 		</div>
-		<Link href='/projects' passHref>
-			<a className='btn btn-secondary-themed capitalize text-center self-center'>
-				See all projects
-			</a>
+		<Link
+			href='/projects'
+			passHref
+			className='btn btn-secondary-themed capitalize text-center self-center'
+		>
+			See all projects
 		</Link>
 	</div>
 )
