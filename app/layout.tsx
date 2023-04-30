@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import clsx from 'clsx';
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
+;
 
 import Navbar from '@/components/Navbar';
 import Provider from '@/components/Provider';
@@ -74,6 +76,7 @@ export default function RootLayout({
           <Navbar />
           <StickySocial />
           {children}
+          <Analytics />
         </Provider>
       </body>
     </html>
