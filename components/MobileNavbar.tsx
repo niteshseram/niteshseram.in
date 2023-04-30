@@ -1,6 +1,4 @@
-'use client'
-
-import classNames from 'classnames'
+import clsx from 'clsx';
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -49,7 +47,7 @@ const MobileNavbar = () => {
 		</button>
       <div
         className={`fixed top-[80px] right-0 z-20 h-full w-full pl-[4vw] sm:pl-[5vw] transform bg-light duration-300 opacity-95 ease-in-out dark:bg-dark ${
-          showNavbar ? '-translate-x-full' : 'translate-x-0'
+          showNavbar ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <nav className="fixed p-4 w-full my-8 space-y-8 flex flex-col pl-0">
@@ -61,7 +59,7 @@ const MobileNavbar = () => {
                 <Link
                   href={item.page}
                   onClick={() => setShowNavbar(!showNavbar)}
-                  className={classNames(
+                  className={clsx(
                     'horizontal-underline text-xl tracking-widest text-gray-900 backdrop:text-2xl dark:text-gray-100',
                     { 'horizontal-underline-active font-bold': active},
                   )}

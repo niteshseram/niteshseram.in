@@ -13,7 +13,7 @@ module.exports = {
 			colors: {
 				dark: '#10101A',
 				light: '#fcfcfc',
-				primary: '#8f46af',
+				primary: '#8353E2',
 				secondary: '#05B19A',
 			},
 			fontFamily: {

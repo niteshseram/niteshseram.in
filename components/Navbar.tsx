@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import classNames from 'classnames'
+import clsx from 'clsx';
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -28,7 +27,7 @@ const NavBar = () => {
               <Link
                 key={idx}
                 href={item.page}
-                className={classNames('horizontal-underline text-base', {
+                className={clsx('horizontal-underline text-base', {
                   'horizontal-underline-active font-bold': active,
                 })}
                 aria-label={item.label}

@@ -1,14 +1,17 @@
-'use client'
-
 import type { Metadata } from 'next';
+import clsx from 'clsx';
 import { Inter } from 'next/font/google'
-import {ThemeProvider} from 'next-themes';
 
 import Navbar from '@/components/Navbar';
+import Provider from '@/components/Provider';
 
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -62,11 +65,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='antialiased bg-light dark:bg-dark max-w-4xl w-[92vw] sm:w-[90vw] mx-auto'>
-        <ThemeProvider enableSystem={true} attribute="class">
+      <body className={clsx(
+        'antialiased bg-light dark:bg-dark max-w-4xl w-[92vw] sm:w-[90vw] mx-auto',
+        inter.variable
+        )}>
+        <Provider>
           <Navbar />
           {children}
-        </ThemeProvider>
+        </Provider>
       </body>
     </html>
   )
