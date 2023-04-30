@@ -2,15 +2,21 @@ const { spacing, fontFamily } = require('tailwindcss/defaultTheme')
 
 module.exports = {
 	mode: 'jit',
-	purge: ['./pages/**/*.js', './components/**/*.js', './layouts/**/*.js'],
+	purge: [
+    './app/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './content/**/*.mdx',
+  ],
 	darkMode: 'class',
 	theme: {
 		extend: {
 			colors: {
-				dark: '#00171F',
+				dark: '#10101A',
 				light: '#fcfcfc',
-				primary: '#8f46af',
+				primary: '#8353E2',
+				'primary-light': '#8353E260',
 				secondary: '#05B19A',
+				'secondary-light': '#05B19A60',
 			},
 			fontFamily: {
 				sans: ['Inter', ...fontFamily.sans],
@@ -60,6 +66,16 @@ module.exports = {
 					},
 				},
 			}),
+			keyframes: {
+        bounceRight: {
+          '0%': { transform: 'translateX(-20%)' },
+					'50%': { transform: 'translateX(20%)' },
+					'100%': { transform: 'translateX(-20%)' },
+        },
+      },
+			animation: {
+        'bounce-right': 'bounceRight 2s linear infinite',
+      },
 		},
 	},
 	variants: {
