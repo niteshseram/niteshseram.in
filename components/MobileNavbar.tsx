@@ -52,7 +52,7 @@ const MobileNavbar = () => {
       >
         <nav className="fixed p-4 w-full my-8 space-y-8 flex flex-col pl-0">
           {NAV_ITEMS.map((item, idx) => {
-            const active = pathname?.includes(item.page)
+            const active = pathname === item.page;
 
             return (
               <div key={idx}>

@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 
 import Navbar from '@/components/Navbar';
 import Provider from '@/components/Provider';
+import StickySocial from '@/components/StickySocial';
 
 import './globals.css'
 
@@ -15,7 +16,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Nitesh Seram',
+    default: 'Nitesh Seram - Software Engineer',
     template: '%s | Nitesh Seram',
   },
   description: 'Software Engineer, and Open Source enthusiast.',
@@ -71,6 +72,7 @@ export default function RootLayout({
         )}>
         <Provider>
           <Navbar />
+          <StickySocial />
           {children}
         </Provider>
       </body>

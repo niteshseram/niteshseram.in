@@ -12,6 +12,36 @@ body {
 	scroll-behavior: smooth;
 }
 
+@layer base {
+	body {
+		@apply text-dark dark:text-light;
+	}
+	p {
+		@apply text-gray-900 dark:text-gray-400;
+	}
+}
+
+@layer components {
+	.heading {
+		@apply mb-8 md:mb-12 text-2xl md:text-3xl font-bold;
+	}
+	.link {
+		@apply font-bold text-gray-900 dark:text-gray-400 hover:text-primary dark:hover:text-secondary underline transition;
+	}
+}
+
+.name-highlight {
+  background: -webkit-linear-gradient(
+    -45deg,
+    #48cb8a,
+    #8353E2
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient 3s ease infinite;
+}
+
 .horizontal-underline {
   border-bottom-width: 0;
   background-image: linear-gradient(transparent, transparent), linear-gradient(#8353E2, #8353E2);
@@ -30,4 +60,21 @@ body {
 .horizontal-underline-active {
   background-size: 100% 3px;
   background-position: 0 100%;
+}
+
+.underline {
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+}
+
+.underline:after {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  content: "";
+  width: 100%;
+  transform: rotate(-1deg);
+  border-width: 2px;
+  @apply border-solid border-secondary dark:border-primary;
 }

@@ -22,7 +22,7 @@ const NavBar = () => {
       <div className="flex items-center space-x-0 sm:space-x-12 text-base leading-5">
         <div className="hidden space-x-12 sm:flex">
           {NAV_ITEMS.map((item, idx) => {
-            const active = pathname?.includes(item.page)
+            const active = pathname === item.page;
             return (
               <Link
                 key={idx}

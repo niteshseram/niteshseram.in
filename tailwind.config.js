@@ -14,7 +14,9 @@ module.exports = {
 				dark: '#10101A',
 				light: '#fcfcfc',
 				primary: '#8353E2',
+				'primary-light': '#8353E260',
 				secondary: '#05B19A',
+				'secondary-light': '#05B19A60',
 			},
 			fontFamily: {
 				sans: ['Inter', ...fontFamily.sans],
@@ -64,6 +66,16 @@ module.exports = {
 					},
 				},
 			}),
+			keyframes: {
+        bounceRight: {
+          '0%': { transform: 'translateX(-20%)' },
+					'50%': { transform: 'translateX(20%)' },
+					'100%': { transform: 'translateX(-20%)' },
+        },
+      },
+			animation: {
+        'bounce-right': 'bounceRight 2s linear infinite',
+      },
 		},
 	},
 	variants: {

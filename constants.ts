@@ -1,3 +1,6 @@
+import { IconType } from 'react-icons'
+import { FiLinkedin, FiTwitter, FiGithub } from 'react-icons/fi'
+
 interface NavItem {
   label: string,
   page: string
@@ -17,4 +20,28 @@ export const NAV_ITEMS: Array<NavItem> = [
     page: '/blog',
   },
 
+]
+
+interface SocialItem {
+  label: string,
+  href:  string,
+  icon: IconType,
+}
+
+export const SOCIAL: Array<SocialItem> = [
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/in/niteshseram',
+    icon: FiLinkedin,
+  },
+  {
+    label: 'Twitter',
+    href: 'https://twitter.com/niteshseram',
+    icon: FiTwitter,
+  },
+  {
+    label: 'Github',
+    href: 'https://github.com/niteshseram',
+    icon: FiGithub
+  },
 ]
