@@ -1,3 +1,5 @@
+/* https://github.com/dlarroder/dalelarroder/blob/main/components/renderCanvas.js */
+
 function n(e) {
   this.init(e || {})
 }

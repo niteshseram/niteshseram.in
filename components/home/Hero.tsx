@@ -52,7 +52,10 @@ export default function Hero(): ReactElement {
             <div ref={ref} className="flex cursor-default flex-col">
               <FadeUp duration={0.6}>
                 <h1 className="text-xl sm:text-3xl md:text-5xl font-bold mb-4 md:mb-8">
-                  Hello&#128075;
+                  Hello
+                  <span role="img" aria-label="waving hand" className="wave">
+                    👋
+                  </span>
                 </h1>
               </FadeUp>
               <FadeUp duration={0.6} delay={0.2}>
