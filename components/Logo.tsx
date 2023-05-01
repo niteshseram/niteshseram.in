@@ -1,6 +1,6 @@
 const Logo = ({ width = '32px', height = '32px' }) => {
 	return (
-		<div className="text-gray-900 dark:text-gray-100">
+		<div className='text-gray-900 dark:text-gray-100'>
 			<svg
 				version='1.0'
 				xmlns='http://www.w3.org/2000/svg'
