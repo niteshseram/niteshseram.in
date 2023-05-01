@@ -12,14 +12,14 @@ import FadeRight from '../animations/FadeRight'
 import { renderCanvas } from '@/utils/renderCanvas'
 
 export default function Hero(): ReactElement {
-  const ref = useRef<HTMLHeadingElement>(null)
+  const refSection = useRef<HTMLHeadingElement>(null)
   const { scrollY } = useContext(ScrollContext)
 
   let progress = 0
-  const { current: elContainer } = ref
+  const { current: elRef } = refSection
 
-  if (elContainer) {
-    progress = Math.min(1, scrollY / elContainer.clientHeight)
+  if (elRef) {
+    progress = Math.min(1, scrollY / elRef.clientHeight)
   }
 
   useEffect(() => {
@@ -27,16 +27,16 @@ export default function Hero(): ReactElement {
   }, [])
 
   return (
-    <div>
+    <section>
       <h1 className="sr-only">
         Hi I&apos;m Nitesh Seram, I&apos;m a software engineer and I craft things for the web.
       </h1>
       <motion.div
         className="relative z-10 flex h-[calc(100vh-81px)] items-center md:h-[calc(100vh-120px)]"
         animate={{
-          transform: `translateY(${progress * 20}vh)`,
+          transform: `translateY(${progress * 40}vh)`,
         }}
-        transition={{ type: 'spring', stiffness: 50 }}
+        transition={{ type: 'spring', stiffness: 50, duration: 0.8 }}
       >
         <AnimatePresence>
           <div className="
@@ -49,7 +49,7 @@ export default function Hero(): ReactElement {
             xl:max-w-5xl
             xl:px-0
           ">
-            <div ref={ref} className="flex cursor-default flex-col">
+            <div ref={refSection} className="flex cursor-default flex-col">
               <FadeUp duration={0.6}>
                 <h1 className="text-xl sm:text-3xl md:text-5xl font-bold mb-4 md:mb-8">
                   Hello
@@ -94,6 +94,6 @@ export default function Hero(): ReactElement {
         </AnimatePresence>
       </motion.div>
       <canvas className="bg-skin-base pointer-events-none absolute inset-0" id="canvas"></canvas>
-    </div>
+    </section>
   )
 }

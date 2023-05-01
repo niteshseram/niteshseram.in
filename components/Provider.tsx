@@ -1,6 +1,7 @@
 'use client'
 
 import { ThemeProvider } from 'next-themes'
+import { ScrollObserver } from './ScrollObserver'
 
 const Provider = ({
   children,
@@ -9,7 +10,9 @@ const Provider = ({
 })  => {
   return (
     <ThemeProvider attribute='class' enableSystem={false}>
-      {children}
+      <ScrollObserver>
+        {children}
+      </ScrollObserver>
     </ThemeProvider>
   )
 }
