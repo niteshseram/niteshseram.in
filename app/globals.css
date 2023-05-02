@@ -23,10 +23,16 @@ body {
 
 @layer components {
 	.heading {
-		@apply mb-8 md:mb-12 text-2xl md:text-3xl font-bold;
+		@apply mb-8 md:mb-12 text-xl md:text-3xl font-bold;
 	}
 	.link {
-		@apply font-bold text-gray-900 dark:text-gray-400 hover:text-primary dark:hover:text-secondary underline transition;
+		@apply font-bold text-gray-900 dark:text-gray-400 hover:text-primary dark:hover:text-secondary underline transition text-sm md:text-lg lg:text-xl;
+	}
+	.btn {
+		@apply px-6 py-2 text-base font-bold rounded-full duration-200 ease-in-out;
+	}
+	.btn-secondary-themed {
+		@apply bg-primary dark:bg-secondary text-light dark:text-dark border-none hover:bg-opacity-80 dark:hover:bg-opacity-80;
 	}
 }
 

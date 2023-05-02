@@ -77,15 +77,7 @@ export default function Hero(): ReactElement {
 								</p>
 							</FadeUp>
 							<FadeRight duration={0.5} delay={1}>
-								<Link
-									href='/about'
-									className='
-                    text-sm
-                    md:text-lg 
-                    lg:text-xl
-                    transition
-                  '
-								>
+								<Link href='/about'>
 									<div className='flex items-center mt-2 md:mt-3'>
 										<span className='link'>Read more about me&nbsp;</span>
 										<span className='animate-bounce-right'>
