@@ -1,3 +1,6 @@
+import { AiOutlineArrowRight } from 'react-icons/ai'
+import Link from 'next/link'
+
 import { allBlogs } from 'contentlayer/generated'
 import BlogList from '../BlogList'
 
@@ -15,6 +18,16 @@ const Blog = () => {
 					})
 					.slice(0, 4)}
 			/>
+			<div className='mt-10'>
+				<Link href='/blog'>
+					<button className='link flex items-center'>
+							<span>See All Blog Posts&nbsp;</span>
+							<span className='animate-bounce-right'>
+								<AiOutlineArrowRight />
+							</span>
+					</button>
+				</Link>
+			</div>
 		</section>
 	)
 }

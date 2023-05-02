@@ -8,6 +8,7 @@ import Provider from '@/components/Provider'
 import StickySocial from '@/components/StickySocial'
 
 import './globals.css'
+import Footer from '@/components/Footer'
 
 const inter = Inter({
 	subsets: ['latin'],
@@ -77,6 +78,7 @@ export default function RootLayout({
 					<Navbar />
 					<StickySocial />
 					{children}
+					<Footer />
 					<Analytics />
 				</Provider>
 			</body>
