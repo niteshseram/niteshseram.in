@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
 	return (
-		<section>
-			<h1 className='heading underline'>Blog</h1>
+		<section className='min-h-screen'>
+			<h1 className='heading underline'>My Blog</h1>
 			<BlogList
 				blogs={allBlogs.sort((a, b) => {
 					if (new Date(a.publishedAt) > new Date(b.publishedAt)) {

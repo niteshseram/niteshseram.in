@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
+import { parseISO, format } from 'date-fns'
 import { notFound } from 'next/navigation'
-import { allBlogs } from 'contentlayer/generated'
 
+import { allBlogs } from 'contentlayer/generated'
 import { Mdx } from '@/components/mdx'
 
 interface Params {
@@ -71,16 +72,14 @@ export default async function Blog({ params }: BlogProps) {
 	}
 
 	return (
-		<section>
+		<section className='mb-20'>
 			<script type='application/ld+json'>
 				{JSON.stringify(post.structuredData)}
 			</script>
-			<h1 className='font-bold heading'>{post.title}</h1>
-			<div className='grid grid-cols-[auto_1fr_auto] items-center mt-4 mb-8 font-mono text-sm'>
-				<div className='bg-neutral-100 dark:bg-neutral-800 rounded-md px-2 py-1 tracking-tighter'>
-					{post.publishedAt}
-				</div>
-				<div className='h-[0.2em] bg-neutral-50 dark:bg-neutral-800 mx-2' />
+			<h1 className='font-bold heading mb-2'>{post.title}</h1>
+			<div className='mt-4 text-sm mb-8 text-slate-700 dark:text-slate-400'>
+				{format(parseISO(post.publishedAt), 'MMMM dd, yyyy')} /{' '}
+				{post.readingTime.text}
 			</div>
 			<Mdx code={post.body.code} />
 		</section>
