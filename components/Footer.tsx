@@ -28,8 +28,7 @@ const navigation = {
 
 const Footer = () => (
 	<footer className='pt-10'>
-		<hr />
-		<div className='pt-20 pb-10'>
+		<div className='py-10 border-t-2 border-gray-200 dark:border-gray-700'>
 			<div className='grid grid-cols-2 gap-8 xl:col-span-2'>
 				<div className='md:grid md:grid-cols-2 md:gap-8'>
 					<div>
