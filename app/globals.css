@@ -18,20 +18,20 @@ body {
 }
 
 @layer base {
-	body {
+	body, b {
 		@apply text-dark dark:text-light;
 	}
 	p {
-		@apply text-gray-900 dark:text-gray-400 text-justify;
+		@apply text-gray-900 dark:text-gray-400;
 	}
 }
 
 @layer components {
 	.heading {
-		@apply mb-8 md:mb-12 text-xl md:text-3xl font-bold;
+		@apply mb-8 md:mb-12 text-xl md:text-3xl font-bold dark:text-light text-dark;
 	}
 	.link {
-		@apply font-bold text-gray-900 dark:text-gray-400 hover:text-primary dark:hover:text-secondary underline transition text-sm md:text-lg lg:text-xl;
+		@apply font-bold text-gray-900 dark:text-gray-400 hover:text-primary dark:hover:text-secondary underline transition;
 	}
 	.btn {
 		@apply px-6 py-2 text-base font-bold rounded-full duration-200 ease-in-out;
@@ -39,6 +39,18 @@ body {
 	.btn-secondary-themed {
 		@apply bg-primary dark:bg-secondary text-light dark:text-dark border-none hover:bg-opacity-80 dark:hover:bg-opacity-80;
 	}
+	a {
+		@apply dark:text-light text-dark;
+	}
+}
+
+.timeline ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+.timeline p {
+	margin: 0 0 0 1.25rem; 
 }
 
 .name-highlight {
