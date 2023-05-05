@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { allBlogs } from 'contentlayer/generated'
 import { Mdx } from '@/components/mdx'
+import ViewCounter from '../view-counter'
 
 interface Params {
 	slug: string
@@ -77,7 +78,8 @@ export default async function Blog({ params }: BlogProps) {
 			<h1 className='font-bold heading mb-2'>{post.title}</h1>
 			<div className='mt-4 text-sm mb-8 text-slate-700 dark:text-slate-400'>
 				{format(parseISO(post.publishedAt), 'MMMM dd, yyyy')} /{' '}
-				{post.readingTime.text}
+				{post.readingTime.text} /{' '}
+				<ViewCounter slug={post.slug} trackView />
 			</div>
 			<Mdx code={post.body.code} />
 		</section>

@@ -29,8 +29,8 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		"utils/renderCanvas.js",
+		"lib/renderCanvas.js",
 		".contentlayer/generated"
-	],
+, "lib/prisma.js"	],
 	"exclude": ["node_modules"]
 }
