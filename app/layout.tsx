@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 		siteName: 'Nitesh Seram',
 		images: [
 			{
-				url: 'https://niteshseram.in/static/images/banner.png',
+				url: 'https://niteshseram.in/og.png',
 				width: 1920,
 				height: 1080,
 			},

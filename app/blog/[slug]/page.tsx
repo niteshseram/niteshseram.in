@@ -70,7 +70,7 @@ export default async function Blog({ params }: BlogProps) {
 	}
 
 	return (
-		<section className='mb-20'>
+		<section className='mb-20 mt-10'>
 			<script type='application/ld+json'>
 				{JSON.stringify(post.structuredData)}
 			</script>

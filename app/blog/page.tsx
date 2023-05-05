@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
 	return (
-		<section className='min-h-screen'>
+		<section className='min-h-screen  mt-10'>
 			<h1 className='heading underline'>My Blog</h1>
 			<BlogList
 				blogs={allBlogs.sort((a, b) => {
