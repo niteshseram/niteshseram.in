@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+}
+* {
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: #05B19A;
+  color: #fefefe;
+}
+
+@layer base {
+	body, b {
+		@apply text-dark dark:text-light;
+	}
+	p {
+		@apply text-gray-900 dark:text-gray-400;
+	}
+}
+
+@layer components {
+	.heading {
+		@apply mb-8 md:mb-12 text-xl md:text-3xl font-bold dark:text-light text-dark;
+	}
+	.link {
+		@apply font-bold text-gray-900 dark:text-gray-400 transition border-solid border-b-2 border-primary;
+	}
+	.btn {
+		@apply px-6 py-2 text-base font-bold rounded-full duration-200 ease-in-out;
+	}
+	.btn-secondary-themed {
+		@apply bg-primary dark:bg-secondary text-light dark:text-dark border-none hover:bg-opacity-80 dark:hover:bg-opacity-80;
+	}
+	a {
+		@apply dark:text-light text-dark;
+	}
+}
+
+.timeline ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+.timeline p {
+	margin: 0 0 0 1.25rem; 
+}
+
+.name-highlight {
+	background: -webkit-linear-gradient(-45deg, #48cb8a, #8353e2);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	animation: gradient 3s ease infinite;
+}
+
+.horizontal-underline {
+	border-bottom-width: 0;
+	background-image: linear-gradient(transparent, transparent),
+		linear-gradient(#8353e2, #8353e2);
+	background-size: 0 3px;
+	background-position: 0 100%;
+	background-repeat: no-repeat;
+	transition: background-size 0.5s ease-in-out;
+}
+
+.horizontal-underline:hover {
+	background-size: 100% 3px;
+	background-position: 0 100%;
+}
+
+.horizontal-underline-active {
+	background-size: 100% 3px;
+	background-position: 0 100%;
+}
+
+.link {
+	@apply hover:text-secondary;
+}
+
+.underline {
+	text-decoration: none;
+	position: relative;
+	display: inline-block;
+}
+
+.underline:after {
+	position: absolute;
+	bottom: -5px;
+	left: 0;
+	content: '';
+	width: 100%;
+	transform: rotate(-1deg);
+	border-width: 2px;
+	@apply border-solid border-secondary;
+}
+
+.wave {
+	animation-name: wave-animation;
+	animation-duration: 2.667s;
+	animation-iteration-count: infinite;
+	transform-origin: 70% 70%;
+	display: inline-block;
+}
+
+@keyframes wave-animation {
+	0% {
+		transform: rotate(0deg);
+	}
+	10% {
+		transform: rotate(14deg);
+	}
+	20% {
+		transform: rotate(-8deg);
+	}
+	30% {
+		transform: rotate(14deg);
+	}
+	40% {
+		transform: rotate(-4deg);
+	}
+	50% {
+		transform: rotate(10deg);
+	}
+	60% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+.prose .anchor {
+	@apply absolute invisible no-underline;
+	margin-left: -1em;
+	padding-right: 0.5em;
+	width: 80%;
+	max-width: 700px;
+}
+
+.anchor:hover {
+	@apply visible;
+}
+
+.prose a {
+	@apply transition-all decoration-secondary dark:decoration-secondary underline-offset-2 decoration-[0.1em];
+}
+
+.prose .anchor:after {
+	@apply text-neutral-300 dark:text-neutral-700;
+	content: '#';
+}
+
+.prose *:hover > .anchor {
+	@apply visible;
+}
+
+.prose img {
+	/* Don't apply styles to next/image */
+	@apply m-0;
+}
+
+.prose > :first-child {
+	/* Override removing top margin, causing layout shift */
+	margin-bottom: 1.25em !important;
+}
+
+code[class*='language-'],
+pre[class*='language-'] {
+	@apply text-neutral-50;
+}
+
+pre::-webkit-scrollbar {
+	display: none;
+}
+
+pre {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
+table {
+	display: block;
+	max-width: fit-content;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+[data-rehype-pretty-code-fragment] code {
+	@apply grid min-w-full break-words rounded-none border-0 p-0 text-sm text-black;
+	counter-reset: line;
+	box-decoration-break: clone;
+}
+[data-rehype-pretty-code-fragment] .line {
+	@apply py-1;
+}
+[data-rehype-pretty-code-fragment] [data-line-numbers] > .line::before {
+	counter-increment: line;
+	content: counter(line);
+	display: inline-block;
+	width: 1rem;
+	margin-right: 1rem;
+	text-align: right;
+	color: gray;
+}
+[data-rehype-pretty-code-fragment] .line--highlighted {
+	@apply bg-opacity-10;
+}
+[data-rehype-pretty-code-fragment] .line-highlighted span {
+	@apply relative;
+}
+[data-rehype-pretty-code-fragment] .word--highlighted {
+	@apply rounded-md bg-opacity-10 p-1;
+}
+[data-rehype-pretty-code-title] {
+	@apply px-4 py-3 font-mono text-xs font-medium border rounded-t-lg text-neutral-200 border-[#333333] bg-[#1c1c1c];
+}
+[data-rehype-pretty-code-title] + pre {
+	@apply mt-0 rounded-t-none border-t-0;
+}
