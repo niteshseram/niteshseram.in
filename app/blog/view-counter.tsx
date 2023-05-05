@@ -38,8 +38,8 @@ export default function ViewCounter({
 	}, [slug, trackView])
 
 	return (
-		<p className='text-sm text-neutral-500 tracking-tighter'>
-			{data ? `${views.toLocaleString()} views` : '​'}
-		</p>
+		<span>
+			{data ? `${views.toLocaleString()} views` : '- views​'}
+		</span>
 	)
 }
