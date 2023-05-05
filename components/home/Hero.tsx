@@ -73,7 +73,7 @@ export default function Hero(): ReactElement {
 							</FadeRight>
 							<FadeUp duration={0.6} delay={0.6}>
 								<p className='text-sm md:text-lg  lg:text-xl mt-8 lg:mt-12'>
-									Welcome to my little corner of the internet
+									Welcome to my little corner of the internet!
 								</p>
 							</FadeUp>
 							<FadeRight duration={0.5} delay={1}>

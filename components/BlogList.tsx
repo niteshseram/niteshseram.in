@@ -28,8 +28,13 @@ const BlogList: React.FC<Props> = ({ blogs }) => {
 							)}
 							<div className='space-y-3 md:col-span-3'>
 								<div>
-									<h3 className='md:text-2xl text-md font-bold leading-8 tracking-tight hover:text-primary transition'>
-										<Link href={`/blog/${slug}`}>{title}</Link>
+									<h3 className='md:text-2xl text-md font-bold leading-8 tracking-tight'>
+										<Link
+											href={`/blog/${slug}`}
+											className='hover:text-primary transition'
+										>
+											{title}
+										</Link>
 									</h3>
 									<p className='sr-only'>Published on</p>
 									<p className='mt-2 text-sm'>
