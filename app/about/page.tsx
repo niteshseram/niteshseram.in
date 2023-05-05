@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const About = () => {
 
 	return (
-		<section className='prose max-w-4xl w-[92vw] sm:w-[90vw]'>
+		<section className='prose max-w-4xl w-[92vw] sm:w-[90vw] mt-10'>
 			<h1 className='heading'>About me</h1>
 			<p>
 				Hello there, I&apos;m a <b>Software Engineer</b> with a passion for all

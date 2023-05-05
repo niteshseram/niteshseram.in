@@ -20,8 +20,8 @@ const Blog = () => {
 			/>
 			<div className='mt-10'>
 				<Link href='/blog'>
-					<button className='link flex items-center'>
-							<span>See All Blog Posts&nbsp;</span>
+					<button className='flex items-center'>
+							<span className='link'>See All Blog Posts&nbsp;</span>
 							<span className='animate-bounce-right'>
 								<AiOutlineArrowRight />
 							</span>

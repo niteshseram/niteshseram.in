@@ -33,7 +33,7 @@ export default function Hero(): ReactElement {
 				things for the web.
 			</h1>
 			<motion.div
-				className='relative z-10 flex h-[calc(100vh-81px)] items-center md:h-[calc(100vh-120px)]'
+				className='relative z-10 flex h-[calc(100vh-80px)] items-center'
 				animate={{
 					transform: `translateY(${progress * 40}vh)`,
 				}}
@@ -73,7 +73,7 @@ export default function Hero(): ReactElement {
 							</FadeRight>
 							<FadeUp duration={0.6} delay={0.6}>
 								<p className='text-sm md:text-lg  lg:text-xl mt-8 lg:mt-12'>
-									Welcome to my little corner of the internet
+									Welcome to my little corner of the internet!
 								</p>
 							</FadeUp>
 							<FadeRight duration={0.5} delay={1}>

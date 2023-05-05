@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 		siteName: 'Nitesh Seram',
 		images: [
 			{
-				url: 'https://niteshseram.in/static/images/banner.png',
+				url: 'https://niteshseram.in/og.png',
 				width: 1920,
 				height: 1080,
 			},
@@ -69,17 +69,16 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={clsx(
-					'antialiased bg-light dark:bg-dark max-w-4xl w-[92vw] sm:w-[90vw] mx-auto',
-					inter.variable
-				)}
+				className={clsx('antialiased bg-light dark:bg-dark', inter.variable)}
 			>
 				<Provider>
 					<Navbar />
-					<StickySocial />
-					{children}
-					<Footer />
-					<Analytics />
+					<div className='max-w-4xl w-[92vw] sm:w-[90vw] mx-auto'>
+						<StickySocial />
+						{children}
+						<Footer />
+						<Analytics />
+					</div>
 				</Provider>
 			</body>
 		</html>

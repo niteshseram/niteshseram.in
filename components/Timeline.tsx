@@ -38,19 +38,6 @@ const FullTimeline = () => (
 				Thrilled to continue my adventure as a <b>Software Engineer III</b> at
 				Auzmor and looking forward to learning and growing even more!
 			</Checkpoint>
-			<Checkpoint title='Contributing to Open Source ❤️'>
-				Started contributing to Open Source projects ❤️, particularly{' '}
-				<Link
-					href='https://github.com/kubernetes/website/pulls?q=author%3Aniteshseram+'
-					aria-label='kubernetes contribution'
-					target='_blank'
-					rel='noopener noreferrer'
-				>
-					Kubernetes
-				</Link>{' '}
-				docs. The experience was amazing and I learned so much about
-				collaborating and contributing to a large project.
-			</Checkpoint>
 		</ul>
 		<Year>2022</Year>
 		<ul>
@@ -59,19 +46,6 @@ const FullTimeline = () => (
 				the <b>Most Valuable Performer</b> award. It felt amazing to be
 				appreciated for my hard work and dedication. This experience has
 				motivated me to strive for excellence in all my future endeavors. 💪
-			</Checkpoint>
-			<Checkpoint title='Contributing to Open Source ❤️'>
-				Started contributing to Open Source projects ❤️, particularly{' '}
-				<Link
-					href='https://github.com/kubernetes/website/pulls?q=author%3Aniteshseram+'
-					aria-label='kubernetes contribution'
-					target='_blank'
-					rel='noopener noreferrer'
-				>
-					Kubernetes
-				</Link>{' '}
-				docs. The experience was amazing and I learned so much about
-				collaborating and contributing to a large project.
 			</Checkpoint>
 		</ul>
 		<Year>2021</Year>
