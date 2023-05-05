@@ -2,6 +2,7 @@ import { parseISO, format } from 'date-fns'
 import Link from 'next/link'
 
 import type { Blog } from 'contentlayer/generated'
+import ViewCounter from '@/app/blog/view-counter'
 
 interface Props {
 	blogs: Blog[]
@@ -22,7 +23,9 @@ const BlogList: React.FC<Props> = ({ blogs }) => {
 									<dd className='text-base font-medium leading-6 text-gray-500 dark:text-gray-400'>
 										{format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
 										<div className='text-sm'>{post.readingTime.text}</div>
-										<div className='text-sm'>- views</div>
+										<div className='text-sm'>
+											<ViewCounter slug={post.slug} trackView={false} />
+										</div>
 									</dd>
 								</dl>
 							)}

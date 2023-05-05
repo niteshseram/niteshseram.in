@@ -9,7 +9,7 @@ import { ScrollContext } from '../ScrollObserver'
 import FadeUp from '../animations/FadeUp'
 import FadeRight from '../animations/FadeRight'
 
-import { renderCanvas } from '@/utils/renderCanvas'
+import { renderCanvas } from '@/lib/renderCanvas'
 
 export default function Hero(): ReactElement {
 	const refSection = useRef<HTMLHeadingElement>(null)
