@@ -33,7 +33,7 @@ export default function Hero(): ReactElement {
 				things for the web.
 			</h1>
 			<motion.div
-				className='relative z-10 flex h-[calc(100vh-81px)] items-center md:h-[calc(100vh-120px)]'
+				className='relative z-10 flex h-[calc(100vh-80px)] items-center'
 				animate={{
 					transform: `translateY(${progress * 40}vh)`,
 				}}
