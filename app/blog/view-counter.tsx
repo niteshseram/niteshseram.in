@@ -18,7 +18,7 @@ export default function ViewCounter({
 	trackView: boolean
 }) {
 	const { data } = useSWR<PostView>(`/api/views/${slug}`, fetcher)
-	const views = new Number(data?.total)
+	const views = new Number(data?.total || 0)
 
 	useEffect(() => {
 		const registerView = () =>
@@ -26,7 +26,7 @@ export default function ViewCounter({
 				method: 'POST',
 			})
 
-		if (trackView) {
+		if (trackView && process.env.NODE_ENV === 'production') {
 			registerView()
 		}
 	}, [slug, trackView])

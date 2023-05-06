@@ -52,7 +52,6 @@ export const Blog = defineDocumentType(() => ({
 		},
 		image: {
 			type: 'string',
-			required: true,
 		},
 	},
 	computedFields,
