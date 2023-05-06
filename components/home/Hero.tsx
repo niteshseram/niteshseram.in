@@ -9,8 +9,6 @@ import { ScrollContext } from '../ScrollObserver'
 import FadeUp from '../animations/FadeUp'
 import FadeRight from '../animations/FadeRight'
 
-import { renderCanvas } from '@/lib/renderCanvas'
-
 export default function Hero(): ReactElement {
 	const refSection = useRef<HTMLHeadingElement>(null)
 	const { scrollY } = useContext(ScrollContext)
@@ -22,10 +20,6 @@ export default function Hero(): ReactElement {
 		progress = Math.min(1, scrollY / elRef.clientHeight)
 	}
 
-	useEffect(() => {
-		renderCanvas()
-	}, [])
-
 	return (
 		<section>
 			<h1 className='sr-only'>
@@ -33,7 +27,7 @@ export default function Hero(): ReactElement {
 				things for the web.
 			</h1>
 			<motion.div
-				className='relative z-10 flex h-[calc(100vh-80px)] items-center'
+				className='relative z-10 flex h-[calc(100vh-80px)] items-center select-none'
 				animate={{
 					transform: `translateY(${progress * 40}vh)`,
 				}}
@@ -90,10 +84,6 @@ export default function Hero(): ReactElement {
 					</div>
 				</AnimatePresence>
 			</motion.div>
-			<canvas
-				className='bg-skin-base pointer-events-none absolute inset-0'
-				id='canvas'
-			></canvas>
 		</section>
 	)
 }

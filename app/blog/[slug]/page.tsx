@@ -33,7 +33,9 @@ export async function generateMetadata({
 		image,
 		slug,
 	} = post
-	const ogImage = `https://niteshseram.in${image}`
+	const ogImage = image
+		? `https://niteshseram.in${image}`
+		: `https://niteshseram.in/api/og?title=${title}`;
 
 	return {
 		title,
