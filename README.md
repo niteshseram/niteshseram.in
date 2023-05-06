@@ -39,5 +39,6 @@ Create a `.env.local` file similar to `.env.example` with the values in it. But 
 
 - [Next.js](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
+- [Contentlayer](https://contentlayer.dev)
 - [MDX](https://mdxjs.com/)
 - [Vercel](https://vercel.com)

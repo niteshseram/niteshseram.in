@@ -1,7 +1,7 @@
 import { IconType } from 'react-icons'
 import { FiLinkedin, FiTwitter, FiGithub } from 'react-icons/fi'
 
-interface NavItem {
+type NavItem = {
 	label: string
 	page: string
 }
@@ -21,7 +21,7 @@ export const NAV_ITEMS: Array<NavItem> = [
 	},
 ]
 
-interface SocialItem {
+type SocialItem = {
 	label: string
 	href: string
 	icon: IconType
