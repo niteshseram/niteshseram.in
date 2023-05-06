@@ -48,7 +48,7 @@ export default function Hero(): ReactElement {
 					>
 						<div ref={refSection} className='flex cursor-default flex-col'>
 							<FadeUp duration={0.6}>
-								<h1 className='text-xl sm:text-3xl md:text-5xl font-bold mb-4 md:mb-8'>
+								<h1 className='text-2xl sm:text-3xl md:text-5xl font-bold mb-4 md:mb-8'>
 									Hello
 									<span role='img' aria-label='waving hand' className='wave'>
 										👋
@@ -56,17 +56,17 @@ export default function Hero(): ReactElement {
 								</h1>
 							</FadeUp>
 							<FadeUp duration={0.6} delay={0.2}>
-								<h1 className='text-3xl font-extrabold sm:text-5xl md:text-6xl xl:text-7xl'>
+								<h1 className='text-4xl font-extrabold sm:text-5xl md:text-6xl xl:text-7xl'>
 									I&apos;m <span className='name-highlight'>Nitesh Seram</span>
 								</h1>
 							</FadeUp>
 							<FadeRight duration={0.6} delay={1.4}>
-								<h2 className='text-2xl font-bold opacity-80 sm:text-5xl md:text-5xl xl:text-7xl relative'>
+								<h2 className='text-3xl font-bold opacity-80 sm:text-5xl md:text-5xl xl:text-7xl relative'>
 									I craft things for the web
 								</h2>
 							</FadeRight>
 							<FadeUp duration={0.6} delay={0.6}>
-								<p className='text-sm md:text-lg  lg:text-xl mt-8 lg:mt-12'>
+								<p className='text-md lg:text-xl mt-8 lg:mt-12'>
 									Welcome to my little corner of the internet!
 								</p>
 							</FadeUp>
