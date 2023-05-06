@@ -44,6 +44,8 @@ const BlogList: React.FC<Props> = ({ blogs }) => {
 										{format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
 										{` • `}
 										{post.readingTime.text}
+										{` • `}
+										<ViewCounter slug={post.slug} trackView={false} />
 									</p>
 								</div>
 								<p>{summary}</p>
