@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import NowPlaying from './NowPlaying'
 
 const navigation = {
 	general: [
@@ -75,8 +76,9 @@ const Footer = () => (
 					</div>
 				</div>
 			</div>
-			<div className='flex items-center justify-between mt-12'>
-				<p className='order-1 text-base font-medium'>
+			<div className='flex items-start flex-col mt-12'>
+				<NowPlaying />
+				<p className='text-base font-medium'>
 					&copy; {new Date().getFullYear()} Nitesh Seram
 				</p>
 			</div>
