@@ -3,25 +3,28 @@ import NowPlaying from './NowPlaying'
 
 const navigation = {
 	general: [
-		{ name: 'Home', href: '/' },
-		{ name: 'About', href: '/about' },
-		{ name: 'Blog', href: '/blog' },
+		{ name: 'Home', title: "Home Page", href: '/' },
+		{ name: 'About', title: "About Page", href: '/about' },
+		{ name: 'Blog', title: "Blog Page", href: '/blog' },
 	],
 	extra: [
-		{ name: 'Source Code', href: 'https://github.com/niteshseram/niteshseram.in' },
-		{ name: 'Resume', href: '/resume.pdf' },
+		{ name: 'Source', title: 'View source code on Github',href: 'https://github.com/niteshseram/niteshseram.in' },
+		{ name: 'Resume', title: 'View my resume', href: '/resume.pdf' },
 	],
 	social: [
 		{
 			name: 'Twitter',
+			title: 'View Twitter',
 			href: 'https://twitter.com/niteshseram',
 		},
 		{
 			name: 'LinkedIn',
+			title: 'View LinkedIn',
 			href: 'https://linkedin.com/in/niteshseram',
 		},
 		{
 			name: 'GitHub',
+			title: 'View Github',
 			href: 'https://github.com/niteshseram',
 		},
 	],
@@ -38,7 +41,12 @@ const Footer = () => (
 						</h3>
 						<div role='list' className='mt-4 flex flex-col items-start'>
 							{navigation.general.map((item) => (
-								<FooterLink name={item.name} href={item.href} key={item.name} />
+								<FooterLink
+									key={item.name}
+									name={item.name}
+									title={item.title}
+									href={item.href}
+								/>
 							))}
 						</div>
 					</div>
@@ -49,9 +57,10 @@ const Footer = () => (
 						<div role='list' className='mt-4 flex flex-col items-start'>
 							{navigation.social.map((item) => (
 								<FooterLink
-									name={item.name}
-									href={item.href}
 									key={item.name}
+									name={item.name}
+									title={item.title}
+									href={item.href}
 									newTab
 								/>
 							))}
@@ -66,9 +75,10 @@ const Footer = () => (
 						<div role='list' className='mt-4 flex flex-col items-start'>
 							{navigation.extra.map((item) => (
 								<FooterLink
-									name={item.name}
-									href={item.href}
 									key={item.name}
+									name={item.name}
+									title={item.title}
+									href={item.href}
 									newTab
 								/>
 							))}
@@ -89,14 +99,16 @@ const Footer = () => (
 interface FooterLinkProps {
   href: string,
   name: string,
+	title?: string,
   newTab?: boolean,
 }
 
-const FooterLink = ({ href, name, newTab }: FooterLinkProps) => (
+const FooterLink = ({ href, name, title, newTab }: FooterLinkProps) => (
   <Link
     href={href}
     className='text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mt-2 horizontal-underline tracking-wide'
     aria-label={name}
+		title={title}
     {...(newTab && {
       target:'_blank',
       rel:'noopener noreferrer',
