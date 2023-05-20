@@ -16,6 +16,7 @@ const StickySocial = () => {
 						aria-label={social.label}
 						href={social.href}
 						target='_blank'
+						title={social.label}
 						className='
               flex
               border-solid 

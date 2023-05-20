@@ -12,6 +12,7 @@ const ThemeSwitch = () => {
 		<button
 			aria-label={theme === 'dark' ? 'Toggle light mode' : 'Toggle dark mode'}
 			className='p-3 bg-gray-200 rounded dark:bg-gray-800 rounded-xl w-[40px] h-[40px]'
+			title={theme === 'dark'? 'Enable Light Theme': 'Enable Dark Theme'}
 			onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
 		>
 			{mounted && (currentTheme === 'dark' ? <BsSunFill /> : <BsMoonFill />)}
