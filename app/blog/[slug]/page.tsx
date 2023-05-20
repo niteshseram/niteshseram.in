@@ -74,11 +74,13 @@ export default async function Blog({ params }: BlogProps) {
 
 	return (
 		<section className='mb-20 mt-10'>
+			<script type='application/ld+json' suppressHydrationWarning>
+				{JSON.stringify(post.structuredData)}
+			</script>
 			<h1 className='font-bold heading mb-2'>{post.title}</h1>
 			<div className='mt-4 text-sm mb-8 text-slate-700 dark:text-slate-400'>
 				{format(parseISO(post.publishedAt), 'MMMM dd, yyyy')} /{' '}
-				{post.readingTime.text} /{' '}
-				<ViewCounter slug={post.slug} trackView />
+				{post.readingTime.text} / <ViewCounter slug={post.slug} trackView />
 			</div>
 			<Mdx code={post.body.code} />
 		</section>

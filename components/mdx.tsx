@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+
+import RoundedImage from './RoundedImage'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 
 const CustomLink = (props: any) => {
@@ -19,10 +20,6 @@ const CustomLink = (props: any) => {
 	}
 
 	return <a target='_blank' rel='noopener noreferrer' {...props} />
-}
-
-function RoundedImage(props: any) {
-	return <Image alt={props.alt} className='rounded-lg' {...props} />
 }
 
 const components = {
