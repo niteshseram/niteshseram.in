@@ -6,7 +6,6 @@ const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-pla
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`
 
 const getAccessToken = async () => {
-	console.log({client_id, client_secret, refresh_token})
 	const response = await fetch(TOKEN_ENDPOINT, {
 		method: 'POST',
 		headers: {
@@ -18,7 +17,6 @@ const getAccessToken = async () => {
 			refresh_token,
 		}),
 	})
-	console.log(response)
 	return response.json()
 }
 
