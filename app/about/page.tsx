@@ -29,7 +29,7 @@ const About = () => {
 				When I&apos; not at my desk...
 			</h3>
 			<p>
-				on&apos;t let all that talk of coding fool you - I&apos;m also a
+				Don&apos;t let all that talk of coding fool you - I&apos;m also a
 				big believer in having fun and trying to have balance between work and
 				play. That&apos;s why you&apos;ll often find me hitting the gym trying
 				to stay fit and healthy, hanging out with friends or enjoying a good
