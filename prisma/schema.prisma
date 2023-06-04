@@ -17,3 +17,16 @@ model Views {
   slug  String @id @db.VarChar(128)
   count BigInt @default(1)
 }
+
+model Reactions {
+  slug  String @id @db.VarChar(128)
+  likes BigInt @default(1)
+  loves BigInt @default(1)
+}
+
+model Session {
+  id        String   @id
+  createdAt DateTime @default(now())
+  isLiked   Boolean      @default(false)
+  isLoved   Boolean      @default(false)
+}
