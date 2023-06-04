@@ -2,7 +2,6 @@
 
 import useSWR from 'swr'
 import { motion } from 'framer-motion'
-import clsx from 'clsx'
 
 import fetcher from '@/lib/fetcher'
 import { NowPlayingSong } from '@/types/Spotify'
