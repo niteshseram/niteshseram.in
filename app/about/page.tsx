@@ -29,11 +29,11 @@ const About = () => {
 				When I&apos; not at my desk...
 			</h3>
 			<p>
-				But don&apos;t let all that talk of coding fool you - I&apos;m also a
+				Don&apos;t let all that talk of coding fool you - I&apos;m also a
 				big believer in having fun and trying to have balance between work and
 				play. That&apos;s why you&apos;ll often find me hitting the gym trying
 				to stay fit and healthy, hanging out with friends or enjoying a good
-				Netflix and chill session, I&apso;m always up for an adventure.
+				Netflix and chill session, I&apos;m always up for an adventure.
 			</p>
 			<h2 className='text-dark dark:text-light'>Timeline</h2>
 			<Timeline />
