@@ -2,7 +2,6 @@
 
 import confetti from 'canvas-confetti'
 import clsx from 'clsx'
-import { useState } from "react";
 
 import { useWindowDimensions } from '@/hooks/useWindowDimension';
 import { usePostReactions } from '@/hooks/usePostReactions';
