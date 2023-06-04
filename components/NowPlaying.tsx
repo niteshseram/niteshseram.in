@@ -2,7 +2,6 @@
 
 import useSWR from 'swr'
 import { motion } from 'framer-motion'
-import clsx from 'clsx'
 
 import fetcher from '@/lib/fetcher'
 import { NowPlayingSong } from '@/types/Spotify'
@@ -52,7 +51,7 @@ export default function NowPlaying() {
 
 	 if (!nowPlaying?.songUrl || !nowPlaying.title || !nowPlaying.artist) {
 			return (
-				<div className='flex items-center justify-center space-x-2 text-sm sm:justify-start sm:text-base'>
+				<div className='flex items-center justify-center space-x-2 sm:justify-start sm:text-base'>
 					<svg className='mt-[-2px] h-4 w-4' viewBox='0 0 168 168'>
 						<path
 							fill='#1ED760'
@@ -60,30 +59,32 @@ export default function NowPlaying() {
 						/>
 					</svg>
 					<div className='inline-flex space-x-1'>
-						<p className='font-medium text-gray-800 dark:text-gray-200'>
+						<p className='text-xs text-gray-800 dark:text-gray-200'>
 							Not Playing
 						</p>
-						<span className='text-gray-500 dark:text-gray-300'>{' – '}</span>
-						<p className='text-gray-500 dark:text-gray-300'>Spotify</p>
+						<span className='text-xs text-gray-500 dark:text-gray-300'>{' – '}</span>
+						<p className='text-xs text-gray-500 dark:text-gray-300'>Spotify</p>
 					</div>
 				</div>
 			)
 		}
 
 		return (
-			<div className='mt-4 flex items-center space-x-2 sm:flex-row sm:justify-start sm:space-x-2 w-full'>
+			<div className='flex items-center space-x-2 sm:flex-row sm:justify-start sm:space-x-2 w-full'>
 				<AnimatedBars />
-				<div className='inline-flex max-w-[70%] items-center space-x-2 text-sm sm:max-w-[95%] sm:text-base'>
+				<div className='inline-flex max-w-[70%] items-center space-x-2 sm:max-w-[95%] sm:text-base'>
 					<a
-						className='inline-block truncate font-medium text-gray-800 dark:text-gray-200'
+						className='text-xs inline-block truncate text-gray-800 dark:text-gray-200'
 						href={nowPlaying.songUrl}
 						target='_blank'
 						rel='noopener noreferrer'
 					>
 						{nowPlaying.title}
 					</a>
-					<span className='mx-2 text-gray-500 dark:text-gray-300'>{' – '}</span>
-					<p className='inline-block truncate text-gray-500 dark:text-gray-300'>
+					<span className='text-xs mx-2 text-gray-500 dark:text-gray-300'>
+						{' – '}
+					</span>
+					<p className='text-xs inline-block truncate text-gray-500 dark:text-gray-300'>
 						{nowPlaying.artist}
 					</p>
 				</div>
