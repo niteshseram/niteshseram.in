@@ -44,3 +44,8 @@ export const SOCIAL: Array<SocialItem> = [
 		icon: FiGithub,
 	},
 ]
+
+export const REACTION = {
+	like: "LIKE",
+	love: "LOVE"
+}

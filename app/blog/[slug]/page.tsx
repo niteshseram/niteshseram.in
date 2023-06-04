@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { allBlogs } from 'contentlayer/generated'
 import { Mdx } from '@/components/mdx'
 import ViewCounter from '../view-counter'
+import Reaction from '@/components/Reaction'
 
 interface Params {
 	slug: string
@@ -73,16 +74,22 @@ export default async function Blog({ params }: BlogProps) {
 	}
 
 	return (
-		<section className='mb-20 mt-10'>
+		<section className='mb-10 mt-10'>
 			<script type='application/ld+json' suppressHydrationWarning>
 				{JSON.stringify(post.structuredData)}
 			</script>
 			<h1 className='font-bold heading mb-2'>{post.title}</h1>
-			<div className='mt-4 text-sm mb-8 text-slate-700 dark:text-slate-400'>
-				{format(parseISO(post.publishedAt), 'MMMM dd, yyyy')} /{' '}
-				{post.readingTime.text} / <ViewCounter slug={post.slug} trackView />
+			<div className='mt-4 text-sm mb-8 flex flex-col gap-4'>
+				<div className='text-slate-700 dark:text-slate-400'>
+					{format(parseISO(post.publishedAt), 'MMMM dd, yyyy')} /{' '}
+					{post.readingTime.text} / <ViewCounter slug={post.slug} trackView />
+				</div>
+				<Reaction slug={post.slug} />
 			</div>
 			<Mdx code={post.body.code} />
+			<div className='pt-4 md:pt-8 flex justify-center'>
+				<Reaction slug={post.slug} />
+			</div>
 		</section>
 	)
 }
