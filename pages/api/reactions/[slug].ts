@@ -26,22 +26,25 @@ export default async function handler(
 		const { method } = req
 
 		if (method === 'POST') {
-			const type = req.body
+			const types = req.body
+
+			const likesCount = types.filter((type:string) => type === REACTION.like).length
+			const lovesCount = types.filter((type:string) => type === REACTION.love).length
 
 			const [newOrUpdatedReactions, user] = await Promise.all([
 				prisma.reactions.upsert({
 					where: { slug },
 					create: {
 						slug,
-						likes: type === REACTION.like ? 1 : 0,
-						loves: type === REACTION.love ? 1 : 0,
+						likes: likesCount,
+						loves: lovesCount,
 					},
 					update: {
 						likes: {
-							increment: type === REACTION.like ? 1 : 0,
+							increment: likesCount,
 						},
 						loves: {
-							increment: type === REACTION.love ? 1 : 0,
+							increment: lovesCount,
 						},
 					},
 				}),
@@ -51,12 +54,12 @@ export default async function handler(
 					where: { id: sessionId },
 					create: {
 						id: sessionId,
-						isLiked: type === REACTION.like,
-						isLoved: type === REACTION.love,
+						isLiked: likesCount>0,
+						isLoved: lovesCount>0,
 					},
 					update: {
-						...(type === REACTION.like && { isLiked: true }),
-						...(type === REACTION.love && { isLoved: true }),
+						...(likesCount>0 && { isLiked: true }),
+						...(lovesCount>0 && { isLoved: true }),
 					},
 				}),
 			])
