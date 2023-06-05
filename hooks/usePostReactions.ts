@@ -22,12 +22,12 @@ async function getPostReactions(slug: string): Promise<MetricsPayload> {
 
 async function updatePostReactions(
 	slug: string,
-	reactionType: string
+	reactionTypes: string[]
 ): Promise<MetricsPayload> {
 	const res = await fetch(API_URL + `/${slug}`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(reactionType),
+		body: JSON.stringify(reactionTypes),
 	})
 
 	if (!res.ok) {
@@ -47,18 +47,22 @@ export const usePostReactions = (slug: string, config?: SWRConfiguration) => {
 		}
 	)
 
-	const [batchedReaction, setBatchedReaction] = React.useState('')
+	const [batchedReactions, setBatchedReactions] = React.useState<string[]>([])
 
 	const reaction = (type: string) => {
 		// Prevent the user from reacting again
-		if (!data || (type === REACTION.like && data.isLiked) || 
-		(type === REACTION.love && data.isLoved)) {
+		if (
+			!data 
+			|| (type === REACTION.like && data.isLiked)
+			|| (type === REACTION.love && data.isLoved)
+		) {
 			return
 		}
 
 		// update the local swr cache so reactions updates immediately for the user
-    if(type === REACTION.love){
-      mutate(
+		if (type === REACTION.love) {
+			setBatchedReactions((prevReactions) => [...prevReactions, REACTION.love])
+			mutate(
 				{
 					likes: data.likes,
 					loves: (BigInt(data.loves) + BigInt(1)).toString(),
@@ -67,9 +71,10 @@ export const usePostReactions = (slug: string, config?: SWRConfiguration) => {
 				},
 				false
 			)
-    }
-    if(type === REACTION.like){
-      mutate(
+		}
+		if (type === REACTION.like) {
+			setBatchedReactions((prevReactions) => [...prevReactions, REACTION.like])
+			mutate(
 				{
 					likes: (BigInt(data.likes) + BigInt(1)).toString(),
 					loves: data.loves,
@@ -78,22 +83,23 @@ export const usePostReactions = (slug: string, config?: SWRConfiguration) => {
 				},
 				false
 			)
-    }
-
-		setBatchedReaction(type)
+		}
 	}
 
 	useDebounce(
 		() => {
-			if (!batchedReaction) return
+			if (batchedReactions.length === 0) return
+			
+			const reactionsCopy = [...batchedReactions]
+			// Clear the batchedReactions array
+			setBatchedReactions([])
 
 			// update the database and use the data updatePostReactions returns to update
 			// the local cache with database data
-			mutate(updatePostReactions(slug, batchedReaction))
-			setBatchedReaction('')
+			mutate(updatePostReactions(slug, reactionsCopy))
 		},
 		1000,
-		[batchedReaction]
+		[batchedReactions]
 	)
 
 	return {
