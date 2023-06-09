@@ -6,24 +6,23 @@ html,
 body {
 	padding: 0;
 	margin: 0;
+}
+::-webkit-scrollbar {
+	width: 8px;
+}
 
-	::-webkit-scrollbar {
-  	width: 8px;
-	}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
 
-	::-webkit-scrollbar-track {
-		background: transparent;
-	}
+::-webkit-scrollbar-thumb {
+	background: #8353E2;
+	border-radius: 20px;
+	height: 10px;
+}
 
-	::-webkit-scrollbar-thumb {
-		background: #8353E2;
-		border-radius: 20px;
-		height: 10px;
-	}
-
-	::-webkit-scrollbar-thumb:hover {
-		background: #555;
-	}
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
 }
 * {
 	box-sizing: border-box;
@@ -168,11 +167,11 @@ body {
 }
 
 .prose a {
-	@apply transition-all decoration-secondary dark:decoration-secondary underline-offset-2 decoration-[0.1em];
+	@apply text-slate-600 dark:text-slate-300 hover:text-secondary dark:hover:text-secondary transition-all decoration-primary/30 hover:decoration-primary dark:decoration-primary/60 dark:hover:decoration-primary underline-offset-2 decoration-[0.1em];
 }
 
 .prose .anchor:after {
-	@apply text-neutral-300 dark:text-neutral-700;
+	@apply text-neutral-400 dark:text-neutral-700;
 	content: '#';
 }
 
@@ -185,9 +184,17 @@ body {
 	@apply m-0;
 }
 
-.prose > :first-child {
-	/* Override removing top margin, causing layout shift */
-	margin-bottom: 1.25em !important;
+.prose pre {
+  @apply border border-neutral-100 border-neutral-800 ;
+}
+
+.prose pre code {
+  @apply grid p-0 rounded-lg border border-neutral-100 border-neutral-800;
+  border: initial;
+}
+
+code:not(pre code) {
+  @apply text-neutral-800 dark:text-neutral-200 px-1 py-0.5 border border-neutral-200 dark:border-neutral-800 rounded-lg bg-neutral-100 dark:bg-neutral-900;
 }
 
 code[class*='language-'],
@@ -204,12 +211,6 @@ pre {
 	scrollbar-width: none; /* Firefox */
 }
 
-table {
-	display: block;
-	max-width: fit-content;
-	overflow-x: auto;
-	white-space: nowrap;
-}
 
 [data-rehype-pretty-code-fragment] code {
 	@apply grid min-w-full break-words rounded-none border-0 p-0 text-sm text-black;
@@ -229,13 +230,13 @@ table {
 	color: gray;
 }
 [data-rehype-pretty-code-fragment] .line--highlighted {
-	@apply bg-opacity-10;
+	@apply bg-slate-500 bg-opacity-10;
 }
 [data-rehype-pretty-code-fragment] .line-highlighted span {
 	@apply relative;
 }
 [data-rehype-pretty-code-fragment] .word--highlighted {
-	@apply rounded-md bg-opacity-10 p-1;
+	@apply rounded-md bg-slate-500 bg-opacity-10 p-1;
 }
 [data-rehype-pretty-code-title] {
 	@apply px-4 py-3 font-mono text-xs font-medium border rounded-t-lg text-neutral-200 border-[#333333] bg-[#1c1c1c];

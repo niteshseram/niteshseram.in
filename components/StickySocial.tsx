@@ -21,10 +21,10 @@ const StickySocial = () => {
               flex
               border-solid 
               border-2 
-              dark:border-primary-light 
+              dark:border-primary/50
               dark:hover:border-primary 
-              border-secondary-light 
-              hover:secondary-primary 
+              border-secondary/50
+              hover:border-secondary
               transition 
               rounded-full
               dark:hover:text-light
