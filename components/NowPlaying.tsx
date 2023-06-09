@@ -72,7 +72,10 @@ export default function NowPlaying() {
 		return (
 			<div className='flex items-center space-x-2 sm:flex-row sm:justify-start sm:space-x-2 w-full'>
 				<AnimatedBars />
-				<div className='inline-flex max-w-[70%] items-center space-x-2 sm:max-w-[95%] sm:text-base'>
+				<div
+					className='inline-flex max-w-[70%] items-center space-x-2 sm:max-w-[95%] sm:text-base'
+					title={`Listening to ${nowPlaying.title} by ${nowPlaying.artist}`}
+				>
 					<a
 						className='text-xs inline-block truncate text-gray-800 dark:text-gray-200'
 						href={nowPlaying.songUrl}

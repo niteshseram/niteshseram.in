@@ -50,7 +50,7 @@ const MobileNavbar = () => {
 					showNavbar ? 'translate-x-0' : '-translate-x-full'
 				}`}
 			>
-				<nav className='fixed p-4 w-full my-8 space-y-8 flex flex-col pl-0'>
+				<nav className='fixed p-4 w-full my-8 space-y-8 flex gap-8 flex-col pl-0'>
 					{NAV_ITEMS.map((item, idx) => {
 						const active = pathname === item.page
 
@@ -60,7 +60,7 @@ const MobileNavbar = () => {
 									href={item.page}
 									onClick={() => setShowNavbar(!showNavbar)}
 									className={clsx(
-										'horizontal-underline text-xl tracking-widest text-gray-900 backdrop:text-2xl dark:text-gray-100',
+										'horizontal-underline text-2xl tracking-widest text-gray-900 backdrop:text-2xl dark:text-gray-100',
 										{ 'horizontal-underline-active font-bold': active }
 									)}
 									aria-label={item.label}
