@@ -6,24 +6,23 @@ html,
 body {
 	padding: 0;
 	margin: 0;
+}
+::-webkit-scrollbar {
+	width: 8px;
+}
 
-	::-webkit-scrollbar {
-  	width: 8px;
-	}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
 
-	::-webkit-scrollbar-track {
-		background: transparent;
-	}
+::-webkit-scrollbar-thumb {
+	background: #8353E2;
+	border-radius: 20px;
+	height: 10px;
+}
 
-	::-webkit-scrollbar-thumb {
-		background: #8353E2;
-		border-radius: 20px;
-		height: 10px;
-	}
-
-	::-webkit-scrollbar-thumb:hover {
-		background: #555;
-	}
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
 }
 * {
 	box-sizing: border-box;
@@ -190,7 +189,7 @@ body {
 }
 
 .prose pre code {
-  @apply p-0 rounded-lg border border-neutral-100 border-neutral-800;
+  @apply grid p-0 rounded-lg border border-neutral-100 border-neutral-800;
   border: initial;
 }
 
@@ -231,13 +230,13 @@ pre {
 	color: gray;
 }
 [data-rehype-pretty-code-fragment] .line--highlighted {
-	@apply bg-opacity-10;
+	@apply bg-slate-500 bg-opacity-10;
 }
 [data-rehype-pretty-code-fragment] .line-highlighted span {
 	@apply relative;
 }
 [data-rehype-pretty-code-fragment] .word--highlighted {
-	@apply rounded-md bg-opacity-10 p-1;
+	@apply rounded-md bg-slate-500 bg-opacity-10 p-1;
 }
 [data-rehype-pretty-code-title] {
 	@apply px-4 py-3 font-mono text-xs font-medium border rounded-t-lg text-neutral-200 border-[#333333] bg-[#1c1c1c];
