@@ -40,7 +40,7 @@ const BlogList: React.FC<Props> = ({ blogs }) => {
 										</Link>
 									</h3>
 									<p className='sr-only'>Published on</p>
-									<p className='mt-2 text-sm'>
+									<p className='mt-2 text-sm md:hidden'>
 										{format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
 										{` • `}
 										{post.readingTime.text}

@@ -10,7 +10,7 @@ function AnimatedBars() {
 	return (
 		<div className='flex w-auto items-end overflow-hidden'>
 			<motion.span
-				className='mr-[3px] h-2 w-1 opacity-75 bg-[#1ED760]'
+				className='mr-[3px] h-2 w-1 opacity-75 bg-secondary dark:bg-primary'
 				animate={{
 					transform: [
 						'scaleY(1.0) translateY(0rem)',
@@ -29,7 +29,7 @@ function AnimatedBars() {
 					],
 				}}
 				transition={{ duration: 1.5, repeat: Infinity }}
-				className='mr-[3px] h-1 w-1 bg-[#1ED760]'
+				className='mr-[3px] h-1 w-1 bg-secondary dark:bg-primary'
 			/>
 			<motion.span
 				animate={{
@@ -40,7 +40,7 @@ function AnimatedBars() {
 					],
 				}}
 				transition={{ duration: 1.5, repeat: Infinity }}
-				className='h-3 w-1 bg-[#1ED760]'
+				className='h-3 w-1 bg-secondary dark:bg-primary'
 			/>
 		</div>
 	)

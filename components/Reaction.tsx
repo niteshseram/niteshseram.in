@@ -4,7 +4,7 @@ import confetti from 'canvas-confetti'
 import clsx from 'clsx'
 
 import { useWindowDimensions } from '@/hooks/useWindowDimension';
-import { usePostReactions } from '@/hooks/usePostReactions';
+import { usePostReactions } from '@/lib/usePostReactions';
 import { REACTION } from '@/constants';
 
 interface IconInterface {

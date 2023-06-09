@@ -168,11 +168,11 @@ body {
 }
 
 .prose a {
-	@apply transition-all decoration-secondary dark:decoration-secondary underline-offset-2 decoration-[0.1em];
+	@apply text-slate-600 dark:text-slate-300 hover:text-secondary dark:hover:text-secondary transition-all decoration-primary/30 hover:decoration-primary dark:decoration-primary/60 dark:hover:decoration-primary underline-offset-2 decoration-[0.1em];
 }
 
 .prose .anchor:after {
-	@apply text-neutral-300 dark:text-neutral-700;
+	@apply text-neutral-400 dark:text-neutral-700;
 	content: '#';
 }
 
@@ -185,9 +185,17 @@ body {
 	@apply m-0;
 }
 
-.prose > :first-child {
-	/* Override removing top margin, causing layout shift */
-	margin-bottom: 1.25em !important;
+.prose pre {
+  @apply border border-neutral-100 border-neutral-800 ;
+}
+
+.prose pre code {
+  @apply p-0 rounded-lg border border-neutral-100 border-neutral-800;
+  border: initial;
+}
+
+code:not(pre code) {
+  @apply text-neutral-800 dark:text-neutral-200 px-1 py-0.5 border border-neutral-200 dark:border-neutral-800 rounded-lg bg-neutral-100 dark:bg-neutral-900;
 }
 
 code[class*='language-'],
@@ -204,12 +212,6 @@ pre {
 	scrollbar-width: none; /* Firefox */
 }
 
-table {
-	display: block;
-	max-width: fit-content;
-	overflow-x: auto;
-	white-space: nowrap;
-}
 
 [data-rehype-pretty-code-fragment] code {
 	@apply grid min-w-full break-words rounded-none border-0 p-0 text-sm text-black;
