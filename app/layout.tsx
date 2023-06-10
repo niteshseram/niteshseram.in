@@ -27,13 +27,6 @@ export const metadata: Metadata = {
 		description: 'Software Engineer and Open Source enthusiast',
 		url: 'https://niteshseram.in',
 		siteName: 'Nitesh Seram',
-		images: [
-			{
-				url: 'https://niteshseram.in/og.png',
-				width: 1920,
-				height: 1080,
-			},
-		],
 		locale: 'en-US',
 		type: 'website',
 	},
