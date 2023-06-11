@@ -96,7 +96,8 @@ const Reaction = ({slug}: Reaction ) => {
 		<div className='flex items-start gap-2'>
 			<button
 				className='dark:bg-gray-800 bg-gray-200 p-2 rounded-lg cursor-pointer flex items-center gap-2'
-				onClick={e => handleClick(REACTION.love, e)}
+				title={isLoved ? 'Loved' : 'Love'}
+				onClick={(e) => handleClick(REACTION.love, e)}
 			>
 				<div
 					className={clsx(
@@ -106,11 +107,12 @@ const Reaction = ({slug}: Reaction ) => {
 				>
 					<HeartIcon isReacted={!!isLoved} />
 				</div>
-				<div className='select-none'>{isLoading? '..' : loves}</div>
+				<div className='select-none'>{isLoading ? '..' : loves}</div>
 			</button>
 			<button
 				className='dark:bg-gray-800 bg-gray-200 p-2 rounded-lg cursor-pointer flex items-center gap-2'
-				onClick={e => handleClick(REACTION.like, e)}
+				title={isLoved ? 'Liked' : 'Like'}
+				onClick={(e) => handleClick(REACTION.like, e)}
 			>
 				<div
 					className={clsx(
