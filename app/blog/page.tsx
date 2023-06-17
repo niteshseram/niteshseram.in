@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { allBlogs } from 'contentlayer/generated'
 
-import BlogList from '@/components/BlogList'
+import BlogList from '@/components/blog/BlogList'
 
 export const metadata: Metadata = {
 	title: 'Blog',

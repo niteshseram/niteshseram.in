@@ -2,7 +2,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import Link from 'next/link'
 
 import { allBlogs } from 'contentlayer/generated'
-import BlogList from '../BlogList'
+import BlogList from '../blog/BlogList'
 
 const Blog = () => {
 	return (
