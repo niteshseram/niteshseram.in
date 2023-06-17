@@ -5,7 +5,7 @@ import BlogList from '@/components/BlogList'
 
 export const metadata: Metadata = {
 	title: 'Blog',
-	description: 'Sharing my knowledge with blog post',
+	description: 'Sharing learnings and thoughts on software development and beyond through my blog',
 }
 
 export default async function BlogPage() {
