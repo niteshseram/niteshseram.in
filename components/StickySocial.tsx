@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 import FadeUp from './animations/FadeUp'
 
@@ -31,11 +32,21 @@ const StickySocial = () => {
               dark:text-slate-500
               text-gray-500
               hover:text-gray-900
+							h-10
+							w-10
+							items-center
+							justify-center
             '
 					>
-						{React.createElement(social.icon, {
-							className: 'h-10 w-10 pointer-events-auto p-2',
-						})}
+						<motion.div
+							className='logo'
+							whileHover={{ rotate: 360, scale: 1.2 }}
+							transition={{ duration: 0.25 }}
+						>
+							{React.createElement(social.icon, {
+								className: 'h-8 w-8 pointer-events-auto p-2',
+							})}
+						</motion.div>
 					</Link>
 				</FadeUp>
 			))}

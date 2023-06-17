@@ -2,8 +2,8 @@
 
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
-import { ReactElement, useContext, useEffect, useRef } from 'react'
-import { AiOutlineArrowRight } from 'react-icons/ai'
+import { ReactElement, useContext, useRef } from 'react'
+import { FiArrowRight } from 'react-icons/fi'
 
 import { ScrollContext } from '../ScrollObserver'
 import FadeUp from '../animations/FadeUp'
@@ -75,7 +75,7 @@ export default function Hero(): ReactElement {
 									<div className='flex items-center mt-2 md:mt-3'>
 										<span className='link'>Read more about me&nbsp;</span>
 										<span className='animate-bounce-right'>
-											<AiOutlineArrowRight />
+											<FiArrowRight />
 										</span>
 									</div>
 								</Link>

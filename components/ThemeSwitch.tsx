@@ -1,5 +1,5 @@
 import { useTheme } from 'next-themes'
-import { BsMoonFill, BsSunFill } from 'react-icons/bs'
+import { FiMoon, FiSun } from 'react-icons/fi'
 
 import { useMounted } from '@/hooks/useMounted'
 
@@ -15,7 +15,7 @@ const ThemeSwitch = () => {
 			title={theme === 'dark'? 'Enable Light Theme': 'Enable Dark Theme'}
 			onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
 		>
-			{mounted && (currentTheme === 'dark' ? <BsSunFill /> : <BsMoonFill />)}
+			{mounted && (currentTheme === 'dark' ? <FiSun /> : <FiMoon/>)}
 		</button>
 	)
 }

@@ -30,15 +30,15 @@ body {
 }
 
 ::selection {
-  background-color: #05B19A70;
+  background-color: #05B19A30;
   color: #fefefe;
 }
 
 @layer base {
-	body, b {
+	b {
 		@apply text-dark dark:text-light;
 	}
-	p {
+	body {
 		@apply text-gray-900 dark:text-gray-400;
 	}
 }

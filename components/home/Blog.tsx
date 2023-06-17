@@ -1,12 +1,12 @@
-import { AiOutlineArrowRight } from 'react-icons/ai'
+import { FiArrowRight } from 'react-icons/fi'
 import Link from 'next/link'
 
 import { allBlogs } from 'contentlayer/generated'
-import BlogList from '../BlogList'
+import BlogList from '../blog/BlogList'
 
 const Blog = () => {
 	return (
-		<section id='recent-blog' className='min-h-screen'>
+		<section id='recent-blog' className='pb-10 pt-20'>
 			<h2 className='heading underline'>Recently Published</h2>
 			<BlogList
 				blogs={allBlogs
@@ -21,10 +21,10 @@ const Blog = () => {
 			<div className='mt-10'>
 				<Link href='/blog'>
 					<button className='flex items-center'>
-							<span className='link'>See All Blog Posts&nbsp;</span>
-							<span className='animate-bounce-right'>
-								<AiOutlineArrowRight />
-							</span>
+						<span className='link'>See All Blog Posts&nbsp;</span>
+						<span className='animate-bounce-right'>
+							<FiArrowRight />
+						</span>
 					</button>
 				</Link>
 			</div>

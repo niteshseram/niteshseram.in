@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { allBlogs } from 'contentlayer/generated'
 import { Mdx } from '@/components/mdx'
 import ViewCounter from '../view-counter'
-import Reaction from '@/components/Reaction'
+import Reaction from '@/components/blog/Reaction'
 
 interface Params {
 	slug: string
