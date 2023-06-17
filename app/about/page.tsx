@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const About = () => {
 
 	return (
-		<section className='prose max-w-4xl w-[92vw] sm:w-[90vw] mt-10'>
+		<section className='prose  prose-neutral dark:prose-invert max-w-4xl w-[92vw] sm:w-[90vw] my-10 '>
 			<h1 className='heading'>About me</h1>
 			<p>
 				Hello there, I&apos;m a <b>Software Engineer</b> with a passion for all
@@ -29,11 +29,11 @@ const About = () => {
 				When I&apos; not at my desk...
 			</h3>
 			<p>
-				Don&apos;t let all that talk of coding fool you - I&apos;m also a
-				big believer in having fun and trying to have balance between work and
-				play. That&apos;s why you&apos;ll often find me hitting the gym trying
-				to stay fit and healthy, hanging out with friends or enjoying a good
-				Netflix and chill session, I&apos;m always up for an adventure.
+				Don&apos;t let all that talk of coding fool you - I&apos;m also a big
+				believer in having fun and trying to have balance between work and play.
+				That&apos;s why you&apos;ll often find me hitting the gym trying to stay
+				fit and healthy, hanging out with friends or enjoying a good Netflix and
+				chill session, I&apos;m always up for an adventure.
 			</p>
 			<h2 className='text-dark dark:text-light'>Timeline</h2>
 			<Timeline />
