@@ -13,9 +13,8 @@ const About = () => {
 			<h1 className='heading'>About me</h1>
 			<p>
 				Hello there, I&apos;m a <b>Software Engineer</b> with a passion for all
-				things frontend. I work at a vibrant startup called <b>Auzmor</b>, where
-				I spend my days building innovative learning management solutions that
-				make a difference in people&apos;s lives.
+				things frontend. I work at <b>Auzmor</b>, where
+				I spend my days building Learning Management Solution(LMS).
 			</p>
 			<p>
 				As a lifelong learner, I&apos;m always looking for opportunities to grow
