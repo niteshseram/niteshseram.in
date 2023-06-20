@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 
 import ThemeSwitch from './ThemeSwitch'
 import MobileNavbar from './MobileNavbar'
+import AnimatedText from './AnimatedText'
 import Logo from './Logo'
 
 import { NAV_ITEMS } from '@/constants'
@@ -16,7 +17,7 @@ const NavBar = () => {
 	return (
 		<header className='z-40 sticky top-0'>
 			<div className='absolute inset-0 bg-white/95 supports-[backdrop-filter]:bg-white/75 supports-[backdrop-filter]:backdrop-blur-lg dark:bg-dark/90 dark:supports-[backdrop-filter]:bg-dark/50' />
-			<div className='relative bg-transparent py-5 flex items-center justify-between max-w-4xl w-[92vw] sm:w-[90vw] mx-auto'>
+			<div className='relative bg-transparent py-5 flex items-center justify-between max-w-2xl w-[92vw] sm:w-[90vw] mx-auto'>
 				<MobileNavbar />
 				<Link
 					href='/'
@@ -39,7 +40,7 @@ const NavBar = () => {
 									aria-label={item.label}
 								>
 									<span className='tracking-wide text-gray-900 dark:text-gray-100'>
-										{item.label}
+										<AnimatedText text={item.label} />
 									</span>
 								</Link>
 							)

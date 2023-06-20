@@ -1,24 +1,13 @@
 'use client'
-
-import { AnimatePresence, motion } from 'framer-motion'
-import Link from 'next/link'
-import { ReactElement, useContext, useRef } from 'react'
+import { ReactElement } from 'react'
 import { FiArrowRight } from 'react-icons/fi'
+import Link from 'next/link'
 
-import { ScrollContext } from '../ScrollObserver'
-import FadeUp from '../animations/FadeUp'
-import FadeRight from '../animations/FadeRight'
+import RoundedImage from '../RoundedImage'
+import AnimatedText from '../AnimatedText'
+
 
 export default function Hero(): ReactElement {
-	const refSection = useRef<HTMLHeadingElement>(null)
-	const { scrollY } = useContext(ScrollContext)
-
-	let progress = 0
-	const { current: elRef } = refSection
-
-	if (elRef) {
-		progress = Math.min(1, scrollY / elRef.clientHeight)
-	}
 
 	return (
 		<section>
@@ -26,64 +15,43 @@ export default function Hero(): ReactElement {
 				Hi I&apos;m Nitesh Seram, I&apos;m a software engineer and I craft
 				things for the web.
 			</h1>
-			<motion.div
-				className='relative z-10 flex h-[calc(100vh-80px)] items-center select-none'
-				animate={{
-					transform: `translateY(${progress * 40}vh)`,
-				}}
-				transition={{ type: 'spring', stiffness: 50, duration: 0.8 }}
-			>
-				<AnimatePresence>
-					<div
-						className='
-            mx-auto
-            -mt-36
-            w-screen
-            max-w-3xl
-            px-4
-            sm:px-9
-            xl:max-w-5xl
-            xl:px-0
-          '
-					>
-						<div ref={refSection} className='flex cursor-default flex-col'>
-							<FadeUp duration={0.6}>
-								<h1 className='text-2xl sm:text-3xl md:text-5xl font-bold mb-4 md:mb-8'>
-									Hello
-									<span role='img' aria-label='waving hand' className='wave'>
-										👋
-									</span>
-								</h1>
-							</FadeUp>
-							<FadeUp duration={0.6} delay={0.2}>
-								<h1 className='text-4xl font-extrabold sm:text-5xl md:text-6xl xl:text-7xl'>
-									I&apos;m <span className='name-highlight'>Nitesh Seram</span>
-								</h1>
-							</FadeUp>
-							<FadeRight duration={0.6} delay={1.4}>
-								<h2 className='text-3xl font-bold opacity-80 sm:text-5xl md:text-5xl xl:text-7xl relative'>
-									I craft things for the web
-								</h2>
-							</FadeRight>
-							<FadeUp duration={0.6} delay={0.6}>
-								<p className='text-md lg:text-xl mt-8 lg:mt-12'>
-									Welcome to my little corner of the internet!
-								</p>
-							</FadeUp>
-							<FadeRight duration={0.5} delay={1}>
-								<Link href='/about'>
-									<div className='flex items-center mt-2 md:mt-3'>
-										<span className='link'>Read more about me&nbsp;</span>
-										<span className='animate-bounce-right'>
-											<FiArrowRight />
-										</span>
-									</div>
-								</Link>
-							</FadeRight>
-						</div>
+			<div className='flex cursor-default flex-col justify-center'>
+				<div className='flex gap-8'>
+					<RoundedImage
+						src='/dp.png'
+						alt='profile picture'
+						quality={95}
+						priority={true}
+						width={64}
+						height={64}
+						style={{ objectFit: 'contain' }}
+					/>
+					<div className='flex flex-col justify-center'>
+						<h1 className='text-3xl lg:text-4xl font-medium text-dark dark:text-light name-highlight'>
+							<AnimatedText text='Nitesh Seram' />
+						</h1>
+						<h4 className='text-base lg:text-lg'>
+							Software Engineer @ <span className='font-medium'>Auzmor</span>
+						</h4>
 					</div>
-				</AnimatePresence>
-			</motion.div>
+				</div>
+				<div className='flex flex-col gap-8 pt-8'>
+					<p className='text-base md:text-lg'>
+						Hello, I&apos;m a Software Engineer with passion for creating
+						user-friendly and complex web applications. I&apos;m also an avid
+						open-source contributor and trying to learn from best minds out
+						there through open source.
+					</p>
+					<Link href='/about'>
+						<div className='flex items-center'>
+							<span className='link'>Learn more&nbsp;</span>
+							<span className='animate-bounce-right'>
+								<FiArrowRight />
+							</span>
+						</div>
+					</Link>
+				</div>
+			</div>
 		</section>
 	)
 }

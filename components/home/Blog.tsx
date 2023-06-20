@@ -2,12 +2,15 @@ import { FiArrowRight } from 'react-icons/fi'
 import Link from 'next/link'
 
 import { allBlogs } from 'contentlayer/generated'
+import AnimatedText from '../AnimatedText'
 import BlogList from '../blog/BlogList'
 
 const Blog = () => {
 	return (
-		<section id='recent-blog' className='pb-10 pt-20'>
-			<h2 className='heading underline'>Recently Published</h2>
+		<section id='recent-blog'>
+			<h2 className='section-heading custom-underline'>
+				<AnimatedText text="Recent Posts" />
+			</h2>
 			<BlogList
 				blogs={allBlogs
 					.sort((a, b) => {
@@ -18,7 +21,7 @@ const Blog = () => {
 					})
 					.slice(0, 4)}
 			/>
-			<div className='mt-10'>
+			<div className='mt-6'>
 				<Link href='/blog'>
 					<button className='flex items-center'>
 						<span className='link'>See All Blog Posts&nbsp;</span>

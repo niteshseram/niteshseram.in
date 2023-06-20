@@ -33,8 +33,8 @@ const navigation = {
 const Footer = () => (
 	<footer>
 		<div className='py-10 border-t-2 border-gray-200 dark:border-gray-700'>
-			<div className='grid grid-cols-2 gap-8 xl:col-span-2'>
-				<div className='md:grid md:grid-cols-2 md:gap-8'>
+			<div className='grid grid-cols-3 gap-8'>
+				<div className='md:grid col-span-2 md:grid-cols-2 md:gap-8'>
 					<div>
 						<h3 className='text-sm font-semibold tracking-wider uppercase'>
 							Pages
@@ -67,7 +67,7 @@ const Footer = () => (
 						</div>
 					</div>
 				</div>
-				<div className='md:grid md:grid-cols-2 md:gap-8'>
+				<div className='md:grid md:grid-cols-1 md:gap-8'>
 					<div>
 						<h3 className='text-sm font-semibold tracking-wider uppercase'>
 							Extra

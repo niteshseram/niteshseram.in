@@ -1,3 +1,4 @@
+
 'use client'
 
 import { motion } from 'framer-motion'
@@ -9,25 +10,25 @@ interface Props {
 	delay?: number
 }
 
-const FadeRight = ({ children, duration, delay, ...props}: Props) => {
+const FadeDown = ({ children, duration, delay }: Props) => {
 	return (
 		<motion.div
-			initial={{ x: -200, opacity: 0 }}
+			initial={{ y: -50, opacity: 0 }}
 			animate={{
 				opacity: 1,
-				x: 0,
+				y: 0,
 			}}
 			transition={{
 				type: 'spring',
+				damping: 12,
 				stiffness: 100,
-				duration,
-				delay,
+        duration,
+        delay,
 			}}
-			{...props}
 		>
 			{children}
 		</motion.div>
 	)
 }
 
-export default FadeRight
+export default FadeDown
