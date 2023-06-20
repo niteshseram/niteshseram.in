@@ -36,7 +36,7 @@ body {
 
 @layer base {
 	b {
-		@apply text-dark dark:text-light;
+		@apply text-dark dark:text-light font-medium;
 	}
 	body {
 		@apply text-gray-900 dark:text-gray-400;
@@ -47,8 +47,11 @@ body {
 	.heading {
 		@apply mb-8 md:mb-12 text-xl md:text-3xl font-bold dark:text-light text-dark;
 	}
+	.section-heading {
+		@apply mb-5 md:mb-8 md:text-xl font-bold dark:text-light text-dark;
+	}
 	.link {
-		@apply font-bold text-gray-900 dark:text-gray-400 transition border-solid border-b-2 border-primary;
+		@apply underline;
 	}
 	.btn {
 		@apply px-6 py-2 text-base font-bold rounded-full duration-200 ease-in-out;
@@ -98,17 +101,17 @@ body {
 	background-position: 0 100%;
 }
 
-.link {
-	@apply hover:text-secondary;
+.underline {
+	@apply transition-all text-dark dark:text-light decoration-primary underline-offset-2 decoration-[0.1em]
 }
 
-.underline {
+.custom-underline {
 	text-decoration: none;
 	position: relative;
 	display: inline-block;
 }
 
-.underline:after {
+.custom-underline:after {
 	position: absolute;
 	bottom: -5px;
 	left: 0;
@@ -167,7 +170,7 @@ body {
 }
 
 .prose a {
-	@apply text-slate-600 dark:text-slate-300 hover:text-secondary dark:hover:text-secondary transition-all decoration-primary/30 hover:decoration-primary dark:decoration-primary/60 dark:hover:decoration-primary underline-offset-2 decoration-[0.1em];
+	@apply text-slate-600 dark:text-slate-300 transition-all decoration-primary/50 dark:decoration-primary/80 underline-offset-2 decoration-[0.1em];
 }
 
 .prose .anchor:after {

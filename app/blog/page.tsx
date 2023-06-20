@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { allBlogs } from 'contentlayer/generated'
 
 import BlogList from '@/components/blog/BlogList'
+import AnimatedText from '@/components/AnimatedText'
+import FadeDown from '@/components/animations/FadeDown'
 
 export const metadata: Metadata = {
 	title: 'Blog',
@@ -10,11 +12,15 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
 	return (
-		<section className='min-h-screen  my-10'>
-			<h1 className='heading underline mb-6'>My Blog</h1>
-			<p className='md:text-lg text-md mb-8'>
-				Sharing learnings and thoughts on software development and beyond through my blog
-			</p>
+		<section className='min-h-screen my-10'>
+			<FadeDown duration={0.4}>
+				<h1 className='heading custom-underline mb-6'>
+					<AnimatedText text='My Blog' />
+				</h1>
+				<p className='text-base md:text-lg mb-8'>
+					Sharing learnings and thoughts on software development and beyond through my blog
+				</p>
+			</FadeDown>
 			<BlogList
 				blogs={allBlogs.sort((a, b) => {
 					if (new Date(a.publishedAt) > new Date(b.publishedAt)) {

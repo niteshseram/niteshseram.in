@@ -46,11 +46,11 @@ const MobileNavbar = () => {
 				</svg>
 			</button>
 			<div
-				className={`fixed top-[80px] right-0 z-20 h-full w-full pl-[4vw] sm:pl-[5vw] transform bg-light duration-300 opacity-95 ease-in-out dark:bg-dark ${
+				className={`fixed top-[80px] right-0 z-20 h-full w-full transform bg-light duration-300 opacity-95 ease-in-out dark:bg-dark ${
 					showNavbar ? 'translate-x-0' : '-translate-x-full'
 				}`}
 			>
-				<nav className='fixed p-4 w-full my-8 space-y-8 flex gap-8 flex-col pl-0'>
+				<nav className='fixed p-4 w-full my-8 text-center space-y-8 flex gap-8 flex-col pl-0'>
 					{NAV_ITEMS.map((item, idx) => {
 						const active = pathname === item.page
 
