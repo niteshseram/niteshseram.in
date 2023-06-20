@@ -18,8 +18,7 @@ export default async function BlogPage() {
 					<AnimatedText text='My Blog' />
 				</h1>
 				<p className='text-base md:text-lg mb-8'>
-					Sharing learnings and thoughts on software development and beyond
-					through my blog
+					Sharing learnings and thoughts on software development and beyond through my blog
 				</p>
 			</FadeDown>
 			<BlogList

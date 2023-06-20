@@ -34,31 +34,26 @@ const FullTimeline = () => (
 	<div className='text-gray-900 dark:text-gray-400 timeline'>
 		<Year>2023</Year>
 		<ul>
-			<Checkpoint title=' Promoted to Software Engineer III at Auzmor 🚀'>
+			<Checkpoint title='Software Engineer III at Auzmor 🚀'>
 				Thrilled to continue my adventure as a <b>Software Engineer III</b> at
 				Auzmor and looking forward to learning and growing even more!
 			</Checkpoint>
 		</ul>
 		<Year>2022</Year>
 		<ul>
-			<Checkpoint title='Received Most Valuable Performer award 🎉'>
-				I was recognized for my exceptional performance at Auzmor and awarded
+			<Checkpoint title='MVP award 🎉'>
+				I was recognized for my performance at Auzmor and awarded
 				the <b>Most Valuable Performer</b> award. It felt amazing to be
-				appreciated for my hard work and dedication. This experience has
-				motivated me to strive for excellence in all my future endeavors. 💪
+				appreciated for my hard work and dedication.
 			</Checkpoint>
 		</ul>
 		<Year>2021</Year>
 		<ul>
-			<Checkpoint title='Embarking on a thrilling adventure as a Software Engineer I at Auzmor'>
+			<Checkpoint title='Software Engineer I at Auzmor'>
 				As a Software Engineer at <b>Auzmor</b>, I worked on the front-end side
-				of Auzmor Learn, a Learning Management Solution. I led the successful
-				implementation of multiple releases, including Branding, Two-Factor
-				Authentication, Social Learning, etc. My role included collaborating
-				with the backend team, the product team, and the design team to deliver
-				a seamless user experience.
+				of Auzmor Learn, a Learning Management Solution.
 			</Checkpoint>
-			<Checkpoint title='Contributing to Open Source ❤️'>
+			<Checkpoint title='Open Source ❤️'>
 				Started contributing to Open Source projects ❤️, particularly{' '}
 				<Link
 					href='https://github.com/kubernetes/website/pulls?q=author%3Aniteshseram+'
@@ -80,7 +75,7 @@ const FullTimeline = () => (
 				development. It was an incredible experience that helped me take my
 				first steps on this exciting career path. 😎
 			</Checkpoint>
-			<Checkpoint title='Graduated in the Midst of a Pandemic 🧑‍🎓'>
+			<Checkpoint title='Graduation 🧑‍🎓'>
 				Graduated 🎓 with a virtual convocation (thanks, pandemic!)
 			</Checkpoint>
 		</ul>
