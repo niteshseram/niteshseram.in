@@ -31,7 +31,7 @@ export default function Hero(): ReactElement {
 							<AnimatedText text='Nitesh Seram' />
 						</h1>
 						<h4 className='text-base lg:text-lg'>
-							Software Engineer @ <span className='font-medium'>Auzmor</span>
+							Software Engineer @ <b>Auzmor</b>
 						</h4>
 					</div>
 				</div>
