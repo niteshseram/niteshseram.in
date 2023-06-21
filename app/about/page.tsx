@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const About = () => {
 
 	return (
-		<section className='prose  prose-neutral dark:prose-invert my-10 '>
+		<section className='prose  prose-neutral dark:prose-invert my-10'>
 			<FadeDown duration={0.4}>
 				<h1 className='heading custom-underline'>
 					<AnimatedText text='About me' />

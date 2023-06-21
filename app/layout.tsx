@@ -66,7 +66,7 @@ export default function RootLayout({
 			>
 				<Provider>
 					<Navbar />
-					<div className='max-w-2xl w-[92vw] sm:w-[90vw] mx-auto'>
+					<div className='max-w-2xl w-[92vw] sm:w-[90vw] mx-auto pt-20'>
 						<StickySocial />
 						{children}
 						<Footer />

@@ -6,11 +6,11 @@ import FadeUp from '@/components/animations/FadeUp'
 
 export default function Home() {
 	return (
-		<main className='flex flex-col gap-20 my-20'>
-			<FadeDown duration={0.4}>
+		<main className='flex flex-col gap-20 my-10'>
+			<FadeDown duration={0.4} delay={0}>
 				<Hero />
 			</FadeDown>
-			<FadeUp duration={0.4}>
+			<FadeUp duration={0.4} delay={0}>
 				<Blog />
 			</FadeUp>
 			<Contact />
