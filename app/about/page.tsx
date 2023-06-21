@@ -31,7 +31,7 @@ const About = () => {
 				</p>
 
 				<h4 className='text-lg md:text-xl font-medium dark:text-light text-dark'>
-					When I&apos; not at my desk...
+					When I&apos;m not at my desk...
 				</h4>
 				<p>
 					Don&apos;t let all that talk of coding fool you - I&apos;m also a big
