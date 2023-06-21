@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import ThemeSwitch from './ThemeSwitch'
-import MobileNavbar from './MobileNavbar'
 import AnimatedText from './AnimatedText'
 import Logo from './Logo'
 
@@ -15,10 +14,13 @@ const NavBar = () => {
 	const pathname = usePathname()
 
 	return (
-		<header className='z-40 sticky top-0'>
-			<div className='absolute inset-0 bg-white/95 supports-[backdrop-filter]:bg-white/75 supports-[backdrop-filter]:backdrop-blur-lg dark:bg-dark/90 dark:supports-[backdrop-filter]:bg-dark/50' />
-			<div className='relative bg-transparent py-5 flex items-center justify-between max-w-2xl w-[92vw] sm:w-[90vw] mx-auto'>
-				<MobileNavbar />
+		<nav className='
+			fixed top-2 left-1/2 max-w-2xl w-[96vw]
+			sm:w-[90vw] mx-auto -translate-x-1/2 flex flex-col
+			transition-all rounded-lg p-[10px] bg-primary/10 backdrop-blur-[10px] backdrop-saturate-150 
+			hover:shadow-dark border border-secondary/20 z-10
+		'>
+			<div className='h-[40px] bg-transparent py-5 flex items-center justify-between'>
 				<Link
 					href='/'
 					className='flex items-center justify-between'
@@ -26,8 +28,8 @@ const NavBar = () => {
 				>
 					<Logo />
 				</Link>
-				<div className='flex items-center space-x-0 sm:space-x-12 text-base leading-5'>
-					<div className='hidden space-x-12 sm:flex'>
+				<div className='flex items-center gap-8 text-base leading-5'>
+					<div className='flex gap-8'>
 						{NAV_ITEMS.map((item, idx) => {
 							const active = pathname === item.page
 							return (
@@ -49,7 +51,7 @@ const NavBar = () => {
 					<ThemeSwitch />
 				</div>
 			</div>
-		</header>
+		</nav>
 	)
 }
 
