@@ -111,7 +111,7 @@ const Reaction = ({slug}: Reaction ) => {
 			</button>
 			<button
 				className='dark:bg-gray-800 bg-gray-200 p-2 rounded-lg cursor-pointer flex items-center gap-2'
-				title={isLoved ? 'Liked' : 'Like'}
+				title={isLiked ? 'Liked' : 'Like'}
 				onClick={(e) => handleClick(REACTION.like, e)}
 			>
 				<div

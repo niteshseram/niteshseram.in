@@ -15,8 +15,8 @@ const NavBar = () => {
 
 	return (
 		<nav className='
-			fixed top-2 left-1/2 max-w-2xl w-[96vw]
-			sm:w-[90vw] mx-auto -translate-x-1/2 flex flex-col
+			fixed top-2 left-1/2 max-w-[44em] w-[96vw]
+			sm:w-[96vw] mx-auto -translate-x-1/2 flex flex-col
 			transition-all rounded-lg p-[10px] bg-primary/10 backdrop-blur-[10px] backdrop-saturate-150 
 			hover:shadow-dark border border-secondary/20 z-10
 		'>

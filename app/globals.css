@@ -157,6 +157,10 @@ body {
 	}
 }
 
+.prose {
+	max-width: 100%;
+}
+
 .prose .anchor {
 	@apply absolute invisible no-underline;
 	margin-left: -1em;
