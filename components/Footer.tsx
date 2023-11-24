@@ -9,7 +9,7 @@ const navigation = {
 	],
 	extra: [
 		{ name: 'Source', title: 'View source code on Github',href: 'https://github.com/niteshseram/niteshseram.in' },
-		{ name: 'Resume', title: 'View my resume', href: '/resume.pdf' },
+		{ name: 'Resume', title: 'View my resume', href: 'https://drive.google.com/file/d/1uQxjmAY-mVyv-4F_oyrQitvzfCxVUka3/view' },
 	],
 	social: [
 		{
