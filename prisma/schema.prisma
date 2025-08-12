@@ -9,22 +9,11 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
   directUrl    = env("DIRECT_URL")
+  shadowDatabaseUrl = env("SHADOW_URL")
 }
 
-model Views {
-  slug  String @id @db.VarChar(128)
-  count BigInt @default(1)
-}
-
-model Reactions {
-  slug  String @id @db.VarChar(128)
-  likes BigInt @default(1)
-  loves BigInt @default(1)
-}
-
-model Session {
-  id        String   @id
-  createdAt DateTime @default(now())
-  isLiked   Boolean      @default(false)
-  isLoved   Boolean      @default(false)
+model Profile {
+  id    String @id @default(cuid())
+  name  String
+  email String @unique
 }
