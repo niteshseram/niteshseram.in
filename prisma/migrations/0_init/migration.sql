@@ -9,3 +9,4 @@ CREATE TABLE "Profile" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Profile_email_key" ON "Profile"("email");
+
