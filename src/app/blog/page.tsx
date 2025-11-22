@@ -1,4 +1,4 @@
-import { allBlogs } from 'contentlayer2/generated';
+import { allBlogs } from 'contentlayer/generated';
 import type { Metadata } from 'next';
 
 import AnimatedText from '@/components/AnimatedText';

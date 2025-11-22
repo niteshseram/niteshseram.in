@@ -1,4 +1,4 @@
-import type { Blog } from 'contentlayer2/generated';
+import type { Blog } from 'contentlayer/generated';
 import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
 

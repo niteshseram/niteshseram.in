@@ -1,4 +1,4 @@
-import { allBlogs } from 'contentlayer2/generated';
+import { allBlogs } from 'contentlayer/generated';
 import { format, parseISO } from 'date-fns';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';

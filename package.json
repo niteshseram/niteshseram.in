@@ -10,11 +10,12 @@
     "format": "lint-staged",
     "prepare": "husky install",
     "precommit": "pnpm lint && lint-staged",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && npm run cl",
     "tc": "tsc",
     "check": "pnpm run tc && pnpm run lint",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
-    "format:fix": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache"
+    "format:fix": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
+    "cl": "contentlayer2 build"
   },
   "lint-staged": {
     "**/*.{ts,tsx,mdx}": [

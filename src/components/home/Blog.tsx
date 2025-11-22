@@ -1,4 +1,4 @@
-import { allBlogs } from 'contentlayer2/generated';
+import { allBlogs } from 'contentlayer/generated';
 import Link from 'next/link';
 import { FiArrowRight } from 'react-icons/fi';
 
