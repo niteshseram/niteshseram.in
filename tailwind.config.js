@@ -1,10 +1,11 @@
-const { spacing, fontFamily } = require('tailwindcss/defaultTheme')
+import typography from '@tailwindcss/typography'
+import { fontFamily } from 'tailwindcss/defaultTheme'
 
-module.exports = {
+const config = {
 	content: [
-		'./app/**/*.{ts,tsx}',
-		'./components/**/*.{ts,tsx}',
-		'./content/**/*.mdx',
+		'./src/app/**/*.{ts,tsx}',
+		'./src/components/**/*.{ts,tsx}',
+		'./src/content/**/*.mdx',
 	],
 	darkMode: 'class',
 	theme: {
@@ -19,13 +20,13 @@ module.exports = {
 				sans: ['Inter', ...fontFamily.sans],
 			},
 			typography: {
-        quoteless: {
-          css: {
-            'blockquote p:first-of-type::before': { content: 'none' },
-            'blockquote p:first-of-type::after': { content: 'none' },
-          },
-        },
-      },
+				quoteless: {
+					css: {
+						'blockquote p:first-of-type::before': { content: 'none' },
+						'blockquote p:first-of-type::after': { content: 'none' },
+					},
+				},
+			},
 			keyframes: {
 				bounceRight: {
 					'0%': { transform: 'translateX(-20%)' },
@@ -38,5 +39,7 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [require('@tailwindcss/typography')],
+	plugins: [typography],
 }
+
+export default config

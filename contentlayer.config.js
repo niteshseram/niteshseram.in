@@ -1,11 +1,10 @@
-import { defineDocumentType, makeSource } from 'contentlayer/source-files'
+import { defineDocumentType, makeSource } from 'contentlayer2/source-files'
 import readingTime from 'reading-time'
-import remarkGfm from 'remark-gfm'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import remarkGfm from 'remark-gfm'
 
-/** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
 	readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
 	slug: {
@@ -58,7 +57,7 @@ export const Blog = defineDocumentType(() => ({
 }))
 
 export default makeSource({
-	contentDirPath: 'content',
+	contentDirPath: 'src/content',
 	documentTypes: [Blog],
 	mdx: {
 		remarkPlugins: [remarkGfm],
