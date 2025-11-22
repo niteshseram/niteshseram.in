@@ -20,7 +20,7 @@ const RoundedImage = (props: ComponentProps<typeof Image>) => {
           'rounded-lg duration-700 ease-in-out',
           isLoading
             ? 'scale-[1.02] blur-lg grayscale'
-            : 'scale-100 blur-0 grayscale-0',
+            : 'blur-0 scale-100 grayscale-0',
         )}
         onLoad={() => setLoading(false)}
       />

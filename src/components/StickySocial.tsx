@@ -18,7 +18,7 @@ const StickySocial = () => {
             href={social.href}
             target="_blank"
             title={social.label}
-            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-solid border-secondary/50 text-gray-500 transition hover:border-secondary hover:text-gray-900 dark:border-primary/50 dark:text-slate-500 dark:hover:border-primary dark:hover:text-light"
+            className="border-secondary/50 hover:border-secondary dark:border-primary/50 dark:hover:border-primary dark:hover:text-light flex h-10 w-10 items-center justify-center rounded-full border-2 border-solid text-gray-500 transition hover:text-gray-900 dark:text-slate-500"
           >
             <motion.div
               className="logo"

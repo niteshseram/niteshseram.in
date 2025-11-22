@@ -25,7 +25,7 @@ export default function Hero(): ReactElement {
             style={{ objectFit: 'contain' }}
           />
           <div className="flex flex-col justify-center">
-            <h1 className="name-highlight text-3xl font-medium text-dark dark:text-light lg:text-4xl">
+            <h1 className="name-highlight text-dark dark:text-light text-3xl font-medium lg:text-4xl">
               <AnimatedText text="Nitesh Seram" />
             </h1>
             <h4 className="text-base lg:text-lg">

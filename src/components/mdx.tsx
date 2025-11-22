@@ -40,7 +40,7 @@ export function Mdx({ code }: MdxProps) {
   const Component = useMDXComponent(code);
 
   return (
-    <article className="prose prose-neutral prose-quoteless mb-2 dark:prose-invert">
+    <article className="prose prose-neutral prose-quoteless dark:prose-invert mb-2">
       {createElement(Component, { components: { ...components } })}
     </article>
   );

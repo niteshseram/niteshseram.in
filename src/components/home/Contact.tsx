@@ -15,7 +15,7 @@ const Contact = () => {
       <div className="mt-6 flex gap-16">
         <Link
           href="mailto:contact@niteshseram.in?subject=Hi%20Nitesh!"
-          className="flex items-center gap-2 transition hover:text-primary"
+          className="hover:text-primary flex items-center gap-2 transition"
           title="Compose an email to Nitesh"
         >
           <FiMail />
@@ -29,7 +29,7 @@ const Contact = () => {
         <Link
           href="https://twitter.com/messages/compose?recipient_id=2727845026&text="
           target="_blank"
-          className="flex items-center gap-2 transition hover:text-primary"
+          className="hover:text-primary flex items-center gap-2 transition"
           title="Compose a twitter direct message for Nitesh"
         >
           <FiTwitter />

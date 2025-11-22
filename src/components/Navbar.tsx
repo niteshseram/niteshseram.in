@@ -14,7 +14,7 @@ const NavBar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-4 z-10 mx-auto flex w-[96vw] max-w-[44em] flex-col rounded-lg border border-secondary/20 bg-primary/10 p-[10px] backdrop-blur-[10px] backdrop-saturate-150 transition-all hover:shadow-dark sm:w-[96vw]">
+    <nav className="border-secondary/20 bg-primary/10 hover:shadow-dark sticky top-4 z-10 mx-auto flex w-[96vw] max-w-[44em] flex-col rounded-lg border p-[10px] backdrop-blur-[10px] backdrop-saturate-150 transition-all sm:w-[96vw]">
       <div className="flex h-[40px] items-center justify-between bg-transparent py-5">
         <Link
           href="/"

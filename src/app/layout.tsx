@@ -62,7 +62,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={clsx('bg-light antialiased dark:bg-dark', inter.variable)}
+        className={clsx('bg-light dark:bg-dark antialiased', inter.variable)}
       >
         <Provider>
           <Navbar />

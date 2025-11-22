@@ -45,7 +45,7 @@ const Footer = () => (
       <div className="grid grid-cols-3 gap-8">
         <div className="col-span-2 md:grid md:grid-cols-2 md:gap-8">
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider">
+            <h3 className="text-sm font-semibold tracking-wider uppercase">
               Pages
             </h3>
             <div role="list" className="mt-4 flex flex-col items-start">
@@ -60,7 +60,7 @@ const Footer = () => (
             </div>
           </div>
           <div className="mt-12 md:mt-0">
-            <h3 className="text-sm font-semibold uppercase tracking-wider">
+            <h3 className="text-sm font-semibold tracking-wider uppercase">
               Socials
             </h3>
             <div role="list" className="mt-4 flex flex-col items-start">
@@ -78,7 +78,7 @@ const Footer = () => (
         </div>
         <div className="md:grid md:grid-cols-1 md:gap-8">
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider">
+            <h3 className="text-sm font-semibold tracking-wider uppercase">
               Extra
             </h3>
             <div role="list" className="mt-4 flex flex-col items-start">

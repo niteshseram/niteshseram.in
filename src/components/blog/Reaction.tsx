@@ -102,7 +102,7 @@ const Reaction = ({ slug }: Reaction) => {
       >
         <div
           className={clsx(
-            'delay-50 transform transition duration-200 ease-out hover:scale-110',
+            'transform transition delay-50 duration-200 ease-out hover:scale-110',
             { 'text-rose-400': isLoved },
           )}
         >
@@ -117,7 +117,7 @@ const Reaction = ({ slug }: Reaction) => {
       >
         <div
           className={clsx(
-            'delay-50 transform transition duration-200 ease-out hover:scale-110',
+            'transform transition delay-50 duration-200 ease-out hover:scale-110',
             { 'text-green-400': isLiked },
           )}
         >

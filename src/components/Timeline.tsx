@@ -6,7 +6,7 @@ interface YearProps {
 }
 
 const Year = ({ children }: YearProps) => (
-  <h4 className="mb-4 text-base font-medium text-dark dark:text-light md:text-lg">
+  <h4 className="text-dark dark:text-light mb-4 text-base font-medium md:text-lg">
     {children}
   </h4>
 );
@@ -22,7 +22,7 @@ const Checkpoint = ({ title, children }: CheckpointProps) => (
       <div className="mt-1 text-green-700 dark:text-green-300">
         <HiBadgeCheck className="h-5 w-5" />
       </div>
-      <h5 className="ml-2 text-base font-medium text-dark dark:text-light">
+      <h5 className="text-dark dark:text-light ml-2 text-base font-medium">
         {title}
       </h5>
     </div>

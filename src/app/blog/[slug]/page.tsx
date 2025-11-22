@@ -79,13 +79,13 @@ export default async function Blog(props: BlogProps) {
   }
 
   return (
-    <section className="mb-10 mt-10">
+    <section className="mt-10 mb-10">
       <script type="application/ld+json" suppressHydrationWarning>
         {JSON.stringify(post.structuredData)}
       </script>
       <FadeDown duration={0.2}>
         <h1 className="heading mb-2 font-bold">{post.title}</h1>
-        <div className="mb-8 mt-4 flex flex-col gap-4 text-sm">
+        <div className="mt-4 mb-8 flex flex-col gap-4 text-sm">
           <div className="text-slate-700 dark:text-slate-400">
             {format(parseISO(post.publishedAt), 'MMMM dd, yyyy')} /{' '}
             {post.readingTime.text} / <ViewCounter slug={post.slug} trackView />

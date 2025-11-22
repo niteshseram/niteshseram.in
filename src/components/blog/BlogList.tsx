@@ -24,7 +24,7 @@ const BlogList: React.FC<Props> = ({ blogs }) => {
                   <h3 className="line-clamp-2 text-base font-medium tracking-tight">
                     <Link
                       href={`/blog/${slug}`}
-                      className="transition hover:text-primary"
+                      className="hover:text-primary transition"
                     >
                       {title}
                     </Link>
