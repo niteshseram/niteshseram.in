@@ -2,7 +2,7 @@ import type { Blog } from 'contentlayer/generated';
 import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
 
-import ViewCounter from '@/app/blog/view-counter';
+import ViewCounter from '@/app/(app)/blog/view-counter';
 
 import FadeUp from '../animations/FadeUp';
 

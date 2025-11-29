@@ -1,20 +1,9 @@
 import './globals.css';
 
-import { Analytics } from '@vercel/analytics/react';
 import clsx from 'clsx';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 
-import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
 import Provider from '@/components/Provider';
-import StickySocial from '@/components/StickySocial';
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: {
@@ -61,18 +50,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={clsx('bg-light dark:bg-dark antialiased', inter.variable)}
-      >
-        <Provider>
-          <Navbar />
-          <div className="mx-auto w-[92vw] max-w-2xl pt-10 sm:w-[90vw]">
-            <StickySocial />
-            {children}
-            <Footer />
-            <Analytics />
-          </div>
-        </Provider>
+      <head>
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+      </head>
+      <body className={clsx('bg-background text-foreground antialiased')}>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
