@@ -1,5 +1,5 @@
 import type { IconType } from 'react-icons';
-import { FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
+import { PiGithubLogo, PiLinkedinLogo, PiTwitterLogo } from 'react-icons/pi';
 
 type NavItem = {
   label: string;
@@ -22,26 +22,26 @@ export const NavItems: Record<string, NavItem> = {
 };
 
 type SocialItem = {
-  label: string;
+  name: string;
   href: string;
   icon: IconType;
 };
 
-export const SOCIAL: Array<SocialItem> = [
+export const Social: Array<SocialItem> = [
   {
-    label: 'LinkedIn',
+    name: 'LinkedIn',
     href: 'https://linkedin.com/in/niteshseram',
-    icon: FiLinkedin,
+    icon: PiLinkedinLogo,
   },
   {
-    label: 'Twitter',
-    href: 'https://twitter.com/niteshseram',
-    icon: FiTwitter,
+    name: 'Twitter/X',
+    href: 'https://x.com/niteshseram',
+    icon: PiTwitterLogo,
   },
   {
-    label: 'Github',
+    name: 'Github',
     href: 'https://github.com/niteshseram',
-    icon: FiGithub,
+    icon: PiGithubLogo,
   },
 ];
 

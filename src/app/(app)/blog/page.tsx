@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import AnimatedText from '@/components/AnimatedText';
 import FadeDown from '@/components/animations/FadeDown';
 import BlogList from '@/components/blog/BlogList';
+import { Container } from '@/components/ui/container';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
   return (
-    <section className="my-10 min-h-screen">
+    <Container tag="section" className="my-10 min-h-screen">
       <FadeDown duration={0.4}>
         <h1 className="heading custom-underline mb-6">
           <AnimatedText text="My Blog" />
@@ -31,6 +32,6 @@ export default async function BlogPage() {
           return 1;
         })}
       />
-    </section>
+    </Container>
   );
 }

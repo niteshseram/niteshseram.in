@@ -4,6 +4,7 @@ import AnimatedText from '@/components/AnimatedText';
 import FadeDown from '@/components/animations/FadeDown';
 import FadeUp from '@/components/animations/FadeUp';
 import Timeline from '@/components/Timeline';
+import { Container } from '@/components/ui/container';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -12,7 +13,10 @@ export const metadata: Metadata = {
 
 const About = () => {
   return (
-    <section className="prose prose-neutral dark:prose-invert my-10">
+    <Container
+      tag="section"
+      className="prose prose-neutral dark:prose-invert my-10"
+    >
       <FadeDown duration={0.4}>
         <h1 className="heading custom-underline">
           <AnimatedText text="About me" />
@@ -47,7 +51,7 @@ const About = () => {
         </h2>
         <Timeline />
       </FadeUp>
-    </section>
+    </Container>
   );
 };
 
