@@ -136,53 +136,39 @@
   --shadow-2xl: 0px 1px 2px 0px hsl(0 0% 0% / 0.45);
 }
 
-@utility section-heading {
-  @apply mb-5 md:mb-8 md:text-xl font-bold dark:text-light text-dark;
+@theme {
+  --animate-wiggle: wiggle 1s linear infinite;
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-10deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+  }
 }
 
-@utility link {
-  @apply underline;
-}
-
-@utility btn {
-  @apply px-6 py-2 text-base font-bold rounded-full duration-200 ease-in-out;
-}
-
-@utility btn-secondary-themed {
-  @apply bg-primary dark:bg-secondary text-light dark:text-dark border-none hover:opacity-80 dark:hover:opacity-80;
-}
-
-@layer utilities {
-  html,
+@layer base {
   body {
-    padding: 0;
-    margin: 0;
-  }
-  ::-webkit-scrollbar {
-    width: 8px;
+    @apply bg-background font-sans text-foreground antialiased;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
   }
 
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
-
   ::-webkit-scrollbar-thumb {
-    background: #8353e2;
-    border-radius: 20px;
-    height: 10px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: var(--border);
+    border-radius: 6px;
   }
   * {
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-  }
-
-  ::selection {
-    background-color: #05b19a30;
-    color: #fefefe;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
   }
 }
 

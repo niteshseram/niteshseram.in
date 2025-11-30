@@ -1,6 +1,5 @@
 import './globals.css';
 
-import clsx from 'clsx';
 import type { Metadata } from 'next';
 
 import Provider from '@/components/Provider';
@@ -54,7 +53,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </head>
-      <body className={clsx('bg-background text-foreground antialiased')}>
+      <body>
         <Provider>{children}</Provider>
       </body>
     </html>

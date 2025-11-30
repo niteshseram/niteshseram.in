@@ -3,23 +3,23 @@ import { FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
 
 type NavItem = {
   label: string;
-  page: string;
+  href: string;
 };
 
-export const NAV_ITEMS: Array<NavItem> = [
-  {
+export const NavItems: Record<string, NavItem> = {
+  home: {
     label: 'Home',
-    page: '/',
+    href: '/',
   },
-  {
+  about: {
     label: 'About',
-    page: '/about',
+    href: '/about',
   },
-  {
+  blog: {
     label: 'Blog',
-    page: '/blog',
+    href: '/blog',
   },
-];
+};
 
 type SocialItem = {
   label: string;

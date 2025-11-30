@@ -3,9 +3,8 @@ import { PiArrowRight, PiDownload } from 'react-icons/pi';
 
 import { UIExamplesGroup } from '../misc/ui-examples-group';
 import type { TooltipContent } from '../tooltip/tooltip';
-import type { ButtonVariant } from './button';
 import { Button } from './button';
-import type { ButtonSize } from './button-styles';
+import type { ButtonSize, ButtonVariant } from './button-styles';
 
 const sizes: ReadonlyArray<ButtonSize> = ['xs', 'sm', 'md', 'lg'];
 const variants: ReadonlyArray<ButtonVariant> = [
