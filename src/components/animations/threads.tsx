@@ -24,11 +24,11 @@ export function Threads({
     }
     const container = containerRef.current;
 
-    const renderer = new Renderer({ alpha: true });
+    const renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.canvas.style.opacity = '0';
+    gl.canvas.style.transition = 'opacity 0.4s ease-in';
     container.appendChild(gl.canvas);
 
     const geometry = new Triangle(gl);
@@ -53,6 +53,7 @@ export function Threads({
 
     const mesh = new Mesh(gl, { geometry, program });
 
+    // Initial resize and render to ensure canvas is not empty
     function resize() {
       const { clientWidth, clientHeight } = container;
       renderer.setSize(clientWidth, clientHeight);
@@ -62,6 +63,14 @@ export function Threads({
     }
     window.addEventListener('resize', resize);
     resize();
+
+    // Render one frame immediately
+    renderer.render({ scene: mesh });
+
+    // Fade in after a short delay to ensure first frame is painted
+    const fadeTimeout = setTimeout(() => {
+      gl.canvas.style.opacity = '1';
+    }, 1000);
 
     const currentMouse = [0.5, 0.5];
     let targetMouse = [0.5, 0.5];
@@ -94,12 +103,6 @@ export function Threads({
       program.uniforms.iTime.value = t * 0.001;
 
       renderer.render({ scene: mesh });
-
-      // Trigger fade in after first render
-      requestAnimationFrame(() => {
-        if (gl.canvas) gl.canvas.style.opacity = '1';
-      });
-
       animationFrameId.current = requestAnimationFrame(update);
     }
     animationFrameId.current = requestAnimationFrame(update);
@@ -114,6 +117,7 @@ export function Threads({
         container.removeEventListener('mouseleave', handleMouseLeave);
       }
       if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
+      clearTimeout(fadeTimeout);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, [color, amplitude, distance, enableMouseInteraction]);
