@@ -7,6 +7,7 @@ import type { IconType } from 'react-icons';
 import type { Props as AnchorProps } from '../anchor';
 import { Anchor } from '../anchor';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
+import type { ButtonVariant } from './button-styles';
 import {
   type ButtonSize,
   buttonVariants,
@@ -14,7 +15,6 @@ import {
 } from './button-styles';
 
 export type ButtonDisplay = 'block' | 'inline';
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'unstyled';
 
 type BaseProps = Readonly<{
   addonPosition?: 'end' | 'start';
@@ -42,6 +42,7 @@ export type ButtonProps = BaseProps &
     type?: 'button' | 'submit';
     ref?: React.Ref<HTMLButtonElement>;
   }>;
+
 export type Props<RouteType> =
   | (BaseProps &
       Readonly<{
@@ -51,9 +52,6 @@ export type Props<RouteType> =
         ref?: React.Ref<HTMLAnchorElement>;
       }>)
   | ButtonProps;
-
-// Padding is also needed otherwise the buttons can get squeezed
-// because the display is `flex`/`inline-flex`.
 
 export function Button<RouteType>({
   addonPosition = 'end',

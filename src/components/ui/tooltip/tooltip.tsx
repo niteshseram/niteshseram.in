@@ -34,6 +34,7 @@ export function TooltipContent({
       <TooltipPrimitive.Positioner sideOffset={sideOffset} {...props}>
         <TooltipPrimitive.Popup
           className={cn(
+            'relative isolate z-50',
             //Size,
             'max-w-sm',
             // Layout

@@ -5,6 +5,7 @@ import {
   themeOutlineFocusedColor,
 } from '@/components/ui/theme';
 
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'unstyled';
 export type ButtonSize = 'lg' | 'md' | 'sm' | 'xs';
 
 export const buttonVariants = cva(
@@ -45,7 +46,7 @@ export const buttonVariants = cva(
       },
       size: {
         lg: 'h-10 px-3 py-1.5 gap-x-2 text-sm',
-        md: 'h-9 px-2.5 py-1.5 gap-x-1 text-sm',
+        md: 'h-9 px-2.5 py-1.5 gap-x-1.5 text-sm',
         sm: 'h-8 px-2 py-1.5 gap-x-1 text-xs',
         xs: 'h-7 px-2 py-1 gap-x-1 text-xs',
       },
