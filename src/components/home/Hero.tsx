@@ -1,55 +1,57 @@
 'use client';
-import Link from 'next/link';
-import type { ReactElement } from 'react';
-import { FiArrowRight } from 'react-icons/fi';
 
-import AnimatedText from '../AnimatedText';
-import RoundedImage from '../RoundedImage';
+import clsx from 'clsx';
+import { PiDownloadSimpleLight } from 'react-icons/pi';
 
-export default function Hero(): ReactElement {
+import { Anchor } from '@/components/ui/anchor';
+import { Button } from '@/components/ui/button';
+import { Container } from '@/components/ui/container';
+import { Heading } from '@/components/ui/heading';
+import { Text } from '@/components/ui/text';
+
+export default function Hero() {
   return (
-    <section>
-      <h1 className="sr-only">
-        Hi I&apos;m Nitesh Seram, I&apos;m a software engineer and I craft
-        things for the web.
-      </h1>
-      <div className="flex cursor-default flex-col justify-center">
-        <div className="flex gap-8">
-          <RoundedImage
-            src="/dp.png"
-            alt="profile picture"
-            quality={95}
-            priority={true}
-            width={64}
-            height={64}
-            style={{ objectFit: 'contain' }}
-          />
-          <div className="flex flex-col justify-center">
-            <h1 className="name-highlight text-dark dark:text-light text-3xl font-medium lg:text-4xl">
-              <AnimatedText text="Nitesh Seram" />
-            </h1>
-            <h4 className="text-base lg:text-lg">
-              Software Engineer @ <b>Auzmor</b>
-            </h4>
-          </div>
-        </div>
-        <div className="flex flex-col gap-8 pt-8">
-          <p className="text-base md:text-lg">
-            Hello, I&apos;m a Software Engineer with passion for creating
-            user-friendly and complex web applications. I&apos;m also an avid
-            open-source contributor and trying to learn from best minds out
-            there through open source.
+    <Container tag="section" className="flex flex-col justify-center">
+      <div className="flex items-center gap-4 lg:gap-8">
+        <img
+          src="/niteshseram.webp"
+          alt="Nitesh Seram"
+          loading="eager"
+          className={clsx(
+            'size-20 lg:size-30',
+            'shrink-0 rounded-md object-contain',
+            'grayscale transition-all duration-300 ease-in-out hover:grayscale-0',
+          )}
+        />
+        <div className="flex flex-col justify-center">
+          <Heading className="text-3xl font-semibold lg:text-4xl">
+            Nitesh Seram
+          </Heading>
+          <p className="text-muted-foreground text-base lg:text-lg">
+            Engineering @{' '}
+            <Anchor href="https://www.greatfrontend.com?fpr=seram&fp_sid=seram">
+              GreatFrontEnd
+            </Anchor>
           </p>
-          <Link href="/about">
-            <div className="flex items-center">
-              <span className="link">Learn more&nbsp;</span>
-              <span className="animate-bounce-right">
-                <FiArrowRight />
-              </span>
-            </div>
-          </Link>
         </div>
       </div>
-    </section>
+      <Text className="mt-6 text-balance">
+        I&apos;m a Software Engineer obsessed with building{' '}
+        <strong className="font-semibold">scalable frontend systems</strong>. I
+        like my coffee strong, my UIs{' '}
+        <strong className="font-semibold">high-performance</strong>, and my DOM
+        trees shallow. Currently, I work on frontend architecture for complex,
+        production-grade products used at scale.
+      </Text>
+      <div className={clsx('mt-8', 'flex items-center gap-4')}>
+        <Button
+          icon={PiDownloadSimpleLight}
+          variant="primary"
+          label="Resume"
+          href="https://drive.google.com/file/d/1uQxjmAY-mVyv-4F_oyrQitvzfCxVUka3/view"
+        />
+        <Button label="Let's talk" variant="secondary" href="#contact" />
+      </div>
+    </Container>
   );
 }

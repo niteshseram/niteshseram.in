@@ -2,12 +2,14 @@ import { allBlogs } from 'contentlayer/generated';
 import Link from 'next/link';
 import { FiArrowRight } from 'react-icons/fi';
 
+import { Container } from '@/components/ui/container';
+
 import AnimatedText from '../AnimatedText';
 import BlogList from '../blog/BlogList';
 
 const Blog = () => {
   return (
-    <section id="recent-blog">
+    <Container id="recent-blog" className="my-20">
       <h2 className="section-heading custom-underline">
         <AnimatedText text="Recent Posts" />
       </h2>
@@ -31,7 +33,7 @@ const Blog = () => {
           </button>
         </Link>
       </div>
-    </section>
+    </Container>
   );
 };
 

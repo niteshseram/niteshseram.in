@@ -181,14 +181,6 @@
 	margin: 0 0 0 1.25rem; 
 }
 
-.name-highlight {
-	background: -webkit-linear-gradient(-45deg, #48cb8a, #8353e2);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-	animation: gradient 3s ease infinite;
-}
-
 .horizontal-underline {
 	border-bottom-width: 0;
 	background-image: linear-gradient(transparent, transparent),

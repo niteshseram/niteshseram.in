@@ -6,22 +6,15 @@ import { useState } from 'react';
 import { PiArrowUpRight } from 'react-icons/pi';
 
 import { ParticleButton } from '@/components/animations/particle-button';
-import { Threads } from '@/components/animations/threads';
 import { Anchor } from '@/components/ui/anchor';
 import { Container } from '@/components/ui/container';
 import { Heading } from '@/components/ui/heading';
 import { Text } from '@/components/ui/text';
 import { Social } from '@/constants';
 
-export function ContactSection() {
+export function Contact() {
   return (
-    <section className={clsx('relative', 'py-32')}>
-      <div
-        className={clsx('absolute inset-x-0 bottom-15 md:inset-0')}
-        aria-hidden="true"
-      >
-        <Threads amplitude={1.3} distance={0.5} enableMouseInteraction={true} />
-      </div>
+    <section className={clsx('relative', 'py-20')} id="contact">
       <div
         className={clsx(
           'absolute inset-0 overflow-hidden',
