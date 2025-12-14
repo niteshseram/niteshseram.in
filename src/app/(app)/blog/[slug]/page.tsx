@@ -7,6 +7,7 @@ import FadeDown from '@/components/animations/FadeDown';
 import FadeUp from '@/components/animations/FadeUp';
 import Reaction from '@/components/blog/Reaction';
 import { Mdx } from '@/components/mdx';
+import { Container } from '@/components/ui/container';
 
 import ViewCounter from '../view-counter';
 
@@ -79,7 +80,7 @@ export default async function Blog(props: BlogProps) {
   }
 
   return (
-    <section className="mt-10 mb-10">
+    <Container tag="section" className="my-10 min-h-screen">
       <script type="application/ld+json" suppressHydrationWarning>
         {JSON.stringify(post.structuredData)}
       </script>
@@ -99,6 +100,6 @@ export default async function Blog(props: BlogProps) {
           <Reaction slug={post.slug} />
         </div>
       </FadeUp>
-    </section>
+    </Container>
   );
 }

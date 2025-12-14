@@ -38,12 +38,12 @@ export function ContactSection() {
       <Container
         className={clsx('relative', 'flex flex-col justify-between gap-20')}
       >
-        <div className="flex flex-col items-center justify-between gap-10">
-          <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col justify-between gap-10">
+          <div className="flex flex-col gap-4">
             <div className="flex flex-col">
               <Anchor
                 variant="unstyled"
-                href="mailto:niteshseram@gmail.com"
+                href="mailto:niteshseram@gmail.com?subject=Let's%20talk"
                 className="group flex items-center gap-4"
               >
                 <Heading
@@ -66,11 +66,7 @@ export function ContactSection() {
               </Anchor>
               <EmailButton />
             </div>
-            <Text
-              color="secondary"
-              size="body0"
-              className="max-w-sm text-center"
-            >
+            <Text color="secondary" size="body0" className="max-w-lg">
               Always open to interesting opportunities and good conversation. My
               inbox is open — drop me a line.
             </Text>
@@ -116,15 +112,17 @@ function EmailButton() {
   };
 
   return (
-    <ParticleButton
-      variant="unstyled"
-      label={hasCopied ? 'Copied to clipboard!' : 'niteshseram@gmail.com'}
-      onClick={handleCopy}
-      className={clsx(
-        '!text-lg !font-semibold italic sm:!text-2xl',
-        'text-muted-foreground hover:text-foreground transition-colors',
-        hasCopied && 'text-foreground',
-      )}
-    />
+    <div className="-ml-2.5">
+      <ParticleButton
+        variant="unstyled"
+        label={hasCopied ? 'Copied to clipboard!' : 'niteshseram@gmail.com'}
+        onClick={handleCopy}
+        className={clsx(
+          '!text-lg !font-semibold italic sm:!text-2xl',
+          'text-muted-foreground hover:text-foreground transition-colors',
+          hasCopied && 'text-foreground',
+        )}
+      />
+    </div>
   );
 }
