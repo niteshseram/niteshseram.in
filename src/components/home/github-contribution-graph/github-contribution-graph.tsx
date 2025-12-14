@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { format } from 'date-fns';
-import { Suspense, use } from 'react';
+import { use } from 'react';
 
 import {
   type Activity,
@@ -14,8 +14,6 @@ import {
   ContributionGraphTotalCount,
 } from '@/components/contribution-graph';
 import { Anchor } from '@/components/ui/anchor';
-import { Container } from '@/components/ui/container';
-import { Heading } from '@/components/ui/heading';
 import { Spinner } from '@/components/ui/spinner';
 import { Text } from '@/components/ui/text';
 import {
@@ -23,22 +21,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { getGitHubContributions } from '@/data/github-contributions';
 import { SOCIALS } from '@/data/social';
 
-export function GitHubContributionGraph() {
-  const contributions = getGitHubContributions();
-  return (
-    <Container className="pt-6">
-      <Heading className="sr-only">GitHub Contributions</Heading>
-      <Suspense fallback={<GithubContributionGraphFallback />}>
-        <GithubContributionGraphImpl contributions={contributions} />
-      </Suspense>
-    </Container>
-  );
-}
-
-function GithubContributionGraphImpl({
+export function GithubContributionGraph({
   contributions,
 }: {
   contributions: Promise<Array<Activity>>;
@@ -91,7 +76,7 @@ function GithubContributionGraphImpl({
   );
 }
 
-function GithubContributionGraphFallback() {
+export function GithubContributionGraphFallback() {
   return (
     <div
       className={clsx('h-[173px] w-full', 'flex items-center justify-center')}
