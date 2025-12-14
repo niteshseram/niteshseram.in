@@ -10,7 +10,7 @@ import { Anchor } from '@/components/ui/anchor';
 import { Container } from '@/components/ui/container';
 import { Heading } from '@/components/ui/heading';
 import { Text } from '@/components/ui/text';
-import { Social } from '@/constants';
+import { SOCIALS } from '@/data/social';
 
 export function Contact() {
   return (
@@ -66,27 +66,29 @@ export function Contact() {
           </div>
           <div className="flex flex-col gap-6">
             <div className="flex gap-4">
-              {Social.map((item) => (
-                <Anchor
-                  key={item.name}
-                  href={item.href}
-                  className={clsx(
-                    'group',
-                    'flex items-center justify-center',
-                    'p-3',
-                    'border-border hover:border-foreground rounded-full border',
-                    'hover:bg-foreground/80',
-                    'hover:text-background',
-                    'backdrop-blur-sm transition-colors',
-                  )}
-                  aria-label={item.name}
-                >
-                  <item.icon
-                    className="group-hover:animate-wiggle size-5"
-                    aria-hidden="true"
-                  />
-                </Anchor>
-              ))}
+              {[SOCIALS.github, SOCIALS.linkedin, SOCIALS.twitter].map(
+                (item) => (
+                  <Anchor
+                    key={item.name}
+                    href={item.href}
+                    className={clsx(
+                      'group',
+                      'flex items-center justify-center',
+                      'p-3',
+                      'border-border hover:border-foreground rounded-full border',
+                      'hover:bg-foreground/80',
+                      'hover:text-background',
+                      'backdrop-blur-sm transition-colors',
+                    )}
+                    aria-label={item.name}
+                  >
+                    <item.icon
+                      className="group-hover:animate-wiggle size-5"
+                      aria-hidden="true"
+                    />
+                  </Anchor>
+                ),
+              )}
             </div>
           </div>
         </div>

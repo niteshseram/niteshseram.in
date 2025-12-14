@@ -6,7 +6,7 @@ import { Anchor } from '@/components/ui/anchor';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
 import { Text } from '@/components/ui/text';
-import { Social } from '@/constants';
+import { SOCIALS } from '@/data/social';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -33,7 +33,7 @@ export function Footer() {
           </Text>
         </div>
         <div className="flex gap-1.5 md:gap-2">
-          {Social.map((item) => (
+          {[SOCIALS.github, SOCIALS.linkedin, SOCIALS.twitter].map((item) => (
             <Button
               key={item.name}
               label={item.name}
