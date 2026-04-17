@@ -11,6 +11,7 @@ import {
   themeOutlineElement_FocusVisible,
   themeOutlineFocusedColor,
 } from './theme';
+import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -39,6 +40,9 @@ type BaseProps = Readonly<{
   label: string;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   size?: ButtonSize;
+  tooltip?: ReactNode;
+  tooltipAlign?: React.ComponentProps<typeof TooltipContent>['align'];
+  tooltipSide?: React.ComponentProps<typeof TooltipContent>['side'];
   variant: ButtonVariant;
 }>;
 
@@ -158,6 +162,9 @@ export function Button<RouteType>({
   label,
   onClick,
   size = 'md',
+  tooltip,
+  tooltipAlign,
+  tooltipSide,
   variant,
   ...props
 }: Props<RouteType> & {
@@ -220,36 +227,59 @@ export function Button<RouteType>({
     'aria-label': ariaLabel,
   };
 
+  let el: React.ReactElement;
+
   if ('href' in props) {
-    return (
+    const {
+      href,
+      prefetch,
+      ref: anchorRef,
+      target,
+      ...restAnchorProps
+    } = props;
+    el = (
       <Anchor
-        ref={props.ref as React.Ref<HTMLAnchorElement>}
+        {...restAnchorProps}
+        ref={anchorRef as React.Ref<HTMLAnchorElement>}
         aria-disabled={disabled || undefined}
         className={resolvedClassName}
-        href={props.href}
+        href={href}
         onClick={onClick}
-        prefetch={props.prefetch}
-        target={props.target}
+        prefetch={prefetch}
+        target={target}
         variant="unstyled"
         {...sharedA11y}
       >
         {children}
       </Anchor>
     );
+  } else {
+    const { ref, type, ...restButtonProps } = props as ButtonProps;
+    el = (
+      <button
+        {...restButtonProps}
+        ref={ref}
+        className={resolvedClassName}
+        disabled={disabled}
+        onClick={onClick}
+        type={type === 'submit' ? 'submit' : 'button'}
+        {...sharedA11y}
+      >
+        {children}
+      </button>
+    );
   }
 
-  const { ref, type } = props as ButtonProps;
+  if (tooltip == null || disabled) {
+    return el;
+  }
 
   return (
-    <button
-      ref={ref}
-      className={resolvedClassName}
-      disabled={disabled}
-      onClick={onClick}
-      type={type === 'submit' ? 'submit' : 'button'}
-      {...sharedA11y}
-    >
-      {children}
-    </button>
+    <Tooltip>
+      <TooltipTrigger render={el} />
+      <TooltipContent align={tooltipAlign} side={tooltipSide}>
+        {tooltip}
+      </TooltipContent>
+    </Tooltip>
   );
 }
