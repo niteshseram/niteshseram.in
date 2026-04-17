@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 
-import { fontVariables } from '@/lib/fonts';
+import { ThemeProvider } from '@/components/ui/theme-provider';
 
 import './globals.css';
+import { fontVariables } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -16,8 +17,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(fontVariables, 'h-full', 'antialiased')}>
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html
+      lang="en"
+      className={cn(fontVariables, 'h-full', 'antialiased')}
+      suppressHydrationWarning
+    >
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={true}
+          disableTransitionOnChange={true}
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
