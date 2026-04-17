@@ -32,6 +32,18 @@
   --font-sans: var(--font-dm-sans);
   --font-serif: var(--font-instrument-serif);
   --font-mono: var(--font-jetbrains-mono);
+
+  --animate-wiggle: wiggle 0.6s ease-in-out infinite;
+
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-8deg);
+    }
+    50% {
+      transform: rotate(8deg);
+    }
+  }
 }
 
 :root {
