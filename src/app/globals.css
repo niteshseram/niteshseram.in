@@ -11,9 +11,9 @@
   --color-card-foreground: var(--card-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color--brand: var(---brand);
-  --color--brand-foreground: var(---brand-foreground);
-  --color--brand-muted: var(---brand-muted);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-muted: var(--brand-muted);
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
   --color-popover: var(--popover);
@@ -36,16 +36,16 @@
 
 :root {
   /* works as brand color in both modes */
-  ---brand: oklch(0.63 0.15 65);
+  --brand: oklch(0.63 0.15 65);
 
   /* dark text on brand bg */
-  ---brand-foreground: oklch(0.13 0.03 55);
+  --brand-foreground: oklch(0.13 0.03 55);
 
   /* brand at 12% — glow, subtle tints */
-  ---brand-muted: oklch(0.63 0.15 65 / 0.12);
+  --brand-muted: oklch(0.63 0.15 65 / 0.12);
 
   /* brand at 50% — focus-visible outline */
-  ---ring: oklch(0.63 0.15 65 / 0.5);
+  --ring: oklch(0.63 0.15 65 / 0.5);
 
   /* brand — used as underline decoration color on inline links */
   --link: oklch(0.63 0.15 65);
