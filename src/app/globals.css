@@ -1,0 +1,138 @@
+@import 'tailwindcss';
+
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color--brand: var(---brand);
+  --color--brand-foreground: var(---brand-foreground);
+  --color--brand-muted: var(---brand-muted);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-link: var(--link);
+  --color-code: var(--code);
+  --color-code-foreground: var(--code-foreground);
+  --color-code-number: var(--code-number);
+  --color-code-highlight: var(--code-highlight);
+  --color-selection: var(--selection);
+  --color-selection-foreground: var(--selection-foreground);
+
+  --font-sans: var(--font-dm-sans);
+  --font-serif: var(--font-instrument-serif);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+:root {
+  /* works as brand color in both modes */
+  ---brand: oklch(0.63 0.15 65);
+
+  /* dark text on brand bg */
+  ---brand-foreground: oklch(0.13 0.03 55);
+
+  /* brand at 12% — glow, subtle tints */
+  ---brand-muted: oklch(0.63 0.15 65 / 0.12);
+
+  /* brand at 50% — focus-visible outline */
+  ---ring: oklch(0.63 0.15 65 / 0.5);
+
+  /* brand — used as underline decoration color on inline links */
+  --link: oklch(0.63 0.15 65);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.12 0.008 70);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0.008 70);
+  --muted: oklch(0.95 0.008 80);
+  --muted-foreground: oklch(0.48 0.012 65);
+  --surface: oklch(0.98 0.005 80);
+  --surface-foreground: oklch(0.12 0.008 70);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0.008 70);
+  --border: oklch(0.91 0.008 75);
+  --input: oklch(0.91 0.008 75);
+  --code: oklch(0.98 0.005 80);
+  --code-foreground: oklch(0.12 0.008 70);
+  --code-number: oklch(0.48 0.012 65);
+  --code-highlight: oklch(0.95 0.008 80);
+  --selection: oklch(0.12 0.008 70);
+  --selection-foreground: oklch(0.98 0.005 80);
+}
+
+.dark {
+  --background: oklch(0.12 0.008 70);
+  --foreground: oklch(0.91 0.008 75);
+  --card: oklch(0.21 0.008 70);
+  --card-foreground: oklch(0.91 0.008 75);
+  --muted: oklch(0.21 0.008 70);
+  --muted-foreground: oklch(0.62 0.01 70);
+  --surface: oklch(0.16 0.008 70);
+  --surface-foreground: oklch(0.91 0.008 75);
+  --popover: oklch(0.21 0.008 70);
+  --popover-foreground: oklch(0.91 0.008 75);
+  --border: oklch(0.21 0.008 70);
+  --input: oklch(1 0 0 / 0.15);
+  --code: oklch(0.21 0.008 70);
+  --code-foreground: oklch(0.91 0.008 75);
+  --code-number: oklch(0.62 0.01 70);
+  --code-highlight: oklch(0.21 0.008 70);
+  --selection: oklch(0.91 0.008 75);
+  --selection-foreground: oklch(0.12 0.008 70);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    @apply border-border outline-ring/50;
+  }
+
+  ::selection {
+    @apply bg-selection text-selection-foreground;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 5px;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+}
