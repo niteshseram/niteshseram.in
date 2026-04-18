@@ -11,21 +11,6 @@ export function Hero() {
     <section className={cn('max-w-2xl', 'mx-auto px-4.5 pt-14 sm:pt-20 pb-12')}>
       <h1
         className={cn(
-          'flex items-center gap-x-2',
-          'text-sm',
-          'text-muted-foreground',
-        )}
-      >
-        <span
-          aria-hidden="true"
-          className={cn('size-2', 'rounded-full', 'bg-brand', 'animate-pulse')}
-        />
-        <span className="font-medium text-foreground">Nitesh Seram</span>
-        <span aria-hidden="true">·</span>
-        <span>Software Engineer</span>
-      </h1>
-      <h2
-        className={cn(
           'mt-5',
           'font-serif text-[clamp(1.8rem,8vw,2.4rem)] leading-[1.15]',
           'text-foreground',
@@ -33,8 +18,10 @@ export function Hero() {
       >
         <span className="block">Engineering for the web.</span>
         <span className="block italic text-brand">Polished to the pixel.</span>
-      </h2>
+      </h1>
       <p className={cn('mt-6', 'leading-relaxed', 'text-muted-foreground')}>
+        Hi, I&apos;m{' '}
+        <span className="font-medium text-foreground">Nitesh Seram</span> — a
         Software Engineer based in Assam, India, with 5+ years of building for
         the web. Currently, I build{' '}
         <Anchor href="https://www.greatfrontend.com" variant="brand">

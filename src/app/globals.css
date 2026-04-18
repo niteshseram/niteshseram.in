@@ -59,23 +59,6 @@
 }
 
 :root {
-  /* works as brand color in both modes */
-  --brand: oklch(0.63 0.15 65);
-
-  /* dark text on brand bg */
-  --brand-foreground: oklch(0.13 0.03 55);
-
-  /* brand at 12% — glow, subtle tints */
-  --brand-muted: oklch(0.63 0.15 65 / 0.12);
-
-  /* brand at 50% — focus-visible outline */
-  --ring: oklch(0.63 0.15 65 / 0.5);
-
-  /* brand — used as underline decoration color on inline links */
-  --link: oklch(0.63 0.15 65);
-}
-
-:root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.12 0.008 70);
   --card: oklch(1 0 0);
@@ -95,6 +78,13 @@
   --code-highlight: oklch(0.95 0.008 80);
   --selection: oklch(0.12 0.008 70);
   --selection-foreground: oklch(0.98 0.005 80);
+
+  /* darker burnt orange — ~5:1 contrast on white for AA text */
+  --brand: oklch(0.52 0.16 55);
+  --brand-foreground: oklch(0.98 0.005 80);
+  --brand-muted: oklch(0.52 0.16 55 / 0.12);
+  --ring: oklch(0.52 0.16 55 / 0.5);
+  --link: oklch(0.52 0.16 55);
 }
 
 .dark {
@@ -117,6 +107,13 @@
   --code-highlight: oklch(0.21 0.008 70);
   --selection: oklch(0.91 0.008 75);
   --selection-foreground: oklch(0.12 0.008 70);
+
+  /* lighter warm orange — readable on near-black background */
+  --brand: oklch(0.63 0.15 65);
+  --brand-foreground: oklch(0.13 0.03 55);
+  --brand-muted: oklch(0.63 0.15 65 / 0.12);
+  --ring: oklch(0.63 0.15 65 / 0.5);
+  --link: oklch(0.63 0.15 65);
 }
 
 @layer base {
