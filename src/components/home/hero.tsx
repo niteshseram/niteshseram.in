@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 
 export function Hero() {
   return (
-    <section className={cn('max-w-2xl', 'mx-auto px-4.5 py-14 sm:py-20')}>
+    <section className={cn('max-w-2xl', 'mx-auto px-4.5 pt-14 sm:pt-20 pb-12')}>
       <h1
         className={cn(
           'flex items-center gap-x-2',
