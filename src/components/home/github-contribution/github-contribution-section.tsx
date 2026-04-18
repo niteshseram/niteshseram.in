@@ -11,7 +11,7 @@ export function GithubContributionSection() {
       <h2
         className={cn(
           'mb-5',
-          'font-serif text-lg font-medium',
+          'font-serif text-2xl font-medium',
           'text-muted-foreground',
         )}
       >
