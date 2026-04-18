@@ -36,7 +36,7 @@ export function TechStackSection() {
       <FallingStack
         items={items}
         className={cn(
-          'h-40',
+          'h-56 sm:h-44',
           'rounded-lg border border-border',
           'bg-surface/30',
         )}
@@ -52,7 +52,7 @@ const items: FallingStackItem[] = TECH_STACKS.map(({ icon: Icon, label }) => ({
       className={cn(
         'flex items-center gap-x-2',
         'px-3.5 py-2',
-        'rounded-full border border-border',
+        'rounded-full border border-brand/30',
         'bg-surface',
         'text-sm font-medium whitespace-nowrap',
         'text-muted-foreground hover:text-foreground',

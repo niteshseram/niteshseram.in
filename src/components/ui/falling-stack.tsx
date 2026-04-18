@@ -27,7 +27,7 @@ type FallingStackProps = {
 };
 
 const SETTLE_STEPS = 180;
-const SETTLE_DT = 16.667;
+const SETTLE_DT = 16.666;
 
 export function FallingStack({
   items,
@@ -153,10 +153,11 @@ export function FallingStack({
         return { elem, body };
       });
 
-    // Switch chips to absolute layout — hide briefly so the flex-wrap frame never paints.
+    // Switch chips to absolute layout. They render with opacity-0 from JSX so the
+    // SSR/pre-hydration paint never shows the flex-wrap layout — we reveal them
+    // below after the settled positions are applied.
     chipBodies.forEach(({ elem }) => {
       elem.style.position = 'absolute';
-      elem.style.visibility = 'hidden';
     });
 
     World.add(engine.world, [
@@ -177,7 +178,7 @@ export function FallingStack({
       elem.style.left = `${body.position.x}px`;
       elem.style.top = `${body.position.y}px`;
       elem.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`;
-      elem.style.visibility = 'visible';
+      elem.style.opacity = '1';
     });
 
     const mouse = Mouse.create(containerRef.current);
@@ -265,6 +266,7 @@ export function FallingStack({
               ref={(el) => {
                 itemRefs.current[i] = el;
               }}
+              className="opacity-0"
             >
               {item.node}
             </div>
