@@ -1,6 +1,6 @@
 'use client';
 
-import { Terminal } from '@/components/terminal';
+import { Terminal, TypingAnimation } from '@/components/terminal';
 import { Anchor } from '@/components/ui/anchor';
 import { Button } from '@/components/ui/button';
 import { SOCIAL_LINKS } from '@/data/social-links';
@@ -57,7 +57,21 @@ export function Hero() {
           variant="outline"
         />
       </div>
-      <Terminal className="mt-12" />
+      <Terminal className="mt-12 min-h-[203px]">
+        <TypingAnimation duration={40}>{'const nitesh = {'}</TypingAnimation>
+        <TypingAnimation duration={40} className="text-muted-foreground">
+          {'  role: "Software Engineer",'}
+        </TypingAnimation>
+        <TypingAnimation duration={40} className="text-muted-foreground">
+          {'  focus: "Frontend & UI",'}
+        </TypingAnimation>
+        <TypingAnimation duration={40} className="text-muted-foreground">
+          {'  stack: ["React", "Next.js", "TypeScript"],'}
+        </TypingAnimation>
+        <TypingAnimation duration={40} keepCursor>
+          {'}'}
+        </TypingAnimation>
+      </Terminal>
     </section>
   );
 }
