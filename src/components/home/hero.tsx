@@ -1,5 +1,3 @@
-'use client';
-
 import { Terminal, TypingAnimation } from '@/components/terminal';
 import { Anchor } from '@/components/ui/anchor';
 import { Button } from '@/components/ui/button';
@@ -7,6 +5,8 @@ import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
 
 export function Hero() {
+  const EmailIcon = SOCIAL_LINKS.email.icon;
+
   return (
     <section className={cn('max-w-2xl', 'mx-auto px-4.5 pt-14 sm:pt-20 pb-12')}>
       <h1
@@ -34,23 +34,26 @@ export function Hero() {
       </p>
       <div className="mt-8 flex flex-wrap items-center gap-2.5">
         {[SOCIAL_LINKS.github, SOCIAL_LINKS.x, SOCIAL_LINKS.linkedin].map(
-          (social) => (
-            <Button
-              key={social.label}
-              addonPosition="start"
-              href={social.href}
-              icon={social.icon}
-              label={social.label}
-              size="md"
-              variant="outline"
-            />
-          ),
+          (social) => {
+            const Icon = social.icon;
+            return (
+              <Button
+                key={social.label}
+                addonPosition="start"
+                href={social.href}
+                icon={<Icon />}
+                label={social.label}
+                size="md"
+                variant="outline"
+              />
+            );
+          },
         )}
         <Button
           key={SOCIAL_LINKS.email.label}
           addonPosition="start"
           href={SOCIAL_LINKS.email.href}
-          icon={SOCIAL_LINKS.email.icon}
+          icon={<EmailIcon />}
           label={SOCIAL_LINKS.email.label}
           size="md"
           className="max-sm:hidden"

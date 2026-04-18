@@ -280,7 +280,7 @@ export function FallingStack({
       </div>
 
       <Button
-        icon={PiArrowCounterClockwise}
+        icon={<PiArrowCounterClockwise />}
         isLabelHidden
         label="Reset"
         onClick={reset}

@@ -25,7 +25,7 @@ export function NavbarMenu({ items, pathname }: Props) {
           <Button
             aria-label="Toggle menu"
             className="sm:hidden"
-            icon={PiList}
+            icon={<PiList />}
             isLabelHidden={true}
             label="Menu"
             size="sm"

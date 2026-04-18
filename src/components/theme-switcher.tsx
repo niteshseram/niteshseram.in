@@ -28,7 +28,7 @@ export function ThemeSwitcher() {
   return (
     <Button
       className="group"
-      icon={mounted ? (isDark ? PiMoon : PiSun) : undefined}
+      icon={mounted ? isDark ? <PiMoon /> : <PiSun /> : undefined}
       iconClassName="group-hover:animate-wiggle"
       isLabelHidden={true}
       label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}

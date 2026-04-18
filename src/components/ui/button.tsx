@@ -18,11 +18,7 @@ export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonDisplay = 'block' | 'inline';
 export type ButtonVariant = 'brand' | 'outline' | 'ghost';
 
-type IconType = React.ComponentType<
-  {
-    className?: string;
-  } & React.AriaAttributes
->;
+type IconType = ReactNode;
 
 type BaseProps = Readonly<{
   addonPosition?: 'end' | 'start';
@@ -174,10 +170,17 @@ export function Button<RouteType>({
 
   const addOn =
     Icon != null ? (
-      <Icon
+      <span
         aria-hidden="true"
-        className={cn('shrink-0', addOnSizeClass, iconClassName)}
-      />
+        className={cn(
+          'inline-flex shrink-0 items-center justify-center',
+          addOnSizeClass,
+          '[&>svg]:size-full',
+          iconClassName,
+        )}
+      >
+        {Icon}
+      </span>
     ) : null;
 
   const labelContent = children_USE_SPARINGLY ?? label;
