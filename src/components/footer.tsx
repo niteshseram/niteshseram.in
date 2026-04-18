@@ -52,7 +52,7 @@ export function Footer() {
             <p
               className={cn(
                 'mt-3 max-w-[24ch]',
-                'text-sm leading-relaxed',
+                'text-base',
                 'text-muted-foreground',
               )}
             >
@@ -67,7 +67,7 @@ export function Footer() {
               className={cn(
                 'mb-3',
                 'text-xs font-medium uppercase tracking-wider',
-                'text-muted-foreground',
+                'text-foreground',
               )}
             >
               Navigate
@@ -96,7 +96,7 @@ export function Footer() {
               className={cn(
                 'mb-3',
                 'text-xs font-medium uppercase tracking-wider',
-                'text-muted-foreground',
+                'text-foreground',
               )}
             >
               Connect

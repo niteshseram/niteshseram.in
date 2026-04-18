@@ -10,5 +10,5 @@ export const navItems: NavItem[] = [
   { href: '/about', label: 'About', icon: User },
   { href: '/writing', label: 'Writing', icon: NotebookPen },
   { href: '/projects', label: 'Projects', icon: Folder },
-  { href: '/contact', label: 'Contact', icon: Mail },
+  { href: '#contact', label: 'Contact', icon: Mail },
 ];
