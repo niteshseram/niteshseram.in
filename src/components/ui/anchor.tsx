@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 import {
   themeOutlineElement_FocusVisible,
   themeOutlineFocusedColor,
-} from './theme';
+} from '../theme';
 
 export type Props<RouteType> = LinkProps &
   Readonly<{

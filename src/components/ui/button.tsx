@@ -5,12 +5,12 @@ import type { AriaAttributes, ReactNode } from 'react';
 
 import { cn } from '@/lib/utils';
 
-import type { Props as AnchorProps } from './anchor';
-import { Anchor } from './anchor';
 import {
   themeOutlineElement_FocusVisible,
   themeOutlineFocusedColor,
-} from './theme';
+} from '../theme';
+import type { Props as AnchorProps } from './anchor';
+import { Anchor } from './anchor';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -72,7 +72,7 @@ const heightClasses: Record<ButtonSize, string> = {
 
 const iconOnlySizeClasses: Record<ButtonSize, string> = {
   xs: 'size-8',
-  sm: 'size-9.5',
+  sm: 'size-8.5',
   md: 'size-9',
   lg: 'size-10',
   xl: 'size-10.5',

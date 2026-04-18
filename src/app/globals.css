@@ -93,7 +93,7 @@
   --muted-foreground: oklch(0.62 0.01 70);
   --surface: oklch(0.16 0.008 70);
   --surface-foreground: oklch(0.91 0.008 75);
-  --popover: oklch(0.21 0.008 70);
+  --popover: oklch(0.16 0.008 70);
   --popover-foreground: oklch(0.91 0.008 75);
   --border: oklch(0.21 0.008 70);
   --input: oklch(1 0 0 / 0.15);
