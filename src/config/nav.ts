@@ -1,21 +1,14 @@
-import {
-  EnvelopeSimpleIcon,
-  FolderIcon,
-  type IconProps,
-  NotePencilIcon,
-  UserIcon,
-} from '@phosphor-icons/react';
-import type { ComponentType } from 'react';
+import { Folder, type LucideIcon, Mail, NotebookPen, User } from 'lucide-react';
 
 export type NavItem = {
   href: string;
   label: string;
-  icon: ComponentType<IconProps>;
+  icon: LucideIcon;
 };
 
 export const navItems: NavItem[] = [
-  { href: '/about', label: 'About', icon: UserIcon },
-  { href: '/writing', label: 'Writing', icon: NotePencilIcon },
-  { href: '/projects', label: 'Projects', icon: FolderIcon },
-  { href: '/contact', label: 'Contact', icon: EnvelopeSimpleIcon },
+  { href: '/about', label: 'About', icon: User },
+  { href: '/writing', label: 'Writing', icon: NotebookPen },
+  { href: '/projects', label: 'Projects', icon: Folder },
+  { href: '/contact', label: 'Contact', icon: Mail },
 ];

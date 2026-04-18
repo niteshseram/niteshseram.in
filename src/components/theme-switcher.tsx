@@ -1,6 +1,6 @@
 'use client';
 
-import { MoonIcon, SunIcon } from '@phosphor-icons/react';
+import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 
@@ -28,7 +28,7 @@ export function ThemeSwitcher() {
   return (
     <Button
       className="group"
-      icon={mounted ? (isDark ? MoonIcon : SunIcon) : undefined}
+      icon={mounted ? (isDark ? Moon : Sun) : undefined}
       iconClassName="group-hover:animate-wiggle"
       isLabelHidden={true}
       label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}

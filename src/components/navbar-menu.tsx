@@ -1,7 +1,7 @@
 'use client';
 
 import { Popover } from '@base-ui/react/popover';
-import { ListIcon } from '@phosphor-icons/react';
+import { Menu } from 'lucide-react';
 import { useState } from 'react';
 
 import { Anchor } from '@/components/ui/anchor';
@@ -25,7 +25,7 @@ export function NavbarMenu({ items, pathname }: Props) {
           <Button
             aria-label="Toggle menu"
             className="sm:hidden"
-            icon={ListIcon}
+            icon={Menu}
             isLabelHidden={true}
             label="Menu"
             size="sm"

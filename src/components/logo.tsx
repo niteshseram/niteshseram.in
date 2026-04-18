@@ -5,7 +5,7 @@ type Props = {
   size?: number;
 };
 
-export function Logo({ className, size = 30 }: Props) {
+export function Logo({ className, size = 28 }: Props) {
   return (
     <svg
       viewBox="0 0 188 200"
