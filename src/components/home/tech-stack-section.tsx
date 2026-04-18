@@ -1,4 +1,4 @@
-import { Hand } from 'lucide-react';
+import { PiHand } from 'react-icons/pi';
 
 import {
   FallingStack,
@@ -29,7 +29,7 @@ export function TechStackSection() {
             'text-muted-foreground/70',
           )}
         >
-          <Hand aria-hidden="true" className="size-3.5" />
+          <PiHand aria-hidden="true" className="size-3.5" />
           drag to play
         </p>
       </div>

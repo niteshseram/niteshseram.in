@@ -1,6 +1,5 @@
 'use client';
 
-import { RotateCcw } from 'lucide-react';
 import Matter from 'matter-js';
 import {
   useCallback,
@@ -10,6 +9,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import { PiArrowCounterClockwise } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -278,7 +278,7 @@ export function FallingStack({
       </div>
 
       <Button
-        icon={RotateCcw}
+        icon={PiArrowCounterClockwise}
         isLabelHidden
         label="Reset"
         onClick={reset}

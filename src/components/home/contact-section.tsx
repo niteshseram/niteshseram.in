@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail } from 'lucide-react';
+import { PiArrowUpRight, PiEnvelope } from 'react-icons/pi';
 
 import { Anchor } from '@/components/ui/anchor';
 import { SOCIAL_LINKS } from '@/data/social-links';
@@ -83,12 +83,12 @@ export function ContactSection() {
                 'group-hover:border-brand/40 group-hover:bg-brand/10',
               )}
             >
-              <Mail className="size-4" />
+              <PiEnvelope className="size-4" />
             </span>
             <span className="underline underline-offset-[5px] decoration-[1.5px] decoration-border group-hover:decoration-brand">
               niteshseram@gmail.com
             </span>
-            <ArrowUpRight
+            <PiArrowUpRight
               aria-hidden="true"
               className={cn(
                 'size-4 shrink-0',

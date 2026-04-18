@@ -1,8 +1,8 @@
 'use client';
 
-import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
+import { PiMoon, PiSun } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
 
@@ -28,7 +28,7 @@ export function ThemeSwitcher() {
   return (
     <Button
       className="group"
-      icon={mounted ? (isDark ? Moon : Sun) : undefined}
+      icon={mounted ? (isDark ? PiMoon : PiSun) : undefined}
       iconClassName="group-hover:animate-wiggle"
       isLabelHidden={true}
       label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
