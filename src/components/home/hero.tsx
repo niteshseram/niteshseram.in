@@ -23,7 +23,7 @@ export function Hero() {
         Hi, I&apos;m{' '}
         <span className="font-medium text-foreground">Nitesh Seram</span> — a
         Software Engineer based in Assam, India, with 5+ years of building for
-        the web. Currently, I build{' '}
+        the web. Currently, working at{' '}
         <Anchor href="https://www.greatfrontend.com" variant="brand">
           GreatFrontEnd
         </Anchor>{' '}
