@@ -21,6 +21,28 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    url: '/',
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: '/og.webp',
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} — Software Engineer`,
+        type: 'image/webp',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: ['/og.webp'],
+  },
 };
 
 export default function RootLayout({
