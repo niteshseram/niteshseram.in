@@ -45,107 +45,107 @@ Let's create the contact form directly inside our `pages/index.js` file.
 Clean up everything from `index.js` file which was present previously and paste the below code.
 
 ```js
-import { useState } from 'react'
-import styles from '../styles/Home.module.css'
+import { useState } from 'react';
+import styles from '../styles/Home.module.css';
 export default function Home() {
-	const [inputs, setInputs] = useState({
-		name: '',
-		email: '',
-		message: '',
-	})
+  const [inputs, setInputs] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
 
-	const [form, setForm] = useState('')
+  const [form, setForm] = useState('');
 
-	const handleChange = (e) => {
-		setInputs((prev) => ({
-			...prev,
-			[e.target.id]: e.target.value,
-		}))
-	}
+  const handleChange = (e) => {
+    setInputs((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
+  };
 
-	const onSubmitForm = async (e) => {
-		e.preventDefault()
+  const onSubmitForm = async (e) => {
+    e.preventDefault();
 
-		if (inputs.name && inputs.email && inputs.message) {
-			setForm({ state: 'loading' })
-			try {
-				const res = await fetch(`api/contact`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(inputs),
-				})
+    if (inputs.name && inputs.email && inputs.message) {
+      setForm({ state: 'loading' });
+      try {
+        const res = await fetch(`api/contact`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(inputs),
+        });
 
-				const { error } = await res.json()
+        const { error } = await res.json();
 
-				if (error) {
-					setForm({
-						state: 'error',
-						message: error,
-					})
-					return
-				}
+        if (error) {
+          setForm({
+            state: 'error',
+            message: error,
+          });
+          return;
+        }
 
-				setForm({
-					state: 'success',
-					message: 'Your message was sent successfully.',
-				})
-				setInputs({
-					name: '',
-					email: '',
-					message: '',
-				})
-			} catch (error) {
-				setForm({
-					state: 'error',
-					message: 'Something went wrong',
-				})
-			}
-		}
-	}
-	return (
-		<div className={styles.container}>
-			<form className={styles.form} onSubmit={(e) => onSubmitForm(e)}>
-				<input
-					id='name'
-					type='text'
-					value={inputs.name}
-					onChange={handleChange}
-					className={styles.inputField}
-					placeholder='Name'
-					required
-				/>
-				<input
-					id='email'
-					type='email'
-					value={inputs.email}
-					onChange={handleChange}
-					className={styles.inputField}
-					placeholder='Email'
-					required
-				/>
-				<textarea
-					id='message'
-					type='text'
-					value={inputs.message}
-					onChange={handleChange}
-					className={styles.inputField}
-					placeholder='Message'
-					rows='5'
-					required
-				/>
-				<input type='submit' className={styles.button} />
-				{form.state === 'loading' ? (
-					<div>Sending....</div>
-				) : form.state === 'error' ? (
-					<div>{form.message}</div>
-				) : (
-					form.state === 'success' && <div>Sent successfully</div>
-				)}
-			</form>
-		</div>
-	)
+        setForm({
+          state: 'success',
+          message: 'Your message was sent successfully.',
+        });
+        setInputs({
+          name: '',
+          email: '',
+          message: '',
+        });
+      } catch (error) {
+        setForm({
+          state: 'error',
+          message: 'Something went wrong',
+        });
+      }
+    }
+  };
+  return (
+    <div className={styles.container}>
+      <form className={styles.form} onSubmit={(e) => onSubmitForm(e)}>
+        <input
+          id="name"
+          type="text"
+          value={inputs.name}
+          onChange={handleChange}
+          className={styles.inputField}
+          placeholder="Name"
+          required
+        />
+        <input
+          id="email"
+          type="email"
+          value={inputs.email}
+          onChange={handleChange}
+          className={styles.inputField}
+          placeholder="Email"
+          required
+        />
+        <textarea
+          id="message"
+          type="text"
+          value={inputs.message}
+          onChange={handleChange}
+          className={styles.inputField}
+          placeholder="Message"
+          rows="5"
+          required
+        />
+        <input type="submit" className={styles.button} />
+        {form.state === 'loading' ? (
+          <div>Sending....</div>
+        ) : form.state === 'error' ? (
+          <div>{form.message}</div>
+        ) : (
+          form.state === 'success' && <div>Sent successfully</div>
+        )}
+      </form>
+    </div>
+  );
 }
 ```
 
@@ -153,27 +153,27 @@ So, we are adding three input fields which are name, email, and message field. L
 
 ```js
 const [inputs, setInputs] = useState({
-	name: '',
-	email: '',
-	message: '',
-})
+  name: '',
+  email: '',
+  message: '',
+});
 ```
 
 The above code is simply initializing state `inputs` by an object which includes all the fields to store its value.
 
 ```js
-const [form, setForm] = useState('')
+const [form, setForm] = useState('');
 ```
 
 The above code is also declaring a state `form` for storing any state related to the form like if it is still sending or if there is an error or if the message has been sent successfully.
 
 ```js
 const handleChange = (e) => {
-	setInputs((prev) => ({
-		...prev,
-		[e.target.id]: e.target.value,
-	}))
-}
+  setInputs((prev) => ({
+    ...prev,
+    [e.target.id]: e.target.value,
+  }));
+};
 ```
 
 The above code is for handling any change in each input field. Every time when we enter a character in each input field, an event _e_ is triggered which is passed into _handleChange()_ function as a parameter that update the `inputs` state.
@@ -182,13 +182,13 @@ So, _handleChange()_ function is triggered every time when we enter a character 
 
 ```js
 <input
-	id='name'
-	type='text'
-	value={inputs.name}
-	onChange={handleChange}
-	className={styles.inputField}
-	placeholder='Name'
-	required
+  id="name"
+  type="text"
+  value={inputs.name}
+  onChange={handleChange}
+  className={styles.inputField}
+  placeholder="Name"
+  required
 />
 ```
 
@@ -196,46 +196,46 @@ In the above code, we set the value of the field using `inputs.name` state. Also
 
 ```js
 const onSubmitForm = async (e) => {
-	e.preventDefault()
+  e.preventDefault();
 
-	if (inputs.name && inputs.email && inputs.message) {
-		setForm({ state: 'loading' })
-		try {
-			const res = await fetch(`api/contact`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(inputs),
-			})
+  if (inputs.name && inputs.email && inputs.message) {
+    setForm({ state: 'loading' });
+    try {
+      const res = await fetch(`api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(inputs),
+      });
 
-			const { error } = await res.json()
+      const { error } = await res.json();
 
-			if (error) {
-				setForm({
-					state: 'error',
-					message: error,
-				})
-				return
-			}
+      if (error) {
+        setForm({
+          state: 'error',
+          message: error,
+        });
+        return;
+      }
 
-			setForm({
-				state: 'success',
-				message: 'Your message was sent successfully.',
-			})
-			setInputs({
-				name: '',
-				email: '',
-				message: '',
-			})
-		} catch (error) {
-			setForm({
-				state: 'error',
-				message: 'Something went wrong',
-			})
-		}
-	}
-}
+      setForm({
+        state: 'success',
+        message: 'Your message was sent successfully.',
+      });
+      setInputs({
+        name: '',
+        email: '',
+        message: '',
+      });
+    } catch (error) {
+      setForm({
+        state: 'error',
+        message: 'Something went wrong',
+      });
+    }
+  }
+};
 ```
 
 Now, the above code is for handling on submit action. So, what we are doing here is that first, we are checking if all the fields are filled and it's not empty just for the safe side. If all the fields are not empty then, we are doing a POST request to the API endpoint URL `api/contact`. In the body of the POST request, we are passing the inputs state.
@@ -297,8 +297,8 @@ In Next.js, any file inside the folder `pages/api` is mapped to `/api/*` and wil
 export default async (req, res) => {
   const { name, email, message } = req.body;
   console.log(name, email, message);
-	return res.status(200).json({ error: "" });
-}
+  return res.status(200).json({ error: '' });
+};
 ```
 
 Paste the above code inside your `contact.js` file. Here, we are simply destructuring the name, email, and message from the request's body that you have sent from the front end. Then, simply print those values in your terminal.
@@ -317,34 +317,34 @@ npm i nodemailer
 Now paste the below code in your `contact.js` file by removing all the previous code.
 
 ```js
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
 
 export default async (req, res) => {
   const { name, email, message } = req.body;
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
       user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD
-    }
+      pass: process.env.SMTP_PASSWORD,
+    },
   });
 
   try {
     await transporter.sendMail({
       from: email,
-      to: "example@gmail.com",
+      to: 'example@gmail.com',
       subject: `Contact form submission from ${name}`,
       html: `<p>You have a contact form submission</p><br>
         <p><strong>Email: </strong> ${email}</p><br>
         <p><strong>Message: </strong> ${message}</p><br>
-      `
+      `,
     });
   } catch (error) {
     return res.status(500).json({ error: error.message || error.toString() });
   }
-  return res.status(200).json({ error: "" });
+  return res.status(200).json({ error: '' });
 };
 ```
 
@@ -352,14 +352,14 @@ First, at the top, we are importing Nodemailer.
 
 ```js
 const transporter = nodemailer.createTransport({
-	host: 'smtp.gmail.com',
-	port: 465,
-	secure: true,
-	auth: {
-		user: process.env.SMTP_USER,
-		pass: process.env.SMTP_PASSWORD,
-	},
-})
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
+  },
+});
 ```
 
 Then, we create a transporter object which helps in sending the email. There are multiple ways to create a transporter object using different transport methods. Here, we are using `SMTP` with Gmail.
@@ -374,7 +374,7 @@ We then call the _sendMail()_ method using that transporter object. Inside that 
 - **html**- the body of the email where we are adding the sender email and the message from the contact form
 
 ```js
-process.env.SMTP_USER
+process.env.SMTP_USER;
 ```
 
 The above code is for accessing the `SMTP_USER` value from the environment variables and the same goes for `SMTP_PASSWORD`. But before setting the environment variables, let's first get the `SMTP_USER` and `SMTP_PASSWORD`.

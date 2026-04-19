@@ -22,15 +22,15 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ### Scripts
 
-| Command | Description |
-| --- | --- |
-| `pnpm dev` | Start the dev server |
-| `pnpm build` | Build for production |
-| `pnpm start` | Start the production server |
-| `pnpm lint` | Run oxlint |
-| `pnpm lint:fix` | Run oxlint with `--fix` |
-| `pnpm fmt` | Format with oxfmt |
-| `pnpm fmt:check` | Check formatting |
+| Command          | Description                 |
+| ---------------- | --------------------------- |
+| `pnpm dev`       | Start the dev server        |
+| `pnpm build`     | Build for production        |
+| `pnpm start`     | Start the production server |
+| `pnpm lint`      | Run oxlint                  |
+| `pnpm lint:fix`  | Run oxlint with `--fix`     |
+| `pnpm fmt`       | Format with oxfmt           |
+| `pnpm fmt:check` | Check formatting            |
 
 ### Structure
 

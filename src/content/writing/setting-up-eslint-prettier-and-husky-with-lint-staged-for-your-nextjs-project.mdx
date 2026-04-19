@@ -56,7 +56,7 @@ So, to add more rules to your existing ESLint, you have to extends `eslint:recom
 
 ```json title="eslintrc.json"
 {
-  "extends": ["eslint:recommended","next"]
+  "extends": ["eslint:recommended", "next"]
 }
 ```
 
@@ -77,9 +77,9 @@ If you want to run ESLint in other directories like `abc` as well, then create a
 ```js title="next.config.js"
 module.exports = {
   eslint: {
-    dirs: ['pages', 'components', 'lib','abc'],
+    dirs: ['pages', 'components', 'lib', 'abc'],
   },
-}
+};
 ```
 
 As you can see, we have added abc directory in the list which will allow ESLint to run on those files as well as present inside abc directory.
@@ -100,15 +100,15 @@ Once you installed these, create a [`.prettierrc.json`](https://github.com/nites
 
 ```json title=".prettierrc.json"
 {
-	"endOfLine": "lf",
-	"printWidth": 80,
-	"trailingComma": "es5",
-	"semi": false,
-	"jsxSingleQuote": true,
-	"singleQuote": true,
-	"useTabs": true,
-	"tabWidth": 2,
-	"arrowParens": "always"
+  "endOfLine": "lf",
+  "printWidth": 80,
+  "trailingComma": "es5",
+  "semi": false,
+  "jsxSingleQuote": true,
+  "singleQuote": true,
+  "useTabs": true,
+  "tabWidth": 2,
+  "arrowParens": "always"
 }
 ```
 
@@ -118,7 +118,7 @@ After this configuration, add prettier to your [`.eslintrc.json`](https://github
 
 ```json title=".eslintrc.json"
 {
-	"extends": ["eslint:recommended", "next", "prettier"]
+  "extends": ["eslint:recommended", "next", "prettier"]
 }
 ```
 
