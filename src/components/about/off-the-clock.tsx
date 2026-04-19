@@ -27,7 +27,7 @@ export function OffTheClock() {
         className={cn(
           'mb-5',
           'font-serif text-2xl font-medium',
-          'text-muted-foreground',
+          'text-foreground/90',
         )}
       >
         Off the clock
@@ -74,7 +74,7 @@ export function OffTheClock() {
                   <p
                     className={cn(
                       'mt-1',
-                      'text-sm leading-relaxed',
+                      'text-base leading-relaxed',
                       'text-muted-foreground',
                     )}
                   >

@@ -153,7 +153,7 @@ export default function DesignPage() {
                 className={cn(
                   'mb-2',
                   'font-mono text-[10px] uppercase tracking-wider',
-                  'text-muted-foreground/70',
+                  'text-muted-foreground',
                 )}
               >
                 {sample.family}
@@ -274,7 +274,7 @@ export default function DesignPage() {
                     <span
                       className={cn(
                         'font-mono text-[10px] uppercase tracking-wider',
-                        'text-muted-foreground/70',
+                        'text-muted-foreground',
                       )}
                     >
                       weight={weight}
@@ -312,7 +312,7 @@ function Section({
         <span
           className={cn(
             'font-mono text-xs tracking-widest',
-            'text-muted-foreground/60',
+            'text-muted-foreground',
           )}
         >
           {eyebrow}
@@ -344,7 +344,7 @@ function SubHeading({ children }: Readonly<{ children: ReactNode }>) {
 function PropLabel({ prop, value }: Readonly<{ prop: string; value: string }>) {
   return (
     <p className={cn('mb-3', 'font-mono text-xs', 'text-muted-foreground')}>
-      <span className="text-muted-foreground/60">{prop}=</span>
+      <span className="text-muted-foreground">{prop}=</span>
       <span className="text-brand">&quot;{value}&quot;</span>
     </p>
   );
@@ -361,7 +361,7 @@ function DemoRow({
           className={cn(
             'mb-2',
             'font-mono text-[10px] uppercase tracking-wider',
-            'text-muted-foreground/60',
+            'text-muted-foreground',
           )}
         >
           {label}

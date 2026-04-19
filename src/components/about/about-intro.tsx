@@ -7,7 +7,7 @@ export function AboutIntro() {
       <p
         className={cn(
           'font-mono text-[11px] uppercase tracking-[0.14em]',
-          'text-muted-foreground/80',
+          'text-muted-foreground',
         )}
       >
         About

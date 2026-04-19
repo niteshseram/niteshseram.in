@@ -17,7 +17,7 @@ export function PostRow({ post, minutes }: Props) {
       <Link
         href={post.url}
         className={cn(
-          'group flex flex-col gap-y-1',
+          'group flex flex-col gap-y-2.5',
           'py-3',
           'sm:flex-row sm:items-baseline sm:justify-between sm:gap-x-6',
         )}
@@ -31,7 +31,7 @@ export function PostRow({ post, minutes }: Props) {
         >
           <h3
             className={cn(
-              'font-serif text-lg leading-snug',
+              'font-serif text-lg font-medium',
               'text-foreground',
               'transition-colors',
               'group-hover:text-brand',
@@ -43,7 +43,7 @@ export function PostRow({ post, minutes }: Props) {
             <p
               className={cn(
                 'mt-1',
-                'text-sm leading-relaxed',
+                'text-base leading-relaxed',
                 'text-muted-foreground',
               )}
             >

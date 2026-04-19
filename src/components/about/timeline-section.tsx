@@ -18,7 +18,7 @@ export function TimelineSection() {
         className={cn(
           'mb-2',
           'font-serif text-2xl font-medium',
-          'text-muted-foreground',
+          'text-foreground/90',
         )}
       >
         How I got here
@@ -38,20 +38,20 @@ export function TimelineSection() {
           className="absolute top-2 bottom-2 left-[5px] w-px"
         />
         {TIMELINE.map((group, index) => (
-          <li key={group.year} className="relative pl-8">
+          <li key={group.year} className="relative pl-6 sm:pl-8">
             {index === 0 && (
               <>
                 <span
                   aria-hidden="true"
                   className={cn(
-                    'absolute top-[3px] -left-1 size-[19px]',
+                    'absolute top-0 -left-1 size-[19px]',
                     'rounded-full bg-brand/20 blur-[2px]',
                   )}
                 />
                 <span
                   aria-hidden="true"
                   className={cn(
-                    'absolute top-[7px] left-0 size-[11px]',
+                    'absolute top-[3px] left-0 size-[11px]',
                     'rounded-full bg-brand/70',
                     'animate-ping',
                   )}
@@ -61,7 +61,7 @@ export function TimelineSection() {
             <span
               aria-hidden="true"
               className={cn(
-                'absolute top-[7px] left-0 size-[11px]',
+                'absolute top-[3px] left-0 size-[11px]',
                 'rounded-full border border-border',
                 'bg-background',
               )}
@@ -84,12 +84,12 @@ export function TimelineSection() {
             </div>
             <ul className="mt-4 flex flex-col gap-y-5">
               {group.entries.map((entry) => (
-                <li key={entry.title} className={cn('relative pl-5')}>
+                <li key={entry.title} className={cn('relative pl-3 sm:pl-5')}>
                   <div
                     className={cn(
                       'flex items-center gap-x-2',
                       'font-mono text-[10px] uppercase tracking-[0.1em]',
-                      'text-muted-foreground/80',
+                      'text-muted-foreground',
                     )}
                   >
                     {entry.tag}
@@ -97,7 +97,7 @@ export function TimelineSection() {
                   <h3
                     className={cn(
                       'mt-1',
-                      'text-sm font-medium',
+                      'text-base font-medium',
                       'text-foreground',
                     )}
                   >
@@ -106,7 +106,7 @@ export function TimelineSection() {
                   <p
                     className={cn(
                       'mt-1.5 max-w-[60ch]',
-                      'text-sm leading-relaxed',
+                      'text-base leading-relaxed',
                       'text-muted-foreground',
                     )}
                   >
@@ -123,7 +123,7 @@ export function TimelineSection() {
                             'relative pl-4',
                             'before:absolute before:top-[9px] before:left-1 before:size-1',
                             'before:rounded-full before:bg-muted-foreground/50',
-                            'text-sm leading-relaxed',
+                            'text-base leading-relaxed',
                             'text-muted-foreground',
                           )}
                         >
