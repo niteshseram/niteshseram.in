@@ -2,8 +2,8 @@ import { PiArrowUpRight } from 'react-icons/pi';
 
 import { Anchor } from '@/components/ui/anchor';
 import { PostRow } from '@/components/writing/post-row';
-import { getLatestPosts } from '@/lib/writing';
 import { cn } from '@/lib/utils';
+import { getLatestPosts } from '@/lib/writing';
 
 export function WritingSection() {
   const posts = getLatestPosts(3);

@@ -86,7 +86,7 @@ export function ContactSection() {
               <PiEnvelope className="size-4" />
             </span>
             <span className="underline underline-offset-[5px] decoration-[1.5px] decoration-border group-hover:decoration-brand">
-              niteshseram@gmail.com
+              {SOCIAL_LINKS.email.username}
             </span>
             <PiArrowUpRight
               aria-hidden="true"

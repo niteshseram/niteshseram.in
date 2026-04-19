@@ -1,6 +1,7 @@
 import { Terminal, TypingAnimation } from '@/components/terminal';
 import { Anchor } from '@/components/ui/anchor';
 import { Button } from '@/components/ui/button';
+import { AUTHOR, SITE_TAGLINE } from '@/config/site';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
 
@@ -16,21 +17,21 @@ export function Hero() {
           'text-foreground',
         )}
       >
-        <span className="block">Engineering for the web.</span>
-        <span className="block italic text-brand">Polished to the pixel.</span>
+        <span className="block">{SITE_TAGLINE.primary}</span>
+        <span className="block italic text-brand">{SITE_TAGLINE.accent}</span>
       </h1>
       <p className={cn('mt-6', 'leading-relaxed', 'text-muted-foreground')}>
         Hi, I&apos;m{' '}
-        <span className="font-medium text-foreground">Nitesh Seram</span> — a
-        Software Engineer based in Assam, India, with 5+ years of building for
-        the web. Currently, working at{' '}
-        <Anchor href="https://www.greatfrontend.com" variant="brand">
-          GreatFrontEnd
+        <span className="font-medium text-foreground">{AUTHOR.name}</span> — a{' '}
+        {AUTHOR.jobTitle} based in {AUTHOR.location}, with{' '}
+        {AUTHOR.yearsExperience} years of building for the web. Currently,
+        working at{' '}
+        <Anchor href={AUTHOR.employer.url} variant="brand">
+          {AUTHOR.employer.name}
         </Anchor>{' '}
-        — a platform for engineers prepping for frontend interviews. My days are
-        React, TypeScript, and CSS problems that look trivial until they
-        aren&apos;t. I care about performance and the small details nobody
-        notices.
+        — {AUTHOR.employer.description}. My days are React, TypeScript, and CSS
+        problems that look trivial until they aren&apos;t. I care about
+        performance and the small details nobody notices.
       </p>
       <div className="mt-8 flex flex-wrap items-center gap-2.5">
         {[SOCIAL_LINKS.github, SOCIAL_LINKS.x, SOCIAL_LINKS.linkedin].map(
@@ -63,7 +64,7 @@ export function Hero() {
       <Terminal className="mt-12 min-h-[203px]">
         <TypingAnimation duration={40}>{'const nitesh = {'}</TypingAnimation>
         <TypingAnimation duration={40} className="text-muted-foreground">
-          {'  role: "Software Engineer",'}
+          {`  role: "${AUTHOR.jobTitle}",`}
         </TypingAnimation>
         <TypingAnimation duration={40} className="text-muted-foreground">
           {'  focus: "Frontend & UI",'}

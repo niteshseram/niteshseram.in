@@ -8,6 +8,7 @@ import { PostFooter } from '@/components/writing/post-footer';
 import { PostHeader } from '@/components/writing/post-header';
 import { Prose } from '@/components/writing/prose';
 import { blogPostingJsonLd, jsonLdScript } from '@/lib/jsonld';
+import { pageMetadata } from '@/lib/metadata';
 import { cn } from '@/lib/utils';
 import { getAdjacent, getAllPosts, getPostBySlug } from '@/lib/writing';
 
@@ -24,21 +25,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(slug);
   if (!post) return {};
   const { title, summary, publishedAt, tags } = post.data;
-  return {
-    title: `${title} — Nitesh Seram`,
+
+  const base = pageMetadata({
+    pathname: `/writing/${slug}`,
+    title: `${title} | Blog`,
+    socialTitle: title,
     description: summary,
+  });
+
+  return {
+    ...base,
     keywords: tags,
     openGraph: {
+      ...base.openGraph,
       type: 'article',
-      title,
-      description: summary,
       publishedTime: new Date(publishedAt).toISOString(),
       tags,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description: summary,
     },
   };
 }
