@@ -1,0 +1,47 @@
+'use client';
+
+import { motion, useScroll, useSpring, useTransform } from 'motion/react';
+import type { RefObject } from 'react';
+
+import { cn } from '@/lib/utils';
+
+type UseScrollOptions = NonNullable<Parameters<typeof useScroll>[0]>;
+
+type Props = Readonly<{
+  targetRef: RefObject<HTMLElement | null>;
+  className?: string;
+  offset?: UseScrollOptions['offset'];
+}>;
+
+export function ScrollProgressRail({
+  targetRef,
+  className,
+  offset = ['start 70%', 'end 60%'],
+}: Props) {
+  const { scrollYProgress } = useScroll({ target: targetRef, offset });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  });
+  const tipTop = useTransform(smoothProgress, (v) => `${v * 100}%`);
+  const tipOpacity = useTransform(smoothProgress, [0, 0.04], [0, 1]);
+
+  return (
+    <div aria-hidden="true" className={cn('pointer-events-none', className)}>
+      <div className={cn('absolute inset-0', 'bg-border')} />
+      <motion.div
+        style={{ scaleY: smoothProgress, transformOrigin: '50% 0%' }}
+        className={cn('absolute inset-0', 'bg-brand')}
+      />
+      <motion.div
+        style={{ top: tipTop, opacity: tipOpacity }}
+        className={cn(
+          'absolute left-1/2 size-4 -translate-x-1/2 -translate-y-1/2',
+          'rounded-full',
+          'bg-brand/60 blur-[4px]',
+        )}
+      />
+    </div>
+  );
+}

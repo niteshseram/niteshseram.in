@@ -53,7 +53,7 @@ export default function DesignPage() {
                 {buttonSizes.map((size) => (
                   <Button
                     key={size}
-                    icon={PiPlus}
+                    icon={<PiPlus />}
                     isLabelHidden={true}
                     label={`Add (${size})`}
                     size={size}
