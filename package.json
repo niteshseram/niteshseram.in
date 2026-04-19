@@ -9,13 +9,15 @@
     "fmt:check": "oxfmt --check",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "start": "next start"
+    "start": "next start",
+    "tc": "tsgo --noEmit"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",
     "@next/third-parties": "^16.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "fumadocs-core": "^16.7.16",
     "fumadocs-mdx": "^14.3.0",

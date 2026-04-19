@@ -1,4 +1,4 @@
-import { LOCATION } from '@/config/site';
+import { AUTHOR } from '@/config/site';
 import { cn } from '@/lib/utils';
 
 export function AboutIntro() {
@@ -32,10 +32,10 @@ export function AboutIntro() {
       >
         <p>
           I didn&apos;t grow up planning to write CSS for a living. The plan —
-          as far as plans go in a small town in {LOCATION} — was medicine.
-          Engineering snuck up on me in 2015, and by the time I realized
-          I&apos;d chosen it for real, it already felt like the right wrong
-          turn.
+          as far as plans go in a small town in{' '}
+          {`${AUTHOR.name} - ${AUTHOR.jobTitle}`} — was medicine. Engineering
+          snuck up on me in 2015, and by the time I realized I&apos;d chosen it
+          for real, it already felt like the right wrong turn.
         </p>
         <p>
           What pulled me toward the{' '}

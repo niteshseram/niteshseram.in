@@ -9,11 +9,6 @@ import type { HTMLAttributeAnchorTarget } from 'react';
 
 import { cn } from '@/lib/utils';
 
-import {
-  themeOutlineElement_FocusVisible,
-  themeOutlineFocusedColor,
-} from '../theme';
-
 export type Props<RouteType> = LinkProps &
   Readonly<{
     children?: React.ReactNode;
@@ -43,7 +38,7 @@ export function Anchor<RouteType>({
 
   const rel = relProp ?? (isExternalURL ? 'noreferrer noopener' : undefined);
   const className = anchorVariants({
-    className: cn(themeOutlineElement_FocusVisible, classNameProp),
+    className: cn(classNameProp),
     variant,
     weight,
   });
@@ -90,14 +85,13 @@ export type AnchorWeight = 'inherit' | 'medium' | 'normal';
 const anchorVariantClasses: Record<AnchorVariant, string> = {
   default: cn(
     'text-muted-foreground hover:text-foreground active:text-foreground',
-    themeOutlineFocusedColor,
   ),
   brand: cn(
     'underline underline-offset-[3px] decoration-[1.5px]',
     'text-foreground decoration-link',
     'hover:decoration-foreground',
   ),
-  unstyled: themeOutlineFocusedColor,
+  unstyled: '',
 };
 
 const anchorWeightClasses: Record<AnchorWeight, string> = {

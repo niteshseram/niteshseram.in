@@ -1,5 +1,3 @@
-import path from 'node:path';
-
 import { remarkImage } from 'fumadocs-core/mdx-plugins';
 import {
   defineConfig,

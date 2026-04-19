@@ -37,7 +37,11 @@ export function TooltipContent({
 }) {
   return (
     <TooltipPrimitive.Portal>
-      <TooltipPrimitive.Positioner sideOffset={sideOffset} {...props}>
+      <TooltipPrimitive.Positioner
+        sideOffset={sideOffset}
+        className="z-[60]"
+        {...props}
+      >
         <TooltipPrimitive.Popup
           className={cn(
             'flex origin-(--transform-origin) flex-col',

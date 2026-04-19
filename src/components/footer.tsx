@@ -3,7 +3,7 @@ import { cacheLife } from 'next/cache';
 import { Logo } from '@/components/logo';
 import { Anchor } from '@/components/ui/anchor';
 import { navItems } from '@/config/nav';
-import { LOCATION, SITE_NAME, SITE_TAGLINE } from '@/config/site';
+import { AUTHOR, SITE_TAGLINE } from '@/config/site';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
 
@@ -34,7 +34,7 @@ export async function Footer() {
           'bg-gradient-to-r from-transparent via-brand/60 to-transparent',
         )}
       />
-      <div className={cn('max-w-2xl', 'mx-auto px-4.5 pt-12 pb-8')}>
+      <div className={cn('max-w-2xl', 'mx-auto px-4.5 pt-12 pb-18 sm:pb-8')}>
         <div
           className={cn(
             'grid grid-cols-2 gap-10',
@@ -51,7 +51,7 @@ export async function Footer() {
             >
               <Logo size={24} />
               <span className="text-lg font-medium text-foreground">
-                {SITE_NAME}
+                {AUTHOR.name}
               </span>
             </Anchor>
             <p
@@ -78,22 +78,24 @@ export async function Footer() {
               Navigate
             </h3>
             <ul className="flex flex-col gap-y-2">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Anchor
-                    href={item.href}
-                    variant="unstyled"
-                    weight="normal"
-                    className={cn(
-                      'text-sm',
-                      'text-muted-foreground',
-                      'hover:text-foreground',
-                    )}
-                  >
-                    {item.label}
-                  </Anchor>
-                </li>
-              ))}
+              {navItems
+                .filter((item) => !item.hide)
+                .map((item) => (
+                  <li key={item.href}>
+                    <Anchor
+                      href={item.href}
+                      variant="unstyled"
+                      weight="normal"
+                      className={cn(
+                        'text-sm',
+                        'text-muted-foreground',
+                        'hover:text-foreground',
+                      )}
+                    >
+                      {item.label}
+                    </Anchor>
+                  </li>
+                ))}
             </ul>
           </nav>
           <div className="flex flex-col">
@@ -146,7 +148,7 @@ export async function Footer() {
           )}
         >
           <p>
-            <span aria-hidden="true">©</span> {year} {SITE_NAME}. All rights
+            <span aria-hidden="true">©</span> {year} {AUTHOR.name}. All rights
             reserved.
           </p>
           <p className="inline-flex items-center gap-x-1.5 max-sm:hidden">
@@ -154,7 +156,7 @@ export async function Footer() {
               aria-hidden="true"
               className={cn('size-1.5', 'rounded-full', 'bg-brand')}
             />
-            Crafted with care in {LOCATION}.
+            Crafted with care in {AUTHOR.location}.
           </p>
         </div>
       </div>
