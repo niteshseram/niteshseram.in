@@ -69,6 +69,7 @@ export function blogPostingJsonLd(post: Post) {
     url,
     headline: post.data.title,
     description: post.data.summary,
+    image: [`${SITE_URL}/og.webp`],
     datePublished: published,
     dateModified: published,
     keywords: post.data.tags?.join(', '),
