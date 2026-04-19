@@ -2,7 +2,7 @@ import { writingSource } from '@/lib/source';
 
 export type Post = ReturnType<typeof writingSource.getPages>[number];
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.VERCEL_ENV === 'production';
 
 export function getAllPosts(): Post[] {
   return writingSource
@@ -17,8 +17,12 @@ export function getAllPosts(): Post[] {
 
 export function getPostBySlug(slug: string): Post | undefined {
   const page = writingSource.getPage([slug]);
-  if (!page) return undefined;
-  if (isProduction && page.data.draft) return undefined;
+  if (!page) {
+    return undefined;
+  }
+  if (isProduction && page.data.draft) {
+    return undefined;
+  }
   return page;
 }
 
@@ -31,10 +35,14 @@ export function getAdjacent(slug: string): {
   next: Post | null;
 } {
   const all = getAllPosts();
-  const i = all.findIndex((p) => p.slugs[0] === slug);
-  if (i === -1) return { prev: null, next: null };
+  const currentPost = all.findIndex((post) => post.slugs[0] === slug);
+
+  if (currentPost === -1) {
+    return { prev: null, next: null };
+  }
+
   return {
-    prev: i > 0 ? all[i - 1] : null,
-    next: i < all.length - 1 ? all[i + 1] : null,
+    prev: currentPost > 0 ? all[currentPost - 1] : null,
+    next: currentPost < all.length - 1 ? all[currentPost + 1] : null,
   };
 }
