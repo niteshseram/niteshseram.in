@@ -1,3 +1,5 @@
+import { cacheLife } from 'next/cache';
+
 import { Logo } from '@/components/logo';
 import { Anchor } from '@/components/ui/anchor';
 import { navItems } from '@/config/nav';
@@ -11,7 +13,9 @@ const socials = [
   SOCIAL_LINKS.email,
 ];
 
-export function Footer() {
+export async function Footer() {
+  'use cache';
+  cacheLife('days');
   const year = new Date().getFullYear();
 
   return (

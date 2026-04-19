@@ -17,7 +17,7 @@ export function GithubContributionSection() {
       >
         GitHub Contributions
       </h2>
-      <GithubContribution username="niteshseram" />
+      <GithubContribution />
     </section>
   );
 }

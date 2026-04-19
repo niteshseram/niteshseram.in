@@ -20,8 +20,7 @@ import {
 import { cn } from '@/lib/utils';
 
 type Props = {
-  data: Activity[];
-  total: number;
+  contributions: Activity[];
   className?: string;
 };
 
@@ -32,7 +31,7 @@ function formatTooltip(activity: Activity) {
   return `${activity.count} ${unit} on ${date}`;
 }
 
-export function GithubContributionClient({ data, total, className }: Props) {
+export function GithubContributionClient({ contributions, className }: Props) {
   return (
     <div
       className={cn(
@@ -43,12 +42,11 @@ export function GithubContributionClient({ data, total, className }: Props) {
       )}
     >
       <ContributionGraph
-        data={data}
+        data={contributions}
         blockMargin={3}
         blockRadius={2}
         blockSize={11}
         fontSize={11}
-        totalCount={total}
       >
         <TooltipProvider>
           <ContributionGraphCalendar>
