@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import { ThemeProvider } from '@/components/theme-provider';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/config/site';
@@ -12,6 +13,8 @@ import {
   websiteJsonLd,
 } from '@/lib/jsonld';
 import { cn } from '@/lib/utils';
+
+const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -44,6 +47,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
       </body>
+      {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
     </html>
   );
 }
