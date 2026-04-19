@@ -1,50 +1,22 @@
 'use client';
 
+import { animate, useInView } from 'motion/react';
 import {
   Children,
+  cloneElement,
   createContext,
+  isValidElement,
   useContext,
   useEffect,
   useMemo,
   useRef,
   useState,
   type ReactNode,
-  type RefObject,
 } from 'react';
 
 import { cn } from '@/lib/utils';
 
-type SequenceContextValue = {
-  completeItem: (index: number) => void;
-  activeIndex: number;
-  sequenceStarted: boolean;
-};
-
-const SequenceContext = createContext<SequenceContextValue | null>(null);
-const ItemIndexContext = createContext<number | null>(null);
-
-function useInView(ref: RefObject<Element | null>, threshold = 0.3): boolean {
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || typeof IntersectionObserver === 'undefined') {
-      setInView(true);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref, threshold]);
-  return inView;
-}
+const StartGateContext = createContext<boolean | null>(null);
 
 type TypingAnimationProps = {
   children: string;
@@ -63,69 +35,37 @@ export function TypingAnimation({
   startOnView = true,
   keepCursor = false,
 }: TypingAnimationProps) {
-  const ref = useRef<HTMLSpanElement | null>(null);
-  const isInView = useInView(ref);
+  const ref = useRef<HTMLSpanElement>(null);
+  const ownInView = useInView(ref, { once: true, amount: 0.3 });
+  const gateSignal = useContext(StartGateContext);
+  const shouldStart =
+    gateSignal !== null ? gateSignal : !startOnView || ownInView;
+
   const [displayed, setDisplayed] = useState('');
-  const [started, setStarted] = useState(false);
-  const sequence = useContext(SequenceContext);
-  const itemIndex = useContext(ItemIndexContext);
-  const hasSequence = sequence !== null;
-  const sequenceStarted = sequence?.sequenceStarted ?? false;
-  const sequenceActiveIndex = sequence?.activeIndex ?? null;
-
-  // Hold sequence access in refs so the typing interval below doesn't re-run
-  // (and restart from i=0) every time the parent sequence advances.
-  const completeItemRef = useRef<SequenceContextValue['completeItem'] | null>(
-    null,
-  );
-  const itemIndexRef = useRef<number | null>(null);
-  useEffect(() => {
-    completeItemRef.current = sequence?.completeItem ?? null;
-    itemIndexRef.current = itemIndex;
-  }, [sequence, itemIndex]);
+  const [hasStarted, setHasStarted] = useState(false);
+  const isDone = displayed === children;
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout> | null = null;
-    if (hasSequence && itemIndex !== null) {
-      if (sequenceStarted && !started && sequenceActiveIndex === itemIndex) {
-        setStarted(true);
-      }
-    } else if (!startOnView || isInView) {
-      timer = setTimeout(() => setStarted(true), delay);
+    if (!shouldStart) {
+      return;
     }
+    let controls: ReturnType<typeof animate> | null = null;
+    const timer = setTimeout(() => {
+      setHasStarted(true);
+      controls = animate(0, children.length, {
+        duration: (children.length * duration) / 1000,
+        ease: 'linear',
+        onUpdate: (v) => setDisplayed(children.substring(0, Math.floor(v))),
+        onComplete: () => setDisplayed(children),
+      });
+    }, delay);
     return () => {
-      if (timer) clearTimeout(timer);
+      clearTimeout(timer);
+      controls?.stop();
     };
-  }, [
-    hasSequence,
-    itemIndex,
-    sequenceStarted,
-    sequenceActiveIndex,
-    startOnView,
-    isInView,
-    started,
-    delay,
-  ]);
+  }, [shouldStart, children, duration, delay]);
 
-  useEffect(() => {
-    if (!started) return;
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i < children.length) {
-        setDisplayed(children.substring(0, i + 1));
-        i++;
-      } else {
-        clearInterval(interval);
-        const complete = completeItemRef.current;
-        const idx = itemIndexRef.current;
-        if (complete && idx !== null) complete(idx);
-      }
-    }, duration);
-    return () => clearInterval(interval);
-  }, [started, children, duration]);
-
-  const showCursor =
-    started && (displayed.length < children.length || keepCursor);
+  const showCursor = hasStarted && (!isDone || keepCursor);
 
   return (
     <span ref={ref} className={className}>
@@ -151,30 +91,25 @@ export function Terminal({
   startOnView = true,
 }: TerminalProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const sequenceStarted = sequence ? !startOnView || isInView : false;
+  const inView = useInView(containerRef, { once: true, amount: 0.3 });
+  const shouldStart = !startOnView || inView;
 
-  const contextValue = useMemo<SequenceContextValue | null>(() => {
-    if (!sequence) return null;
-    return {
-      completeItem: (index) => {
-        setActiveIndex((current) =>
-          index === current ? current + 1 : current,
-        );
-      },
-      activeIndex,
-      sequenceStarted,
-    };
-  }, [sequence, activeIndex, sequenceStarted]);
-
-  const wrappedChildren = useMemo(() => {
-    if (!sequence) return children;
-    return Children.toArray(children).map((child, index) => (
-      <ItemIndexContext.Provider key={index} value={index}>
-        {child}
-      </ItemIndexContext.Provider>
-    ));
+  const sequencedChildren = useMemo(() => {
+    if (!sequence) {
+      return children;
+    }
+    let accumulated = 0;
+    return Children.map(children, (child) => {
+      if (!isValidElement<TypingAnimationProps>(child)) {
+        return child;
+      }
+      const text =
+        typeof child.props.children === 'string' ? child.props.children : '';
+      const childDuration = child.props.duration ?? 40;
+      const thisDelay = accumulated;
+      accumulated += text.length * childDuration;
+      return cloneElement(child, { ...child.props, delay: thisDelay });
+    });
   }, [children, sequence]);
 
   const content = (
@@ -219,17 +154,19 @@ export function Terminal({
           'text-code-foreground',
         )}
       >
-        <code className="grid gap-y-0">{wrappedChildren}</code>
+        <code className="grid gap-y-0">{sequencedChildren}</code>
       </pre>
     </div>
   );
 
-  if (!sequence) return content;
+  if (!sequence) {
+    return content;
+  }
 
   return (
-    <SequenceContext.Provider value={contextValue}>
+    <StartGateContext.Provider value={shouldStart}>
       {content}
-    </SequenceContext.Provider>
+    </StartGateContext.Provider>
   );
 }
 
