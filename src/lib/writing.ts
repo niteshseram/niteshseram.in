@@ -34,7 +34,7 @@ export function getAdjacent(slug: string): {
   const i = all.findIndex((p) => p.slugs[0] === slug);
   if (i === -1) return { prev: null, next: null };
   return {
-    prev: i < all.length - 1 ? all[i + 1] : null,
-    next: i > 0 ? all[i - 1] : null,
+    prev: i > 0 ? all[i - 1] : null,
+    next: i < all.length - 1 ? all[i + 1] : null,
   };
 }
