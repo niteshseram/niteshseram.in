@@ -3,7 +3,7 @@ import { cacheLife } from 'next/cache';
 import { Logo } from '@/components/logo';
 import { Anchor } from '@/components/ui/anchor';
 import { navItems } from '@/config/nav';
-import { LOCATION, SITE_NAME, SITE_TAGLINE } from '@/config/site';
+import { AUTHOR, SITE_TAGLINE } from '@/config/site';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
 
@@ -51,7 +51,7 @@ export async function Footer() {
             >
               <Logo size={24} />
               <span className="text-lg font-medium text-foreground">
-                {SITE_NAME}
+                {AUTHOR.name}
               </span>
             </Anchor>
             <p
@@ -146,7 +146,7 @@ export async function Footer() {
           )}
         >
           <p>
-            <span aria-hidden="true">©</span> {year} {SITE_NAME}. All rights
+            <span aria-hidden="true">©</span> {year} {AUTHOR.name}. All rights
             reserved.
           </p>
           <p className="inline-flex items-center gap-x-1.5 max-sm:hidden">
@@ -154,7 +154,7 @@ export async function Footer() {
               aria-hidden="true"
               className={cn('size-1.5', 'rounded-full', 'bg-brand')}
             />
-            Crafted with care in {LOCATION}.
+            Crafted with care in {AUTHOR.location}.
           </p>
         </div>
       </div>

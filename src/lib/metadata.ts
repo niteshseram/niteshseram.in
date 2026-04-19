@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { SITE_DESCRIPTION, SITE_NAME } from '@/config/site';
+import { SITE_DESCRIPTION, AUTHOR } from '@/config/site';
 
 type PageMetadataInput = Readonly<{
   pathname: string;
@@ -24,19 +24,21 @@ export function pageMetadata({
   const ogTitle =
     socialTitle ??
     absoluteTitle ??
-    (title ? `${title} | ${SITE_NAME}` : SITE_NAME);
+    (title
+      ? `${title} | ${AUTHOR.name}`
+      : `${AUTHOR.name} - ${AUTHOR.jobTitle}`);
   const ogDescription = socialDescription ?? description;
 
   return {
     title: absoluteTitle
       ? { absolute: absoluteTitle }
-      : (title ?? { absolute: SITE_NAME }),
+      : (title ?? { absolute: `${AUTHOR.name} - ${AUTHOR.jobTitle}` }),
     description,
     alternates: { canonical: pathname },
     openGraph: {
       type: 'website',
       url: pathname,
-      siteName: SITE_NAME,
+      siteName: `${AUTHOR.name} - ${AUTHOR.jobTitle}`,
       title: ogTitle,
       description: ogDescription,
       ...(imageUrl && {

@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
 import { ImageResponse } from 'next/og';
 
-import { SITE_NAME } from '@/config/site';
+import { AUTHOR } from '@/config/site';
 import { loadGoogleFont } from '@/lib/og-font';
 import { getAllPosts, getPostBySlug } from '@/lib/writing';
 
-export const alt = `${SITE_NAME} — Writing`;
+export const alt = `${AUTHOR.name} — Writing`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -87,7 +87,7 @@ export default async function Image({ params }: Props) {
               letterSpacing: -0.2,
             }}
           >
-            {SITE_NAME}
+            {AUTHOR.name}
           </div>
         </div>
         <div
@@ -170,7 +170,7 @@ export default async function Image({ params }: Props) {
               letterSpacing: -0.2,
             }}
           >
-            {SITE_NAME}
+            {AUTHOR.name}
           </div>
           <div
             style={{

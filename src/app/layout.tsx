@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import type { Metadata } from 'next';
 
 import { ThemeProvider } from '@/components/theme-provider';
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/config/site';
+import { AUTHOR, SITE_DESCRIPTION, SITE_URL } from '@/config/site';
 import { fontVariables } from '@/lib/fonts';
 
 import './globals.css';
@@ -19,8 +19,8 @@ const gaId = process.env.NEXT_PUBLIC_GA_ID;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: SITE_NAME,
-    template: `%s | ${SITE_NAME}`,
+    default: `${AUTHOR.name} - ${AUTHOR.jobTitle}`,
+    template: `%s | ${AUTHOR.name}`,
   },
   description: SITE_DESCRIPTION,
 };
