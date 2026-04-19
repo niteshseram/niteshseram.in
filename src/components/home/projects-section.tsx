@@ -45,7 +45,7 @@ export function ProjectsSection() {
                   <span
                     className={cn(
                       'font-mono text-[10px] uppercase tracking-[0.12em]',
-                      'text-muted-foreground/80',
+                      'text-muted-foreground',
                     )}
                   >
                     {project.tagline}
@@ -93,7 +93,7 @@ export function ProjectsSection() {
               <p
                 className={cn(
                   'relative mt-3',
-                  'text-sm leading-relaxed',
+                  'text-base leading-relaxed',
                   'text-muted-foreground',
                 )}
               >

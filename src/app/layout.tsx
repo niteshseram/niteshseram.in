@@ -15,6 +15,7 @@ import {
 import { cn } from '@/lib/utils';
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
+const isProduction = process.env.VERCEL_ENV === 'production';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -47,7 +48,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
       </body>
-      {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
+      {gaId && isProduction ? <GoogleAnalytics gaId={gaId} /> : null}
     </html>
   );
 }

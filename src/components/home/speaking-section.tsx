@@ -97,7 +97,7 @@ export function SpeakingSection() {
                 <p
                   className={cn(
                     'mt-2',
-                    'text-xs sm:text-sm leading-relaxed line-clamp-3',
+                    'text-base leading-relaxed line-clamp-3',
                     'text-muted-foreground',
                   )}
                 >

@@ -21,7 +21,7 @@ export function TechStackSection() {
           className={cn(
             'inline-flex items-center gap-x-1.5',
             'text-xs',
-            'text-muted-foreground/70',
+            'text-muted-foreground',
           )}
         >
           <PiHand aria-hidden="true" className="size-3.5" />

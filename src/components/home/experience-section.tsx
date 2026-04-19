@@ -84,15 +84,13 @@ export function ExperienceSection() {
                 <li key={role.title + role.start}>
                   <div
                     className={cn(
-                      'flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5',
+                      'flex flex-wrap max-sm:flex-col items-baseline justify-between gap-x-3 gap-y-0.5',
                     )}
                   >
                     <span
                       className={cn(
-                        'text-sm font-medium',
-                        role.current
-                          ? 'text-foreground'
-                          : 'text-muted-foreground',
+                        'text-base font-medium',
+                        role.current ? 'text-foreground' : 'text-foreground/90',
                       )}
                     >
                       {role.title}
@@ -101,9 +99,7 @@ export function ExperienceSection() {
                       className={cn(
                         'inline-flex items-center gap-x-1.5',
                         'font-mono text-[11px] uppercase tracking-[0.08em] tabular-nums',
-                        role.current
-                          ? 'text-brand'
-                          : 'text-muted-foreground/70',
+                        role.current ? 'text-brand' : 'text-muted-foreground',
                       )}
                     >
                       {role.current && (
@@ -130,8 +126,8 @@ export function ExperienceSection() {
                   </div>
                   <p
                     className={cn(
-                      'mt-1.5',
-                      'text-sm leading-relaxed',
+                      'mt-2',
+                      'text-base leading-relaxed',
                       'text-muted-foreground',
                     )}
                   >
