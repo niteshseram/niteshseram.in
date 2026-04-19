@@ -10,7 +10,10 @@ import { TechStackSection } from '@/components/home/tech-stack-section';
 import { WritingSection } from '@/components/home/writing-section';
 import { pageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = pageMetadata({ pathname: '/' });
+export const metadata: Metadata = pageMetadata({
+  pathname: '/',
+  imageUrl: '/og.webp',
+});
 
 export default function Page() {
   return (

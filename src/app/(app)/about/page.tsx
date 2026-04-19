@@ -10,6 +10,7 @@ export const metadata: Metadata = pageMetadata({
   title: 'About',
   description:
     'A few notes about me — what I do, what I care about, and a year-by-year walk through how I got here.',
+  imageUrl: '/og.webp',
 });
 
 export default function AboutPage() {

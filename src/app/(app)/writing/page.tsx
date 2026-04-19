@@ -11,6 +11,7 @@ export const metadata: Metadata = pageMetadata({
   pathname: WRITING.path,
   title: WRITING.title,
   description: WRITING.description,
+  imageUrl: '/og.webp',
 });
 
 export default function WritingPage() {

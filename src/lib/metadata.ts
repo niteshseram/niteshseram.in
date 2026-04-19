@@ -17,7 +17,7 @@ export function pageMetadata({
   title,
   absoluteTitle,
   description = SITE_DESCRIPTION,
-  imageUrl = '/og.webp',
+  imageUrl,
   socialTitle,
   socialDescription,
 }: PageMetadataInput): Metadata {
@@ -39,21 +39,23 @@ export function pageMetadata({
       siteName: SITE_NAME,
       title: ogTitle,
       description: ogDescription,
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: ogTitle,
-          type: 'image/webp',
-        },
-      ],
+      ...(imageUrl && {
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: ogTitle,
+            type: 'image/webp',
+          },
+        ],
+      }),
     },
     twitter: {
       card: 'summary_large_image',
       title: ogTitle,
       description: ogDescription,
-      images: [imageUrl],
+      ...(imageUrl && { images: [imageUrl] }),
     },
   };
 }
