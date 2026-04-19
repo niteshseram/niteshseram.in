@@ -7,8 +7,9 @@ import { cn } from '@/lib/utils';
 export function ProjectsSection() {
   return (
     <section
+      id="projects"
       aria-label="Projects"
-      className={cn('max-w-2xl mx-auto', 'px-4.5 py-12')}
+      className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
     >
       <h2
         className={cn(

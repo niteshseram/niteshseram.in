@@ -10,6 +10,6 @@ export type NavItem = {
 export const navItems: NavItem[] = [
   { href: '/about', label: 'About', icon: PiUser },
   { href: '/writing', label: 'Writing', icon: PiNotePencil },
-  { href: '/projects', label: 'Projects', icon: PiFolder },
+  { href: '#projects', label: 'Projects', icon: PiFolder },
   { href: '#contact', label: 'Contact', icon: PiEnvelope },
 ];
