@@ -1,10 +1,12 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { PiMoon, PiSun } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { useGlobalShortcut } from '@/utils/use-global-shortcut';
 
 export function ThemeSwitcher() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -17,13 +19,37 @@ export function ThemeSwitcher() {
 
   const isDark = mounted && resolvedTheme === 'dark';
 
-  function handleClick() {
+  const toggleTheme = useCallback(() => {
     if (!audioCtxRef.current) {
       audioCtxRef.current = new AudioContext();
     }
     playToggleSound(audioCtxRef.current);
-    setTheme(isDark ? 'light' : 'dark');
-  }
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+  }, [resolvedTheme, setTheme]);
+
+  useGlobalShortcut(
+    useCallback(
+      (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
+        if (e.key.toLowerCase() !== 't') return;
+        const target = e.target as HTMLElement | null;
+        if (target) {
+          const tag = target.tagName;
+          if (
+            tag === 'INPUT' ||
+            tag === 'TEXTAREA' ||
+            tag === 'SELECT' ||
+            target.isContentEditable
+          ) {
+            return;
+          }
+        }
+        e.preventDefault();
+        toggleTheme();
+      },
+      [toggleTheme],
+    ),
+  );
 
   return (
     <Button
@@ -32,8 +58,25 @@ export function ThemeSwitcher() {
       iconClassName="group-hover:animate-wiggle"
       isLabelHidden={true}
       label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-      onClick={handleClick}
+      onClick={toggleTheme}
       size="sm"
+      tooltip={
+        <span className="inline-flex items-center gap-x-1.5">
+          Toggle theme
+          <kbd
+            className={cn(
+              'inline-flex h-5 min-w-5 items-center justify-center',
+              'px-1',
+              'bg-background/10',
+              'font-mono text-sm/none text-black',
+              'transition-colors',
+            )}
+          >
+            T
+          </kbd>
+        </span>
+      }
+      tooltipSide="bottom"
       variant="outline"
     />
   );

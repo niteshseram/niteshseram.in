@@ -34,7 +34,7 @@ export async function Footer() {
           'bg-gradient-to-r from-transparent via-brand/60 to-transparent',
         )}
       />
-      <div className={cn('max-w-2xl', 'mx-auto px-4.5 pt-12 pb-8')}>
+      <div className={cn('max-w-2xl', 'mx-auto px-4.5 pt-12 pb-18 sm:pb-8')}>
         <div
           className={cn(
             'grid grid-cols-2 gap-10',
@@ -78,22 +78,24 @@ export async function Footer() {
               Navigate
             </h3>
             <ul className="flex flex-col gap-y-2">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Anchor
-                    href={item.href}
-                    variant="unstyled"
-                    weight="normal"
-                    className={cn(
-                      'text-sm',
-                      'text-muted-foreground',
-                      'hover:text-foreground',
-                    )}
-                  >
-                    {item.label}
-                  </Anchor>
-                </li>
-              ))}
+              {navItems
+                .filter((item) => !item.hide)
+                .map((item) => (
+                  <li key={item.href}>
+                    <Anchor
+                      href={item.href}
+                      variant="unstyled"
+                      weight="normal"
+                      className={cn(
+                        'text-sm',
+                        'text-muted-foreground',
+                        'hover:text-foreground',
+                      )}
+                    >
+                      {item.label}
+                    </Anchor>
+                  </li>
+                ))}
             </ul>
           </nav>
           <div className="flex flex-col">

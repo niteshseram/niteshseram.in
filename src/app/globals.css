@@ -129,6 +129,10 @@
     @apply bg-selection text-selection-foreground;
   }
 
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-synthesis-weight: none;

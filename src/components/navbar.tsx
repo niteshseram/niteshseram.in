@@ -2,15 +2,20 @@
 
 import { usePathname } from 'next/navigation';
 
+import { CommandMenu } from '@/components/command-menu';
 import { Logo } from '@/components/logo';
-import { NavbarMenu } from '@/components/navbar-menu';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { Anchor } from '@/components/ui/anchor';
 import { navItems } from '@/config/nav';
 import { isActive } from '@/lib/nav';
 import { cn } from '@/lib/utils';
+import type { PostIndexEntry } from '@/lib/writing';
 
-export function Navbar() {
+type Props = Readonly<{
+  posts: PostIndexEntry[];
+}>;
+
+export function Navbar({ posts }: Props) {
   const pathname = usePathname();
 
   return (
@@ -33,34 +38,35 @@ export function Navbar() {
         >
           <Logo />
         </Anchor>
-
         <div className={cn('flex items-center gap-x-5', 'ml-auto')}>
           <nav
             aria-label="Primary"
             className="hidden items-center gap-x-5 sm:flex"
           >
-            {navItems.map((item) => {
-              const active = isActive(pathname, item.href);
-              return (
-                <Anchor
-                  key={item.href}
-                  href={item.href}
-                  aria-current={active ? 'page' : undefined}
-                  variant="unstyled"
-                  weight="normal"
-                  className={cn(
-                    'text-sm',
-                    active ? 'text-foreground' : 'text-muted-foreground',
-                    !active && 'hover:text-foreground',
-                  )}
-                >
-                  {item.label}
-                </Anchor>
-              );
-            })}
+            {navItems
+              .filter((item) => !item.hide)
+              .map((item) => {
+                const active = isActive(pathname, item.href);
+                return (
+                  <Anchor
+                    key={item.href}
+                    href={item.href}
+                    aria-current={active ? 'page' : undefined}
+                    variant="unstyled"
+                    weight="normal"
+                    className={cn(
+                      'text-sm',
+                      active ? 'text-foreground' : 'text-muted-foreground',
+                      !active && 'hover:text-foreground',
+                    )}
+                  >
+                    {item.label}
+                  </Anchor>
+                );
+              })}
           </nav>
+          <CommandMenu posts={posts} />
           <ThemeSwitcher />
-          <NavbarMenu items={navItems} pathname={pathname} />
         </div>
       </div>
     </header>

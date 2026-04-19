@@ -30,6 +30,22 @@ export function getLatestPosts(count: number): Post[] {
   return getAllPosts().slice(0, count);
 }
 
+export type PostIndexEntry = {
+  slug: string;
+  url: string;
+  title: string;
+  summary: string;
+};
+
+export function getPostIndex(): PostIndexEntry[] {
+  return getAllPosts().map((p) => ({
+    slug: p.slugs[0],
+    url: p.url,
+    title: p.data.title,
+    summary: p.data.summary ?? '',
+  }));
+}
+
 export function getAdjacent(slug: string): {
   prev: Post | null;
   next: Post | null;
