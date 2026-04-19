@@ -5,6 +5,8 @@ import { PostRow } from '@/components/writing/post-row';
 import { cn } from '@/lib/utils';
 import { getLatestPosts } from '@/lib/writing';
 
+import { SectionHeading } from './section-heading';
+
 export function WritingSection() {
   const posts = getLatestPosts(3);
   if (posts.length === 0) return null;
@@ -15,15 +17,7 @@ export function WritingSection() {
       aria-label="Writing"
       className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
     >
-      <h2
-        className={cn(
-          'mb-5',
-          'font-serif text-2xl font-medium',
-          'text-muted-foreground',
-        )}
-      >
-        Lately I&apos;ve been writing
-      </h2>
+      <SectionHeading>Lately I&apos;ve been writing</SectionHeading>
       <ul className="flex flex-col divide-y divide-border">
         {posts.map((post) => (
           <PostRow

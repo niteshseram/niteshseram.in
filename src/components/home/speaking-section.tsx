@@ -4,21 +4,15 @@ import { Anchor } from '@/components/ui/anchor';
 import { TALKS } from '@/data/talks';
 import { cn } from '@/lib/utils';
 
+import { SectionHeading } from './section-heading';
+
 export function SpeakingSection() {
   return (
     <section
       aria-label="Speaking"
       className={cn('max-w-2xl mx-auto', 'px-4.5 py-12')}
     >
-      <h2
-        className={cn(
-          'mb-5',
-          'font-serif text-2xl font-medium',
-          'text-muted-foreground',
-        )}
-      >
-        On stage
-      </h2>
+      <SectionHeading>On stage</SectionHeading>
       <ul className="flex flex-col gap-y-8">
         {TALKS.map((talk) => (
           <li key={talk.youtubeId}>

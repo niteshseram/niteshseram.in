@@ -7,6 +7,8 @@ import {
 import { TECH_STACKS } from '@/data/tech-stack';
 import { cn } from '@/lib/utils';
 
+import { SectionHeading } from './section-heading';
+
 export function TechStackSection() {
   return (
     <section
@@ -14,14 +16,7 @@ export function TechStackSection() {
       className={cn('max-w-2xl mx-auto', 'px-4.5 py-12')}
     >
       <div className={cn('mb-5 flex items-end justify-between gap-3')}>
-        <h2
-          className={cn(
-            'font-serif text-2xl font-medium',
-            'text-muted-foreground',
-          )}
-        >
-          Tools I reach for
-        </h2>
+        <SectionHeading className="mb-0">Tools I reach for</SectionHeading>
         <p
           className={cn(
             'inline-flex items-center gap-x-1.5',
