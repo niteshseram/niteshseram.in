@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+
 import { ContactSection } from '@/components/home/contact-section';
 import { ExperienceSection } from '@/components/home/experience-section';
 import { GithubContributionSection } from '@/components/home/github-contribution/github-contribution-section';
@@ -6,6 +8,9 @@ import { ProjectsSection } from '@/components/home/projects-section';
 import { SpeakingSection } from '@/components/home/speaking-section';
 import { TechStackSection } from '@/components/home/tech-stack-section';
 import { WritingSection } from '@/components/home/writing-section';
+import { pageMetadata } from '@/lib/metadata';
+
+export const metadata: Metadata = pageMetadata({ pathname: '/' });
 
 export default function Page() {
   return (

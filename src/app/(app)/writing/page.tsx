@@ -3,13 +3,15 @@ import type { Metadata } from 'next';
 import { PostRow } from '@/components/writing/post-row';
 import { WRITING } from '@/config/site';
 import { blogJsonLd, jsonLdScript } from '@/lib/jsonld';
+import { pageMetadata } from '@/lib/metadata';
 import { cn } from '@/lib/utils';
 import { getAllPosts } from '@/lib/writing';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: WRITING.path,
   title: WRITING.title,
   description: WRITING.description,
-};
+});
 
 export default function WritingPage() {
   const posts = getAllPosts();
