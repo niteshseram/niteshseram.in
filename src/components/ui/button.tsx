@@ -5,10 +5,6 @@ import type { AriaAttributes, ReactNode } from 'react';
 
 import { cn } from '@/lib/utils';
 
-import {
-  themeOutlineElement_FocusVisible,
-  themeOutlineFocusedColor,
-} from '../theme';
 import type { Props as AnchorProps } from './anchor';
 import { Anchor } from './anchor';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
@@ -119,20 +115,17 @@ const variantClasses: Record<ButtonVariant, string> = {
     'text-brand-foreground bg-brand',
     'hover:bg-brand/90',
     'active:bg-brand/80',
-    themeOutlineFocusedColor,
   ),
   outline: cn(
     'text-muted-foreground bg-transparent',
     'border border-border',
     'hover:text-foreground hover:bg-muted',
     'active:bg-muted',
-    themeOutlineFocusedColor,
   ),
   ghost: cn(
     'text-muted-foreground bg-transparent',
     'hover:text-foreground hover:bg-muted',
     'active:bg-muted',
-    themeOutlineFocusedColor,
   ),
 };
 
@@ -214,7 +207,6 @@ export function Button<RouteType>({
     fontSizeClasses[size],
     'whitespace-nowrap font-medium',
     'transition-colors',
-    themeOutlineElement_FocusVisible,
     disabled
       ? cn(
           variantDisabledClasses[variant],
