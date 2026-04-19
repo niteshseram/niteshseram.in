@@ -52,28 +52,32 @@ export default async function WritingDetailPage({ params }: Props) {
   const { prev, next } = getAdjacent(slug);
 
   return (
-    <article className={cn('max-w-2xl mx-auto', 'px-4.5 pt-14 sm:pt-20 pb-16')}>
+    <>
       <script {...jsonLdScript(blogPostingJsonLd(post))} />
-      <Button
-        href="/writing"
-        variant="ghost"
-        size="xs"
-        icon={<PiArrowLeft />}
-        addonPosition="start"
-        label="All writing"
-        className="mb-8 -ml-3"
-      />
-      <PostHeader
-        title={post.data.title}
-        summary={post.data.summary}
-        publishedAt={post.data.publishedAt}
-        minutes={post.data.readingTime.minutes}
-        tags={post.data.tags}
-      />
-      <Prose>
-        <MDXContent components={getMDXComponents()} />
-      </Prose>
-      <PostFooter prev={prev} next={next} />
-    </article>
+      <article
+        className={cn('max-w-2xl mx-auto', 'px-4.5 pt-14 sm:pt-20 pb-16')}
+      >
+        <Button
+          href="/writing"
+          variant="ghost"
+          size="xs"
+          icon={<PiArrowLeft />}
+          addonPosition="start"
+          label="All writing"
+          className="mb-8 -ml-3"
+        />
+        <PostHeader
+          title={post.data.title}
+          summary={post.data.summary}
+          publishedAt={post.data.publishedAt}
+          minutes={post.data.readingTime.minutes}
+          tags={post.data.tags}
+        />
+        <Prose>
+          <MDXContent components={getMDXComponents()} />
+        </Prose>
+        <PostFooter prev={prev} next={next} />
+      </article>
+    </>
   );
 }

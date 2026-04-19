@@ -5,7 +5,12 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/config/site';
 import { fontVariables } from '@/lib/fonts';
 
 import './globals.css';
-import { jsonLdScript, personJsonLd, websiteJsonLd } from '@/lib/jsonld';
+import {
+  jsonLdGraph,
+  jsonLdScript,
+  personJsonLd,
+  websiteJsonLd,
+} from '@/lib/jsonld';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -30,8 +35,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <script {...jsonLdScript(personJsonLd)} />
-        <script {...jsonLdScript(websiteJsonLd)} />
+        <script {...jsonLdScript(jsonLdGraph(personJsonLd, websiteJsonLd))} />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

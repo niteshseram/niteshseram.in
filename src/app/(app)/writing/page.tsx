@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 
 import { PostRow } from '@/components/writing/post-row';
+import { WRITING } from '@/config/site';
 import { blogJsonLd, jsonLdScript } from '@/lib/jsonld';
 import { cn } from '@/lib/utils';
 import { getAllPosts } from '@/lib/writing';
 
 export const metadata: Metadata = {
-  title: 'Writing',
-  description: 'Notes on frontend, craft, and the small details.',
+  title: WRITING.title,
+  description: WRITING.description,
 };
 
 export default function WritingPage() {

@@ -1,21 +1,29 @@
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/config/site';
+import {
+  AUTHOR,
+  SITE_DESCRIPTION,
+  SITE_LANGUAGE,
+  SITE_NAME,
+  SITE_URL,
+  WRITING,
+} from '@/config/site';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import type { Post } from '@/lib/writing';
 
 const personId = `${SITE_URL}/#person`;
 const websiteId = `${SITE_URL}/#website`;
+const blogId = `${SITE_URL}${WRITING.path}#blog`;
 
 export const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   '@id': personId,
-  name: SITE_NAME,
+  name: AUTHOR.name,
   url: SITE_URL,
-  jobTitle: 'Software Engineer',
+  jobTitle: AUTHOR.jobTitle,
   worksFor: {
     '@type': 'Organization',
-    name: 'GreatFrontEnd',
-    url: 'https://www.greatfrontend.com',
+    name: AUTHOR.employer.name,
+    url: AUTHOR.employer.url,
   },
   sameAs: [
     SOCIAL_LINKS.github.href,
@@ -32,20 +40,20 @@ export const websiteJsonLd = {
   name: SITE_NAME,
   description: SITE_DESCRIPTION,
   publisher: { '@id': personId },
-  inLanguage: 'en',
+  inLanguage: SITE_LANGUAGE,
 } as const;
 
 export function blogJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Blog',
-    '@id': `${SITE_URL}/writing#blog`,
-    url: `${SITE_URL}/writing`,
-    name: `Writing — ${SITE_NAME}`,
-    description: SITE_DESCRIPTION,
+    '@id': blogId,
+    url: `${SITE_URL}${WRITING.path}`,
+    name: `${WRITING.title} — ${SITE_NAME}`,
+    description: WRITING.description,
     author: { '@id': personId },
     publisher: { '@id': personId },
-    inLanguage: 'en',
+    inLanguage: SITE_LANGUAGE,
   } as const;
 }
 
@@ -66,11 +74,20 @@ export function blogPostingJsonLd(post: Post) {
     keywords: post.data.tags?.join(', '),
     wordCount: post.data.readingTime.words,
     timeRequired: `PT${post.data.readingTime.minutes}M`,
-    inLanguage: 'en',
+    inLanguage: SITE_LANGUAGE,
     author: { '@id': personId },
     publisher: { '@id': personId },
-    isPartOf: { '@id': `${SITE_URL}/writing#blog` },
+    isPartOf: { '@id': blogId },
   } as const;
+}
+
+type Entity = Record<string, unknown>;
+
+export function jsonLdGraph(...entities: Entity[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': entities.map(({ '@context': _ctx, ...rest }) => rest),
+  };
 }
 
 export function jsonLdScript<T>(data: T) {
