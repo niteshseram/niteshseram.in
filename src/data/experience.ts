@@ -28,7 +28,7 @@ export const EXPERIENCES: ExperienceCompany[] = [
       {
         title: 'Software Engineer',
         brief:
-          'Helped revamp GFE Interviews (1M+ pageviews), built GFE Projects end-to-end, and set up a dynamic MDX blog system for the marketing team.',
+          'Helped revamp GFE Interviews (1M+ pageviews), built GFE Projects end-to-end, and set up a dynamic MDX blog system for the GFE platform.',
         start: 'May 2024',
         end: 'Feb 2026',
       },
