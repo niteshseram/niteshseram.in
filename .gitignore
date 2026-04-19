@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# fumadocs-mdx generated sources
+/.source
+
 # production
 /build
 

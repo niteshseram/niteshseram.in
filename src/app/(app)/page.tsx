@@ -5,6 +5,7 @@ import { Hero } from '@/components/home/hero';
 import { ProjectsSection } from '@/components/home/projects-section';
 import { SpeakingSection } from '@/components/home/speaking-section';
 import { TechStackSection } from '@/components/home/tech-stack-section';
+import { WritingSection } from '@/components/home/writing-section';
 
 export default function Page() {
   return (
@@ -12,6 +13,7 @@ export default function Page() {
       <Hero />
       <TechStackSection />
       <ProjectsSection />
+      <WritingSection />
       <ExperienceSection />
       <SpeakingSection />
       <GithubContributionSection />
