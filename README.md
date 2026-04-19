@@ -1,44 +1,45 @@
-# Portfolio V2
+## niteshseram.in
 
-This is my personal <a href="https://niteshseram.in" target="_blank">website</a> built with <a href="https://nextjs.org/" target="_blank">NextJs 13</a>, <a href="https://tailwindcss.com/">Tailwind CSS</a>, <a href="https://mdxjs.com/">MDX</a> and <a href="https://vercel.com" target="_blank">Vercel</a>.
+Personal site and writing of [Nitesh Seram](https://niteshseram.in) — a frontend engineer based in Assam, India.
 
-![Banner](https://github.com/niteshseram/niteshseram.in/blob/main/public/og.png)
+### Stack
 
-# Overview
+- [Next.js 16](https://nextjs.org) (App Router) with React 19
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [Base UI](https://base-ui.com) for primitives, [Motion](https://motion.dev) for animation
+- [fumadocs-mdx](https://fumadocs.dev) for writing content
+- [oxlint](https://oxc.rs) and [oxfmt](https://oxc.rs) for linting/formatting
+- [pnpm](https://pnpm.io) for package management
 
-This is 2nd iteration of my personal website built using NextJs, Tailwind CSS, and Vercel. This will be my digital corner where I will be sharing my thoughts, learning, and random stuff. This was not built with the intention to be a template but feel free to fork and customize it for your own use. If you find any issues in the website, feel free to open an issue and if you want, you can open a pull request for it too.
-
-## Main folder structure
-
-- `app/*`- All the static pages
-- `pages/api/views/*`- API for handling blog views
-- `components/*`- All the components like Navbar, Footer, etc are here
-- `content/*`- It contains all the mdx files for blog
-
-# Running locally
+### Getting started
 
 ```bash
-# Clone this repository
-git clone https://github.com/niteshseram/niteshseram.in.git
-
-# Go into the repository folder
-cd niteshseram.in
-
-# Install dependencies
-yarn
-
-# Run
-yarn dev
+pnpm install
+pnpm dev
 ```
 
-Create a `.env.local` file similar to `.env.example` with the values in it. But is not absolutely necessary thing to do to run the website locally.
+Open [http://localhost:3000](http://localhost:3000).
 
-- `DATABASE_URL` - DB URL for tracking the blog's view
+### Scripts
 
-# Built using
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Start the dev server |
+| `pnpm build` | Build for production |
+| `pnpm start` | Start the production server |
+| `pnpm lint` | Run oxlint |
+| `pnpm lint:fix` | Run oxlint with `--fix` |
+| `pnpm fmt` | Format with oxfmt |
+| `pnpm fmt:check` | Check formatting |
 
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Contentlayer](https://contentlayer.dev)
-- [MDX](https://mdxjs.com/)
-- [Vercel](https://vercel.com)
+### Structure
+
+- [src/app/](src/app/) — routes (home, about, writing, design)
+- [src/components/](src/components/) — UI components
+- [src/content/writing/](src/content/writing/) — MDX posts
+- [src/config/site.ts](src/config/site.ts) — site metadata
+- [src/lib/](src/lib/) — fonts, JSON-LD, utilities
+
+### Conventions
+
+Project-specific conventions (Tailwind class grouping, Next.js notes) live in [AGENTS.md](AGENTS.md).
