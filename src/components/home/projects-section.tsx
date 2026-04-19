@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { PROJECTS } from '@/data/projects';
 import { cn } from '@/lib/utils';
 
+import { SectionHeading } from './section-heading';
+
 export function ProjectsSection() {
   return (
     <section
@@ -11,15 +13,7 @@ export function ProjectsSection() {
       aria-label="Projects"
       className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
     >
-      <h2
-        className={cn(
-          'mb-5',
-          'font-serif text-2xl font-medium',
-          'text-muted-foreground',
-        )}
-      >
-        Things I&apos;ve built
-      </h2>
+      <SectionHeading>Things I&apos;ve built</SectionHeading>
       <ul className={cn('grid gap-4', 'sm:grid-cols-2')}>
         {PROJECTS.map((project) => (
           <li key={project.name}>

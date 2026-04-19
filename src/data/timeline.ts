@@ -127,7 +127,7 @@ export const TIMELINE: TimelineYear[] = [
     entries: [
       {
         tag: 'Milestone',
-        title: 'Moved to Silchar for university',
+        title: 'Moved from Silchar for university',
         description:
           'Packed up and left home for the first time to study Computer Science at Assam Don Bosco University.',
       },

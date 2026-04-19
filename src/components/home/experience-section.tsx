@@ -4,6 +4,8 @@ import { Anchor } from '@/components/ui/anchor';
 import { EXPERIENCES } from '@/data/experience';
 import { cn } from '@/lib/utils';
 
+import { SectionHeading } from './section-heading';
+
 export function ExperienceSection() {
   return (
     <section
@@ -11,15 +13,7 @@ export function ExperienceSection() {
       aria-label="Experience"
       className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
     >
-      <h2
-        className={cn(
-          'mb-5',
-          'font-serif text-2xl font-medium',
-          'text-muted-foreground',
-        )}
-      >
-        Where I&apos;ve been
-      </h2>
+      <SectionHeading>Where I&apos;ve been</SectionHeading>
       <ol className="relative">
         <div
           aria-hidden="true"
