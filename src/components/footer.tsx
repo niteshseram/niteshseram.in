@@ -3,6 +3,7 @@ import { cacheLife } from 'next/cache';
 import { Logo } from '@/components/logo';
 import { Anchor } from '@/components/ui/anchor';
 import { navItems } from '@/config/nav';
+import { LOCATION, SITE_NAME, SITE_TAGLINE } from '@/config/site';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
 
@@ -50,7 +51,7 @@ export async function Footer() {
             >
               <Logo size={24} />
               <span className="text-lg font-medium text-foreground">
-                Nitesh Seram
+                {SITE_NAME}
               </span>
             </Anchor>
             <p
@@ -60,9 +61,9 @@ export async function Footer() {
                 'text-muted-foreground',
               )}
             >
-              Engineering for the web.{' '}
+              {SITE_TAGLINE.primary}{' '}
               <span className="italic text-brand block">
-                Polished to the pixel.
+                {SITE_TAGLINE.accent}
               </span>
             </p>
           </div>
@@ -145,7 +146,7 @@ export async function Footer() {
           )}
         >
           <p>
-            <span aria-hidden="true">©</span> {year} Nitesh Seram. All rights
+            <span aria-hidden="true">©</span> {year} {SITE_NAME}. All rights
             reserved.
           </p>
           <p className="inline-flex items-center gap-x-1.5 max-sm:hidden">
@@ -153,7 +154,7 @@ export async function Footer() {
               aria-hidden="true"
               className={cn('size-1.5', 'rounded-full', 'bg-brand')}
             />
-            Crafted with care in Assam, India.
+            Crafted with care in {LOCATION}.
           </p>
         </div>
       </div>

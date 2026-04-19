@@ -2,17 +2,26 @@ export const SITE_URL = 'https://niteshseram.in';
 
 export const SITE_NAME = 'Nitesh Seram';
 
-export const SITE_DESCRIPTION =
-  'Frontend engineer based in Assam, India. Building for the web with a soft spot for performance, restraint, and the small details that make software feel considered.';
+export const LOCATION = 'Assam, India';
+
+export const SITE_DESCRIPTION = `Frontend engineer based in ${LOCATION}. Building for the web with a soft spot for performance, restraint, and the small details that make software feel considered.`;
+
+export const SITE_TAGLINE = {
+  primary: 'Engineering for the web.',
+  accent: 'Polished to the pixel.',
+} as const;
 
 export const SITE_LANGUAGE = 'en';
 
 export const AUTHOR = {
   name: SITE_NAME,
   jobTitle: 'Software Engineer',
+  location: LOCATION,
+  yearsExperience: '5+',
   employer: {
     name: 'GreatFrontEnd',
     url: 'https://www.greatfrontend.com',
+    description: 'a platform for engineers prepping for frontend interviews',
   },
 } as const;
 
