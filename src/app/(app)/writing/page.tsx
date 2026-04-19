@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 
 import { PostRow } from '@/components/writing/post-row';
+import { blogJsonLd, jsonLdScript } from '@/lib/jsonld';
 import { cn } from '@/lib/utils';
 import { getAllPosts } from '@/lib/writing';
 
 export const metadata: Metadata = {
-  title: 'Writing — Nitesh Seram',
+  title: 'Writing',
   description: 'Notes on frontend, craft, and the small details.',
 };
 
@@ -17,6 +18,7 @@ export default function WritingPage() {
       aria-label="Writing"
       className={cn('max-w-2xl mx-auto', 'px-4.5 pt-14 sm:pt-20 pb-16')}
     >
+      <script {...jsonLdScript(blogJsonLd())} />
       <header className="mb-12">
         <p
           className={cn(
@@ -33,9 +35,9 @@ export default function WritingPage() {
             'text-foreground',
           )}
         >
-          <span className="block">Notes &amp; essays.</span>
+          <span className="block">Field notes.</span>
           <span className="block italic text-brand">
-            Fewer words, honest ones.
+            On craft, and whatever else.
           </span>
         </h1>
         <p className={cn('mt-6', 'leading-relaxed', 'text-muted-foreground')}>

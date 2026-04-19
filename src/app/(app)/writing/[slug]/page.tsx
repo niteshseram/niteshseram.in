@@ -7,6 +7,7 @@ import { getMDXComponents } from '@/components/writing/mdx-components';
 import { PostFooter } from '@/components/writing/post-footer';
 import { PostHeader } from '@/components/writing/post-header';
 import { Prose } from '@/components/writing/prose';
+import { blogPostingJsonLd, jsonLdScript } from '@/lib/jsonld';
 import { cn } from '@/lib/utils';
 import { getAdjacent, getAllPosts, getPostBySlug } from '@/lib/writing';
 
@@ -52,6 +53,7 @@ export default async function WritingDetailPage({ params }: Props) {
 
   return (
     <article className={cn('max-w-2xl mx-auto', 'px-4.5 pt-14 sm:pt-20 pb-16')}>
+      <script {...jsonLdScript(blogPostingJsonLd(post))} />
       <Button
         href="/writing"
         variant="ghost"
