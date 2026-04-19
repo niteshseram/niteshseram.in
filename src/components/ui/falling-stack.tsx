@@ -38,6 +38,7 @@ export function FallingStack({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasContainerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const audioCtxRef = useRef<AudioContext | null>(null);
 
   const [runKey, setRunKey] = useState(0);
 
@@ -72,15 +73,17 @@ export function FallingStack({
       Mouse,
       MouseConstraint,
       Body,
+      Events,
     } = Matter;
 
     const canvasContainer = canvasContainerRef.current;
+    const container = containerRef.current;
 
-    if (!containerRef.current || !canvasContainer) {
+    if (!container || !canvasContainer) {
       return;
     }
 
-    const containerRect = containerRef.current.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
     const width = containerRect.width;
     const height = containerRect.height;
     if (width <= 0 || height <= 0) return;
@@ -168,7 +171,8 @@ export function FallingStack({
       ...chipBodies.map((cb) => cb.body),
     ]);
 
-    // Pre-simulate headlessly until the pile settles.
+    // Pre-simulate headlessly until the pile settles. Collision sounds are wired
+    // up after this loop so the silent-settle doesn't trigger any audio.
     for (let i = 0; i < SETTLE_STEPS; i++) {
       Engine.update(engine, SETTLE_DT);
     }
@@ -181,7 +185,56 @@ export function FallingStack({
       elem.style.opacity = '1';
     });
 
-    const mouse = Mouse.create(containerRef.current);
+    // AudioContext is created lazily on first user gesture inside the container —
+    // browsers block instantiation without one. Subsequent resets reuse the ctx.
+    const ensureAudio = () => {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new AudioContext();
+      }
+      if (audioCtxRef.current.state === 'suspended') {
+        audioCtxRef.current.resume();
+      }
+    };
+    container.addEventListener('pointerdown', ensureAudio);
+
+    let lastSlideAt = 0;
+    const onCollisionStart = (event: Matter.IEventCollision<Matter.Engine>) => {
+      const ctx = audioCtxRef.current;
+      if (!ctx || ctx.state !== 'running') return;
+      for (const pair of event.pairs) {
+        const { bodyA, bodyB } = pair;
+        const speed = Math.hypot(
+          bodyA.velocity.x - bodyB.velocity.x,
+          bodyA.velocity.y - bodyB.velocity.y,
+        );
+        if (speed < 1.5) continue;
+        playImpact(ctx, Math.min(1, speed / 10));
+      }
+    };
+    const onCollisionActive = (
+      event: Matter.IEventCollision<Matter.Engine>,
+    ) => {
+      const ctx = audioCtxRef.current;
+      if (!ctx || ctx.state !== 'running') return;
+      const t = ctx.currentTime;
+      if (t - lastSlideAt < 0.08) return;
+      for (const pair of event.pairs) {
+        const { bodyA, bodyB } = pair;
+        const speed = Math.hypot(
+          bodyA.velocity.x - bodyB.velocity.x,
+          bodyA.velocity.y - bodyB.velocity.y,
+        );
+        if (speed > 2.5 && speed < 9) {
+          playScrape(ctx, Math.min(1, speed / 12));
+          lastSlideAt = t;
+          return;
+        }
+      }
+    };
+    Events.on(engine, 'collisionStart', onCollisionStart);
+    Events.on(engine, 'collisionActive', onCollisionActive);
+
+    const mouse = Mouse.create(container);
     const mouseConstraint = MouseConstraint.create(engine, {
       mouse,
       constraint: {
@@ -239,6 +292,9 @@ export function FallingStack({
       window.removeEventListener('mouseup', releaseDrag);
       window.removeEventListener('touchend', releaseDrag);
       window.removeEventListener('pointerup', releaseDrag);
+      container.removeEventListener('pointerdown', ensureAudio);
+      Events.off(engine, 'collisionStart', onCollisionStart);
+      Events.off(engine, 'collisionActive', onCollisionActive);
       cancelAnimationFrame(rafId);
       Render.stop(render);
       Runner.stop(runner);
@@ -293,4 +349,65 @@ export function FallingStack({
       />
     </div>
   );
+}
+
+function playImpact(ctx: AudioContext, intensity: number) {
+  const now = ctx.currentTime;
+  const duration = 0.09;
+  const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * duration));
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    const decay = 1 - i / bufferSize;
+    data[i] = (Math.random() * 2 - 1) * decay * decay;
+  }
+  const source = ctx.createBufferSource();
+  source.buffer = buffer;
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.value = 600 + intensity * 2400;
+  filter.Q.value = 1;
+
+  const gain = ctx.createGain();
+  const peak = 0.04 + intensity * 0.16;
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(peak, now + 0.005);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(ctx.destination);
+  source.start(now);
+  source.stop(now + duration + 0.02);
+}
+
+function playScrape(ctx: AudioContext, intensity: number) {
+  const now = ctx.currentTime;
+  const duration = 0.07;
+  const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * duration));
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = (Math.random() * 2 - 1) * 0.6;
+  }
+  const source = ctx.createBufferSource();
+  source.buffer = buffer;
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.value = 1800 + intensity * 1800;
+  filter.Q.value = 0.7;
+
+  const gain = ctx.createGain();
+  const peak = 0.015 + intensity * 0.03;
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(peak, now + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(ctx.destination);
+  source.start(now);
+  source.stop(now + duration + 0.02);
 }
