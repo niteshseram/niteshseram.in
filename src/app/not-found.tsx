@@ -4,6 +4,10 @@ import { Terminal, TypingAnimation } from '@/components/terminal';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
+export const metadata = {
+  title: 'Page not found',
+};
+
 export default function NotFound() {
   return (
     <section className={cn('max-w-2xl', 'mx-auto px-4.5 pt-14 sm:pt-20 pb-12')}>
