@@ -88,9 +88,11 @@ export function CommandDialog({
 export function CommandInput({
   className,
   ref,
+  loading,
   ...props
 }: Omit<ComponentProps<typeof CmdkInput>, 'className'> & {
   className?: ClassValue;
+  loading?: boolean;
 }) {
   return (
     <div
@@ -102,7 +104,12 @@ export function CommandInput({
     >
       <PiMagnifyingGlass
         aria-hidden="true"
-        className="size-4 shrink-0 text-muted-foreground"
+        aria-busy={loading || undefined}
+        className={cn(
+          'size-4 shrink-0',
+          'text-muted-foreground',
+          loading && 'animate-pulse text-brand',
+        )}
       />
       <CmdkInput
         ref={ref}
