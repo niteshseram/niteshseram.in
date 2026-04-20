@@ -1,6 +1,6 @@
 import { PiArrowUpRight } from 'react-icons/pi';
 
-import { Anchor } from '@/components/ui/anchor';
+import { Button } from '@/components/ui/button';
 import { PostRow } from '@/components/writing/post-row';
 import { cn } from '@/lib/utils';
 import { getLatestPosts } from '@/lib/writing';
@@ -28,28 +28,14 @@ export function WritingSection() {
         ))}
       </ul>
       <div className="mt-6 flex justify-end">
-        <Anchor
+        <Button
           href="/writing"
-          variant="unstyled"
-          weight="inherit"
-          className={cn(
-            'group inline-flex items-center gap-x-1.5',
-            'font-mono text-xs',
-            'text-muted-foreground',
-            'transition-colors',
-            'hover:text-brand',
-          )}
-        >
-          All posts
-          <PiArrowUpRight
-            aria-hidden="true"
-            className={cn(
-              'size-3',
-              'transition-transform',
-              'group-hover:-translate-y-0.5 group-hover:translate-x-0.5',
-            )}
-          />
-        </Anchor>
+          variant="ghost"
+          size="sm"
+          icon={<PiArrowUpRight />}
+          label="All posts"
+          className="-mr-3"
+        />
       </div>
     </section>
   );
