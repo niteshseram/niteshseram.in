@@ -9,7 +9,11 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { PiArrowCounterClockwise } from 'react-icons/pi';
+import {
+  PiArrowCounterClockwise,
+  PiSpeakerHigh,
+  PiSpeakerSlash,
+} from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -39,12 +43,37 @@ export function FallingStack({
   const canvasContainerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
   const audioCtxRef = useRef<AudioContext | null>(null);
+  const mutedRef = useRef(false);
 
   const [runKey, setRunKey] = useState(0);
+  const [muted, setMuted] = useState(true);
+
+  useEffect(() => {
+    mutedRef.current = muted;
+  }, [muted]);
+
+  const ensureAudio = useCallback(() => {
+    if (!audioCtxRef.current) {
+      try {
+        audioCtxRef.current = new AudioContext();
+      } catch {
+        return;
+      }
+    }
+    if (audioCtxRef.current.state === 'suspended') {
+      audioCtxRef.current.resume().catch(() => {});
+    }
+  }, []);
 
   const reset = useCallback(() => {
+    ensureAudio();
     setRunKey((k) => k + 1);
-  }, []);
+  }, [ensureAudio]);
+
+  const toggleMute = useCallback(() => {
+    ensureAudio();
+    setMuted((m) => !m);
+  }, [ensureAudio]);
 
   // Re-run the simulation when the container size changes (dev resizes, viewport changes).
   useEffect(() => {
@@ -185,22 +214,19 @@ export function FallingStack({
       elem.style.opacity = '1';
     });
 
-    // AudioContext is created lazily on first user gesture inside the container —
-    // browsers block instantiation without one. Subsequent resets reuse the ctx.
-    const ensureAudio = () => {
-      if (!audioCtxRef.current) {
-        audioCtxRef.current = new AudioContext();
-      }
-      if (audioCtxRef.current.state === 'suspended') {
-        audioCtxRef.current.resume();
-      }
-    };
+    // AudioContext is created lazily on first user gesture (pointerdown or a
+    // button click). Also resume on tab return in case the browser suspended it.
     container.addEventListener('pointerdown', ensureAudio);
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') ensureAudio();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
 
     let lastSlideAt = 0;
     const onCollisionStart = (event: Matter.IEventCollision<Matter.Engine>) => {
+      if (mutedRef.current) return;
       const ctx = audioCtxRef.current;
-      if (!ctx || ctx.state !== 'running') return;
+      if (!ctx || ctx.state === 'closed') return;
       for (const pair of event.pairs) {
         const { bodyA, bodyB } = pair;
         const speed = Math.hypot(
@@ -214,8 +240,9 @@ export function FallingStack({
     const onCollisionActive = (
       event: Matter.IEventCollision<Matter.Engine>,
     ) => {
+      if (mutedRef.current) return;
       const ctx = audioCtxRef.current;
-      if (!ctx || ctx.state !== 'running') return;
+      if (!ctx || ctx.state === 'closed') return;
       const t = ctx.currentTime;
       if (t - lastSlideAt < 0.08) return;
       for (const pair of event.pairs) {
@@ -293,6 +320,7 @@ export function FallingStack({
       window.removeEventListener('touchend', releaseDrag);
       window.removeEventListener('pointerup', releaseDrag);
       container.removeEventListener('pointerdown', ensureAudio);
+      document.removeEventListener('visibilitychange', onVisibility);
       Events.off(engine, 'collisionStart', onCollisionStart);
       Events.off(engine, 'collisionActive', onCollisionActive);
       cancelAnimationFrame(rafId);
@@ -304,7 +332,7 @@ export function FallingStack({
       World.clear(engine.world, false);
       Engine.clear(engine);
     };
-  }, [runKey, gravity, mouseConstraintStiffness]);
+  }, [runKey, gravity, mouseConstraintStiffness, ensureAudio]);
 
   return (
     <div className={cn('relative', className)}>
@@ -335,18 +363,31 @@ export function FallingStack({
         />
       </div>
 
-      <Button
-        icon={<PiArrowCounterClockwise />}
-        isLabelHidden
-        label="Reset"
-        onClick={reset}
-        size="xs"
-        variant="outline"
+      <div
         className={cn(
           'absolute top-3 right-3 z-10',
-          'bg-background/80 backdrop-blur',
+          'flex items-center gap-1.5',
         )}
-      />
+      >
+        <Button
+          icon={muted ? <PiSpeakerSlash /> : <PiSpeakerHigh />}
+          isLabelHidden
+          label={muted ? 'Unmute audio' : 'Mute audio'}
+          onClick={toggleMute}
+          size="xs"
+          variant="outline"
+          className="bg-background/80 backdrop-blur"
+        />
+        <Button
+          icon={<PiArrowCounterClockwise />}
+          isLabelHidden
+          label="Reset"
+          onClick={reset}
+          size="xs"
+          variant="outline"
+          className="bg-background/80 backdrop-blur"
+        />
+      </div>
     </div>
   );
 }
