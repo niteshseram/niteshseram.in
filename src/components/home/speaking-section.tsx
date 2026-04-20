@@ -86,7 +86,7 @@ export function SpeakingSection() {
                 <h3
                   className={cn(
                     'mt-1.5',
-                    'font-serif text-base sm:text-lg leading-snug',
+                    'text-base leading-snug tracking-tight font-medium',
                     'text-foreground',
                     'transition-colors',
                     'group-hover:text-brand',

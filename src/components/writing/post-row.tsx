@@ -31,7 +31,7 @@ export function PostRow({ post, minutes }: Props) {
         >
           <h3
             className={cn(
-              'font-serif text-lg font-medium',
+              'text-lg tracking-tight leading-snug font-medium',
               'text-foreground',
               'transition-colors',
               'group-hover:text-brand',

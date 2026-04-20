@@ -57,7 +57,7 @@ export async function Footer() {
             <p
               className={cn(
                 'mt-3 max-w-[24ch]',
-                'text-base',
+                'text-base font-serif',
                 'text-muted-foreground',
               )}
             >

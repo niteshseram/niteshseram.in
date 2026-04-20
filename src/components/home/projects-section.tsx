@@ -14,7 +14,7 @@ export function ProjectsSection() {
       className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
     >
       <SectionHeading>Things I&apos;ve built</SectionHeading>
-      <ul className={cn('grid gap-4', 'sm:grid-cols-2')}>
+      <ul className={cn('grid gap-4')}>
         {PROJECTS.map((project) => (
           <li key={project.name}>
             <article

@@ -13,11 +13,11 @@ export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slugs[0] }));
 }
 
-const BACKGROUND = '#17140f';
+const BACKGROUND = '#070504';
 const BORDER = '#2a2520';
 const FOREGROUND = '#e8e2d9';
 const MUTED = '#9c938b';
-const BRAND = '#d17948';
+const BRAND = '#8cb6db';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -33,6 +33,16 @@ export default async function Image({ params }: Props) {
     day: 'numeric',
   });
   const minutes = Math.max(1, Math.round(post.data.readingTime.minutes));
+
+  const titleCap = 100;
+  const displayTitle =
+    title.length > titleCap ? `${title.slice(0, titleCap).trimEnd()}…` : title;
+
+  const summaryCap = 260;
+  const displaySummary =
+    summary && summary.length > summaryCap
+      ? `${summary.slice(0, summaryCap).trimEnd()}…`
+      : summary;
 
   const [
     dmSans,
@@ -57,7 +67,7 @@ export default async function Image({ params }: Props) {
         flexDirection: 'column',
         padding: 72,
         background: BACKGROUND,
-        backgroundImage: `radial-gradient(circle at 0% 0%, ${BRAND}1f 0%, transparent 45%), radial-gradient(${BORDER} 1px, transparent 1px)`,
+        backgroundImage: `radial-gradient(circle at 0% 0%, ${BRAND}3d 0%, transparent 60%), radial-gradient(${BORDER} 1px, transparent 1px)`,
         backgroundSize: '100% 100%, 28px 28px',
         color: FOREGROUND,
         fontFamily: 'DM Sans',
@@ -118,34 +128,28 @@ export default async function Image({ params }: Props) {
       >
         <div
           style={{
-            display: '-webkit-box',
-            overflow: 'hidden',
-            WebkitBoxOrient: 'vertical',
-            WebkitLineClamp: 3,
+            display: 'flex',
             fontFamily: 'Instrument Serif',
-            fontSize: title.length > 70 ? 60 : title.length > 40 ? 72 : 88,
+            fontSize: 60,
             lineHeight: 1.05,
             letterSpacing: -1.5,
             color: FOREGROUND,
           }}
         >
-          {title}
+          {displayTitle}
         </div>
-        {summary ? (
+        {displaySummary ? (
           <div
             style={{
-              display: '-webkit-box',
-              overflow: 'hidden',
-              WebkitBoxOrient: 'vertical',
-              WebkitLineClamp: 3,
+              display: 'flex',
               marginTop: 28,
               maxWidth: 1000,
-              fontSize: summary.length > 120 ? 22 : 26,
+              fontSize: 22,
               lineHeight: 1.4,
               color: MUTED,
             }}
           >
-            {summary}
+            {displaySummary}
           </div>
         ) : null}
       </div>
