@@ -91,7 +91,7 @@ export function Terminal({
   startOnView = true,
 }: TerminalProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(containerRef, { once: true, amount: 0.3 });
+  const inView = useInView(containerRef, { once: true, amount: 0.4 });
   const shouldStart = !startOnView || inView;
 
   const sequencedChildren = useMemo(() => {
@@ -175,7 +175,7 @@ export function TerminalCursor() {
     <span
       aria-hidden="true"
       className={cn(
-        'ml-1 inline-block h-3 w-1.5 align-middle',
+        'ml-1 inline-block h-4 w-1.5 align-middle',
         'bg-brand',
         'animate-blink',
       )}
