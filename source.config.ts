@@ -35,8 +35,8 @@ export default defineConfig({
   mdxOptions: {
     rehypeCodeOptions: {
       themes: {
-        light: 'one-light',
-        dark: 'one-dark-pro',
+        light: 'catppuccin-latte',
+        dark: 'catppuccin-mocha',
       },
       defaultLanguage: 'plaintext',
     },
