@@ -24,18 +24,18 @@ export function ScrollProgressRail({
     damping: 30,
     restDelta: 0.001,
   });
-  const tipTop = useTransform(smoothProgress, (v) => `${v * 100}%`);
+  const fillHeight = useTransform(smoothProgress, (v) => `${v * 100}%`);
   const tipOpacity = useTransform(smoothProgress, [0, 0.04], [0, 1]);
 
   return (
     <div aria-hidden="true" className={cn('pointer-events-none', className)}>
       <div className={cn('absolute inset-0', 'bg-border')} />
       <motion.div
-        style={{ scaleY: smoothProgress, transformOrigin: '50% 0%' }}
-        className={cn('absolute inset-0', 'bg-brand')}
+        style={{ height: fillHeight }}
+        className={cn('absolute inset-x-0 top-0', 'bg-brand')}
       />
       <motion.div
-        style={{ top: tipTop, opacity: tipOpacity }}
+        style={{ top: fillHeight, opacity: tipOpacity }}
         className={cn(
           'absolute left-1/2 size-4 -translate-x-1/2 -translate-y-1/2',
           'rounded-full',

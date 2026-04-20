@@ -26,7 +26,7 @@ export function ExperienceSection() {
           <li
             key={experience.company}
             className={cn(
-              'relative pl-7',
+              'relative pl-6 sm:pl-8',
               index !== EXPERIENCES.length - 1 && 'pb-8',
             )}
           >
