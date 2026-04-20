@@ -4,9 +4,11 @@ import { PiArrowLeft } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
 import { getMDXComponents } from '@/components/writing/mdx-components';
+import { PostActions } from '@/components/writing/post-actions';
 import { PostFooter } from '@/components/writing/post-footer';
 import { PostHeader } from '@/components/writing/post-header';
 import { Prose } from '@/components/writing/prose';
+import { getCanonicalUrl, getGithubSourceUrl } from '@/lib/get-llm-text';
 import { blogPostingJsonLd, jsonLdScript } from '@/lib/jsonld';
 import { pageMetadata } from '@/lib/metadata';
 import { cn } from '@/lib/utils';
@@ -59,15 +61,22 @@ export default async function WritingDetailPage({ params }: Props) {
       <article
         className={cn('max-w-2xl mx-auto', 'px-4.5 pt-14 sm:pt-20 pb-16')}
       >
-        <Button
-          href="/writing"
-          variant="ghost"
-          size="xs"
-          icon={<PiArrowLeft />}
-          addonPosition="start"
-          label="All writing"
-          className="mb-8 -ml-3"
-        />
+        <div className={cn('flex items-center justify-between gap-3', 'mb-8')}>
+          <Button
+            href="/writing"
+            variant="ghost"
+            size="xs"
+            icon={<PiArrowLeft />}
+            addonPosition="start"
+            label="All writing"
+            className="-ml-3"
+          />
+          <PostActions
+            markdownUrl={`/writing/${slug}.mdx`}
+            githubUrl={getGithubSourceUrl(post)}
+            pageUrl={getCanonicalUrl(post)}
+          />
+        </div>
         <PostHeader
           title={post.data.title}
           summary={post.data.summary}
