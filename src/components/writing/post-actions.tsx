@@ -204,6 +204,8 @@ function MenuLink({
 function CursorIcon() {
   return (
     <svg
+      width="16"
+      height="16"
       fill="currentColor"
       role="img"
       viewBox="0 0 24 24"
