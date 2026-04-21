@@ -81,25 +81,12 @@ export default async function Image({ params }: Props) {
           justifyContent: 'space-between',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <svg width="40" height="44" viewBox="0 0 188 200">
-            <g transform="translate(0,200) scale(0.1,-0.1)" fill={FOREGROUND}>
-              <path d="M90 1000 l0 -910 360 0 360 0 0 910 0 910 -360 0 -360 0 0 -910z" />
-              <path d="M1060 1001 l0 -911 370 0 370 0 0 668 c-1 750 -3 774 -66 900 -84 165 -239 238 -526 249 l-148 6 0 -912z" />
-            </g>
-          </svg>
-          <div
-            style={{
-              display: 'flex',
-              fontSize: 22,
-              fontWeight: 500,
-              color: FOREGROUND,
-              letterSpacing: -0.2,
-            }}
-          >
-            {AUTHOR.name}
-          </div>
-        </div>
+        <svg width="40" height="44" viewBox="0 0 188 200">
+          <g transform="translate(0,200) scale(0.1,-0.1)" fill={FOREGROUND}>
+            <path d="M90 1000 l0 -910 360 0 360 0 0 910 0 910 -360 0 -360 0 0 -910z" />
+            <path d="M1060 1001 l0 -911 370 0 370 0 0 668 c-1 750 -3 774 -66 900 -84 165 -239 238 -526 249 l-148 6 0 -912z" />
+          </g>
+        </svg>
         <div
           style={{
             display: 'flex',
