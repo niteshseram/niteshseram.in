@@ -1,6 +1,6 @@
 'use client';
 
-import { animate, useInView } from 'motion/react';
+import { animate, useInView, useReducedMotion } from 'motion/react';
 import {
   Children,
   cloneElement,
@@ -40,6 +40,7 @@ export function TypingAnimation({
   const gateSignal = useContext(StartGateContext);
   const shouldStart =
     gateSignal !== null ? gateSignal : !startOnView || ownInView;
+  const prefersReducedMotion = useReducedMotion();
 
   const [displayed, setDisplayed] = useState('');
   const [hasStarted, setHasStarted] = useState(false);
@@ -49,13 +50,19 @@ export function TypingAnimation({
     if (!shouldStart) {
       return;
     }
+    if (prefersReducedMotion) {
+      setHasStarted(true);
+      setDisplayed(children);
+      return;
+    }
     let controls: ReturnType<typeof animate> | null = null;
     const timer = setTimeout(() => {
       setHasStarted(true);
       controls = animate(0, children.length, {
         duration: (children.length * duration) / 1000,
         ease: 'linear',
-        onUpdate: (v) => setDisplayed(children.substring(0, Math.floor(v))),
+        onUpdate: (value) =>
+          setDisplayed(children.substring(0, Math.floor(value))),
         onComplete: () => setDisplayed(children),
       });
     }, delay);
@@ -63,7 +70,7 @@ export function TypingAnimation({
       clearTimeout(timer);
       controls?.stop();
     };
-  }, [shouldStart, children, duration, delay]);
+  }, [shouldStart, children, duration, delay, prefersReducedMotion]);
 
   const showCursor = hasStarted && (!isDone || keepCursor);
 

@@ -14,7 +14,6 @@ import {
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
@@ -48,24 +47,22 @@ export function GithubContributionClient({ contributions, className }: Props) {
         blockSize={11}
         fontSize={11}
       >
-        <TooltipProvider>
-          <ContributionGraphCalendar>
-            {({ activity, dayIndex, weekIndex }) => (
-              <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <ContributionGraphBlock
-                      activity={activity}
-                      dayIndex={dayIndex}
-                      weekIndex={weekIndex}
-                    />
-                  }
-                />
-                <TooltipContent>{formatTooltip(activity)}</TooltipContent>
-              </Tooltip>
-            )}
-          </ContributionGraphCalendar>
-        </TooltipProvider>
+        <ContributionGraphCalendar>
+          {({ activity, dayIndex, weekIndex }) => (
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <ContributionGraphBlock
+                    activity={activity}
+                    dayIndex={dayIndex}
+                    weekIndex={weekIndex}
+                  />
+                }
+              />
+              <TooltipContent>{formatTooltip(activity)}</TooltipContent>
+            </Tooltip>
+          )}
+        </ContributionGraphCalendar>
         <ContributionGraphFooter>
           <ContributionGraphTotalCount>
             {({ totalCount, year }) => (

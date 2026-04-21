@@ -1,6 +1,12 @@
 'use client';
 
-import { motion, useScroll, useSpring, useTransform } from 'motion/react';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from 'motion/react';
 import type { RefObject } from 'react';
 
 import { cn } from '@/lib/utils';
@@ -18,14 +24,16 @@ export function ScrollProgressRail({
   className,
   offset = ['start 70%', 'end 60%'],
 }: Props) {
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: targetRef, offset });
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 30,
     restDelta: 0.001,
   });
-  const fillHeight = useTransform(smoothProgress, (v) => `${v * 100}%`);
-  const tipOpacity = useTransform(smoothProgress, [0, 0.04], [0, 1]);
+  const progress = prefersReducedMotion ? scrollYProgress : smoothProgress;
+  const fillHeight = useTransform(progress, (value) => `${value * 100}%`);
+  const tipOpacity = useTransform(progress, [0, 0.04], [0, 1]);
 
   return (
     <div aria-hidden="true" className={cn('pointer-events-none', className)}>

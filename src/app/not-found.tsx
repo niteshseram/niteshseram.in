@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <section className={cn('max-w-2xl', 'mx-auto px-4.5 pt-14 sm:pt-20 pb-12')}>
+    <main className={cn('max-w-2xl', 'mx-auto px-4.5 pt-14 sm:pt-20 pb-12')}>
       <p
         className={cn(
           'font-mono text-xs uppercase tracking-[0.22em]',
@@ -68,6 +68,6 @@ export default function NotFound() {
           {'$ cd ~'}
         </TypingAnimation>
       </Terminal>
-    </section>
+    </main>
   );
 }

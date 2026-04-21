@@ -132,7 +132,11 @@ export function CommandList({
 }) {
   return (
     <CmdkList
-      className={cn('max-h-80 overflow-y-auto p-1.5', className)}
+      className={cn(
+        'max-h-80 overflow-y-auto overscroll-contain',
+        'p-1.5',
+        className,
+      )}
       {...props}
     />
   );

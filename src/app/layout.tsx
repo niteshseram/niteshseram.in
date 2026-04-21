@@ -1,7 +1,8 @@
 import { GoogleAnalytics } from '@next/third-parties/google';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 import { ThemeProvider } from '@/components/theme-provider';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { AUTHOR, SITE_DESCRIPTION, SITE_URL } from '@/config/site';
 import { fontVariables } from '@/lib/fonts';
 
@@ -26,6 +27,13 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#141311' },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,7 +53,9 @@ export default function RootLayout({
           enableSystem={true}
           disableTransitionOnChange={true}
         >
-          {children}
+          <TooltipProvider delay={400} closeDelay={0}>
+            {children}
+          </TooltipProvider>
         </ThemeProvider>
       </body>
       {gaId && isProduction ? <GoogleAnalytics gaId={gaId} /> : null}
