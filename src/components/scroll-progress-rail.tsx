@@ -37,9 +37,9 @@ export function ScrollProgressRail({
       <motion.div
         style={{ top: fillHeight, opacity: tipOpacity }}
         className={cn(
-          'absolute left-1/2 size-4 -translate-x-1/2 -translate-y-1/2',
+          'absolute left-1/2 size-0 -translate-x-1/2 -translate-y-1/2',
           'rounded-full',
-          'bg-brand/60 blur-[4px]',
+          'bg-brand shadow-[0_0_10px_6px_var(--color-brand)]',
         )}
       />
     </div>
