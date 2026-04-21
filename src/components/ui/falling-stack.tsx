@@ -11,6 +11,8 @@ import {
 } from 'react';
 import {
   PiArrowCounterClockwise,
+  PiDeviceMobile,
+  PiDeviceMobileSlash,
   PiSpeakerHigh,
   PiSpeakerSlash,
 } from 'react-icons/pi';
@@ -44,13 +46,54 @@ export function FallingStack({
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const mutedRef = useRef(false);
+  const engineRef = useRef<Matter.Engine | null>(null);
+  const bodiesRef = useRef<Matter.Body[]>([]);
 
   const [runKey, setRunKey] = useState(0);
   const [muted, setMuted] = useState(true);
+  const [tiltSupported, setTiltSupported] = useState(false);
+  const [tiltEnabled, setTiltEnabled] = useState(false);
 
   useEffect(() => {
     mutedRef.current = muted;
   }, [muted]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hasOrientation = 'DeviceOrientationEvent' in window;
+    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    setTiltSupported(hasOrientation && hasTouch);
+  }, []);
+
+  const toggleTilt = useCallback(async () => {
+    if (tiltEnabled) {
+      setTiltEnabled(false);
+      return;
+    }
+    const DOE = window.DeviceOrientationEvent as
+      | (typeof window.DeviceOrientationEvent & {
+          requestPermission?: () => Promise<'granted' | 'denied'>;
+        })
+      | undefined;
+    const DME = window.DeviceMotionEvent as
+      | (typeof window.DeviceMotionEvent & {
+          requestPermission?: () => Promise<'granted' | 'denied'>;
+        })
+      | undefined;
+    try {
+      if (typeof DOE?.requestPermission === 'function') {
+        const res = await DOE.requestPermission();
+        if (res !== 'granted') return;
+      }
+      if (typeof DME?.requestPermission === 'function') {
+        const res = await DME.requestPermission();
+        if (res !== 'granted') return;
+      }
+    } catch {
+      return;
+    }
+    setTiltEnabled(true);
+  }, [tiltEnabled]);
 
   const ensureAudio = useCallback(() => {
     if (!audioCtxRef.current) {
@@ -118,7 +161,8 @@ export function FallingStack({
     if (width <= 0 || height <= 0) return;
 
     const engine = Engine.create();
-    engine.world.gravity.y = gravity;
+    engine.gravity.y = gravity;
+    engineRef.current = engine;
 
     const render = Render.create({
       element: canvasContainer,
@@ -199,6 +243,7 @@ export function FallingStack({
       ceiling,
       ...chipBodies.map((cb) => cb.body),
     ]);
+    bodiesRef.current = chipBodies.map((cb) => cb.body);
 
     // Pre-simulate headlessly until the pile settles. Collision sounds are wired
     // up after this loop so the silent-settle doesn't trigger any audio.
@@ -331,8 +376,74 @@ export function FallingStack({
       }
       World.clear(engine.world, false);
       Engine.clear(engine);
+      engineRef.current = null;
+      bodiesRef.current = [];
     };
   }, [runKey, gravity, mouseConstraintStiffness, ensureAudio]);
+
+  useEffect(() => {
+    const engine = engineRef.current;
+    if (!engine) return;
+    if (!tiltEnabled) {
+      engine.gravity.x = 0;
+      engine.gravity.y = gravity;
+      return;
+    }
+
+    const TILT_SCALE = 1.6;
+    const SHAKE_THRESHOLD = 22;
+    const SHAKE_COOLDOWN_MS = 350;
+
+    const onOrient = (ev: DeviceOrientationEvent) => {
+      const e = engineRef.current;
+      if (!e) return;
+      const beta = ev.beta ?? 0;
+      const gamma = ev.gamma ?? 0;
+      const gx = Math.sin((gamma * Math.PI) / 180);
+      const gy = Math.sin((beta * Math.PI) / 180);
+      e.gravity.x = gx * TILT_SCALE;
+      e.gravity.y = gy * TILT_SCALE;
+    };
+
+    let lastAccel: { x: number; y: number; z: number } | null = null;
+    let lastShakeAt = 0;
+    const onMotion = (ev: DeviceMotionEvent) => {
+      const a = ev.accelerationIncludingGravity;
+      if (!a) return;
+      const ax = a.x ?? 0;
+      const ay = a.y ?? 0;
+      const az = a.z ?? 0;
+      if (lastAccel) {
+        const dx = ax - lastAccel.x;
+        const dy = ay - lastAccel.y;
+        const dz = az - lastAccel.z;
+        const delta = Math.hypot(dx, dy, dz);
+        const now = performance.now();
+        if (delta > SHAKE_THRESHOLD && now - lastShakeAt > SHAKE_COOLDOWN_MS) {
+          lastShakeAt = now;
+          const strength = Math.min(3, delta / 15);
+          bodiesRef.current.forEach((body) => {
+            Matter.Body.setVelocity(body, {
+              x: body.velocity.x + (Math.random() - 0.5) * 10 * strength,
+              y: body.velocity.y + (Math.random() * -1 - 0.2) * 6 * strength,
+            });
+            Matter.Body.setAngularVelocity(
+              body,
+              body.angularVelocity + (Math.random() - 0.5) * 0.25 * strength,
+            );
+          });
+        }
+      }
+      lastAccel = { x: ax, y: ay, z: az };
+    };
+
+    window.addEventListener('deviceorientation', onOrient);
+    window.addEventListener('devicemotion', onMotion);
+    return () => {
+      window.removeEventListener('deviceorientation', onOrient);
+      window.removeEventListener('devicemotion', onMotion);
+    };
+  }, [tiltEnabled, gravity, runKey]);
 
   return (
     <div className={cn('relative', className)}>
@@ -369,6 +480,17 @@ export function FallingStack({
           'flex items-center gap-1.5',
         )}
       >
+        {tiltSupported ? (
+          <Button
+            icon={tiltEnabled ? <PiDeviceMobile /> : <PiDeviceMobileSlash />}
+            isLabelHidden
+            label={tiltEnabled ? 'Disable tilt & shake' : 'Enable tilt & shake'}
+            onClick={toggleTilt}
+            size="xs"
+            variant="outline"
+            className="bg-background/80 backdrop-blur"
+          />
+        ) : null}
         <Button
           icon={muted ? <PiSpeakerSlash /> : <PiSpeakerHigh />}
           isLabelHidden
