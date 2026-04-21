@@ -1,21 +1,5 @@
-import { PiBarbell, PiFilmSlate } from 'react-icons/pi';
-
+import { OFF_THE_CLOCK } from '@/data/about';
 import { cn } from '@/lib/utils';
-
-const ITEMS = [
-  {
-    icon: PiBarbell,
-    title: 'At the gym',
-    description:
-      'A lot of my week runs through the gym. It\u2019s where I clear my head.',
-  },
-  {
-    icon: PiFilmSlate,
-    title: 'On the couch',
-    description:
-      'A legitimate hobby. Netflix, slow evenings, and nothing to prove.',
-  },
-];
 
 export function OffTheClock() {
   return (
@@ -43,7 +27,7 @@ export function OffTheClock() {
         when the laptop closes.
       </p>
       <ul className={cn('grid gap-3', 'sm:grid-cols-2')}>
-        {ITEMS.map((item) => {
+        {OFF_THE_CLOCK.map((item) => {
           const Icon = item.icon;
           return (
             <li key={item.title}>

@@ -1,4 +1,4 @@
-import { AUTHOR } from '@/config/site';
+import { ABOUT_PROSE } from '@/data/about';
 import { cn } from '@/lib/utils';
 
 export function AboutIntro() {
@@ -30,31 +30,23 @@ export function AboutIntro() {
           'text-muted-foreground',
         )}
       >
-        <p>
-          I didn&apos;t grow up planning to write CSS for a living. The plan —
-          as far as plans go in a small town in{' '}
-          {`${AUTHOR.name} - ${AUTHOR.jobTitle}`} — was medicine. Engineering
-          snuck up on me in 2015, and by the time I realized I&apos;d chosen it
-          for real, it already felt like the right wrong turn.
-        </p>
-        <p>
-          What pulled me toward the{' '}
-          <span className="font-medium text-foreground">frontend</span>{' '}
-          specifically was the feedback loop. Backends have their own elegance,
-          but the frontend gave me something immediate — a shape, a color, a
-          transition that either feels right or doesn&apos;t. I spent the first
-          few years learning how to make things work. The last few have been
-          about making them feel good.
-        </p>
-        <p>
-          I work best when I can trace a thread all the way through — from a
-          rough idea, to the interaction that expresses it, to the edge cases
-          nobody asks about until they hit one. I&apos;ve come to trust boring
-          code that never surprises anyone, and careful restraint over another
-          dependency. Most of the craft, I think, is in what you choose to leave
-          out.
-        </p>
+        {ABOUT_PROSE.map((paragraph, i) => (
+          <p key={i}>{renderEmphasis(paragraph)}</p>
+        ))}
       </div>
     </section>
   );
+}
+
+function renderEmphasis(text: string): React.ReactNode[] {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return (
+        <span key={i} className="font-medium text-foreground">
+          {part.slice(2, -2)}
+        </span>
+      );
+    }
+    return part;
+  });
 }
