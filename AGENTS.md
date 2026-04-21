@@ -44,3 +44,14 @@ className={cn(
   'data-open:bg-muted',
 )}
 ```
+
+# Naming — no single-letter identifiers
+
+Use descriptive names for variables, parameters, and destructured aliases. Do not abbreviate just to save keystrokes: write `event`, `engine`, `angle`, `element`, `callback` — not `e`, `a`, `el`, `cb`.
+
+Exceptions (allowed):
+
+- Loop counters in tight `for` loops: `for (let i = 0; i < n; i++)`.
+- Established math/physics vector components used as a pair: `dx`/`dy`, `gx`/`gy`, `cos`/`sin`. These are only acceptable when they clearly represent a single mathematical entity in a short scope — don't reuse the same name for two different concepts in the same function.
+
+When a letter has multiple possible meanings in context (e.g. `a` could be "angle" or "acceleration"), always write the full word.

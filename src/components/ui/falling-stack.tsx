@@ -394,34 +394,46 @@ export function FallingStack({
     const SHAKE_THRESHOLD = 22;
     const SHAKE_COOLDOWN_MS = 350;
 
-    const onOrient = (ev: DeviceOrientationEvent) => {
-      const e = engineRef.current;
-      if (!e) return;
-      const beta = ev.beta ?? 0;
-      const gamma = ev.gamma ?? 0;
-      const gx = Math.sin((gamma * Math.PI) / 180);
-      const gy = Math.sin((beta * Math.PI) / 180);
-      e.gravity.x = gx * TILT_SCALE;
-      e.gravity.y = gy * TILT_SCALE;
+    const onOrient = (event: DeviceOrientationEvent) => {
+      const currentEngine = engineRef.current;
+      if (!currentEngine) return;
+      const beta = event.beta ?? 0;
+      const gamma = event.gamma ?? 0;
+      const deviceX = Math.sin((gamma * Math.PI) / 180);
+      const deviceY = Math.sin((beta * Math.PI) / 180);
+      const screenAngleDeg =
+        screen.orientation?.angle ??
+        (window as Window & { orientation?: number }).orientation ??
+        0;
+      const screenAngleRad = (screenAngleDeg * Math.PI) / 180;
+      const cos = Math.cos(screenAngleRad);
+      const sin = Math.sin(screenAngleRad);
+      const gx = deviceX * cos + deviceY * sin;
+      const gy = -deviceX * sin + deviceY * cos;
+      currentEngine.gravity.x = gx * TILT_SCALE;
+      currentEngine.gravity.y = gy * TILT_SCALE;
     };
 
     let lastAccel: { x: number; y: number; z: number } | null = null;
     let lastShakeAt = 0;
-    const onMotion = (ev: DeviceMotionEvent) => {
-      const a = ev.accelerationIncludingGravity;
-      if (!a) return;
-      const ax = a.x ?? 0;
-      const ay = a.y ?? 0;
-      const az = a.z ?? 0;
+    const onMotion = (event: DeviceMotionEvent) => {
+      const accel = event.accelerationIncludingGravity;
+      if (!accel) return;
+      const accelX = accel.x ?? 0;
+      const accelY = accel.y ?? 0;
+      const accelZ = accel.z ?? 0;
       if (lastAccel) {
-        const dx = ax - lastAccel.x;
-        const dy = ay - lastAccel.y;
-        const dz = az - lastAccel.z;
-        const delta = Math.hypot(dx, dy, dz);
+        const deltaX = accelX - lastAccel.x;
+        const deltaY = accelY - lastAccel.y;
+        const deltaZ = accelZ - lastAccel.z;
+        const deltaMagnitude = Math.hypot(deltaX, deltaY, deltaZ);
         const now = performance.now();
-        if (delta > SHAKE_THRESHOLD && now - lastShakeAt > SHAKE_COOLDOWN_MS) {
+        if (
+          deltaMagnitude > SHAKE_THRESHOLD &&
+          now - lastShakeAt > SHAKE_COOLDOWN_MS
+        ) {
           lastShakeAt = now;
-          const strength = Math.min(3, delta / 15);
+          const strength = Math.min(3, deltaMagnitude / 15);
           bodiesRef.current.forEach((body) => {
             Matter.Body.setVelocity(body, {
               x: body.velocity.x + (Math.random() - 0.5) * 10 * strength,
@@ -434,7 +446,7 @@ export function FallingStack({
           });
         }
       }
-      lastAccel = { x: ax, y: ay, z: az };
+      lastAccel = { x: accelX, y: accelY, z: accelZ };
     };
 
     window.addEventListener('deviceorientation', onOrient);
