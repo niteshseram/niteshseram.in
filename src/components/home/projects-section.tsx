@@ -13,7 +13,7 @@ export function ProjectsSection() {
       aria-label="Projects"
       className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
     >
-      <SectionHeading>Things I&apos;ve built</SectionHeading>
+      <SectionHeading>Things I’ve built</SectionHeading>
       <ul className={cn('grid gap-4')}>
         {PROJECTS.map((project) => (
           <li key={project.name}>

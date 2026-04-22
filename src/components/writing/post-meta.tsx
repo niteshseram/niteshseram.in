@@ -24,7 +24,7 @@ export function PostMeta({ date, minutes, className }: Props) {
       {minutes != null && (
         <>
           <span aria-hidden="true">·</span>
-          <span>{minutes} min read</span>
+          <span>{minutes}&nbsp;min read</span>
         </>
       )}
     </div>

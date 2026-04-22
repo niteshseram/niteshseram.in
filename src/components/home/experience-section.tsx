@@ -13,7 +13,7 @@ export function ExperienceSection() {
       aria-label="Experience"
       className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
     >
-      <SectionHeading>Where I&apos;ve been</SectionHeading>
+      <SectionHeading>Where I’ve been</SectionHeading>
       <ol className="relative">
         <div
           aria-hidden="true"

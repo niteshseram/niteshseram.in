@@ -17,7 +17,7 @@ export function WritingSection() {
       aria-label="Writing"
       className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
     >
-      <SectionHeading>Lately I&apos;ve been writing</SectionHeading>
+      <SectionHeading>Lately I’ve been writing</SectionHeading>
       <ul className="flex flex-col divide-y divide-border">
         {posts.map((post) => (
           <PostRow

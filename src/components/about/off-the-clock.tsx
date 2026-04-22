@@ -23,8 +23,8 @@ export function OffTheClock() {
           'text-muted-foreground',
         )}
       >
-        Life outside work isn&apos;t all code. A few things I fall back into
-        when the laptop closes.
+        Life outside work isn’t all code. A few things I fall back into when the
+        laptop closes.
       </p>
       <ul className={cn('grid gap-3', 'sm:grid-cols-2')}>
         {OFF_THE_CLOCK.map((item) => {

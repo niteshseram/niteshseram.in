@@ -5,6 +5,11 @@ const withMDX = createMDX();
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'img.youtube.com', pathname: '/vi/**' },
+    ],
+  },
   async redirects() {
     return [
       { source: '/blog', destination: '/writing', permanent: true },

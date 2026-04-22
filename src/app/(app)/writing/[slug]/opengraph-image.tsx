@@ -197,7 +197,7 @@ export default async function Image({ params }: Props) {
               background: BORDER,
             }}
           />
-          <div style={{ display: 'flex' }}>{minutes} min read</div>
+          <div style={{ display: 'flex' }}>{minutes} min read</div>
         </div>
       </div>
     </div>,

@@ -112,7 +112,7 @@ export function CommandMenuDialog({ open, onOpenChange, posts }: Props) {
       filter={dialogFilter}
     >
       <CommandInput
-        placeholder="Type a command or search..."
+        placeholder="Type a command or search…"
         value={search}
         onValueChange={setSearch}
         loading={isSearching && query.isLoading}

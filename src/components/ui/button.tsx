@@ -203,6 +203,7 @@ export function Button<RouteType>({
     isLabelHidden
       ? [iconOnlySizeClasses[size], radiusClass]
       : [heightClasses[size], paddingClasses[size], radiusClass],
+    'pointer-coarse:min-h-11 pointer-coarse:min-w-11',
     spacingClasses[size],
     fontSizeClasses[size],
     'whitespace-nowrap font-medium',

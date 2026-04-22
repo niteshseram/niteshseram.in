@@ -27,7 +27,7 @@ function formatTooltip(activity: Activity) {
   const date = format(parseISO(activity.date), 'MMM d, yyyy');
   if (activity.count === 0) return `No contributions on ${date}`;
   const unit = activity.count === 1 ? 'contribution' : 'contributions';
-  return `${activity.count} ${unit} on ${date}`;
+  return `${activity.count} ${unit} on ${date}`;
 }
 
 export function GithubContributionClient({ contributions, className }: Props) {
@@ -67,8 +67,8 @@ export function GithubContributionClient({ contributions, className }: Props) {
           <ContributionGraphTotalCount>
             {({ totalCount, year }) => (
               <p className="text-muted-foreground">
-                <span className="text-foreground">{totalCount}</span>{' '}
-                contributions in {year}
+                <span className="text-foreground">{totalCount}</span>
+                &nbsp;contributions in {year}
               </p>
             )}
           </ContributionGraphTotalCount>

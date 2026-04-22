@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { PiArrowUpRight, PiPlayFill } from 'react-icons/pi';
 
 import { Anchor } from '@/components/ui/anchor';
@@ -37,14 +38,14 @@ export function SpeakingSection() {
                   'bg-muted',
                 )}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  alt=""
+                <Image
+                  alt="Video thumbnail from YouTube"
                   aria-hidden="true"
-                  loading="lazy"
+                  fill
+                  sizes="(min-width: 640px) 13rem, 8rem"
                   src={`https://img.youtube.com/vi/${talk.youtubeId}/maxresdefault.jpg`}
                   className={cn(
-                    'size-full object-cover',
+                    'object-cover',
                     'transition-transform duration-500',
                     'group-hover:scale-[1.05]',
                   )}

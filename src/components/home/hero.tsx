@@ -21,7 +21,7 @@ export function Hero() {
         <span className="block italic text-brand">{SITE_TAGLINE.accent}</span>
       </h1>
       <p className={cn('mt-6', 'leading-relaxed', 'text-muted-foreground')}>
-        Hi, I&apos;m{' '}
+        Hi, I’m{' '}
         <span className="font-medium text-foreground">{AUTHOR.name}</span> — a{' '}
         {AUTHOR.jobTitle} based in {AUTHOR.location}, with{' '}
         {AUTHOR.yearsExperience} years of building for the web. Currently,
@@ -30,8 +30,8 @@ export function Hero() {
           {AUTHOR.employer.name}
         </Anchor>{' '}
         — {AUTHOR.employer.description}. My days are React, TypeScript, and CSS
-        problems that look trivial until they aren&apos;t. I care about
-        performance and the small details nobody notices.
+        problems that look trivial until they aren’t. I care about performance
+        and the small details nobody notices.
       </p>
       <div className="mt-8 flex flex-wrap items-center gap-2.5">
         {[SOCIAL_LINKS.github, SOCIAL_LINKS.x, SOCIAL_LINKS.linkedin].map(

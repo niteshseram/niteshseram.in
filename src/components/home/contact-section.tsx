@@ -50,7 +50,7 @@ export function ContactSection() {
             )}
           >
             <span className="block">Got something in mind?</span>
-            <span className="block italic text-brand">Let&apos;s talk.</span>
+            <span className="block italic text-brand">Let’s talk.</span>
           </p>
 
           <p className={cn('mt-5', 'leading-relaxed', 'text-muted-foreground')}>
