@@ -261,11 +261,13 @@ export function FallingStack({
 
     // AudioContext is created lazily on first user gesture (pointerdown or a
     // button click). Also resume on tab return in case the browser suspended it.
-    container.addEventListener('pointerdown', ensureAudio);
+    container.addEventListener('pointerdown', ensureAudio, { passive: true });
     const onVisibility = () => {
       if (document.visibilityState === 'visible') ensureAudio();
     };
-    document.addEventListener('visibilitychange', onVisibility);
+    document.addEventListener('visibilitychange', onVisibility, {
+      passive: true,
+    });
 
     let lastSlideAt = 0;
     const onCollisionStart = (event: Matter.IEventCollision<Matter.Engine>) => {
@@ -339,9 +341,9 @@ export function FallingStack({
       mc.constraint.bodyB = null;
       mouse.button = -1;
     };
-    window.addEventListener('mouseup', releaseDrag);
-    window.addEventListener('touchend', releaseDrag);
-    window.addEventListener('pointerup', releaseDrag);
+    window.addEventListener('mouseup', releaseDrag, { passive: true });
+    window.addEventListener('touchend', releaseDrag, { passive: true });
+    window.addEventListener('pointerup', releaseDrag, { passive: true });
 
     const runner = Runner.create();
     Runner.run(runner, engine);
@@ -466,8 +468,8 @@ export function FallingStack({
       lastAccel = { x: accelX, y: accelY, z: accelZ };
     };
 
-    window.addEventListener('deviceorientation', onOrient);
-    window.addEventListener('devicemotion', onMotion);
+    window.addEventListener('deviceorientation', onOrient, { passive: true });
+    window.addEventListener('devicemotion', onMotion, { passive: true });
     return () => {
       window.removeEventListener('deviceorientation', onOrient);
       window.removeEventListener('devicemotion', onMotion);
