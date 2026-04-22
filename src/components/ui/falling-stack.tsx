@@ -394,6 +394,16 @@ export function FallingStack({
     const SHAKE_THRESHOLD = 22;
     const SHAKE_COOLDOWN_MS = 350;
 
+    // iOS reports `deviceorientation` values already compensated for screen
+    // orientation; Android reports raw device-frame values. Rotate into screen
+    // frame only on platforms that don't pre-compensate.
+    const iosCompensates =
+      typeof (
+        window.DeviceOrientationEvent as unknown as {
+          requestPermission?: unknown;
+        }
+      ).requestPermission === 'function';
+
     const onOrient = (event: DeviceOrientationEvent) => {
       const currentEngine = engineRef.current;
       if (!currentEngine) return;
@@ -401,15 +411,22 @@ export function FallingStack({
       const gamma = event.gamma ?? 0;
       const deviceX = Math.sin((gamma * Math.PI) / 180);
       const deviceY = Math.sin((beta * Math.PI) / 180);
-      const screenAngleDeg =
-        screen.orientation?.angle ??
-        (window as Window & { orientation?: number }).orientation ??
-        0;
-      const screenAngleRad = (screenAngleDeg * Math.PI) / 180;
-      const cos = Math.cos(screenAngleRad);
-      const sin = Math.sin(screenAngleRad);
-      const gx = deviceX * cos + deviceY * sin;
-      const gy = -deviceX * sin + deviceY * cos;
+      let gx: number;
+      let gy: number;
+      if (iosCompensates) {
+        gx = deviceX;
+        gy = deviceY;
+      } else {
+        const screenAngleDeg =
+          screen.orientation?.angle ??
+          (window as Window & { orientation?: number }).orientation ??
+          0;
+        const screenAngleRad = (screenAngleDeg * Math.PI) / 180;
+        const cos = Math.cos(screenAngleRad);
+        const sin = Math.sin(screenAngleRad);
+        gx = deviceX * cos + deviceY * sin;
+        gy = -deviceX * sin + deviceY * cos;
+      }
       currentEngine.gravity.x = gx * TILT_SCALE;
       currentEngine.gravity.y = gy * TILT_SCALE;
     };
