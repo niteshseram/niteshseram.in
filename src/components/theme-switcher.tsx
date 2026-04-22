@@ -17,6 +17,13 @@ export function ThemeSwitcher() {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      audioCtxRef.current?.close().catch(() => {});
+      audioCtxRef.current = null;
+    };
+  }, []);
+
   const isDark = mounted && resolvedTheme === 'dark';
 
   const toggleTheme = useCallback(() => {
