@@ -34,15 +34,13 @@ export type PostIndexEntry = {
   slug: string;
   url: string;
   title: string;
-  summary: string;
 };
 
 export function getPostIndex(): PostIndexEntry[] {
-  return getAllPosts().map((p) => ({
-    slug: p.slugs[0],
-    url: p.url,
-    title: p.data.title,
-    summary: p.data.summary ?? '',
+  return getAllPosts().map((post) => ({
+    slug: post.slugs[0],
+    url: post.url,
+    title: post.data.title,
   }));
 }
 
