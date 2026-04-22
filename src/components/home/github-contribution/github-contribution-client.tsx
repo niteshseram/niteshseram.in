@@ -1,9 +1,6 @@
 'use client';
 
-import { format, parseISO } from 'date-fns';
-
 import {
-  type Activity,
   ContributionGraph,
   ContributionGraphBlock,
   ContributionGraphCalendar,
@@ -16,21 +13,17 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import type { ContributionGraphData } from '@/lib/contribution-graph';
 import { cn } from '@/lib/utils';
 
 type Props = {
-  contributions: Activity[];
+  graph: ContributionGraphData;
   className?: string;
 };
 
-function formatTooltip(activity: Activity) {
-  const date = format(parseISO(activity.date), 'MMM d, yyyy');
-  if (activity.count === 0) return `No contributions on ${date}`;
-  const unit = activity.count === 1 ? 'contribution' : 'contributions';
-  return `${activity.count} ${unit} on ${date}`;
-}
+export function GithubContributionClient({ graph, className }: Props) {
+  const { weeks, monthLabels, totalCount, year, tooltips } = graph;
 
-export function GithubContributionClient({ contributions, className }: Props) {
   return (
     <div
       className={cn(
@@ -41,7 +34,10 @@ export function GithubContributionClient({ contributions, className }: Props) {
       )}
     >
       <ContributionGraph
-        data={contributions}
+        weeks={weeks}
+        monthLabels={monthLabels}
+        totalCount={totalCount}
+        year={year}
         blockMargin={3}
         blockRadius={2}
         blockSize={11}
@@ -59,16 +55,16 @@ export function GithubContributionClient({ contributions, className }: Props) {
                   />
                 }
               />
-              <TooltipContent>{formatTooltip(activity)}</TooltipContent>
+              <TooltipContent>{tooltips[activity.date]}</TooltipContent>
             </Tooltip>
           )}
         </ContributionGraphCalendar>
         <ContributionGraphFooter>
           <ContributionGraphTotalCount>
-            {({ totalCount, year }) => (
+            {(props) => (
               <p className="text-muted-foreground">
-                <span className="text-foreground">{totalCount}</span>
-                &nbsp;contributions in {year}
+                <span className="text-foreground">{props.totalCount}</span>{' '}
+                contributions in {props.year}
               </p>
             )}
           </ContributionGraphTotalCount>

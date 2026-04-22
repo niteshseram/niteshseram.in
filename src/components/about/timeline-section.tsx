@@ -1,14 +1,8 @@
-'use client';
-
-import { useRef } from 'react';
-
 import { ScrollProgressRail } from '@/components/scroll-progress-rail';
 import { TIMELINE } from '@/data/timeline';
 import { cn } from '@/lib/utils';
 
 export function TimelineSection() {
-  const railRef = useRef<HTMLOListElement>(null);
-
   return (
     <section
       aria-label="Timeline"
@@ -32,11 +26,7 @@ export function TimelineSection() {
       >
         Year by year, the moments that got me to where I am now.
       </p>
-      <ol ref={railRef} className="relative flex flex-col gap-y-10">
-        <ScrollProgressRail
-          targetRef={railRef}
-          className="absolute top-2 bottom-2 left-[5px] w-px"
-        />
+      <ScrollProgressRail>
         {TIMELINE.map((group, index) => (
           <li key={group.year} className="relative pl-6 sm:pl-8">
             {index === 0 && (
@@ -88,7 +78,7 @@ export function TimelineSection() {
                   <div
                     className={cn(
                       'flex items-center gap-x-2',
-                      'font-mono text-[10px] uppercase tracking-[0.1em]',
+                      'font-mono text-xs uppercase tracking-[0.1em]',
                       'text-muted-foreground',
                     )}
                   >
@@ -137,7 +127,7 @@ export function TimelineSection() {
             </ul>
           </li>
         ))}
-      </ol>
+      </ScrollProgressRail>
     </section>
   );
 }

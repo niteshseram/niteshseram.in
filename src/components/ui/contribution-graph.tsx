@@ -1,17 +1,5 @@
 'use client';
 
-import type { Day as WeekDay } from 'date-fns';
-import {
-  differenceInCalendarDays,
-  eachDayOfInterval,
-  formatISO,
-  getDay,
-  getMonth,
-  getYear,
-  nextDay,
-  parseISO,
-  subWeeks,
-} from 'date-fns';
 import {
   type CSSProperties,
   createContext,
@@ -19,51 +7,19 @@ import {
   type HTMLAttributes,
   type ReactNode,
   useContext,
-  useMemo,
 } from 'react';
 
+import type {
+  Activity,
+  Labels,
+  MonthLabel,
+  Week,
+} from '@/lib/contribution-graph';
 import { cn } from '@/lib/utils';
 
-export type Activity = {
-  date: string;
-  count: number;
-  level: number;
-};
-
-type Week = Array<Activity | undefined>;
-
-export type Labels = {
-  months?: string[];
-  weekdays?: string[];
-  totalCount?: string;
-  legend?: {
-    less?: string;
-    more?: string;
-  };
-};
-
-type MonthLabel = {
-  weekIndex: number;
-  label: string;
-};
-
-const DEFAULT_MONTH_LABELS = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
+export type { Activity, Labels, MonthLabel, Week };
 
 const DEFAULT_LABELS: Labels = {
-  months: DEFAULT_MONTH_LABELS,
   weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   totalCount: '{{count}} activities in {{year}}',
   legend: {
@@ -73,8 +29,8 @@ const DEFAULT_LABELS: Labels = {
 };
 
 type ContributionGraphContextType = {
-  data: Activity[];
   weeks: Week[];
+  monthLabels: MonthLabel[];
   blockMargin: number;
   blockRadius: number;
   blockSize: number;
@@ -83,7 +39,6 @@ type ContributionGraphContextType = {
   labelHeight: number;
   maxLevel: number;
   totalCount: number;
-  weekStart: WeekDay;
   year: number;
   width: number;
   height: number;
@@ -104,124 +59,11 @@ const useContributionGraph = () => {
   return context;
 };
 
-const fillHoles = (activities: Activity[]): Activity[] => {
-  if (activities.length === 0) {
-    return [];
-  }
-
-  const sortedActivities = activities.toSorted((a, b) =>
-    a.date.localeCompare(b.date),
-  );
-
-  const calendar = new Map<string, Activity>(
-    activities.map((a) => [a.date, a]),
-  );
-
-  const firstActivity = sortedActivities[0] as Activity;
-  const lastActivity = sortedActivities.at(-1);
-
-  if (!lastActivity) {
-    return [];
-  }
-
-  return eachDayOfInterval({
-    start: parseISO(firstActivity.date),
-    end: parseISO(lastActivity.date),
-  }).map((day) => {
-    const date = formatISO(day, { representation: 'date' });
-
-    if (calendar.has(date)) {
-      return calendar.get(date) as Activity;
-    }
-
-    return {
-      date,
-      count: 0,
-      level: 0,
-    };
-  });
-};
-
-const groupByWeeks = (
-  activities: Activity[],
-  weekStart: WeekDay = 0,
-): Week[] => {
-  if (activities.length === 0) {
-    return [];
-  }
-
-  const normalizedActivities = fillHoles(activities);
-  const firstActivity = normalizedActivities[0] as Activity;
-  const firstDate = parseISO(firstActivity.date);
-  const firstCalendarDate =
-    getDay(firstDate) === weekStart
-      ? firstDate
-      : subWeeks(nextDay(firstDate, weekStart), 1);
-
-  const paddedActivities = [
-    ...(Array.from<Activity | undefined>({
-      length: differenceInCalendarDays(firstDate, firstCalendarDate),
-    }) as Activity[]),
-    ...normalizedActivities,
-  ];
-
-  const numberOfWeeks = Math.ceil(paddedActivities.length / 7);
-
-  return Array.from({ length: numberOfWeeks }, (_, weekIndex) =>
-    paddedActivities.slice(weekIndex * 7, weekIndex * 7 + 7),
-  );
-};
-
-const getMonthLabels = (
-  weeks: Week[],
-  monthNames: string[] = DEFAULT_MONTH_LABELS,
-): MonthLabel[] => {
-  return weeks
-    .reduce<MonthLabel[]>((labels, week, weekIndex) => {
-      const firstActivity = week.find((activity) => activity !== undefined);
-
-      if (!firstActivity) {
-        throw new Error(
-          `Unexpected error: Week ${weekIndex + 1} is empty: [${week}].`,
-        );
-      }
-
-      const month = monthNames[getMonth(parseISO(firstActivity.date))];
-
-      if (!month) {
-        const monthName = new Date(firstActivity.date).toLocaleString('en-US', {
-          month: 'short',
-        });
-        throw new Error(
-          `Unexpected error: undefined month label for ${monthName}.`,
-        );
-      }
-
-      const prevLabel = labels.at(-1);
-
-      if (weekIndex === 0 || !prevLabel || prevLabel.label !== month) {
-        return labels.concat({ weekIndex, label: month });
-      }
-
-      return labels;
-    }, [])
-    .filter(({ weekIndex }, index, labels) => {
-      const minWeeks = 3;
-
-      if (index === 0) {
-        return labels[1] && labels[1].weekIndex - weekIndex >= minWeeks;
-      }
-
-      if (index === labels.length - 1) {
-        return weeks.slice(weekIndex).length >= minWeeks;
-      }
-
-      return true;
-    });
-};
-
 export type ContributionGraphProps = HTMLAttributes<HTMLDivElement> & {
-  data: Activity[];
+  weeks: Week[];
+  monthLabels: MonthLabel[];
+  totalCount: number;
+  year: number;
   blockMargin?: number;
   blockRadius?: number;
   blockSize?: number;
@@ -229,14 +71,15 @@ export type ContributionGraphProps = HTMLAttributes<HTMLDivElement> & {
   labels?: Labels;
   maxLevel?: number;
   style?: CSSProperties;
-  totalCount?: number;
-  weekStart?: WeekDay;
   children: ReactNode;
   className?: string;
 };
 
 export const ContributionGraph = ({
-  data,
+  weeks,
+  monthLabels,
+  totalCount,
+  year,
   blockMargin = 4,
   blockRadius = 2,
   blockSize = 12,
@@ -244,40 +87,27 @@ export const ContributionGraph = ({
   labels: labelsProp = undefined,
   maxLevel: maxLevelProp = 4,
   style = {},
-  totalCount: totalCountProp = undefined,
-  weekStart = 0,
   className,
   ...props
 }: ContributionGraphProps) => {
   const maxLevel = Math.max(1, maxLevelProp);
-  const weeks = useMemo(() => groupByWeeks(data, weekStart), [data, weekStart]);
   const LABEL_MARGIN = 8;
 
   const labels = { ...DEFAULT_LABELS, ...labelsProp };
   const labelHeight = fontSize + LABEL_MARGIN;
 
-  const year =
-    data.length > 0
-      ? getYear(parseISO(data[0].date))
-      : new Date().getFullYear();
-
-  const totalCount =
-    typeof totalCountProp === 'number'
-      ? totalCountProp
-      : data.reduce((sum, activity) => sum + activity.count, 0);
-
   const width = weeks.length * (blockSize + blockMargin) - blockMargin;
   const height = labelHeight + (blockSize + blockMargin) * 7 - blockMargin;
 
-  if (data.length === 0) {
+  if (weeks.length === 0) {
     return null;
   }
 
   return (
     <ContributionGraphContext.Provider
       value={{
-        data,
         weeks,
+        monthLabels,
         blockMargin,
         blockRadius,
         blockSize,
@@ -286,7 +116,6 @@ export const ContributionGraph = ({
         labelHeight,
         maxLevel,
         totalCount,
-        weekStart,
         year,
         width,
         height,
@@ -366,13 +195,8 @@ export const ContributionGraphCalendar = ({
   children,
   ...props
 }: ContributionGraphCalendarProps) => {
-  const { weeks, width, height, blockSize, blockMargin, labels } =
+  const { weeks, width, height, blockSize, blockMargin, monthLabels } =
     useContributionGraph();
-
-  const monthLabels = useMemo(
-    () => getMonthLabels(weeks, labels.months),
-    [weeks, labels.months],
-  );
 
   return (
     <div
