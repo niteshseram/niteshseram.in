@@ -6,6 +6,7 @@ import { createPortal } from 'react-dom';
 
 import type { PostIndexEntry } from '@/lib/writing';
 import { useGlobalShortcut } from '@/utils/use-global-shortcut';
+import { useIdlePrefetch } from '@/utils/use-idle-prefetch';
 
 import { CommandMenuTrigger } from './trigger';
 
@@ -31,14 +32,7 @@ export function CommandMenu({ posts }: Props) {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (typeof window.requestIdleCallback === 'function') {
-      const id = window.requestIdleCallback(prefetchDialog, { timeout: 2000 });
-      return () => window.cancelIdleCallback(id);
-    }
-    const id = setTimeout(prefetchDialog, 1500);
-    return () => clearTimeout(id);
-  }, []);
+  useIdlePrefetch(prefetchDialog);
 
   const openMenu = useCallback(() => {
     setLoaded(true);
