@@ -13,7 +13,7 @@ export function SectionHeading({ children, className }: SectionHeadingProps) {
       className={cn(
         'mb-5',
         'font-serif text-2xl font-medium',
-        'text-foreground/90',
+        'text-foreground',
         className,
       )}
     >

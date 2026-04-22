@@ -18,7 +18,7 @@ export function TimelineSection() {
         className={cn(
           'mb-2',
           'font-serif text-2xl font-medium',
-          'text-foreground/90',
+          'text-foreground',
         )}
       >
         How I got here
