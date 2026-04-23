@@ -28,6 +28,14 @@ const DEFAULT_LABELS: Labels = {
   },
 };
 
+const LEVEL_FILL_CLASSES = [
+  'data-[level="0"]:fill-muted',
+  'data-[level="1"]:fill-brand/25',
+  'data-[level="2"]:fill-brand/50',
+  'data-[level="3"]:fill-brand/75',
+  'data-[level="4"]:fill-brand',
+];
+
 type ContributionGraphContextType = {
   weeks: Week[];
   monthLabels: MonthLabel[];
@@ -154,14 +162,7 @@ export const ContributionGraphBlock = ({
 
   return (
     <rect
-      className={cn(
-        'data-[level="0"]:fill-muted',
-        'data-[level="1"]:fill-muted-foreground/20',
-        'data-[level="2"]:fill-muted-foreground/40',
-        'data-[level="3"]:fill-muted-foreground/60',
-        'data-[level="4"]:fill-muted-foreground/80',
-        className,
-      )}
+      className={cn(LEVEL_FILL_CLASSES, className)}
       data-count={activity.count}
       data-date={activity.date}
       data-level={activity.level}
@@ -323,14 +324,7 @@ export const ContributionGraphLegend = ({
           >
             <title>{`${level} contributions`}</title>
             <rect
-              className={cn(
-                'stroke-[1px] stroke-border',
-                'data-[level="0"]:fill-muted',
-                'data-[level="1"]:fill-muted-foreground/20',
-                'data-[level="2"]:fill-muted-foreground/40',
-                'data-[level="3"]:fill-muted-foreground/60',
-                'data-[level="4"]:fill-muted-foreground/80',
-              )}
+              className={cn('stroke-[1px] stroke-border', LEVEL_FILL_CLASSES)}
               data-level={level}
               height={blockSize}
               rx={blockRadius}

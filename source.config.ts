@@ -40,6 +40,10 @@ export default defineConfig({
       },
       defaultLanguage: 'plaintext',
     },
+    remarkImageOptions: {
+      // set image placeholder to `blur` (only effective on Next.js)
+      placeholder: 'blur',
+    },
     remarkPlugins: [
       [
         remarkImage,

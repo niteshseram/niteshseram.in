@@ -10,7 +10,12 @@ import { cn } from '@/lib/utils';
 
 const anchorVariants: AnchorVariant[] = ['default', 'brand', 'unstyled'];
 const anchorWeights: AnchorWeight[] = ['inherit', 'medium', 'normal'];
-const buttonVariants: ButtonVariant[] = ['brand', 'outline', 'ghost'];
+const buttonVariants: ButtonVariant[] = [
+  'brand',
+  'primary',
+  'outline',
+  'ghost',
+];
 const buttonSizes: ButtonSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 const tooltipSides = ['top', 'right', 'bottom', 'left'] as const;
 
@@ -220,15 +225,9 @@ export default function DesignPage() {
           <div>
             <PropLabel prop="borderRadius" value="full" />
             <DemoRow>
-              <Button
-                borderRadius="full"
-                label="Send an email"
-                size="xl"
-                variant="brand"
-              />
+              <Button label="Send an email" size="xl" variant="brand" />
               <Button
                 addonPosition="start"
-                borderRadius="full"
                 icon={<PiPlus />}
                 label="Follow along"
                 size="lg"

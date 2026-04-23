@@ -24,14 +24,13 @@ export const navItems: NavItem[] = [
     hide: true,
     keywords: ['start', 'landing'],
   },
-  { href: '/about', label: 'About', icon: PiUser },
+  { href: '/#projects', label: 'Projects', icon: PiFolder },
   {
     href: '/writing',
     label: 'Writing',
     icon: PiNotePencil,
     keywords: ['blog', 'blogs', 'posts'],
   },
-  { href: '/#projects', label: 'Projects', icon: PiFolder },
   {
     href: '/#experience',
     label: 'Experience',
@@ -39,5 +38,6 @@ export const navItems: NavItem[] = [
     hide: true,
     keywords: ['work', 'career', 'jobs'],
   },
-  { href: '/#contact', label: 'Contact', icon: PiEnvelope },
+  { href: '/about', label: 'About', icon: PiUser },
+  { href: '/#contact', label: 'Contact', icon: PiEnvelope, hide: true },
 ];

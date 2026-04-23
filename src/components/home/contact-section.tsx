@@ -1,6 +1,7 @@
 import { PiArrowUpRight, PiEnvelope } from 'react-icons/pi';
 
 import { Anchor } from '@/components/ui/anchor';
+import { Button } from '@/components/ui/button';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
 
@@ -98,6 +99,36 @@ export function ContactSection() {
               )}
             />
           </Anchor>
+
+          <div
+            className={cn('flex items-center gap-x-3', 'mt-8')}
+            role="list"
+            aria-label="Social links"
+          >
+            <span
+              aria-hidden="true"
+              className={cn('text-sm', 'text-muted-foreground')}
+            >
+              Or find me on
+            </span>
+            {[SOCIAL_LINKS.github, SOCIAL_LINKS.x, SOCIAL_LINKS.linkedin].map(
+              (social) => {
+                const Icon = social.icon;
+                return (
+                  <Button
+                    key={social.label}
+                    href={social.href}
+                    icon={<Icon />}
+                    isLabelHidden
+                    label={social.label}
+                    size="sm"
+                    tooltip={social.label}
+                    variant="outline"
+                  />
+                );
+              },
+            )}
+          </div>
         </div>
       </div>
     </section>

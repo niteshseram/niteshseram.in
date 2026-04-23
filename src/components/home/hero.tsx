@@ -1,19 +1,18 @@
+import { PiArrowUpRight } from 'react-icons/pi';
+
 import { Terminal, TypingAnimation } from '@/components/terminal';
 import { Anchor } from '@/components/ui/anchor';
 import { Button } from '@/components/ui/button';
 import { AUTHOR, SITE_TAGLINE } from '@/config/site';
-import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
 
 export function Hero() {
-  const EmailIcon = SOCIAL_LINKS.email.icon;
-
   return (
     <section className={cn('max-w-2xl', 'mx-auto px-4.5 pt-14 sm:pt-20 pb-12')}>
       <h1
         className={cn(
           'mt-5',
-          'font-serif text-[clamp(1.8rem,8vw,2.4rem)] leading-[1.15]',
+          'font-serif text-[clamp(1.8rem,7vw,3.75rem)] leading-[1.05]',
           'text-foreground',
         )}
       >
@@ -34,30 +33,17 @@ export function Hero() {
         and the small details nobody notices.
       </p>
       <div className="mt-8 flex flex-wrap items-center gap-2.5">
-        {[SOCIAL_LINKS.github, SOCIAL_LINKS.x, SOCIAL_LINKS.linkedin].map(
-          (social) => {
-            const Icon = social.icon;
-            return (
-              <Button
-                key={social.label}
-                addonPosition="start"
-                href={social.href}
-                icon={<Icon />}
-                label={social.label}
-                size="md"
-                variant="outline"
-              />
-            );
-          },
-        )}
         <Button
-          key={SOCIAL_LINKS.email.label}
-          addonPosition="start"
-          href={SOCIAL_LINKS.email.href}
-          icon={<EmailIcon />}
-          label={SOCIAL_LINKS.email.label}
+          href="/#contact"
+          icon={<PiArrowUpRight />}
+          label="Get in touch"
           size="md"
-          className="max-sm:hidden"
+          variant="primary"
+        />
+        <Button
+          href="/about"
+          label="More about me"
+          size="md"
           variant="outline"
         />
       </div>

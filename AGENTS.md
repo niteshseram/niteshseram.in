@@ -55,3 +55,49 @@ Exceptions (allowed):
 - Established math/physics vector components used as a pair: `dx`/`dy`, `gx`/`gy`, `cos`/`sin`. These are only acceptable when they clearly represent a single mathematical entity in a short scope — don't reuse the same name for two different concepts in the same function.
 
 When a letter has multiple possible meanings in context (e.g. `a` could be "angle" or "acceleration"), always write the full word.
+
+# Functions — arrow only when necessary
+
+Prefer function declarations (`function foo() {}`) over arrow functions assigned to a `const`. Arrow functions are appropriate only when the function is the value being passed somewhere — an inline callback, a `useCallback`/`useMemo` argument, a `.then()` / `.map()` handler, or a `useEffect` cleanup return.
+
+Use arrows when:
+
+- Inline callbacks: `items.map((item) => item.id)`, `setTimeout(() => setOpen(false), 1500)`, `onClick={() => setOpen(true)}`.
+- The function is the value passed to a hook: `useCallback((event) => ..., [])`, `useMemo(() => ..., [])`.
+- Cleanup return from `useEffect`: `return () => clearTimeout(id)`.
+
+Use function declarations when:
+
+- Named event handlers defined at component or module scope.
+- Helper functions that stand on their own.
+- Any function that has a name and a body large enough to matter for stack traces.
+
+Rationale: function declarations give clearer stack traces, hoist within their scope, and signal "this is a named thing" rather than "this is a value being stored." Arrow functions saved to a `const` buy no readability over `function name() {}`.
+
+Example:
+
+```tsx
+// Incorrect
+const onCopy = async () => {
+  await navigator.clipboard.writeText(text);
+};
+
+// Correct
+async function onCopy() {
+  await navigator.clipboard.writeText(text);
+}
+
+// Correct — arrow is necessary (value passed to useCallback)
+const onKeyDown = useCallback(
+  (event: KeyboardEvent) => {
+    if (event.key === 'Escape') close();
+  },
+  [close],
+);
+
+// Correct — arrow is necessary (inline cleanup)
+useEffect(() => {
+  const id = setTimeout(ping, 1000);
+  return () => clearTimeout(id);
+}, []);
+```

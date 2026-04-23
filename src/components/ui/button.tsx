@@ -12,7 +12,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type ButtonDisplay = 'block' | 'inline';
-export type ButtonVariant = 'brand' | 'outline' | 'ghost';
+export type ButtonVariant = 'brand' | 'outline' | 'ghost' | 'primary';
 
 type IconType = ReactNode;
 
@@ -21,7 +21,6 @@ type BaseProps = Readonly<{
   'aria-controls'?: AriaAttributes['aria-controls'];
   'aria-current'?: AriaAttributes['aria-current'];
   'aria-label'?: string;
-  borderRadius?: 'full';
   children?: ReactNode;
   className?: ClassValue;
   disabled?: boolean;
@@ -94,14 +93,6 @@ const paddingClasses: Record<ButtonSize, string> = {
   xl: 'px-6',
 };
 
-const borderRadiusClasses: Record<ButtonSize, string> = {
-  xs: 'rounded-md',
-  sm: 'rounded-md',
-  md: 'rounded-lg',
-  lg: 'rounded-lg',
-  xl: 'rounded-lg',
-};
-
 const spacingClasses: Record<ButtonSize, string> = {
   xs: 'gap-x-1',
   sm: 'gap-x-1',
@@ -111,6 +102,11 @@ const spacingClasses: Record<ButtonSize, string> = {
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
+  primary: cn(
+    'text-background bg-foreground',
+    'hover:bg-foreground/90',
+    'active:bg-foreground/80',
+  ),
   brand: cn(
     'text-brand-foreground bg-brand',
     'hover:bg-brand/90',
@@ -130,6 +126,7 @@ const variantClasses: Record<ButtonVariant, string> = {
 };
 
 const variantDisabledClasses: Record<ButtonVariant, string> = {
+  primary: cn('text-background/70 bg-foreground/70'),
   brand: cn('text-muted-foreground bg-muted'),
   outline: cn('text-muted-foreground border-border/50 bg-transparent'),
   ghost: cn('text-muted-foreground bg-transparent'),
@@ -144,7 +141,6 @@ export function Button<RouteType>({
   className,
   disabled = false,
   display = 'inline',
-  borderRadius,
   icon: Icon,
   iconClassName,
   isLabelHidden = false,
@@ -190,22 +186,16 @@ export function Button<RouteType>({
     </>
   );
 
-  const useFullRadius =
-    borderRadius === 'full' || (borderRadius == null && isLabelHidden);
-  const radiusClass = useFullRadius
-    ? 'rounded-full'
-    : borderRadiusClasses[size];
-
   const resolvedClassName = cn(
     'cursor-pointer',
     display === 'block' && !isLabelHidden ? 'flex w-full' : 'inline-flex',
     'items-center justify-center',
     isLabelHidden
-      ? [iconOnlySizeClasses[size], radiusClass]
-      : [heightClasses[size], paddingClasses[size], radiusClass],
-    'pointer-coarse:min-h-11 pointer-coarse:min-w-11',
+      ? [iconOnlySizeClasses[size]]
+      : [heightClasses[size], paddingClasses[size]],
     spacingClasses[size],
     fontSizeClasses[size],
+    'rounded-full',
     'whitespace-nowrap font-medium',
     'transition-colors',
     disabled

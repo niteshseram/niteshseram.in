@@ -13,6 +13,8 @@ export type SocialLink = {
   icon: IconType;
 };
 
+const EMAIL = atob('bml0ZXNoc2VyYW1AZ21haWwuY29t');
+
 export const SOCIAL_LINKS: Record<string, SocialLink> = {
   github: {
     label: 'GitHub',
@@ -34,8 +36,8 @@ export const SOCIAL_LINKS: Record<string, SocialLink> = {
   },
   email: {
     label: 'Email',
-    href: 'mailto:niteshseram@gmail.com',
-    username: 'niteshseram@gmail.com',
+    href: `mailto:${EMAIL}`,
+    username: EMAIL,
     icon: PiEnvelope,
   },
 };
