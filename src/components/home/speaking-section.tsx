@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { PiArrowUpRight, PiPlayFill } from 'react-icons/pi';
+import { PiArrowUpRight, PiPlayFill, PiTerminalWindow } from 'react-icons/pi';
 
 import { Anchor } from '@/components/ui/anchor';
 import { TALKS } from '@/data/talks';
@@ -13,7 +13,9 @@ export function SpeakingSection() {
       aria-label="Speaking"
       className={cn('max-w-2xl mx-auto', 'px-4.5 py-12')}
     >
-      <SectionHeading>On stage</SectionHeading>
+      <SectionHeading eyebrow="ls talks/" icon={PiTerminalWindow}>
+        On <span className="italic text-brand">stage</span>
+      </SectionHeading>
       <ul className="flex flex-col gap-y-8">
         {TALKS.map((talk) => (
           <li key={talk.youtubeId}>

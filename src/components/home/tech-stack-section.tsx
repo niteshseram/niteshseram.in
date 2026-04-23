@@ -1,4 +1,4 @@
-import { PiHand } from 'react-icons/pi';
+import { PiHand, PiTerminalWindow } from 'react-icons/pi';
 
 import {
   FallingStack,
@@ -15,8 +15,14 @@ export function TechStackSection() {
       aria-label="Tech stack"
       className={cn('max-w-2xl mx-auto', 'px-4.5 py-12')}
     >
-      <div className={cn('mb-5 flex items-end justify-between gap-3')}>
-        <SectionHeading className="mb-0">Tools I reach for</SectionHeading>
+      <div className={cn('mb-8 flex items-end justify-between gap-3')}>
+        <SectionHeading
+          className="mb-0"
+          eyebrow="ls bin/"
+          icon={PiTerminalWindow}
+        >
+          Tools I <span className="italic text-brand">reach for</span>
+        </SectionHeading>
         <p
           className={cn(
             'inline-flex items-center gap-x-1.5',

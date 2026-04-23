@@ -1,3 +1,5 @@
+import { PiTerminalWindow } from 'react-icons/pi';
+
 import { ABOUT_PROSE } from '@/data/about';
 import { cn } from '@/lib/utils';
 
@@ -6,11 +8,13 @@ export function AboutIntro() {
     <section className={cn('max-w-2xl mx-auto', 'px-4.5 pt-14 sm:pt-20 pb-8')}>
       <p
         className={cn(
-          'font-mono text-[11px] uppercase tracking-[0.14em]',
+          'inline-flex items-center gap-x-1.5',
+          'font-mono text-xs',
           'text-muted-foreground',
         )}
       >
-        About
+        <PiTerminalWindow aria-hidden="true" className="size-3.5 text-brand" />
+        whoami
       </p>
       <h1
         className={cn(

@@ -1,4 +1,4 @@
-import { PiArrowUpRight } from 'react-icons/pi';
+import { PiArrowUpRight, PiCodeSimple } from 'react-icons/pi';
 
 import { Anchor } from '@/components/ui/anchor';
 import { EXPERIENCES } from '@/data/experience';
@@ -13,7 +13,9 @@ export function ExperienceSection() {
       aria-label="Experience"
       className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
     >
-      <SectionHeading>Where I’ve been</SectionHeading>
+      <SectionHeading eyebrow="cat work.history" icon={PiCodeSimple}>
+        Where <span className="italic text-brand">I’ve been</span>
+      </SectionHeading>
       <ol className="relative">
         <div
           aria-hidden="true"

@@ -1,9 +1,11 @@
-import { PiArrowUpRight, PiEnvelope } from 'react-icons/pi';
+import { PiArrowUpRight, PiEnvelope, PiTerminalWindow } from 'react-icons/pi';
 
 import { Anchor } from '@/components/ui/anchor';
 import { Button } from '@/components/ui/button';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
+
+import { SectionHeading } from './section-heading';
 
 export function ContactSection() {
   return (
@@ -44,17 +46,16 @@ export function ContactSection() {
         />
 
         <div className="relative">
-          <p
-            className={cn(
-              'font-serif text-[clamp(1.5rem,6vw,2rem)] leading-[1.2]',
-              'text-foreground',
-            )}
+          <SectionHeading
+            className="mb-5"
+            eyebrow='echo "hello"'
+            icon={PiTerminalWindow}
           >
             <span className="block">Got something in mind?</span>
             <span className="block italic text-brand">Let’s talk.</span>
-          </p>
+          </SectionHeading>
 
-          <p className={cn('mt-5', 'leading-relaxed', 'text-muted-foreground')}>
+          <p className={cn('leading-relaxed', 'text-muted-foreground')}>
             Open to new conversations — project ideas, collaborations, or
             anything interesting on the web. I read every message and try to
             reply within a day or two.

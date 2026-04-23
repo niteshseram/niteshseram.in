@@ -1,4 +1,4 @@
-import { PiArrowUpRight, PiGithubLogo } from 'react-icons/pi';
+import { PiArrowUpRight, PiGithubLogo, PiTerminalWindow } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
 import { PROJECTS } from '@/data/projects';
@@ -13,7 +13,9 @@ export function ProjectsSection() {
       aria-label="Projects"
       className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
     >
-      <SectionHeading>Things I’ve built</SectionHeading>
+      <SectionHeading eyebrow="ls projects/" icon={PiTerminalWindow}>
+        Things <span className="italic text-brand">I’ve built</span>
+      </SectionHeading>
       <ul className={cn('grid gap-4')}>
         {PROJECTS.map((project) => (
           <li key={project.name}>

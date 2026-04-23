@@ -1,5 +1,6 @@
 import type { ComponentType, SVGProps } from 'react';
 import {
+  SiJavascript,
   SiNextdotjs,
   SiPrisma,
   SiReact,
@@ -31,16 +32,46 @@ export type TechStack = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
-export const TECH_STACKS: TechStack[] = [
-  { label: 'React', icon: SiReact },
-  { label: 'Next.js', icon: SiNextdotjs },
-  { label: 'TypeScript', icon: SiTypescript },
-  { label: 'Tailwind', icon: SiTailwindcss },
-  { label: 'Base UI', icon: BaseUIIcon },
-  { label: 'tRPC', icon: SiTrpc },
-  { label: 'React Query', icon: SiReactquery },
-  { label: 'Prisma', icon: SiPrisma },
-  { label: 'Supabase', icon: SiSupabase },
-  { label: 'Zod', icon: SiZod },
-  { label: 'Turborepo', icon: SiTurborepo },
+export type TechStackGroup = {
+  label: string;
+  items: TechStack[];
+};
+
+export const TECH_STACK_GROUPS: TechStackGroup[] = [
+  {
+    label: 'Frontend',
+    items: [
+      { label: 'React', icon: SiReact },
+      { label: 'Next.js', icon: SiNextdotjs },
+      { label: 'Tailwind', icon: SiTailwindcss },
+      { label: 'Base UI', icon: BaseUIIcon },
+      { label: 'React Query', icon: SiReactquery },
+    ],
+  },
+  {
+    label: 'Languages',
+    items: [
+      { label: 'TypeScript', icon: SiTypescript },
+      { label: 'JavaScript', icon: SiJavascript },
+    ],
+  },
+  {
+    label: 'Backend',
+    items: [
+      { label: 'tRPC', icon: SiTrpc },
+      { label: 'Prisma', icon: SiPrisma },
+      { label: 'Supabase', icon: SiSupabase },
+    ],
+  },
+  {
+    label: 'Tooling',
+    items: [
+      { label: 'Zod', icon: SiZod },
+      { label: 'Turborepo', icon: SiTurborepo },
+    ],
+  },
 ];
+
+export const TECH_STACKS: TechStack[] = TECH_STACK_GROUPS.flatMap(
+  (group) => group.items,
+);

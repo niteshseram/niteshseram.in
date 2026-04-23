@@ -45,7 +45,7 @@ export function ScrollProgressRail({
         aria-hidden="true"
         className={cn(
           'pointer-events-none',
-          'absolute top-2 bottom-2 left-[5px] w-px',
+          'absolute top-2 bottom-2 left-2 w-px',
         )}
       >
         <div className={cn('absolute inset-0', 'bg-border')} />

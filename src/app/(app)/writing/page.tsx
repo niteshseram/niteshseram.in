@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PiNotepad } from 'react-icons/pi';
 
 import { PostRow } from '@/components/writing/post-row';
 import { WRITING } from '@/config/site';
@@ -26,11 +27,13 @@ export default function WritingPage() {
       <header className="mb-12">
         <p
           className={cn(
+            'inline-flex items-center gap-x-1.5',
             'mb-3',
-            'font-mono text-[11px] uppercase tracking-[0.14em]',
+            'font-mono text-xs',
             'text-muted-foreground',
           )}
         >
+          <PiNotepad aria-hidden="true" className="size-3.5 text-brand" />
           Writing
         </p>
         <h1

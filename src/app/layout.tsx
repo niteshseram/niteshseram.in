@@ -1,5 +1,6 @@
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata, Viewport } from 'next';
+import { Suspense } from 'react';
 
 import { ThemeProvider } from '@/components/theme-provider';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -53,9 +54,11 @@ export default function RootLayout({
           enableSystem={true}
           disableTransitionOnChange={true}
         >
-          <TooltipProvider delay={400} closeDelay={0}>
-            {children}
-          </TooltipProvider>
+          <Suspense>
+            <TooltipProvider delay={400} closeDelay={0}>
+              {children}
+            </TooltipProvider>
+          </Suspense>
         </ThemeProvider>
       </body>
       {gaId && isProduction ? <GoogleAnalytics gaId={gaId} /> : null}

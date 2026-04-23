@@ -1,4 +1,4 @@
-import { PiArrowUpRight } from 'react-icons/pi';
+import { PiArrowUpRight, PiCodeSimple } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
 import { PostRow } from '@/components/writing/post-row';
@@ -17,7 +17,9 @@ export function WritingSection() {
       aria-label="Writing"
       className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
     >
-      <SectionHeading>Lately I’ve been writing</SectionHeading>
+      <SectionHeading eyebrow="tail writing.log" icon={PiCodeSimple}>
+        Lately I’ve been <span className="italic text-brand">writing</span>
+      </SectionHeading>
       <ul className="flex flex-col divide-y divide-border">
         {posts.map((post) => (
           <PostRow

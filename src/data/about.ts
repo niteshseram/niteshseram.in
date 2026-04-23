@@ -1,6 +1,3 @@
-import type { IconType } from 'react-icons';
-import { PiBarbell, PiFilmSlate } from 'react-icons/pi';
-
 import { AUTHOR } from '@/config/site';
 
 export const ABOUT_PROSE: readonly string[] = [
@@ -9,23 +6,50 @@ export const ABOUT_PROSE: readonly string[] = [
   "I work best when I can trace a thread all the way through — from a rough idea, to the interaction that expresses it, to the edge cases nobody asks about until they hit one. I've come to trust boring code that never surprises anyone, and careful restraint over another dependency. Most of the craft, I think, is in what you choose to leave out.",
 ];
 
-export type OffTheClockItem = {
+export type Principle = {
+  hash: string;
+  type: string;
   title: string;
   description: string;
-  icon: IconType;
 };
 
-export const OFF_THE_CLOCK: readonly OffTheClockItem[] = [
+export const PRINCIPLES: readonly Principle[] = [
   {
-    title: 'At the gym',
+    hash: 'a1f3c82',
+    type: 'feat(feel)',
+    title: 'Make it feel right, not just work.',
     description:
-      "A lot of my week runs through the gym. It's where I clear my head.",
-    icon: PiBarbell,
+      "Working is the floor. A shape, a color, a transition that feels right is what I'm actually aiming at — the frontend's immediate yes-or-no is what keeps me honest.",
   },
   {
-    title: 'On the couch',
+    hash: '7d94b15',
+    type: 'refactor(restraint)',
+    title: 'The craft is in what you leave out.',
     description:
-      'A legitimate hobby. Netflix, slow evenings, and nothing to prove.',
-    icon: PiFilmSlate,
+      'Boring code that never surprises anyone beats a clever abstraction, and most dependencies I add come back to haunt me. Fewer moving parts, fewer regrets.',
   },
+  {
+    hash: '3e6f2ab',
+    type: 'chore(threads)',
+    title: 'Trace the thread end to end.',
+    description:
+      "From a rough idea, to the interaction that expresses it, to the edge cases nobody asks about until they hit one — I'd rather own the whole thread than hand off half of it.",
+  },
+];
+
+export type AboutFact = {
+  key: string;
+  value: string;
+};
+
+export const ABOUT_FACTS: readonly AboutFact[] = [
+  { key: 'location', value: `${AUTHOR.location}` },
+  { key: 'timezone', value: 'Asia/Kolkata — GMT+5:30' },
+  { key: 'role', value: `Senior SWE at ${AUTHOR.employer.name}` },
+  { key: 'focus', value: 'UI systems, motion, performance' },
+  {
+    key: 'off_the_clock',
+    value: 'Gym, the couch, Netflix with nothing to prove',
+  },
+  { key: 'uptime', value: `${AUTHOR.yearsExperience} yrs shipping` },
 ];

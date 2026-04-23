@@ -1,10 +1,10 @@
 import { AUTHOR, SITE_URL } from '@/config/site';
-import { ABOUT_PROSE, OFF_THE_CLOCK } from '@/data/about';
+import { ABOUT_PROSE } from '@/data/about';
 import { EXPERIENCES } from '@/data/experience';
 import { PROJECTS } from '@/data/projects';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import { TALKS } from '@/data/talks';
-import { TECH_STACKS } from '@/data/tech-stack';
+import { TECH_STACK_GROUPS } from '@/data/tech-stack';
 
 const ABOUT_BULLETS = [
   `${AUTHOR.jobTitle} with ${AUTHOR.yearsExperience} years of experience, based in ${AUTHOR.location}.`,
@@ -36,14 +36,17 @@ export function buildAboutSection(headingLevel: 1 | 2 = 2): string {
     '',
     `${sub} Tech Stack`,
     '',
-    ...TECH_STACKS.map((t) => `- ${t.label}`),
-    '',
+    ...TECH_STACK_GROUPS.flatMap((group) => [
+      `**${group.label}**`,
+      '',
+      ...group.items.map((item) => `- ${item.label}`),
+      '',
+    ]),
     `${sub} Background`,
     '',
     ...ABOUT_PROSE.flatMap((p) => [p, '']),
-    `${sub} Off the Clock`,
     '',
-    ...OFF_THE_CLOCK.map((item) => `- **${item.title}** — ${item.description}`),
+    `${sub} Quick Facts`,
     '',
   ];
 
