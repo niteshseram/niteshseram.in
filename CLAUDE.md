@@ -60,9 +60,9 @@ Tailwind CSS v4 with `@tailwindcss/postcss`. Theme colors use oklch() via CSS cu
 
 Configured in `src/lib/fonts.ts` via `next/font/google`:
 
-- `--font-sans` (DM Sans, 300/400/500/600) — body text (600 is used for `<strong>` in writing prose)
+- `--font-sans` (Geist, 300/400/500/600/700) — body text (700 is used for `<strong>` in writing prose)
 - `--font-serif` (Instrument Serif, 400 + italic) — headings
-- `--font-mono` (JetBrains Mono, 400) — code
+- `--font-mono` (Geist Mono, 400) — code
 
 ### Class grouping (see AGENTS.md for full rules)
 

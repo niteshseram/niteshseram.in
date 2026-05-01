@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 import { AUTHOR, SITE_TAGLINE } from '@/config/site';
-import { loadGoogleFont } from '@/lib/og-font';
+import { loadGeistFont, loadGoogleFont } from '@/lib/og-font';
 
 export const alt = `${AUTHOR.name} — ${AUTHOR.jobTitle}`;
 export const size = { width: 1200, height: 630 };
@@ -15,17 +15,17 @@ const BRAND = '#8cb6db';
 
 export default async function Image() {
   const [
-    dmSans,
-    dmSansMedium,
+    geist,
+    geistMedium,
     instrumentSerif,
     instrumentSerifItalic,
-    jetBrainsMono,
+    geistMono,
   ] = await Promise.all([
-    loadGoogleFont('DM Sans', 400),
-    loadGoogleFont('DM Sans', 500),
+    loadGeistFont('sans', 'Regular'),
+    loadGeistFont('sans', 'Medium'),
     loadGoogleFont('Instrument Serif', 400),
     loadGoogleFont('Instrument Serif', 400, 'italic'),
-    loadGoogleFont('JetBrains Mono', 400),
+    loadGeistFont('mono', 'Regular'),
   ]);
 
   return new ImageResponse(
@@ -40,7 +40,7 @@ export default async function Image() {
         backgroundImage: `radial-gradient(circle at 50% 38%, ${BRAND}33 0%, transparent 55%), radial-gradient(${BORDER} 1px, transparent 1px)`,
         backgroundSize: '100% 100%, 28px 28px',
         color: FOREGROUND,
-        fontFamily: 'DM Sans',
+        fontFamily: 'Geist',
       }}
     >
       <div
@@ -122,7 +122,7 @@ export default async function Image() {
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            fontFamily: 'JetBrains Mono',
+            fontFamily: 'Geist Mono',
             fontSize: 16,
             color: MUTED,
             letterSpacing: 1.5,
@@ -144,8 +144,8 @@ export default async function Image() {
     {
       ...size,
       fonts: [
-        { name: 'DM Sans', data: dmSans, weight: 400, style: 'normal' },
-        { name: 'DM Sans', data: dmSansMedium, weight: 500, style: 'normal' },
+        { name: 'Geist', data: geist, weight: 400, style: 'normal' },
+        { name: 'Geist', data: geistMedium, weight: 500, style: 'normal' },
         {
           name: 'Instrument Serif',
           data: instrumentSerif,
@@ -159,8 +159,8 @@ export default async function Image() {
           style: 'italic',
         },
         {
-          name: 'JetBrains Mono',
-          data: jetBrainsMono,
+          name: 'Geist Mono',
+          data: geistMono,
           weight: 400,
           style: 'normal',
         },

@@ -30,9 +30,9 @@
   --color-selection: var(--selection);
   --color-selection-foreground: var(--selection-foreground);
 
-  --font-sans: var(--font-dm-sans);
+  --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-instrument-serif);
-  --font-mono: var(--font-jetbrains-mono);
+  --font-mono: var(--font-geist-mono);
 
   --animate-wiggle: wiggle 0.6s ease-in-out infinite;
   --animate-blink: blink 1.1s ease-in-out infinite;
@@ -91,23 +91,23 @@
 .dark {
   color-scheme: dark;
   --background: oklch(0.12 0.008 70);
-  --foreground: oklch(0.91 0.008 75);
+  --foreground: oklch(0.95 0.008 75);
   --card: oklch(0.21 0.008 70);
-  --card-foreground: oklch(0.91 0.008 75);
+  --card-foreground: oklch(0.95 0.008 75);
   --muted: oklch(0.21 0.008 70);
-  --muted-foreground: oklch(0.7 0.01 70);
+  --muted-foreground: oklch(0.73 0.01 70);
   --surface: oklch(0.16 0.008 70);
-  --surface-foreground: oklch(0.91 0.008 75);
+  --surface-foreground: oklch(0.95 0.008 75);
   --popover: oklch(0.16 0.008 70);
-  --popover-foreground: oklch(0.91 0.008 75);
+  --popover-foreground: oklch(0.95 0.008 75);
   --border: oklch(0.21 0.008 70);
   --input: oklch(1 0 0 / 0.15);
   --code: oklch(0.21 0.008 70);
   --code-bar: oklch(1 0 0 / 0.05);
-  --code-foreground: oklch(0.91 0.008 75);
+  --code-foreground: oklch(0.95 0.008 75);
   --code-number: oklch(0.62 0.01 70);
   --code-highlight: oklch(0.21 0.008 70);
-  --selection: oklch(0.91 0.008 75);
+  --selection: oklch(0.95 0.008 75);
   --selection-foreground: oklch(0.12 0.008 70);
 
   /* lighter steel-blue — readable on near-black background */
@@ -188,10 +188,6 @@
 .writing-prose {
   text-wrap: pretty;
   font-feature-settings: 'ss01', 'cv11';
-}
-
-.writing-prose :is(strong, b) {
-  font-weight: 600;
 }
 
 .writing-prose :not(pre) > code {

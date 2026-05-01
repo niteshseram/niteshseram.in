@@ -45,27 +45,19 @@ export const baseMdxComponents: MDXComponents = {
   ),
   h1: headingAnchor(
     'h1',
-    cn(
-      'scroll-mt-20 mt-12 mb-4',
-      'font-serif text-3xl leading-tight',
-      'text-foreground',
-    ),
+    cn('scroll-mt-20 mt-12 mb-4', 'text-3xl leading-tight', 'text-foreground'),
   ),
   h2: headingAnchor(
     'h2',
     cn(
       'scroll-mt-20 mt-12 mb-3',
-      'font-serif text-2xl font-medium leading-tight',
+      'text-2xl font-medium leading-tight',
       'text-foreground',
     ),
   ),
   h3: headingAnchor(
     'h3',
-    cn(
-      'scroll-mt-20 mt-10 mb-2',
-      'font-serif text-xl leading-snug',
-      'text-foreground',
-    ),
+    cn('scroll-mt-20 mt-10 mb-2', 'text-xl leading-snug', 'text-foreground'),
   ),
   h4: headingAnchor(
     'h4',

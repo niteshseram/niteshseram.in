@@ -22,6 +22,7 @@
     "date-fns": "^4.1.0",
     "fumadocs-core": "^16.7.16",
     "fumadocs-mdx": "^14.3.0",
+    "geist": "^1.7.0",
     "matter-js": "^0.20.0",
     "motion": "^12.38.0",
     "next": "^16.2.4",

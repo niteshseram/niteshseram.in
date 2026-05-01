@@ -1,12 +1,10 @@
-import { DM_Sans, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
+import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
+import { Instrument_Serif } from 'next/font/google';
 
 import { cn } from './utils';
 
-export const dmSans = DM_Sans({
-  variable: '--font-dm-sans',
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-});
+export const geistSans = GeistSans;
 
 export const instrumentSerif = Instrument_Serif({
   variable: '--font-instrument-serif',
@@ -15,14 +13,10 @@ export const instrumentSerif = Instrument_Serif({
   style: ['normal', 'italic'],
 });
 
-export const jetbrainsMono = JetBrains_Mono({
-  variable: '--font-jetbrains-mono',
-  subsets: ['latin'],
-  weight: '400',
-});
+export const geistMono = GeistMono;
 
 export const fontVariables = cn(
-  dmSans.variable,
+  geistSans.variable,
   instrumentSerif.variable,
-  jetbrainsMono.variable,
+  geistMono.variable,
 );

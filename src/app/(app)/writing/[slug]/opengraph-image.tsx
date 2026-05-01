@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { ImageResponse } from 'next/og';
 
 import { AUTHOR } from '@/config/site';
-import { loadGoogleFont } from '@/lib/og-font';
+import { loadGeistFont, loadGoogleFont } from '@/lib/og-font';
 import { getAllPosts, getPostBySlug } from '@/lib/writing';
 
 export const alt = `${AUTHOR.name} — Writing`;
@@ -45,17 +45,17 @@ export default async function Image({ params }: Props) {
       : summary;
 
   const [
-    dmSans,
-    dmSansMedium,
+    geist,
+    geistMedium,
     instrumentSerif,
     instrumentSerifItalic,
-    jetBrainsMono,
+    geistMono,
   ] = await Promise.all([
-    loadGoogleFont('DM Sans', 400),
-    loadGoogleFont('DM Sans', 500),
+    loadGeistFont('sans', 'Regular'),
+    loadGeistFont('sans', 'Medium'),
     loadGoogleFont('Instrument Serif', 400),
     loadGoogleFont('Instrument Serif', 400, 'italic'),
-    loadGoogleFont('JetBrains Mono', 400),
+    loadGeistFont('mono', 'Regular'),
   ]);
 
   return new ImageResponse(
@@ -70,7 +70,7 @@ export default async function Image({ params }: Props) {
         backgroundImage: `radial-gradient(circle at 0% 0%, ${BRAND}3d 0%, transparent 60%), radial-gradient(${BORDER} 1px, transparent 1px)`,
         backgroundSize: '100% 100%, 28px 28px',
         color: FOREGROUND,
-        fontFamily: 'DM Sans',
+        fontFamily: 'Geist',
       }}
     >
       <div
@@ -92,7 +92,7 @@ export default async function Image({ params }: Props) {
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            fontFamily: 'JetBrains Mono',
+            fontFamily: 'Geist Mono',
             fontSize: 16,
             color: MUTED,
             letterSpacing: 1.5,
@@ -181,7 +181,7 @@ export default async function Image({ params }: Props) {
             display: 'flex',
             alignItems: 'center',
             gap: 14,
-            fontFamily: 'JetBrains Mono',
+            fontFamily: 'Geist Mono',
             fontSize: 16,
             color: MUTED,
             letterSpacing: 1,
@@ -204,8 +204,8 @@ export default async function Image({ params }: Props) {
     {
       ...size,
       fonts: [
-        { name: 'DM Sans', data: dmSans, weight: 400, style: 'normal' },
-        { name: 'DM Sans', data: dmSansMedium, weight: 500, style: 'normal' },
+        { name: 'Geist', data: geist, weight: 400, style: 'normal' },
+        { name: 'Geist', data: geistMedium, weight: 500, style: 'normal' },
         {
           name: 'Instrument Serif',
           data: instrumentSerif,
@@ -219,8 +219,8 @@ export default async function Image({ params }: Props) {
           style: 'italic',
         },
         {
-          name: 'JetBrains Mono',
-          data: jetBrainsMono,
+          name: 'Geist Mono',
+          data: geistMono,
           weight: 400,
           style: 'normal',
         },
