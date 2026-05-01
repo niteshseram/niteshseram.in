@@ -19,23 +19,25 @@ Here's the pattern:
 
 ```jsx title="ProductList.tsx"
 function ProductList({ products }) {
-  const [filteredItems, setFilteredItems] = useState([]) // [!code highlight]
-  const [count, setCount] = useState(0) // [!code highlight]
+  const [filteredItems, setFilteredItems] = useState([]); // [!code highlight]
+  const [count, setCount] = useState(0); // [!code highlight]
 
   useEffect(() => {
-    setFilteredItems(products.filter(item => item.inStock))
-  }, [products])
+    setFilteredItems(products.filter((item) => item.inStock));
+  }, [products]);
 
   useEffect(() => {
-    setCount(filteredItems.length)
-  }, [filteredItems])
+    setCount(filteredItems.length);
+  }, [filteredItems]);
 
   return (
     <div>
       <p>{count} items</p>
-      {filteredItems.map(item => <ProductCard key={item.id} {...item} />)}
+      {filteredItems.map((item) => (
+        <ProductCard key={item.id} {...item} />
+      ))}
     </div>
-  )
+  );
 }
 ```
 
@@ -53,15 +55,17 @@ Just compute it instead:
 
 ```jsx title="ProductList.tsx"
 function ProductList({ products }) {
-  const filteredItems = products.filter(item => item.inStock)
-  const count = filteredItems.length
+  const filteredItems = products.filter((item) => item.inStock);
+  const count = filteredItems.length;
 
   return (
     <div>
       <p>{count} items</p>
-      {filteredItems.map(item => <ProductCard key={item.id} {...item} />)}
+      {filteredItems.map((item) => (
+        <ProductCard key={item.id} {...item} />
+      ))}
     </div>
-  )
+  );
 }
 ```
 
@@ -71,27 +75,32 @@ If the computation is genuinely expensive, wrap it in `useMemo`. Otherwise, just
 
 A useful heuristic: if the only thing your effect does is call `setState` based on other state or props, you don't need the effect, and you probably don't need the state either.
 
-A close cousin worth flagging is the *initial-state-from-props* trap. You take a prop, store it as local state so the user can edit it, then add a `useEffect` to keep them in sync — `const [name, setName] = useState(user.name)` plus `useEffect(() => setName(user.name), [user.name])`. It looks innocent and ships in production constantly.
+A close cousin worth flagging is the _initial-state-from-props_ trap. You take a prop, store it as local state so the user can edit it, then add a `useEffect` to keep them in sync — `const [name, setName] = useState(user.name)` plus `useEffect(() => setName(user.name), [user.name])`. It looks innocent and ships in production constantly.
 
 The bug is that `name` and `user.name` disagree for one render after the prop changes, and the effect fires on every prop update — silently overwriting whatever the user was typing. If you don't need a local copy, just use the prop directly. If you do need one because it's editable, pass `key={user.id}` from the parent instead. React will unmount and remount with fresh state, and the sync effect disappears.
 
 ## Some state is too low
 
-The opposite problem. State lives in one component, but a sibling or cousin needs to read or write it too. The fix is what the React docs call *lifting state up* — moving it to a shared parent.
+The opposite problem. State lives in one component, but a sibling or cousin needs to read or write it too. The fix is what the React docs call _lifting state up_ — moving it to a shared parent.
 
 Here's a common version:
 
 ```jsx title="ProductList.tsx"
 function ProductList({ products }) {
-  const [search, setSearch] = useState('')
-  const filtered = products.filter(product => product.name.includes(search))
+  const [search, setSearch] = useState('');
+  const filtered = products.filter((product) => product.name.includes(search));
 
   return (
     <div>
-      <input value={search} onChange={event => setSearch(event.target.value)} />
-      {filtered.map(product => <ProductCard key={product.id} {...product} />)}
+      <input
+        value={search}
+        onChange={(event) => setSearch(event.target.value)}
+      />
+      {filtered.map((product) => (
+        <ProductCard key={product.id} {...product} />
+      ))}
     </div>
-  )
+  );
 }
 ```
 
@@ -105,7 +114,7 @@ Lift the state to the lowest common ancestor of every component that touches it:
 
 ```jsx title="App.tsx"
 function App() {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState('');
 
   return (
     <>
@@ -113,7 +122,7 @@ function App() {
       <Sidebar currentSearch={search} />
       <ProductList search={search} onSearchChange={setSearch} />
     </>
-  )
+  );
 }
 ```
 
@@ -129,19 +138,16 @@ There's a third option besides lifting and Context: composition. The clearest ex
 
 ```jsx title="ProductPage.tsx"
 function ProductPage() {
-  const [isHelpOpen, setIsHelpOpen] = useState(false)
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
 
   return (
     <>
       <button onClick={() => setIsHelpOpen(true)}>Need help?</button>
-      <HelpDialog
-        isOpen={isHelpOpen}
-        onClose={() => setIsHelpOpen(false)}
-      >
+      <HelpDialog isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)}>
         <HelpContent />
       </HelpDialog>
     </>
-  )
+  );
 }
 ```
 
@@ -158,7 +164,7 @@ function ProductPage() {
         <HelpContent />
       </Dialog.Content>
     </Dialog>
-  )
+  );
 }
 ```
 
@@ -166,21 +172,21 @@ function ProductPage() {
 
 ## Some state is too high
 
-The other direction. State sits higher in the tree than it needs to, so every change cascades through components that don't care about it. The fix here is what people call *state colocation* — pushing the state back down to where it's used.
+The other direction. State sits higher in the tree than it needs to, so every change cascades through components that don't care about it. The fix here is what people call _state colocation_ — pushing the state back down to where it's used.
 
 Here's an example I've seen more times than I'd like:
 
 ```jsx title="App.tsx"
 function App() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit() {
-    setIsSubmitting(true)
-    await sendMessage({ name, email, message })
-    setIsSubmitting(false)
+    setIsSubmitting(true);
+    await sendMessage({ name, email, message });
+    setIsSubmitting(false);
   }
 
   return (
@@ -200,7 +206,7 @@ function App() {
         />
       </MainContent>
     </Layout>
-  )
+  );
 }
 ```
 
@@ -220,19 +226,19 @@ function App() {
         <ContactForm />
       </MainContent>
     </Layout>
-  )
+  );
 }
 
 function ContactForm() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit() {
-    setIsSubmitting(true)
-    await sendMessage({ name, email, message })
-    setIsSubmitting(false)
+    setIsSubmitting(true);
+    await sendMessage({ name, email, message });
+    setIsSubmitting(false);
   }
 
   // form JSX bound to state, calling handleSubmit on submit
@@ -251,12 +257,12 @@ A related case: state that doesn't need to trigger a re-render at all. If you're
 
 ```jsx
 // useState — re-renders the component every time setTimerId is called
-const [timerId, setTimerId] = useState(null)
+const [timerId, setTimerId] = useState(null);
 ```
 
 ```jsx
 // useRef — holds the value across renders without triggering one
-const timerId = useRef(null)
+const timerId = useRef(null);
 ```
 
 Refs aren't a replacement for state — they don't update the UI when they change. But for values that only matter to your code and not to your render output, they're the right choice.
@@ -277,16 +283,16 @@ Look at the kinds of state you'd find in a typical app:
 
 Most apps put all of these in `useState`, and the consequences pile up: the back button stops working the way users expect, refreshing the page wipes everything, links can't be shared with the current filters intact, and two tabs can't hold independent views. The user's progress through the app lives only in component memory — the moment that component unmounts, it's gone.
 
-But the URL is already a state container. It's persistent across refreshes, shareable as a link, navigable with the back button, and visible to the user. For state that represents *where the user is in the app*, the URL is almost always the right home.
+But the URL is already a state container. It's persistent across refreshes, shareable as a link, navigable with the back button, and visible to the user. For state that represents _where the user is in the app_, the URL is almost always the right home.
 
 Here's a concrete example. A typical filter UI:
 
 ```jsx title="ProductList.tsx"
 function ProductList() {
-  const [search, setSearch] = useState('')
-  const [category, setCategory] = useState('all')
-  const [sortBy, setSortBy] = useState('name')
-  const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState('all');
+  const [sortBy, setSortBy] = useState('name');
+  const [page, setPage] = useState(1);
 
   // ... filter and sort logic
 }
@@ -298,23 +304,23 @@ The same logic with URL state, using Next.js's `useSearchParams`:
 
 ```jsx title="ProductList.tsx"
 function ProductList() {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const search = searchParams.get('search') ?? '' // [!code highlight]
-  const category = searchParams.get('category') ?? 'all' // [!code highlight]
-  const sortBy = searchParams.get('sort') ?? 'name' // [!code highlight]
-  const page = Number(searchParams.get('page')) || 1 // [!code highlight]
+  const search = searchParams.get('search') ?? ''; // [!code highlight]
+  const category = searchParams.get('category') ?? 'all'; // [!code highlight]
+  const sortBy = searchParams.get('sort') ?? 'name'; // [!code highlight]
+  const page = Number(searchParams.get('page')) || 1; // [!code highlight]
 
   function updateParam(key, value) {
-    const params = new URLSearchParams(searchParams)
+    const params = new URLSearchParams(searchParams);
     if (value == null || value === '') {
-      params.delete(key)
+      params.delete(key);
     } else {
-      params.set(key, value)
+      params.set(key, value);
     }
-    router.push(`${pathname}?${params.toString()}`)
+    router.push(`${pathname}?${params.toString()}`);
   }
 
   // ... rest of the component
