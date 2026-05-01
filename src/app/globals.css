@@ -190,6 +190,10 @@
   font-feature-settings: 'ss01', 'cv11';
 }
 
+.writing-prose :is(strong, b) {
+  font-weight: 600;
+}
+
 .writing-prose :not(pre) > code {
   padding-inline: 0.3em;
   padding-block: 0.05em;

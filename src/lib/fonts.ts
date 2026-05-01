@@ -5,7 +5,7 @@ import { cn } from './utils';
 export const dmSans = DM_Sans({
   variable: '--font-dm-sans',
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
+  weight: ['300', '400', '500', '600'],
 });
 
 export const instrumentSerif = Instrument_Serif({
