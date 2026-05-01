@@ -84,8 +84,6 @@ export function PostActions({ markdownUrl, githubUrl, pageUrl }: Props) {
     setMenuOpen(next);
   }
 
-  console.log({ menuOpen });
-
   return (
     <div
       className={cn(
