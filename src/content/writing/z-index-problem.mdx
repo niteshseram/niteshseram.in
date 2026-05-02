@@ -1,0 +1,259 @@
+---
+title: The z-index problem and how to stop having it
+publishedAt: 2026-05-02
+summary: z-index bugs are usually stacking context bugs in disguise. How to debug them, build a system that prevents them, and skip the whole problem with modern CSS primitives.
+tags: ['css', 'z-index', 'stacking-context', 'css-debugging', 'frontend']
+---
+
+Most z-index bugs aren't about z-index.
+
+You have a modal that won't sit on top of a header. You set `z-index: 9999`. It still sits behind. You bump it to `99999`, sprinkle in some `!important`, and somewhere around the third try you wonder how something this simple keeps winning.
+
+The number isn't where the bug lives. z-index doesn't sort every element on the page against every other element — it sorts within a layer your element happens to belong to. Pick the wrong layer and no number is high enough to climb out of it.
+
+## The mental model most people start with is wrong
+
+The mental model usually goes like this: every element has a z-index, and the highest number wins.
+
+What's actually happening is closer to this. The page is divided into layers. Each layer has its own ordering, and z-index works the way you'd expect inside a single layer — higher number, higher in the stack. Across layers, none of that matters; the layer's position relative to other layers decides who appears on top.
+
+The technical name for these layers is **stacking context**. Every page has at least one root context, formed by the `<html>` element, and your CSS quietly creates more of them as it goes. When a `z-index: 9999` modal sits below a `z-index: 5` header, it's almost always because the modal lives in a context whose root sits below the header's. The modal won inside its own context — and lost the one that mattered.
+
+## What creates a new stacking context
+
+This is where most z-index bugs come from. A new stacking context is created when an element has any of the following:
+
+- `position: fixed` or `position: sticky`
+- `position: absolute` or `position: relative` combined with any `z-index` other than `auto`
+- A flex or grid item with any `z-index` other than `auto`
+- `opacity` less than 1
+- A `transform` other than `none`
+- A `filter` other than `none`
+- A `backdrop-filter` other than `none`
+- A `will-change` listing any property that itself creates a stacking context
+- `isolation: isolate`
+- `mix-blend-mode` other than `normal`
+- `contain: layout`, `contain: paint`, or any composite like `contain: strict` or `contain: content`
+
+There are a few more, but those are the ones you run into in practice.
+
+Notice how innocent some of them look. An `opacity: 0.99` on a fade-in, a `transform: translateZ(0)` someone added to push a layer onto the GPU, a `will-change: transform` on a card meant to feel snappier — every one of those silently creates a new context, and once it does, every descendant gets locked inside it. A modal nested under any such ancestor stops competing with the rest of the page; its z-index only ranks inside the ancestor's context, and that whole context might already be sitting below the element you're trying to beat.
+
+z-index competes inside a stacking context, never outside it.
+
+## A real example of the bug
+
+Almost every app has this pattern: a sticky header, content with cards, and a modal that opens from somewhere inside a card.
+
+```html
+<header class="site-header">
+  <nav>...</nav>
+</header>
+
+<main>
+  <article class="card">
+    <button>View details</button>
+    <div class="modal">
+      <p>Modal content</p>
+    </div>
+  </article>
+</main>
+```
+
+```css
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.card {
+  transform: translateY(0); /* added for a hover lift */
+}
+
+.modal {
+  position: fixed;
+  z-index: 9999;
+}
+```
+
+The modal is fixed-positioned with `z-index: 9999` and the header has `z-index: 10`. You'd expect the modal on top.
+
+It isn't — the header sits over it.
+
+The culprit is `transform: translateY(0)` on `.card`. That single property creates a new stacking context on the card, and because the modal is rendered inside the card, it's locked inside that context. The card has no z-index of its own, so its context stacks at the document root with `z-index: auto` — behind the header's `z-index: 10`. The modal's 9999 is doing its job; it's just doing it inside a context that's already losing.
+
+The frustrating part is that nothing about `.card` looks like a z-index issue. The hover animation got added six months ago by someone debugging a flicker, and now it's silently breaking a modal in a different file. The thing that broke it isn't visible at the broken element.
+
+## How to debug it
+
+When a z-index bug shows up, the instinct is to inspect the broken element and start raising its z-index. That's almost never where the fix is.
+
+### Find the stacking context the broken element is in
+
+Walk up the DOM tree from the broken element. For each ancestor, check the Computed Styles panel for any property from the list above — `position`, `transform`, `opacity`, `filter`, `will-change`, `isolation`, `mix-blend-mode`, `contain`. The closest ancestor with one of those is the root of the stacking context your element is trapped in.
+
+This is tedious by hand. The [CSS Stacking Context Inspector](https://chromewebstore.google.com/detail/css-stacking-context-insp/apjeljpachdcjkgnamgppgfkmddadcki) Chrome extension adds a panel to DevTools that shows every stacking context on the page in a tree view, and tells you which one any given element belongs to. It's the most useful single tool for this kind of debugging.
+
+### Compare it against the context of the element that's winning
+
+Once you know your broken element's context, find the context of the element appearing on top. They're usually different — your element won inside its own context, but the other one's context outranks yours.
+
+### Pick the right fix
+
+Which fix fits depends on what the element is for.
+
+For modals, tooltips, dropdowns, and toasts, the right answer is usually to lift the element out of its broken context entirely. They're meant to live above everything; the natural home for them is the document root, not wherever they happen to be triggered from. In React, that's what `createPortal` is for:
+
+```jsx title="Modal.tsx"
+import { createPortal } from 'react-dom';
+
+function Modal({ children }) {
+  return createPortal(<div className="modal">{children}</div>, document.body);
+}
+```
+
+If the element doesn't need to escape, the fix can be smaller. A `transform: translateY(0)` or `will-change: transform` someone added to fix an old animation glitch is often doing nothing useful by the time you find it — delete it, and the stacking context goes with it. The Computed Styles panel will tell you whether the property is doing real work.
+
+Sometimes the parent's context is correct and just needs to outrank another part of the page. A sticky sidebar that should stay above the main content is the classic case. The fix there is on the parent, not the child: bump the parent's z-index until its whole context wins.
+
+What never works is bumping the broken element to a bigger number. By the time you're considering it, the number is already larger than anything in its context.
+
+### Use the 3D view if you're stuck
+
+Microsoft Edge ships a 3D view in DevTools that draws every stacking context as a layer in space. Open DevTools, hit the three-dot menu, then More tools → 3D View. Rotating the page makes it obvious which elements stack where, and which contexts contain which descendants. Chrome has a similar feature in the Layers panel, but it's coarser; for stacking-context debugging, the Edge version is the better tool.
+
+## A system that prevents most of this
+
+The bigger leverage is preventing these bugs in the first place — a system instead of magic numbers.
+
+### Define your layers as tokens
+
+Every element with a z-index in your codebase belongs to one of a small set of layers. It usually comes out to something like:
+
+- Base content (default)
+- Sticky elements (headers, sticky sidebars)
+- Dropdowns and popovers
+- Modals and overlays
+- Toast notifications
+- Tooltips (above everything else)
+
+Six layers, maybe seven if there's something specific to your app. Define them as CSS custom properties:
+
+```css title="tokens.css"
+:root {
+  --z-base: 0;
+  --z-sticky: 100;
+  --z-dropdown: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+  --z-tooltip: 500;
+}
+```
+
+The gaps of 100 are deliberate. They give you room to slot a new layer in later without renumbering everything — if you need something between modal and toast, `350` slides in without touching the rest.
+
+Use the tokens everywhere a z-index appears:
+
+```css
+.site-header {
+  position: sticky;
+  z-index: var(--z-sticky);
+}
+
+.modal {
+  position: fixed;
+  z-index: var(--z-modal);
+}
+
+.toast {
+  position: fixed;
+  z-index: var(--z-toast);
+}
+```
+
+That's the entire system.
+
+### Why this matters more than it looks
+
+Naming z-indexes does a few things at once. Random four-digit numbers stop appearing in CSS, and every value carries intent. Bugs become meaningful — a tooltip showing under a modal stops being a "what number do I try" question and turns into a product question about whether tooltips should outrank modals. And changes are safe: dropping tooltips below toasts is one edit, instead of grepping every CSS file and guessing which numbers belonged to which idea.
+
+### Local layers for component internals
+
+The tokens handle the global picture. Components have their own internal stacking — a label over a background, a decoration sliding behind content, a focus ring above the border — and that's a different concern. Don't reach for the global tokens; scope local ones to the component instead.
+
+```css title="card.css"
+.card {
+  position: relative;
+  isolation: isolate;
+
+  --z-card-bg: 0;
+  --z-card-content: 1;
+  --z-card-overlay: 2;
+}
+
+.card-background {
+  z-index: var(--z-card-bg);
+}
+.card-content {
+  z-index: var(--z-card-content);
+}
+.card-overlay {
+  z-index: var(--z-card-overlay);
+}
+```
+
+The `isolation: isolate` line does the work. It creates a new stacking context for the card, so the values inside (`0`, `1`, `2`) only compete against each other and can't leak into the global layers. Once a component owns its context, its internal layering is its own business.
+
+### Enforce it with a lint rule
+
+A token system that isn't enforced erodes. Someone writes `z-index: 50` instead of `var(--z-sticky)`, ships the PR, and a year later you have a hybrid system that's worse than no system at all. A stylelint rule keeps things honest:
+
+```json title=".stylelintrc.json"
+{
+  "rules": {
+    "declaration-property-value-allowed-list": {
+      "z-index": ["/var\\(--z-/", "auto", "0", "-1", "1"]
+    }
+  }
+}
+```
+
+The rule allows tokens (any `var(--z-*)`), `auto`, and the small integers `0`, `-1`, and `1` — those cover the local cases inside isolated components where naming a token would be overkill. Anything else fails the lint check. Magic numbers don't get banned outright; they just need a comment, which is enough friction to keep them from becoming a habit.
+
+## When you don't need z-index at all
+
+A lot of layering problems pretending to be z-index problems are really DOM-order problems. When two positioned elements overlap and neither has a z-index, the one that comes later in the DOM wins, and that's enough for plenty of layering. If a tooltip just needs to sit on top of the button it's anchored to, moving it later in the markup is often the whole fix — no z-index, no stacking context to worry about.
+
+Modern primitives go further. The [`<dialog>`](https://developer.mozilla.org/docs/Web/HTML/Element/dialog) element (used with `showModal()`) and the [Popover API](https://developer.mozilla.org/docs/Web/API/Popover_API) render in the **top layer** — a special, browser-managed layer that sits above every stacking context on the page. They're built specifically for things that need to escape every parent's layering rules: modals, dropdowns, tooltips.
+
+```html
+<dialog id="help-dialog">
+  <p>This dialog renders in the top layer.</p>
+  <button onclick="document.getElementById('help-dialog').close()">
+    Close
+  </button>
+</dialog>
+
+<button onclick="document.getElementById('help-dialog').showModal()">
+  Open
+</button>
+```
+
+That dialog appears above everything else on the page — every stacking context, every z-index, every transformed parent. The browser handles it; you don't write a z-index at all.
+
+For most modals, dropdowns, and tooltips you'd build today, this is the right starting point. The token system is for the cases where the platform's primitives don't fit.
+
+## Putting it together
+
+A working setup ends up as five pieces:
+
+1. **Six layers, defined as tokens.** Every named layer is a CSS variable; every z-index in the codebase uses one.
+2. **Local stacking contexts inside components.** Components that need internal layering use `isolation: isolate` plus local tokens, so their internals don't leak.
+3. **Modals and tooltips render through portals or the top-layer primitives.** They escape the stacking context tree instead of fighting it.
+4. **A lint rule blocks magic numbers.** New code can't introduce uncategorized z-indexes without a deliberate comment.
+5. **The Stacking Context Inspector is installed.** When something does break, the cause shows up in a few clicks.
+
+Most of that is one-time setup: a fifteen-line token file, a three-line lint rule, and an `isolation: isolate` per component that needs it. Once it's in place, z-index stops being something to think about — engineers reach for `var(--z-modal)` by reflex, and the rare bug that slips through has a clear process to find.
+
+If you're starting from scratch, the order that works best is to install the extension first, define the tokens, migrate one component at a time, and turn the lint rule on once the migration is done. By the time the rule is enforcing, there's almost nothing left for it to flag.
