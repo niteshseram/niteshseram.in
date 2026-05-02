@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const base = pageMetadata({
     pathname: `/writing/${slug}`,
-    title: `${title} | Blog`,
+    title,
     socialTitle: title,
     description: summary,
   });
