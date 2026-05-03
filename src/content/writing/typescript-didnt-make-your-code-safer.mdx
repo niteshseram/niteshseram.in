@@ -1,0 +1,283 @@
+---
+title: TypeScript didn't make your code safer. You did.
+publishedAt: '2026-05-03'
+summary: TypeScript only helps when you let it. The habits that turn type checking off — `as`, `any`, unvalidated boundaries, and the strict flags nobody enables.
+tags: ['typescript', 'type-safety', 'zod', 'runtime-validation', 'tsconfig']
+---
+
+Most TypeScript bugs I've shipped weren't TypeScript bugs. They were the lines where I told the compiler to stop checking, and it obliged.
+
+A clean build is the cheapest form of confidence in frontend work. The compiler is quiet, CI is green, and the PR ships. A week later something falls over in production — a property that doesn't exist on the value you said was a `User`, a `.toLowerCase()` called on `undefined`, an API field that got renamed without anyone updating the type. You git-blame the code and find the line where you wrote `as User` six months ago. You remember exactly why you did it. The build was failing and you wanted to ship.
+
+TypeScript catches mistakes when you make them. But only the ones you let it catch — and the patterns that turn checking off don't always look like an opt-out. Most of them pass code review because they look like fine code.
+
+## The `as` keyword stops checking
+
+The most common offender is the `as` assertion:
+
+```ts title="user-service.ts"
+const user = response.data as User;
+```
+
+That line asks TypeScript to stop verifying. From there on, your code treats `response.data` as a `User` whether it is one or not. If it's a partial object, an error envelope, or `undefined`, the compiler has no objection.
+
+There are real reasons to use `as`. A DOM query is typed `Element | null` but you just rendered the element. A discriminated union has a tag you've already checked but the compiler can't carry that into a callback. A library returns a more general type than the one you stored. In each case you know something the type system doesn't, and `as` is how you say it.
+
+Most `as` calls I see come from somebody who got tired of the red squiggle and made it stop. The shape was almost right, the library's types were probably fine, the build was almost passing — `as` is one keystroke and the problem disappears.
+
+The worst form is the double assertion: `as unknown as T`. It launders the value through `unknown` to bypass the check the compiler refused to skip. If you write it, you should be able to defend the cast — nothing else will.
+
+Two alternatives are worth reaching for first. A type predicate runs the check at runtime and tells the compiler what it found:
+
+```ts title="user-guard.ts"
+function isUser(value: unknown): value is User { // [!code highlight]
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'id' in value &&
+    typeof value.id === 'string'
+  );
+}
+
+if (isUser(response.data)) {
+  response.data.id; // verified, not asserted
+}
+```
+
+The other is the [`satisfies` operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator) (TS 4.9+). It checks the shape of a literal without widening it:
+
+```ts title="theme-config.ts"
+const themes = {
+  light: { bg: '#fff', fg: '#000' },
+  dark: { bg: '#000', fg: '#fff' },
+} satisfies Record<string, ColorScheme>; // [!code highlight]
+
+themes.light; // { bg: string; fg: string } — keys are still narrow
+themes.darkk; // error: 'darkk' does not exist
+```
+
+`as Record<string, ColorScheme>` would have erased the `light | dark` keys and let typos through. Use `satisfies` whenever you'd otherwise `as` a literal you plan to use elsewhere.
+
+When `as` shows up in my code, I ask what the error was telling me. If the answer is "I just rendered this DOM node" or "the discriminator was checked above," that's information the compiler can't have. If the answer is "I'm tired of looking at this," the error was right.
+
+## `any` is contagious
+
+`any` is more dangerous than `as` because it spreads through inference.
+
+```ts title="processor.ts"
+function processPayload(data: any) {
+  return data.user.profile.avatar;
+}
+```
+
+One `any` parameter doesn't only turn off checking for that variable. The return type is `any`, every caller of the function gets `any`, and anything those callers pass downstream gets `any`. One escape hatch in a utility deep in the codebase can poison every component that touches its output, and the type checker won't say a word.
+
+The most common `any` is the implicit kind. Without `noImplicitAny`, every untyped parameter and every untyped variable silently becomes `any`. The first thing I check in a TypeScript codebase that doesn't feel safe is whether `strict` is on in [`tsconfig.json`](https://www.typescriptlang.org/tsconfig/#strict). If it isn't, every other conversation about types is theoretical.
+
+Three other types are almost as dangerous and almost never named:
+
+- `Function` — accepts anything callable but loses every argument and return type. Calling it gives you back `any`.
+- `Object` and `{}` — accept every value except `null` and `undefined`. They look restrictive but in practice match strings, numbers, arrays, and everything else.
+- `object` (lowercase) — narrows to non-primitives, which sounds useful but you still can't read a property off it without narrowing further.
+
+If you see `(callback: Function)` in a hook signature, replace it with a real signature: `(callback: (event: MouseEvent) => void)`, or a generic if the shape varies.
+
+The replacement for intentional `any` is `unknown`. It won't let you do anything with the value until you've narrowed it:
+
+```ts title="processor.ts"
+function processPayload(data: unknown) {
+  if (
+    typeof data === 'object' &&
+    data !== null &&
+    'user' in data &&
+    typeof data.user === 'object'
+  ) {
+    // data is now narrow enough to use
+  }
+}
+```
+
+It's more code. With `any` you skip the check and hope; with `unknown` the compiler refuses to let you skip.
+
+When I'm tempted to write `any`, I try `unknown` first. The check the compiler then asks for is the one I would have forgotten.
+
+## The boundary is where TypeScript ends
+
+The worst lie is at the boundary — the moment data crosses into your app from outside. It looks normal:
+
+```ts title="user-service.ts"
+const response = await fetch('/api/user');
+const user: User = await response.json();
+```
+
+`Body.json()` returns `Promise<any>`, so `: User` is a type assertion in costume — you telling TypeScript what's there, not TypeScript checking. The network is outside the language. The same hole exists everywhere data crosses in:
+
+- `JSON.parse()` returns `any`
+- `localStorage.getItem()` returns `string | null`, which you then parse into `any`
+- URL search params and route params are strings until you decide otherwise
+- `postMessage`, `BroadcastChannel`, and WebSocket events carry untyped payloads
+- Webhook bodies, environment variables, and uploaded file contents
+
+If the API renames `email` to `emailAddress`, your build stays green and your code stays broken. The error doesn't appear at the fetch call; it appears three components away, when something tries to call `.toLowerCase()` on a value that turned out to be `undefined`. By then the stack trace points at a render, not at the cause.
+
+The fix is runtime validation — a schema that checks the shape at the boundary. [Zod](https://zod.dev/) is the most common; [Valibot](https://valibot.dev/), [ArkType](https://arktype.io/), and [io-ts](https://gcanti.github.io/io-ts/) work the same way:
+
+```ts title="user-service.ts"
+import { z } from 'zod';
+
+const UserSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+  createdAt: z.coerce.date(),
+});
+
+type User = z.infer<typeof UserSchema>; // [!code highlight]
+
+async function fetchUser(): Promise<User> {
+  const response = await fetch('/api/user');
+  return UserSchema.parse(await response.json()); // [!code highlight]
+}
+```
+
+The `User` type derives from the schema instead of being declared in parallel — one source of truth, no drift. `parse` checks at runtime: if the shape is wrong, it throws with a structured error you can log, retry, or show to the user.
+
+For inputs that can legitimately fail (form data, third-party webhooks, anything user-controlled), `safeParse` returns a discriminated union — `{ success: true, data: T }` or `{ success: false, error: ZodError }` — so you branch on the failure instead of catching it.
+
+Set up a typed `apiClient(url, schema)` wrapper that runs the schema against every response. Once it exists, raw `fetch` calls look out of place in review.
+
+Validation pays off by surfacing the mismatch at the boundary, with a useful error you can act on, instead of three renders downstream as `undefined.toLowerCase()`.
+
+## TypeScript's own types lie to you
+
+A few common signatures in TypeScript's standard library don't match what happens at runtime. The compiler ships the wider, less helpful type because the honest one would break too much existing code. Three to know about:
+
+### `Object.keys` gives you back `string[]`, not the keys of your object
+
+```ts title="settings.ts"
+const settings = { theme: 'dark', density: 'compact' };
+
+Object.keys(settings).forEach((key) => {
+  // key is `string`, not 'theme' | 'density'
+  console.log(settings[key]); // error: can't index settings with a string
+});
+```
+
+You'd expect `key` to be `'theme' | 'density'`. It isn't, because at runtime the object might have extra keys the type doesn't know about — anything tacked on by a JSON parse, a prototype, or a later mutation. The honest answer is "I don't know all the keys."
+
+If you're sure the object has nothing extra, the fix is one cast: `Object.keys(settings) as Array<keyof typeof settings>`. This is one of the legitimate uses of `as`.
+
+### `Array.includes` refuses to check a value against a narrower array
+
+```ts title="status-check.ts"
+const validStatuses = ['active', 'pending', 'paused'] as const;
+
+function isValid(status: string) {
+  return validStatuses.includes(status);
+  //                          ~~~~~~ error
+  //  Argument of type 'string' is not assignable
+  //  to 'active' | 'pending' | 'paused'
+}
+```
+
+This is the exact thing you want `includes` to do — check whether an arbitrary string is one of the valid ones. TypeScript blocks it because the array's element type is the narrow union, and `includes` insists the argument be assignable to that union. (You don't have an `'active' | 'pending' | 'paused'` — that's the question you're trying to answer.)
+
+The cleanest workaround is `Set.prototype.has`, which doesn't have the same constraint:
+
+```ts title="status-check.ts"
+const validStatuses = new Set(['active', 'pending', 'paused']);
+
+function isValid(status: string) {
+  return validStatuses.has(status); // works, no error
+}
+```
+
+### `arr[5]` is typed as `T`, even when the runtime returns `undefined`
+
+This is the biggest one and the easiest to fix. By default, indexing an array gives you back the element type — TypeScript trusts that you know the index is in range. The runtime makes no such promise.
+
+The fix is two flags that aren't part of `strict`:
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true, // [!code highlight]
+    "exactOptionalPropertyTypes": true // [!code highlight]
+  }
+}
+```
+
+With `noUncheckedIndexedAccess`, `arr[5]` returns `T | undefined`, and the compiler forces you to handle the empty case — at every index, every `Map.get`, every `Record` lookup. It's annoying for two days. After that, off-by-one bugs and missing-key bugs you used to ship in production start getting caught at the keyboard.
+
+`exactOptionalPropertyTypes` closes a different gap. Without it, an optional property silently accepts an explicit `undefined`:
+
+```ts
+type User = { name?: string };
+
+const user: User = { name: undefined }; // allowed without the flag
+```
+
+Those two values look identical at the type level but behave differently at runtime — `'name' in user` is `true` for the version with `undefined` and `false` for the one without, and `JSON.stringify` keeps the explicit `undefined` out of the output but treats absent keys differently. With the flag on, optional means "the key may be missing," not "the key may be present with the value `undefined`."
+
+Both flags ship turned off, and most projects never turn them on. They're the cheapest safety upgrade you can make.
+
+## Brand the things that look the same
+
+A `userId` and an `orderId` are both strings, so TypeScript will happily let you swap them:
+
+```ts title="orders.ts"
+function getOrder(orderId: string) {
+  /* ... */
+}
+
+const userId = 'user_123';
+getOrder(userId); // no error — both are strings
+```
+
+The bug doesn't surface until somebody pages on the wrong customer's order.
+
+Give each kind of string its own type by attaching a tag — a marker that only exists in the type system, not at runtime:
+
+```ts title="ids.ts"
+type UserId = string & { readonly __brand: 'UserId' }; // [!code highlight]
+type OrderId = string & { readonly __brand: 'OrderId' }; // [!code highlight]
+
+function getOrder(orderId: OrderId) {
+  /* ... */
+}
+
+const userId = 'user_123' as UserId;
+getOrder(userId);
+//       ~~~~~~ error
+// Argument of type 'UserId' is not assignable
+// to parameter of type 'OrderId'
+```
+
+A `UserId` is "a string, plus a marker saying it's a UserId." The marker is invisible at runtime — nothing to serialize, zero overhead. TypeScript treats `UserId` and `OrderId` as different types because their markers don't match, even though both are strings underneath.
+
+To stop raw strings from sneaking through, route every value through a small constructor:
+
+```ts title="ids.ts"
+function asUserId(value: string): UserId {
+  return value as UserId;
+}
+
+const userId = asUserId('user_123'); // the only way to get a UserId
+```
+
+Pair it with Zod's [`.brand()`](https://zod.dev/?id=brand) so the validator at the boundary is the only place a raw string becomes a branded ID.
+
+The cost is real — every entry point has to build the branded value, and consumers can't pass `'order_123'` directly to `getOrder`. For domains where mixing identifiers causes real damage (auth, billing, anything with money or permissions), that's worth paying for. Everywhere else, plain strings are fine.
+
+## Putting it together
+
+Most teams adopt TypeScript and assume the safety came in the box. It didn't. The code is _capable_ of being safer; whether it is depends on a handful of habits:
+
+- Treat `as` as a claim you can defend. If you can't, the error was real — reach for a type predicate or `satisfies`.
+- Replace `any` with `unknown`. Avoid `Function`, `Object`, and `{}` for the same reason.
+- Validate every value crossing into your app from outside. Use the validator's inferred type as your domain type so the two can't drift.
+- Turn on `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`. Pay the upfront cost once.
+- Brand the identifiers that would cause real damage if mixed up.
+
+None of these need a sprint. Most are a single PR, a tsconfig change, or a habit you build by writing one line differently. If you only do one this week, turn on `noUncheckedIndexedAccess` and fix what it surfaces. It will find bugs you've been shipping for years.
