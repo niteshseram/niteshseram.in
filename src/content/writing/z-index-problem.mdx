@@ -68,7 +68,7 @@ Almost every app has this pattern: a sticky header, content with cards, and a mo
 }
 
 .card {
-  transform: translateY(0); /* added for a hover lift */
+  transform: translateY(0); /* added for a hover lift */ /* [!code highlight] */
 }
 
 .modal {
@@ -185,7 +185,7 @@ The tokens handle the global picture. Components have their own internal stackin
 ```css title="card.css"
 .card {
   position: relative;
-  isolation: isolate;
+  isolation: isolate; /* [!code highlight] */
 
   --z-card-bg: 0;
   --z-card-content: 1;
