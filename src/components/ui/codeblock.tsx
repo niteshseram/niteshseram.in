@@ -12,6 +12,7 @@ import {
 import { PiCheck, PiClipboard } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { useCopyButton } from '@/utils/use-copy-button';
 
@@ -77,6 +78,11 @@ export function CodeBlock({
   ...props
 }: CodeBlockProps) {
   const areaRef = useRef<HTMLDivElement>(null);
+  const {
+    className: viewportClassNameProp,
+    style: viewportStyleProp,
+    ...viewportPropsRest
+  } = viewportProps;
 
   return (
     <figure
@@ -132,31 +138,30 @@ export function CodeBlock({
           children: allowCopy && <CopyButton containerRef={areaRef} />,
         })
       )}
-      <div
-        ref={areaRef}
-        {...viewportProps}
-        role="region"
-        className={cn(
-          'overflow-auto max-h-[600px]',
+      <ScrollArea
+        className="max-h-[600px]"
+        orientation="both"
+        viewportClassName={cn(
           'py-3.5',
           'text-[0.8125rem]',
-          'fd-scroll-container',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring',
-          viewportProps.className,
+          viewportClassNameProp,
         )}
-        style={
-          {
+        viewportProps={{
+          ref: areaRef,
+          role: 'region',
+          ...viewportPropsRest,
+          style: {
             // space for toolbar
             '--padding-right': !title ? 'calc(var(--spacing) * 8)' : undefined,
             counterSet: props['data-line-numbers']
               ? `line ${Number(props['data-line-numbers-start'] ?? 1) - 1}`
               : undefined,
-            ...viewportProps.style,
-          } as object
-        }
+            ...viewportStyleProp,
+          } as object,
+        }}
       >
         {children}
-      </div>
+      </ScrollArea>
     </figure>
   );
 }

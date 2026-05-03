@@ -1,11 +1,35 @@
 import type { ReactNode } from 'react';
-import { PiArrowUpRight, PiPlus } from 'react-icons/pi';
+import {
+  PiArrowSquareOut,
+  PiArrowUpRight,
+  PiDesktop,
+  PiGithubLogo,
+  PiHouse,
+  PiMoon,
+  PiNotePencil,
+  PiPlus,
+  PiSun,
+  PiUser,
+  PiXLogo,
+} from 'react-icons/pi';
 
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { Anchor } from '@/components/ui/anchor';
 import type { AnchorVariant, AnchorWeight } from '@/components/ui/anchor';
 import { Button } from '@/components/ui/button';
 import type { ButtonSize, ButtonVariant } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandFooter,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandItemIcon,
+  CommandList,
+  CommandShortcut,
+} from '@/components/ui/command';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 
 const anchorVariants: AnchorVariant[] = ['default', 'brand', 'unstyled'];
@@ -291,6 +315,177 @@ export default function DesignPage() {
             </div>
           ))}
         </div>
+      </Section>
+
+      <Section eyebrow="06" title="Scroll area">
+        <div className="flex flex-col gap-y-8">
+          <div>
+            <PropLabel prop="orientation" value="vertical" />
+            <DemoRow>
+              <ScrollArea
+                className={cn(
+                  'h-48 w-full',
+                  'rounded-md border border-border',
+                  'bg-background',
+                )}
+                viewportClassName="p-3"
+              >
+                <ul className={cn('flex flex-col gap-y-1.5', 'text-sm')}>
+                  {Array.from({ length: 30 }, (_, index) => (
+                    <li key={index}>Item {index + 1}</li>
+                  ))}
+                </ul>
+              </ScrollArea>
+            </DemoRow>
+          </div>
+          <div>
+            <PropLabel prop="orientation" value="horizontal" />
+            <DemoRow>
+              <ScrollArea
+                className={cn(
+                  'w-full',
+                  'rounded-md border border-border',
+                  'bg-background',
+                )}
+                orientation="horizontal"
+                viewportClassName="p-3"
+              >
+                <div className="flex w-max gap-x-2">
+                  {Array.from({ length: 20 }, (_, index) => (
+                    <span
+                      key={index}
+                      className={cn(
+                        'inline-flex items-center',
+                        'px-3 py-1.5',
+                        'rounded-full border border-border',
+                        'text-xs whitespace-nowrap',
+                        'bg-muted text-foreground',
+                      )}
+                    >
+                      Tag {index + 1}
+                    </span>
+                  ))}
+                </div>
+              </ScrollArea>
+            </DemoRow>
+          </div>
+          <div>
+            <PropLabel prop="orientation" value="both" />
+            <DemoRow>
+              <ScrollArea
+                className={cn(
+                  'h-48 w-full',
+                  'rounded-md border border-border',
+                  'bg-background',
+                )}
+                orientation="both"
+                viewportClassName="p-3"
+              >
+                <ul
+                  className={cn(
+                    'flex flex-col gap-y-1.5 w-max',
+                    'text-sm whitespace-nowrap',
+                  )}
+                >
+                  {Array.from({ length: 20 }, (_, index) => (
+                    <li key={index}>
+                      Row {index + 1} — Lorem ipsum dolor sit amet, consectetur
+                      adipiscing elit, sed do eiusmod tempor incididunt ut
+                      labore et dolore magna aliqua.
+                    </li>
+                  ))}
+                </ul>
+              </ScrollArea>
+            </DemoRow>
+          </div>
+        </div>
+      </Section>
+
+      <Section eyebrow="07" title="Command">
+        <DemoRow>
+          <Command
+            className={cn(
+              'w-full max-w-lg',
+              'rounded-xl border border-input',
+              'bg-popover',
+            )}
+            label="Design reference command palette"
+          >
+            <CommandInput placeholder="Type a command or search…" />
+            <CommandList>
+              <CommandEmpty>No results</CommandEmpty>
+              <CommandGroup heading="Navigation">
+                <CommandItem value="home">
+                  <CommandItemIcon>
+                    <PiHouse aria-hidden="true" />
+                  </CommandItemIcon>
+                  <span className="flex-1 truncate">Home</span>
+                </CommandItem>
+                <CommandItem value="about">
+                  <CommandItemIcon>
+                    <PiUser aria-hidden="true" />
+                  </CommandItemIcon>
+                  <span className="flex-1 truncate">About</span>
+                </CommandItem>
+                <CommandItem value="writing">
+                  <CommandItemIcon>
+                    <PiNotePencil aria-hidden="true" />
+                  </CommandItemIcon>
+                  <span className="flex-1 truncate">Writing</span>
+                </CommandItem>
+              </CommandGroup>
+              <CommandGroup heading="Theme">
+                <CommandItem value="light">
+                  <CommandItemIcon>
+                    <PiSun aria-hidden="true" />
+                  </CommandItemIcon>
+                  <span className="flex-1 truncate">Light</span>
+                </CommandItem>
+                <CommandItem value="dark">
+                  <CommandItemIcon>
+                    <PiMoon aria-hidden="true" />
+                  </CommandItemIcon>
+                  <span className="flex-1 truncate">Dark</span>
+                </CommandItem>
+                <CommandItem value="system">
+                  <CommandItemIcon>
+                    <PiDesktop aria-hidden="true" />
+                  </CommandItemIcon>
+                  <span className="flex-1 truncate">System</span>
+                </CommandItem>
+              </CommandGroup>
+              <CommandGroup heading="Social">
+                <CommandItem value="github">
+                  <CommandItemIcon>
+                    <PiGithubLogo aria-hidden="true" />
+                  </CommandItemIcon>
+                  <span className="flex-1 truncate">GitHub</span>
+                  <PiArrowSquareOut
+                    aria-hidden="true"
+                    className="size-3.5 shrink-0 opacity-60"
+                  />
+                </CommandItem>
+                <CommandItem value="twitter">
+                  <CommandItemIcon>
+                    <PiXLogo aria-hidden="true" />
+                  </CommandItemIcon>
+                  <span className="flex-1 truncate">X / Twitter</span>
+                  <PiArrowSquareOut
+                    aria-hidden="true"
+                    className="size-3.5 shrink-0 opacity-60"
+                  />
+                </CommandItem>
+              </CommandGroup>
+            </CommandList>
+            <CommandFooter>
+              <div className="flex items-center gap-x-3">
+                <CommandShortcut keys={['↑', '↓']} label="navigate" />
+                <CommandShortcut keys={['↵']} label="select" />
+              </div>
+              <CommandShortcut keys={['esc']} label="close" />
+            </CommandFooter>
+          </Command>
+        </DemoRow>
       </Section>
     </div>
   );

@@ -13,6 +13,7 @@ import {
 import type { ComponentProps, ReactNode } from 'react';
 import { PiMagnifyingGlass } from 'react-icons/pi';
 
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 
 export function Command({
@@ -126,19 +127,20 @@ export function CommandInput({
 
 export function CommandList({
   className,
+  children,
   ...props
 }: Omit<ComponentProps<typeof CmdkList>, 'className'> & {
   className?: ClassValue;
 }) {
   return (
-    <CmdkList
-      className={cn(
-        'max-h-80 overflow-y-auto overscroll-contain',
-        'p-1.5',
-        className,
-      )}
-      {...props}
-    />
+    <CmdkList className={cn(className)} {...props}>
+      <ScrollArea
+        className="max-h-80"
+        viewportClassName="overscroll-contain p-1.5"
+      >
+        {children}
+      </ScrollArea>
+    </CmdkList>
   );
 }
 

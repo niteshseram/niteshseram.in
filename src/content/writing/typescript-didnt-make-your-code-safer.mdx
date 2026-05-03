@@ -30,7 +30,8 @@ The worst form is the double assertion: `as unknown as T`. It launders the value
 Two alternatives are worth reaching for first. A type predicate runs the check at runtime and tells the compiler what it found:
 
 ```ts title="user-guard.ts"
-function isUser(value: unknown): value is User { // [!code highlight]
+function isUser(value: unknown): value is User {
+  // [!code highlight]
   return (
     typeof value === 'object' &&
     value !== null &&
