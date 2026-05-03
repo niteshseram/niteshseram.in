@@ -107,7 +107,7 @@ Key patterns:
 - JSON-LD structured data via `src/lib/jsonld.ts` (Person, WebSite, Blog, BlogPosting). Person/WebSite graph is injected in the root layout; BlogPosting is injected per post.
 - Dynamic OG images generated per blog post at `opengraph-image.tsx` (fonts loaded via `src/lib/og-font.ts`).
 - Site constants in `src/config/site.ts` (`SITE_URL`, `AUTHOR`, `SITE_DESCRIPTION`, `SITE_TAGLINE`, `WRITING`, `SITE_LANGUAGE`).
-- Google Analytics injected via `@next/third-parties/google` only when `NEXT_PUBLIC_GA_ID` is set and `VERCEL_ENV === 'production'`.
+- Umami analytics injected via `next/script` only when `NEXT_PUBLIC_UMAMI_WEBSITE_ID` is set and `VERCEL_ENV === 'production'`. Script URL defaults to Umami Cloud (`https://cloud.umami.is/script.js`); override via `NEXT_PUBLIC_UMAMI_SCRIPT_URL` for self-hosted.
 
 ## Data & config
 

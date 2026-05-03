@@ -1,5 +1,5 @@
-import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import { Suspense } from 'react';
 
 import { ThemeProvider } from '@/components/theme-provider';
@@ -16,7 +16,10 @@ import {
 } from '@/lib/jsonld';
 import { cn } from '@/lib/utils';
 
-const gaId = process.env.NEXT_PUBLIC_GA_ID;
+const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
+const umamiScriptUrl =
+  process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL ??
+  'https://cloud.umami.is/script.js';
 const isProduction = process.env.VERCEL_ENV === 'production';
 
 export const metadata: Metadata = {
@@ -61,7 +64,13 @@ export default function RootLayout({
           </Suspense>
         </ThemeProvider>
       </body>
-      {gaId && isProduction ? <GoogleAnalytics gaId={gaId} /> : null}
+      {umamiWebsiteId && isProduction && (
+        <Script
+          data-website-id={umamiWebsiteId}
+          src={umamiScriptUrl}
+          strategy="afterInteractive"
+        />
+      )}
     </html>
   );
 }
