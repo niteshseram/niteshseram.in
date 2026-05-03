@@ -31,14 +31,17 @@ Open [http://localhost:3000](http://localhost:3000).
 | `pnpm lint:fix`  | Run oxlint with `--fix`     |
 | `pnpm fmt`       | Format with oxfmt           |
 | `pnpm fmt:check` | Check formatting            |
+| `pnpm tc`        | Typecheck with tsgo         |
 
 ### Structure
 
-- [src/app/](src/app/) — routes (home, about, writing, design)
+- [src/app/](src/app/) — routes (home, about, writing, design, `llms.txt` endpoints)
 - [src/components/](src/components/) — UI components
 - [src/content/writing/](src/content/writing/) — MDX posts
 - [src/config/site.ts](src/config/site.ts) — site metadata
-- [src/lib/](src/lib/) — fonts, JSON-LD, utilities
+- [src/data/](src/data/) — static data (about, projects, experience, talks, timeline)
+- [src/lib/](src/lib/) — fonts, JSON-LD, metadata, content helpers
+- [src/utils/](src/utils/) — reusable hooks
 
 ### Conventions
 
