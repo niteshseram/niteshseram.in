@@ -68,16 +68,18 @@ export function ProjectsSection() {
                     '-mr-1',
                   )}
                 >
-                  <Button
-                    href={project.githubUrl}
-                    aria-label={`${project.name} source on GitHub`}
-                    icon={<PiGithubLogo />}
-                    isLabelHidden={true}
-                    label="View source on GitHub"
-                    size="xs"
-                    tooltip="View source"
-                    variant="ghost"
-                  />
+                  {project.githubUrl && (
+                    <Button
+                      href={project.githubUrl}
+                      aria-label={`${project.name} source on GitHub`}
+                      icon={<PiGithubLogo />}
+                      isLabelHidden={true}
+                      label="View source on GitHub"
+                      size="xs"
+                      tooltip="View source"
+                      variant="ghost"
+                    />
+                  )}
                   {project.liveUrl && (
                     <Button
                       href={project.liveUrl}

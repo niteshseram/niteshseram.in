@@ -3,19 +3,18 @@ export type Project = {
   tagline: string;
   description: string;
   tech: string[];
-  githubUrl: string;
+  githubUrl?: string;
   liveUrl?: string;
 };
 
 export const PROJECTS: Project[] = [
   {
-    name: 'niteshseram.in',
-    tagline: 'Personal site',
+    name: 'OGCanvas',
+    tagline: 'Open Graph image editor',
     description:
-      'This very site — a personal portfolio built with care for typography, motion, and the small details.',
-    tech: ['Next.js', 'React', 'TypeScript', 'Tailwind'],
-    githubUrl: 'https://github.com/niteshseram/niteshseram.in',
-    liveUrl: 'https://niteshseram.in',
+      'An Open Graph image generator with a drag-and-drop editor and a curated set of beautiful templates for stunning social previews.',
+    tech: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Zustand', 'Konva.js'],
+    liveUrl: 'https://ogcanvas.niteshseram.in',
   },
   {
     name: 'Masonix',
@@ -25,5 +24,14 @@ export const PROJECTS: Project[] = [
     tech: ['React', 'TypeScript'],
     githubUrl: 'https://github.com/niteshseram/masonix',
     liveUrl: 'https://masonix.vercel.app',
+  },
+  {
+    name: 'niteshseram.in',
+    tagline: 'Personal site',
+    description:
+      'This very site — a personal portfolio built with care for typography, motion, and the small details.',
+    tech: ['Next.js', 'React', 'TypeScript', 'Tailwind'],
+    githubUrl: 'https://github.com/niteshseram/niteshseram.in',
+    liveUrl: 'https://niteshseram.in',
   },
 ];
