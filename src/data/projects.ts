@@ -14,7 +14,7 @@ export const PROJECTS: Project[] = [
     description:
       'An Open Graph image generator with a drag-and-drop editor and a curated set of beautiful templates for stunning social previews.',
     tech: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Zustand', 'Konva.js'],
-    liveUrl: 'https://ogcanvas.niteshseram.in',
+    liveUrl: 'https://ogcanvas.niteshseram.in?utm_source=portfolio',
   },
   {
     name: 'Masonix',
@@ -23,7 +23,7 @@ export const PROJECTS: Project[] = [
       'A React masonry layout library that gets the fundamentals right — correct reading order, balanced columns, and optional virtualization for 10k+ item feeds.',
     tech: ['React', 'TypeScript'],
     githubUrl: 'https://github.com/niteshseram/masonix',
-    liveUrl: 'https://masonix.vercel.app',
+    liveUrl: 'https://masonix.vercel.app?utm_source=portfolio',
   },
   {
     name: 'niteshseram.in',
@@ -32,6 +32,6 @@ export const PROJECTS: Project[] = [
       'This very site — a personal portfolio built with care for typography, motion, and the small details.',
     tech: ['Next.js', 'React', 'TypeScript', 'Tailwind'],
     githubUrl: 'https://github.com/niteshseram/niteshseram.in',
-    liveUrl: 'https://niteshseram.in',
+    liveUrl: 'https://niteshseram.in?utm_source=portfolio',
   },
 ];
