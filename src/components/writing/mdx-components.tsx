@@ -1,4 +1,5 @@
 import type { MDXComponents } from 'mdx/types';
+import Image from 'next/image';
 
 import { Anchor } from '@/components/ui/anchor';
 import { CodeBlock, Pre } from '@/components/ui/codeblock';
@@ -116,16 +117,19 @@ export const baseMdxComponents: MDXComponents = {
       {...props}
     />
   ),
-  img: ({ className, alt, ...props }) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      alt={alt ?? ''}
-      loading="lazy"
-      decoding="async"
-      className={cn('my-8 rounded-lg border border-border', className)}
-      {...props}
-    />
-  ),
+  img: ({ className, alt, src, width, height, ...props }) => {
+    if (typeof src !== 'string' || !src) return null;
+    return (
+      <Image
+        alt={alt ?? ''}
+        src={src}
+        width={typeof width === 'number' ? width : Number(width) || 1280}
+        height={typeof height === 'number' ? height : Number(height) || 720}
+        className={cn('my-8 rounded-lg border border-border', className)}
+        {...props}
+      />
+    );
+  },
   hr: ({ className, ...props }) => (
     <hr className={cn('my-12 border-border', className)} {...props} />
   ),
