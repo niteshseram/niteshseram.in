@@ -1,5 +1,4 @@
 import { create } from '@orama/orama';
-import type { ReactNode } from 'react';
 import type { IconType } from 'react-icons';
 import { PiFileText, PiHash, PiTextAlignLeft } from 'react-icons/pi';
 
@@ -40,7 +39,7 @@ export function OramaResultRow({
         <Icon aria-hidden="true" />
       </CommandItemIcon>
       <span className="flex-1 truncate">
-        {renderHighlighted(result.content)}
+        <Highlighted content={result.content} />
       </span>
     </CommandItem>
   );
@@ -59,22 +58,25 @@ function stripInlineMarkdown(content: string): string {
     .replace(/!?\[([^\]]+)\]\([^)]*\)/g, '$1');
 }
 
-function renderHighlighted(content: string): ReactNode {
-  return stripInlineMarkdown(content)
-    .split(MARK_SPLIT)
-    .map((part, i) => {
-      const match = part.match(MARK_MATCH);
-      const key = `${i}-${part}`;
-      if (match) {
-        return (
-          <mark
-            key={key}
-            className={cn('rounded-sm', 'bg-brand-muted text-brand')}
-          >
-            {match[1]}
-          </mark>
-        );
-      }
-      return <span key={key}>{part}</span>;
-    });
+function Highlighted({ content }: Readonly<{ content: string }>) {
+  const parts = stripInlineMarkdown(content).split(MARK_SPLIT);
+  return (
+    <>
+      {parts.map((part, index) => {
+        const match = part.match(MARK_MATCH);
+        const key = `${index}-${part}`;
+        if (match) {
+          return (
+            <mark
+              key={key}
+              className={cn('rounded-sm', 'bg-brand-muted text-brand')}
+            >
+              {match[1]}
+            </mark>
+          );
+        }
+        return <span key={key}>{part}</span>;
+      })}
+    </>
+  );
 }

@@ -34,23 +34,31 @@ export function AboutIntro() {
           'text-muted-foreground',
         )}
       >
-        {ABOUT_PROSE.map((paragraph, i) => (
-          <p key={i}>{renderEmphasis(paragraph)}</p>
+        {ABOUT_PROSE.map((paragraph) => (
+          <ProseParagraph key={paragraph} text={paragraph} />
         ))}
       </div>
     </section>
   );
 }
 
-function renderEmphasis(text: string): React.ReactNode[] {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return (
-        <span key={i} className="font-medium text-foreground">
-          {part.slice(2, -2)}
-        </span>
-      );
-    }
-    return part;
-  });
+const EMPHASIS_SPLIT = /(\*\*[^*]+\*\*)/g;
+
+function ProseParagraph({ text }: Readonly<{ text: string }>) {
+  const parts = text.split(EMPHASIS_SPLIT);
+  return (
+    <p>
+      {parts.map((part, index) => {
+        const key = `${index}-${part}`;
+        if (part.startsWith('**') && part.endsWith('**')) {
+          return (
+            <span key={key} className="font-medium text-foreground">
+              {part.slice(2, -2)}
+            </span>
+          );
+        }
+        return <span key={key}>{part}</span>;
+      })}
+    </p>
+  );
 }
