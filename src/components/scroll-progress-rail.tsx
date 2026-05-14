@@ -1,7 +1,9 @@
 'use client';
 
 import {
-  motion,
+  domAnimation,
+  LazyMotion,
+  m,
   useReducedMotion,
   useScroll,
   useSpring,
@@ -37,32 +39,34 @@ export function ScrollProgressRail({
   const tipOpacity = useTransform(progress, [0, 0.04], [0, 1]);
 
   return (
-    <ol
-      ref={targetRef}
-      className={cn('relative flex flex-col gap-y-10', className)}
-    >
-      <div
-        aria-hidden="true"
-        className={cn(
-          'pointer-events-none',
-          'absolute top-2 bottom-2 left-2 w-px',
-        )}
+    <LazyMotion features={domAnimation} strict>
+      <ol
+        ref={targetRef}
+        className={cn('relative flex flex-col gap-y-10', className)}
       >
-        <div className={cn('absolute inset-0', 'bg-border')} />
-        <motion.div
-          style={{ height: fillHeight }}
-          className={cn('absolute inset-x-0 top-0', 'bg-brand')}
-        />
-        <motion.div
-          style={{ top: fillHeight, opacity: tipOpacity }}
+        <div
+          aria-hidden="true"
           className={cn(
-            'absolute left-1/2 size-0 -translate-x-1/2 -translate-y-1/2',
-            'rounded-full',
-            'bg-brand shadow-[0_0_10px_6px_var(--color-brand)]',
+            'pointer-events-none',
+            'absolute top-2 bottom-2 left-2 w-px',
           )}
-        />
-      </div>
-      {children}
-    </ol>
+        >
+          <div className={cn('absolute inset-0', 'bg-border')} />
+          <m.div
+            style={{ height: fillHeight }}
+            className={cn('absolute inset-x-0 top-0', 'bg-brand')}
+          />
+          <m.div
+            style={{ top: fillHeight, opacity: tipOpacity }}
+            className={cn(
+              'absolute left-1/2 size-0 -translate-x-1/2 -translate-y-1/2',
+              'rounded-full',
+              'bg-brand shadow-[0_0_10px_6px_var(--color-brand)]',
+            )}
+          />
+        </div>
+        {children}
+      </ol>
+    </LazyMotion>
   );
 }
