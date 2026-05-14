@@ -90,9 +90,6 @@ export function jsonLdGraph(...entities: Entity[]) {
   };
 }
 
-export function jsonLdScript<T>(data: T) {
-  return {
-    type: 'application/ld+json' as const,
-    dangerouslySetInnerHTML: { __html: JSON.stringify(data) },
-  };
+export function jsonLdHtml<T>(data: T): string {
+  return JSON.stringify(data);
 }

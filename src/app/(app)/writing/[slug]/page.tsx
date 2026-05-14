@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { PiArrowLeft } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
@@ -9,7 +10,7 @@ import { PostFooter } from '@/components/writing/post-footer';
 import { PostHeader } from '@/components/writing/post-header';
 import { Prose } from '@/components/writing/prose';
 import { getCanonicalUrl, getGithubSourceUrl } from '@/lib/get-llm-text';
-import { blogPostingJsonLd, jsonLdScript } from '@/lib/jsonld';
+import { blogPostingJsonLd, jsonLdHtml } from '@/lib/jsonld';
 import { pageMetadata } from '@/lib/metadata';
 import { cn } from '@/lib/utils';
 import { getAdjacent, getAllPosts, getPostBySlug } from '@/lib/writing';
@@ -57,7 +58,13 @@ export default async function WritingDetailPage({ params }: Props) {
 
   return (
     <>
-      <script {...jsonLdScript(blogPostingJsonLd(post))} />
+      <Script
+        id={`jsonld-post-${slug}`}
+        type="application/ld+json"
+        strategy="beforeInteractive"
+      >
+        {jsonLdHtml(blogPostingJsonLd(post))}
+      </Script>
       <article
         className={cn('max-w-2xl mx-auto', 'px-4.5 pt-14 sm:pt-20 pb-16')}
       >

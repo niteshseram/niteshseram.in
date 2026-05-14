@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { PiNotepad } from 'react-icons/pi';
 
 import { PostRow } from '@/components/writing/post-row';
 import { WRITING } from '@/config/site';
-import { blogJsonLd, jsonLdScript } from '@/lib/jsonld';
+import { blogJsonLd, jsonLdHtml } from '@/lib/jsonld';
 import { pageMetadata } from '@/lib/metadata';
 import { cn } from '@/lib/utils';
 import { getAllPosts } from '@/lib/writing';
@@ -23,7 +24,13 @@ export default function WritingPage() {
       aria-label="Writing"
       className={cn('max-w-2xl mx-auto', 'px-4.5 pt-14 sm:pt-20 pb-16')}
     >
-      <script {...jsonLdScript(blogJsonLd())} />
+      <Script
+        id="jsonld-blog"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+      >
+        {jsonLdHtml(blogJsonLd())}
+      </Script>
       <header className="mb-12">
         <p
           className={cn(
@@ -49,7 +56,7 @@ export default function WritingPage() {
         </h1>
         <p className={cn('mt-6', 'leading-relaxed', 'text-muted-foreground')}>
           Short pieces on frontend craft, tooling, and the small details that
-          make software feel considered. Written mostly for myself — shared in
+          make software feel considered. Written mostly for myself, shared in
           case it helps someone else.
         </p>
       </header>
@@ -62,7 +69,7 @@ export default function WritingPage() {
             'text-muted-foreground',
           )}
         >
-          Nothing published yet — drafts in progress.
+          Nothing published yet; drafts in progress.
         </p>
       ) : (
         <ul className="flex flex-col divide-y divide-border">

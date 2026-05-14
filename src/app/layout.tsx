@@ -10,7 +10,7 @@ import { fontVariables } from '@/lib/fonts';
 import './globals.css';
 import {
   jsonLdGraph,
-  jsonLdScript,
+  jsonLdHtml,
   personJsonLd,
   websiteJsonLd,
 } from '@/lib/jsonld';
@@ -50,7 +50,13 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <script {...jsonLdScript(jsonLdGraph(personJsonLd, websiteJsonLd))} />
+        <Script
+          id="jsonld-site-graph"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+        >
+          {jsonLdHtml(jsonLdGraph(personJsonLd, websiteJsonLd))}
+        </Script>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
