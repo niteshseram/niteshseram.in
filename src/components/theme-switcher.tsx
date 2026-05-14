@@ -1,21 +1,18 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { PiMoon, PiSun } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useGlobalShortcut } from '@/utils/use-global-shortcut';
+import { useMounted } from '@/utils/use-mounted';
 
 export function ThemeSwitcher() {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const audioCtxRef = useRef<AudioContext | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     return () => {

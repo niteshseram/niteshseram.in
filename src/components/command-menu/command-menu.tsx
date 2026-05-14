@@ -1,12 +1,13 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import type { PostIndexEntry } from '@/lib/writing';
 import { useGlobalShortcut } from '@/utils/use-global-shortcut';
 import { useIdlePrefetch } from '@/utils/use-idle-prefetch';
+import { useMounted } from '@/utils/use-mounted';
 
 import { CommandMenuTrigger } from './trigger';
 
@@ -26,11 +27,7 @@ function prefetchDialog() {
 export function CommandMenu({ posts }: Props) {
   const [open, setOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   useIdlePrefetch(prefetchDialog);
 
