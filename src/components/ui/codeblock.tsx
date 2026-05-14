@@ -53,6 +53,12 @@ export interface CodeBlockProps extends ComponentProps<'figure'> {
   Actions?: (props: { className?: string; children?: ReactNode }) => ReactNode;
 }
 
+const EMPTY_VIEWPORT_PROPS: HTMLAttributes<HTMLElement> = {};
+
+function DefaultActions(props: { className?: string; children?: ReactNode }) {
+  return <div {...props} className={cn('empty:hidden', props.className)} />;
+}
+
 export function Pre(props: ComponentProps<'pre'>) {
   return (
     <pre
@@ -70,11 +76,9 @@ export function CodeBlock({
   allowCopy = true,
   keepBackground = false,
   icon,
-  viewportProps = {},
+  viewportProps = EMPTY_VIEWPORT_PROPS,
   children,
-  Actions = (props) => (
-    <div {...props} className={cn('empty:hidden', props.className)} />
-  ),
+  Actions = DefaultActions,
   ...props
 }: CodeBlockProps) {
   const areaRef = useRef<HTMLDivElement>(null);
@@ -114,6 +118,7 @@ export function CodeBlock({
           {typeof icon === 'string' ? (
             <div
               className="[&_svg]:size-3.5"
+              // oxlint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{
                 __html: icon,
               }}

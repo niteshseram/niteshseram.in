@@ -2,12 +2,14 @@ import { PostMeta } from '@/components/writing/post-meta';
 import { TagChip } from '@/components/writing/tag-chip';
 import { cn } from '@/lib/utils';
 
+const EMPTY_TAGS: readonly string[] = [];
+
 type Props = {
   title: string;
   summary?: string;
   publishedAt: string | Date;
   minutes?: number;
-  tags?: string[];
+  tags?: readonly string[];
 };
 
 export function PostHeader({
@@ -15,7 +17,7 @@ export function PostHeader({
   summary,
   publishedAt,
   minutes,
-  tags = [],
+  tags = EMPTY_TAGS,
 }: Props) {
   return (
     <header className={cn('mb-8 pb-6', 'border-b border-border')}>
