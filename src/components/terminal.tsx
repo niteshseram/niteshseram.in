@@ -6,15 +6,38 @@ import {
   cloneElement,
   createContext,
   isValidElement,
-  useContext,
+  use,
   useEffect,
   useMemo,
+  useReducer,
   useRef,
-  useState,
   type ReactNode,
 } from 'react';
 
 import { cn } from '@/lib/utils';
+
+type TypingState = {
+  displayed: string;
+  hasStarted: boolean;
+};
+
+type TypingAction =
+  | { type: 'start' }
+  | { type: 'progress'; value: string }
+  | { type: 'finish'; value: string };
+
+function typingReducer(state: TypingState, action: TypingAction): TypingState {
+  switch (action.type) {
+    case 'start':
+      return { ...state, hasStarted: true };
+    case 'progress':
+      return { ...state, displayed: action.value };
+    case 'finish':
+      return { hasStarted: true, displayed: action.value };
+  }
+}
+
+const INITIAL_TYPING_STATE: TypingState = { displayed: '', hasStarted: false };
 
 const StartGateContext = createContext<boolean | null>(null);
 
@@ -37,13 +60,13 @@ export function TypingAnimation({
 }: TypingAnimationProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const ownInView = useInView(ref, { once: true, amount: 0.3 });
-  const gateSignal = useContext(StartGateContext);
+  const gateSignal = use(StartGateContext);
   const shouldStart =
     gateSignal !== null ? gateSignal : !startOnView || ownInView;
   const prefersReducedMotion = useReducedMotion();
 
-  const [displayed, setDisplayed] = useState('');
-  const [hasStarted, setHasStarted] = useState(false);
+  const [state, dispatch] = useReducer(typingReducer, INITIAL_TYPING_STATE);
+  const { displayed, hasStarted } = state;
   const isDone = displayed === children;
 
   useEffect(() => {
@@ -51,19 +74,21 @@ export function TypingAnimation({
       return;
     }
     if (prefersReducedMotion) {
-      setHasStarted(true);
-      setDisplayed(children);
+      dispatch({ type: 'finish', value: children });
       return;
     }
     let controls: ReturnType<typeof animate> | null = null;
     const timer = setTimeout(() => {
-      setHasStarted(true);
+      dispatch({ type: 'start' });
       controls = animate(0, children.length, {
         duration: (children.length * duration) / 1000,
         ease: 'linear',
         onUpdate: (value) =>
-          setDisplayed(children.substring(0, Math.floor(value))),
-        onComplete: () => setDisplayed(children),
+          dispatch({
+            type: 'progress',
+            value: children.substring(0, Math.floor(value)),
+          }),
+        onComplete: () => dispatch({ type: 'progress', value: children }),
       });
     }, delay);
     return () => {

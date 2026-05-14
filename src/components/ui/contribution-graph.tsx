@@ -6,7 +6,7 @@ import {
   Fragment,
   type HTMLAttributes,
   type ReactNode,
-  useContext,
+  use,
 } from 'react';
 
 import type {
@@ -55,8 +55,10 @@ type ContributionGraphContextType = {
 const ContributionGraphContext =
   createContext<ContributionGraphContextType | null>(null);
 
-const useContributionGraph = () => {
-  const context = useContext(ContributionGraphContext);
+const EMPTY_STYLE: CSSProperties = {};
+
+function useContributionGraph() {
+  const context = use(ContributionGraphContext);
 
   if (!context) {
     throw new Error(
@@ -65,7 +67,7 @@ const useContributionGraph = () => {
   }
 
   return context;
-};
+}
 
 export type ContributionGraphProps = HTMLAttributes<HTMLDivElement> & {
   weeks: Week[];
@@ -94,7 +96,7 @@ export const ContributionGraph = ({
   fontSize = 14,
   labels: labelsProp = undefined,
   maxLevel: maxLevelProp = 4,
-  style = {},
+  style = EMPTY_STYLE,
   className,
   ...props
 }: ContributionGraphProps) => {
