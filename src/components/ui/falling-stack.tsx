@@ -9,16 +9,11 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import {
-  PiArrowCounterClockwise,
-  PiDeviceMobile,
-  PiDeviceMobileSlash,
-  PiSpeakerHigh,
-  PiSpeakerSlash,
-} from 'react-icons/pi';
 
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+
+import { playImpact, playScrape } from './falling-stack-audio';
+import { FallingStackControls } from './falling-stack-controls';
 
 export type FallingStackItem = {
   id: string;
@@ -48,6 +43,7 @@ export function FallingStack({
   const mutedRef = useRef(false);
   const engineRef = useRef<Matter.Engine | null>(null);
   const bodiesRef = useRef<Matter.Body[]>([]);
+  const ensureAudioRef = useRef<() => void>(() => {});
 
   const [runKey, setRunKey] = useState(0);
   const [muted, setMuted] = useState(true);
@@ -95,7 +91,7 @@ export function FallingStack({
     setTiltEnabled(true);
   }, [tiltEnabled]);
 
-  const ensureAudio = useCallback(() => {
+  ensureAudioRef.current = () => {
     if (!audioCtxRef.current) {
       try {
         audioCtxRef.current = new AudioContext();
@@ -106,19 +102,18 @@ export function FallingStack({
     if (audioCtxRef.current.state === 'suspended') {
       audioCtxRef.current.resume().catch(() => {});
     }
-  }, []);
+  };
 
   const reset = useCallback(() => {
-    ensureAudio();
+    ensureAudioRef.current();
     setRunKey((k) => k + 1);
-  }, [ensureAudio]);
+  }, []);
 
   const toggleMute = useCallback(() => {
-    ensureAudio();
+    ensureAudioRef.current();
     setMuted((m) => !m);
-  }, [ensureAudio]);
+  }, []);
 
-  // Re-run the simulation when the container size changes (dev resizes, viewport changes).
   useEffect(() => {
     const el = containerRef.current;
     if (!el || typeof ResizeObserver === 'undefined') return;
@@ -208,33 +203,29 @@ export function FallingStack({
       boundaryOptions,
     );
 
-    const chipBodies = itemRefs.current
-      .filter((el): el is HTMLDivElement => el !== null)
-      .map((elem) => {
-        const rect = elem.getBoundingClientRect();
-        // Start each chip where flex-wrap put it — guarantees non-overlapping starts.
-        const startX = rect.left - containerRect.left + rect.width / 2;
-        const startY = rect.top - containerRect.top + rect.height / 2;
+    const chipBodies: Array<{ elem: HTMLDivElement; body: Matter.Body }> = [];
+    for (const elem of itemRefs.current) {
+      if (elem === null) continue;
+      const rect = elem.getBoundingClientRect();
+      const startX = rect.left - containerRect.left + rect.width / 2;
+      const startY = rect.top - containerRect.top + rect.height / 2;
 
-        const body = Bodies.rectangle(startX, startY, rect.width, rect.height, {
-          chamfer: { radius: Math.min(rect.height / 2, 16) },
-          render: { fillStyle: 'transparent' },
-          restitution: 0.3,
-          frictionAir: 0.008,
-          friction: 0.15,
-        });
-        Body.setVelocity(body, { x: (Math.random() - 0.5) * 1.5, y: 0 });
-        Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.05);
-
-        return { elem, body };
+      const body = Bodies.rectangle(startX, startY, rect.width, rect.height, {
+        chamfer: { radius: Math.min(rect.height / 2, 16) },
+        render: { fillStyle: 'transparent' },
+        restitution: 0.3,
+        frictionAir: 0.008,
+        friction: 0.15,
       });
+      Body.setVelocity(body, { x: (Math.random() - 0.5) * 1.5, y: 0 });
+      Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.05);
 
-    // Switch chips to absolute layout. They render with opacity-0 from JSX so the
-    // SSR/pre-hydration paint never shows the flex-wrap layout — we reveal them
-    // below after the settled positions are applied.
-    chipBodies.forEach(({ elem }) => {
+      chipBodies.push({ elem, body });
+    }
+
+    for (const { elem } of chipBodies) {
       elem.style.position = 'absolute';
-    });
+    }
 
     World.add(engine.world, [
       floor,
@@ -245,25 +236,22 @@ export function FallingStack({
     ]);
     bodiesRef.current = chipBodies.map((cb) => cb.body);
 
-    // Pre-simulate headlessly until the pile settles. Collision sounds are wired
-    // up after this loop so the silent-settle doesn't trigger any audio.
     for (let i = 0; i < SETTLE_STEPS; i++) {
       Engine.update(engine, SETTLE_DT);
     }
 
-    // Apply settled positions and reveal.
-    chipBodies.forEach(({ elem, body }) => {
-      elem.style.left = `${body.position.x}px`;
-      elem.style.top = `${body.position.y}px`;
-      elem.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`;
-      elem.style.opacity = '1';
-    });
+    for (const { elem, body } of chipBodies) {
+      elem.style.cssText = `position: absolute; left: ${body.position.x}px; top: ${body.position.y}px; transform: translate(-50%, -50%) rotate(${body.angle}rad); opacity: 1;`;
+    }
 
-    // AudioContext is created lazily on first user gesture (pointerdown or a
-    // button click). Also resume on tab return in case the browser suspended it.
-    container.addEventListener('pointerdown', ensureAudio, { passive: true });
+    function handleEnsureAudio() {
+      ensureAudioRef.current();
+    }
+    container.addEventListener('pointerdown', handleEnsureAudio, {
+      passive: true,
+    });
     const onVisibility = () => {
-      if (document.visibilityState === 'visible') ensureAudio();
+      if (document.visibilityState === 'visible') ensureAudioRef.current();
     };
     document.addEventListener('visibilitychange', onVisibility, {
       passive: true,
@@ -319,10 +307,6 @@ export function FallingStack({
     render.mouse = mouse;
     World.add(engine.world, mouseConstraint);
 
-    // Matter binds release listeners only to the container. If the cursor leaves
-    // mid-drag and releases outside, the constraint never detaches and the chip
-    // stays pinned. Detach manually on any global release. Types disallow null
-    // here but runtime accepts it — that is the documented release pattern.
     const releaseDrag = () => {
       const mc = mouseConstraint as unknown as {
         body: Matter.Body | null;
@@ -330,8 +314,6 @@ export function FallingStack({
       };
       const held = mc.body;
       if (held) {
-        // Nudge downward so the chip can't rest in stable contact with a wall
-        // or the ceiling — guarantees gravity takes over visibly.
         Body.setVelocity(held, {
           x: held.velocity.x,
           y: Math.max(held.velocity.y, 1.5),
@@ -351,12 +333,10 @@ export function FallingStack({
 
     let rafId = 0;
     const updateLoop = () => {
-      chipBodies.forEach(({ body, elem }) => {
+      for (const { body, elem } of chipBodies) {
         const { x, y } = body.position;
-        elem.style.left = `${x}px`;
-        elem.style.top = `${y}px`;
-        elem.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`;
-      });
+        elem.style.cssText = `position: absolute; left: ${x}px; top: ${y}px; transform: translate(-50%, -50%) rotate(${body.angle}rad); opacity: 1;`;
+      }
       Engine.update(engine);
       rafId = requestAnimationFrame(updateLoop);
     };
@@ -366,7 +346,7 @@ export function FallingStack({
       window.removeEventListener('mouseup', releaseDrag);
       window.removeEventListener('touchend', releaseDrag);
       window.removeEventListener('pointerup', releaseDrag);
-      container.removeEventListener('pointerdown', ensureAudio);
+      container.removeEventListener('pointerdown', handleEnsureAudio);
       document.removeEventListener('visibilitychange', onVisibility);
       Events.off(engine, 'collisionStart', onCollisionStart);
       Events.off(engine, 'collisionActive', onCollisionActive);
@@ -381,7 +361,7 @@ export function FallingStack({
       engineRef.current = null;
       bodiesRef.current = [];
     };
-  }, [runKey, gravity, mouseConstraintStiffness, ensureAudio]);
+  }, [runKey, gravity, mouseConstraintStiffness]);
 
   useEffect(() => {
     const engine = engineRef.current;
@@ -396,9 +376,6 @@ export function FallingStack({
     const SHAKE_THRESHOLD = 22;
     const SHAKE_COOLDOWN_MS = 350;
 
-    // iOS reports `deviceorientation` values already compensated for screen
-    // orientation; Android reports raw device-frame values. Rotate into screen
-    // frame only on platforms that don't pre-compensate.
     const iosCompensates =
       typeof (
         window.DeviceOrientationEvent as unknown as {
@@ -505,103 +482,14 @@ export function FallingStack({
         />
       </div>
 
-      <div
-        className={cn(
-          'absolute top-3 right-3 z-10',
-          'flex items-center gap-1.5',
-        )}
-      >
-        {tiltSupported ? (
-          <Button
-            icon={tiltEnabled ? <PiDeviceMobile /> : <PiDeviceMobileSlash />}
-            isLabelHidden
-            label={tiltEnabled ? 'Disable tilt & shake' : 'Enable tilt & shake'}
-            onClick={toggleTilt}
-            size="xs"
-            variant="outline"
-            className="bg-background/80 backdrop-blur"
-          />
-        ) : null}
-        <Button
-          icon={muted ? <PiSpeakerSlash /> : <PiSpeakerHigh />}
-          isLabelHidden
-          label={muted ? 'Unmute audio' : 'Mute audio'}
-          onClick={toggleMute}
-          size="xs"
-          variant="outline"
-          className="bg-background/80 backdrop-blur"
-        />
-        <Button
-          icon={<PiArrowCounterClockwise />}
-          isLabelHidden
-          label="Reset"
-          onClick={reset}
-          size="xs"
-          variant="outline"
-          className="bg-background/80 backdrop-blur"
-        />
-      </div>
+      <FallingStackControls
+        muted={muted}
+        tiltSupported={tiltSupported}
+        tiltEnabled={tiltEnabled}
+        onReset={reset}
+        onToggleMute={toggleMute}
+        onToggleTilt={toggleTilt}
+      />
     </div>
   );
-}
-
-function playImpact(ctx: AudioContext, intensity: number) {
-  const now = ctx.currentTime;
-  const duration = 0.09;
-  const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * duration));
-  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i++) {
-    const decay = 1 - i / bufferSize;
-    data[i] = (Math.random() * 2 - 1) * decay * decay;
-  }
-  const source = ctx.createBufferSource();
-  source.buffer = buffer;
-
-  const filter = ctx.createBiquadFilter();
-  filter.type = 'lowpass';
-  filter.frequency.value = 600 + intensity * 2400;
-  filter.Q.value = 1;
-
-  const gain = ctx.createGain();
-  const peak = 0.04 + intensity * 0.16;
-  gain.gain.setValueAtTime(0.0001, now);
-  gain.gain.exponentialRampToValueAtTime(peak, now + 0.005);
-  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-  source.connect(filter);
-  filter.connect(gain);
-  gain.connect(ctx.destination);
-  source.start(now);
-  source.stop(now + duration + 0.02);
-}
-
-function playScrape(ctx: AudioContext, intensity: number) {
-  const now = ctx.currentTime;
-  const duration = 0.07;
-  const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * duration));
-  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i++) {
-    data[i] = (Math.random() * 2 - 1) * 0.6;
-  }
-  const source = ctx.createBufferSource();
-  source.buffer = buffer;
-
-  const filter = ctx.createBiquadFilter();
-  filter.type = 'bandpass';
-  filter.frequency.value = 1800 + intensity * 1800;
-  filter.Q.value = 0.7;
-
-  const gain = ctx.createGain();
-  const peak = 0.015 + intensity * 0.03;
-  gain.gain.setValueAtTime(0.0001, now);
-  gain.gain.exponentialRampToValueAtTime(peak, now + 0.01);
-  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-  source.connect(filter);
-  filter.connect(gain);
-  gain.connect(ctx.destination);
-  source.start(now);
-  source.stop(now + duration + 0.02);
 }
