@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { ImageResponse } from 'next/og';
+import type { CSSProperties } from 'react';
 
 import { AUTHOR } from '@/config/site';
 import { loadGeistFont, loadGoogleFont } from '@/lib/og-font';
@@ -18,6 +19,118 @@ const BORDER = '#2a2520';
 const FOREGROUND = '#e8e2d9';
 const MUTED = '#9c938b';
 const BRAND = '#8cb6db';
+
+const rootStyle: CSSProperties = {
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  padding: 72,
+  background: BACKGROUND,
+  backgroundImage: `radial-gradient(circle at 0% 0%, ${BRAND}3d 0%, transparent 60%), radial-gradient(${BORDER} 1px, transparent 1px)`,
+  backgroundSize: '100% 100%, 28px 28px',
+  color: FOREGROUND,
+  fontFamily: 'Geist',
+};
+
+const topRowStyle: CSSProperties = {
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+};
+
+const topRightLabelStyle: CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 10,
+  fontFamily: 'Geist Mono',
+  fontSize: 16,
+  color: MUTED,
+  letterSpacing: 1.5,
+  textTransform: 'uppercase',
+};
+
+const topAccentBarStyle: CSSProperties = {
+  width: 24,
+  height: 2,
+  background: BRAND,
+};
+
+const titleAreaStyle: CSSProperties = {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  marginTop: 32,
+};
+
+const titleStyle: CSSProperties = {
+  display: 'flex',
+  fontFamily: 'Instrument Serif',
+  fontSize: 60,
+  lineHeight: 1.05,
+  letterSpacing: -1.5,
+  color: FOREGROUND,
+};
+
+const summaryStyle: CSSProperties = {
+  display: 'flex',
+  marginTop: 28,
+  maxWidth: 1000,
+  fontSize: 22,
+  lineHeight: 1.4,
+  color: MUTED,
+};
+
+const footerRowStyle: CSSProperties = {
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingTop: 24,
+  borderTop: `1px solid ${BORDER}`,
+};
+
+const authorColumnStyle: CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+const authorNameStyle: CSSProperties = {
+  display: 'flex',
+  fontSize: 20,
+  fontWeight: 500,
+  color: FOREGROUND,
+  letterSpacing: -0.2,
+};
+
+const authorRoleStyle: CSSProperties = {
+  display: 'flex',
+  marginTop: 2,
+  fontFamily: 'Instrument Serif',
+  fontStyle: 'italic',
+  fontSize: 18,
+  color: MUTED,
+};
+
+const metaRowStyle: CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 14,
+  fontFamily: 'Geist Mono',
+  fontSize: 16,
+  color: MUTED,
+  letterSpacing: 1,
+  textTransform: 'uppercase',
+};
+
+const metaDotStyle: CSSProperties = {
+  width: 4,
+  height: 4,
+  borderRadius: 999,
+  background: BORDER,
+};
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -59,144 +172,35 @@ export default async function Image({ params }: Props) {
   ]);
 
   return new ImageResponse(
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: 72,
-        background: BACKGROUND,
-        backgroundImage: `radial-gradient(circle at 0% 0%, ${BRAND}3d 0%, transparent 60%), radial-gradient(${BORDER} 1px, transparent 1px)`,
-        backgroundSize: '100% 100%, 28px 28px',
-        color: FOREGROUND,
-        fontFamily: 'Geist',
-      }}
-    >
-      <div
-        style={{
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+    <div style={rootStyle}>
+      <div style={topRowStyle}>
         <svg width="40" height="44" viewBox="0 0 188 200">
           <g transform="translate(0,200) scale(0.1,-0.1)" fill={FOREGROUND}>
             <path d="M90 1000 l0 -910 360 0 360 0 0 910 0 910 -360 0 -360 0 0 -910z" />
             <path d="M1060 1001 l0 -911 370 0 370 0 0 668 c-1 750 -3 774 -66 900 -84 165 -239 238 -526 249 l-148 6 0 -912z" />
           </g>
         </svg>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            fontFamily: 'Geist Mono',
-            fontSize: 16,
-            color: MUTED,
-            letterSpacing: 1.5,
-            textTransform: 'uppercase',
-          }}
-        >
-          <div style={{ width: 24, height: 2, background: BRAND }} />
+        <div style={topRightLabelStyle}>
+          <div style={topAccentBarStyle} />
           <div style={{ display: 'flex' }}>Writing</div>
         </div>
       </div>
 
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          marginTop: 32,
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            fontFamily: 'Instrument Serif',
-            fontSize: 60,
-            lineHeight: 1.05,
-            letterSpacing: -1.5,
-            color: FOREGROUND,
-          }}
-        >
-          {displayTitle}
-        </div>
+      <div style={titleAreaStyle}>
+        <div style={titleStyle}>{displayTitle}</div>
         {displaySummary ? (
-          <div
-            style={{
-              display: 'flex',
-              marginTop: 28,
-              maxWidth: 1000,
-              fontSize: 22,
-              lineHeight: 1.4,
-              color: MUTED,
-            }}
-          >
-            {displaySummary}
-          </div>
+          <div style={summaryStyle}>{displaySummary}</div>
         ) : null}
       </div>
 
-      <div
-        style={{
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingTop: 24,
-          borderTop: `1px solid ${BORDER}`,
-        }}
-      >
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div
-            style={{
-              display: 'flex',
-              fontSize: 20,
-              fontWeight: 500,
-              color: FOREGROUND,
-              letterSpacing: -0.2,
-            }}
-          >
-            {AUTHOR.name}
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              marginTop: 2,
-              fontFamily: 'Instrument Serif',
-              fontStyle: 'italic',
-              fontSize: 18,
-              color: MUTED,
-            }}
-          >
-            Software Engineer
-          </div>
+      <div style={footerRowStyle}>
+        <div style={authorColumnStyle}>
+          <div style={authorNameStyle}>{AUTHOR.name}</div>
+          <div style={authorRoleStyle}>Software Engineer</div>
         </div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 14,
-            fontFamily: 'Geist Mono',
-            fontSize: 16,
-            color: MUTED,
-            letterSpacing: 1,
-            textTransform: 'uppercase',
-          }}
-        >
+        <div style={metaRowStyle}>
           <div style={{ display: 'flex' }}>{publishedLabel}</div>
-          <div
-            style={{
-              width: 4,
-              height: 4,
-              borderRadius: 999,
-              background: BORDER,
-            }}
-          />
+          <div style={metaDotStyle} />
           <div style={{ display: 'flex' }}>{minutes} min read</div>
         </div>
       </div>
