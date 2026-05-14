@@ -20,7 +20,9 @@ export function PostMeta({ date, minutes, className }: Props) {
         className,
       )}
     >
-      <time dateTime={new Date(date).toISOString()}>{formatted}</time>
+      <time dateTime={new Date(date).toISOString()} suppressHydrationWarning>
+        {formatted}
+      </time>
       {minutes != null && (
         <>
           <span aria-hidden="true">·</span>
