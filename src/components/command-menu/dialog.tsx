@@ -38,7 +38,7 @@ const dialogFilter: ComponentProps<typeof CommandDialog>['filter'] = (
 };
 
 export function CommandMenuDialog({ open, onOpenChange, posts }: Props) {
-  const router = useRouter();
+  const { push } = useRouter();
   const { setTheme } = useTheme();
   const { search, setSearch, query } = useDocsSearch({
     type: 'static',
@@ -56,9 +56,9 @@ export function CommandMenuDialog({ open, onOpenChange, posts }: Props) {
           ?.scrollIntoView({ behavior: 'smooth' });
         return;
       }
-      router.push(href);
+      push(href);
     },
-    [router],
+    [push],
   );
 
   const openExternal = useCallback((href: string) => {
@@ -119,9 +119,8 @@ export function CommandMenuDialog({ open, onOpenChange, posts }: Props) {
       />
       <CommandList>
         <CommandEmpty>No results</CommandEmpty>
-        {groups
-          .filter((group) => group.items.length > 0)
-          .map((group) => (
+        {groups.map((group) =>
+          group.items.length > 0 ? (
             <CommandGroup key={group.heading} heading={group.heading}>
               {group.items.map((item) => (
                 <CommandEntryRow
@@ -131,7 +130,8 @@ export function CommandMenuDialog({ open, onOpenChange, posts }: Props) {
                 />
               ))}
             </CommandGroup>
-          ))}
+          ) : null,
+        )}
         {hasOramaResponse && oramaResults.length > 0 && (
           <CommandGroup heading="Writing">
             {oramaResults.map((result) => (

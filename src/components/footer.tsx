@@ -18,6 +18,10 @@ export async function Footer() {
   'use cache';
   cacheLife('days');
   const year = new Date().getFullYear();
+  const visibleNavItems: typeof navItems = [];
+  for (const item of navItems) {
+    if (!item.hide) visibleNavItems.push(item);
+  }
 
   return (
     <footer
@@ -78,24 +82,22 @@ export async function Footer() {
               Navigate
             </h3>
             <ul className="flex flex-col gap-y-2">
-              {navItems
-                .filter((item) => !item.hide)
-                .map((item) => (
-                  <li key={item.href}>
-                    <Anchor
-                      href={item.href}
-                      variant="unstyled"
-                      weight="normal"
-                      className={cn(
-                        'text-sm',
-                        'text-muted-foreground',
-                        'hover:text-foreground',
-                      )}
-                    >
-                      {item.label}
-                    </Anchor>
-                  </li>
-                ))}
+              {visibleNavItems.map((item) => (
+                <li key={item.href}>
+                  <Anchor
+                    href={item.href}
+                    variant="unstyled"
+                    weight="normal"
+                    className={cn(
+                      'text-sm',
+                      'text-muted-foreground',
+                      'hover:text-foreground',
+                    )}
+                  >
+                    {item.label}
+                  </Anchor>
+                </li>
+              ))}
             </ul>
           </nav>
           <div className="flex flex-col">
