@@ -1,10 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useEffectEvent } from 'react';
 
 export function useGlobalShortcut(handler: (event: KeyboardEvent) => void) {
+  const onKeyDown = useEffectEvent((event: KeyboardEvent) => {
+    handler(event);
+  });
+
   useEffect(() => {
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [handler]);
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
 }
