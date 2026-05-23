@@ -14,7 +14,7 @@ export const PROJECTS: Project[] = [
     description:
       'An Open Graph image generator with a drag-and-drop editor and a curated set of beautiful templates for stunning social previews.',
     tech: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Zustand', 'Konva.js'],
-    liveUrl: 'https://ogcanvas.niteshseram.in?utm_source=portfolio',
+    liveUrl: 'https://www.theogcanvas.com?utm_source=portfolio',
   },
   {
     name: 'Masonix',
