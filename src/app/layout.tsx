@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     template: `%s | ${AUTHOR.name}`,
   },
   description: SITE_DESCRIPTION,
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
 };
 
 export const viewport: Viewport = {
