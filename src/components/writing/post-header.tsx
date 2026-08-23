@@ -19,7 +19,9 @@ export function PostHeader({
   title,
 }: Props) {
   return (
-    <header className="mb-10 sm:mb-12">
+    <header
+      className={cn('mb-8 pb-6 sm:mb-10 sm:pb-8', 'border-b', 'border-border')}
+    >
       <h1 className={cn('type-article-title font-semibold', 'text-foreground')}>
         {title}
       </h1>
