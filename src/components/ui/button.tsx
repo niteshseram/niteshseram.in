@@ -20,6 +20,8 @@ type BaseProps = Readonly<{
   addonPosition?: 'end' | 'start';
   'aria-controls'?: AriaAttributes['aria-controls'];
   'aria-current'?: AriaAttributes['aria-current'];
+  'aria-expanded'?: AriaAttributes['aria-expanded'];
+  'aria-haspopup'?: AriaAttributes['aria-haspopup'];
   'aria-label'?: string;
   children?: ReactNode;
   className?: ClassValue;
@@ -113,8 +115,8 @@ const variantClasses: Record<ButtonVariant, string> = {
     'active:bg-brand/80',
   ),
   outline: cn(
-    'text-muted-foreground bg-transparent',
-    'border border-border',
+    'border',
+    'text-muted-foreground bg-transparent border-input',
     'hover:text-foreground hover:bg-muted',
     'active:bg-muted',
   ),
@@ -136,6 +138,8 @@ export function Button<RouteType>({
   addonPosition = 'end',
   'aria-controls': ariaControls,
   'aria-current': ariaCurrent,
+  'aria-expanded': ariaExpanded,
+  'aria-haspopup': ariaHasPopup,
   'aria-label': ariaLabel,
   children: children_USE_SPARINGLY,
   className,
@@ -187,16 +191,16 @@ export function Button<RouteType>({
   );
 
   const resolvedClassName = cn(
-    'cursor-pointer',
-    display === 'block' && !isLabelHidden ? 'flex w-full' : 'inline-flex',
-    'items-center justify-center',
-    isLabelHidden
-      ? [iconOnlySizeClasses[size]]
-      : [heightClasses[size], paddingClasses[size]],
+    display === 'block' && !isLabelHidden
+      ? 'flex w-full items-center justify-center'
+      : 'inline-flex items-center justify-center',
+    isLabelHidden ? [iconOnlySizeClasses[size]] : [heightClasses[size]],
     spacingClasses[size],
-    fontSizeClasses[size],
+    !isLabelHidden && paddingClasses[size],
     'rounded-full',
+    fontSizeClasses[size],
     'whitespace-nowrap font-medium',
+    'cursor-pointer',
     'transition-colors',
     disabled
       ? cn(
@@ -210,6 +214,8 @@ export function Button<RouteType>({
   const sharedA11y = {
     'aria-controls': ariaControls,
     'aria-current': ariaCurrent,
+    'aria-expanded': ariaExpanded,
+    'aria-haspopup': ariaHasPopup,
     'aria-label': ariaLabel,
   };
 

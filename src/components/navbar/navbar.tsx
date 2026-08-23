@@ -15,9 +15,10 @@ export function Navbar({ posts }: Props) {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 h-[52px]',
-        'border-b border-border backdrop-blur',
-        'bg-surface/50',
+        'sticky top-0 z-50 h-[58px]',
+        'backdrop-blur-md',
+        'bg-background/85',
+        'transition-colors duration-[var(--motion-duration-base)] ease-standard',
       )}
     >
       <div
@@ -28,11 +29,15 @@ export function Navbar({ posts }: Props) {
           aria-label="Home"
           variant="unstyled"
           weight="inherit"
-          className="inline-flex items-center"
+          className={cn(
+            'inline-flex size-8 items-center justify-start',
+            'text-foreground',
+            'group/logo',
+          )}
         >
-          <Logo />
+          <Logo size={23} />
         </Anchor>
-        <div className={cn('flex items-center gap-x-5', 'ml-auto')}>
+        <div className={cn('flex items-center gap-x-1.5', 'ml-auto')}>
           <NavLinks />
           <CommandMenu posts={posts} />
           <ThemeSwitcher />

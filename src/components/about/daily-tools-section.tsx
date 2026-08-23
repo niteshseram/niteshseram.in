@@ -1,72 +1,39 @@
-import { PiTerminalWindow } from 'react-icons/pi';
-
+import { ContentSection } from '@/components/ui/content-section';
 import { TECH_STACK_GROUPS } from '@/data/tech-stack';
 import { cn } from '@/lib/utils';
 
 export function DailyToolsSection() {
   return (
-    <section
-      aria-label="Daily tools"
-      className={cn('max-w-2xl mx-auto', 'px-4.5 py-12')}
-    >
-      <p
-        className={cn(
-          'inline-flex items-center gap-x-1.5',
-          'font-mono text-xs',
-          'text-muted-foreground',
-        )}
-      >
-        <PiTerminalWindow aria-hidden="true" className="size-3.5 text-brand" />
-        ~/stack
-      </p>
-      <h2
-        className={cn(
-          'mt-3 mb-8',
-          'font-serif text-[clamp(1.6rem,6vw,2rem)] leading-[1.15]',
-          'text-foreground',
-        )}
-      >
-        Daily <span className="italic text-brand">tools</span>
-      </h2>
-      <dl className="flex flex-col gap-y-5">
+    <ContentSection ariaLabel="Daily tools" title="Daily tools">
+      <div className="grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2">
         {TECH_STACK_GROUPS.map((group) => (
-          <div
-            key={group.label}
-            className={cn(
-              'flex flex-col gap-y-2.5',
-              'sm:flex-row sm:items-center sm:gap-x-5',
-            )}
-          >
-            <dt
+          <div key={group.label}>
+            <h3
               className={cn(
-                'shrink-0 sm:w-24',
-                'font-mono text-[11px] uppercase tracking-[0.14em]',
-                'text-muted-foreground',
+                'text-sm font-medium leading-snug',
+                'text-foreground',
               )}
             >
               {group.label}
-            </dt>
-            <dd className={cn('flex flex-wrap items-center gap-2', 'm-0')}>
+            </h3>
+            <ul className={cn('flex flex-wrap gap-x-3 gap-y-1.5', 'mt-2')}>
               {group.items.map(({ icon: Icon, label }) => (
-                <span
+                <li
                   key={label}
                   className={cn(
-                    'inline-flex items-center gap-x-1.5',
-                    'px-3 py-1.5',
-                    'rounded-full border border-border',
-                    'bg-surface/40',
-                    'font-mono text-xs',
-                    'text-foreground',
+                    'inline-flex items-center gap-1.5',
+                    'text-sm leading-relaxed',
+                    'text-muted-foreground',
                   )}
                 >
                   <Icon aria-hidden="true" className="size-3.5 shrink-0" />
                   {label}
-                </span>
+                </li>
               ))}
-            </dd>
+            </ul>
           </div>
         ))}
-      </dl>
-    </section>
+      </div>
+    </ContentSection>
   );
 }

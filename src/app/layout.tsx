@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 
 import { ThemeProvider } from '@/components/theme-provider';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { ATMOSPHERE_INIT_SCRIPT } from '@/config/atmosphere';
 import { AUTHOR, SITE_DESCRIPTION, SITE_URL } from '@/config/site';
 import { fontVariables } from '@/lib/fonts';
 
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#141311' },
+    { media: '(prefers-color-scheme: dark)', color: '#1a1a1a' },
   ],
 };
 
@@ -52,7 +53,13 @@ export default function RootLayout({
       className={cn(fontVariables, 'h-full', 'antialiased')}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{ __html: ATMOSPHERE_INIT_SCRIPT }}
+          id="atmosphere-init"
+        />
+      </head>
+      <body className="flex min-h-full flex-col" suppressHydrationWarning>
         <Script
           id="jsonld-site-graph"
           type="application/ld+json"
@@ -62,7 +69,7 @@ export default function RootLayout({
         </Script>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem={true}
           disableTransitionOnChange={true}
         >

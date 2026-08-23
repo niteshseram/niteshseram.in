@@ -16,7 +16,10 @@ export function NavLinks() {
   }
 
   return (
-    <nav aria-label="Primary" className="hidden items-center gap-x-5 sm:flex">
+    <nav
+      aria-label="Primary"
+      className={cn('hidden items-center gap-x-5 sm:flex', 'mr-2.5')}
+    >
       {visible.map((item) => {
         const active = isActive(pathname, item.href);
         return (
@@ -25,9 +28,9 @@ export function NavLinks() {
             href={item.href}
             aria-current={active ? 'page' : undefined}
             variant="unstyled"
-            weight="normal"
+            weight={active ? 'medium' : 'normal'}
             className={cn(
-              'text-sm',
+              'text-[13px]',
               active ? 'text-foreground' : 'text-muted-foreground',
               !active && 'hover:text-foreground',
             )}

@@ -192,7 +192,7 @@ function CopyButton({
 
   return (
     <Button
-      variant="outline"
+      variant="ghost"
       size="xs"
       isLabelHidden={true}
       label={checked ? 'Copied' : 'Copy code'}

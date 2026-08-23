@@ -1,18 +1,20 @@
 import { ImageResponse } from 'next/og';
 import type { CSSProperties } from 'react';
 
-import { AUTHOR, SITE_TAGLINE } from '@/config/site';
-import { loadGeistFont, loadGoogleFont } from '@/lib/og-font';
+import { OG_THEME } from '@/config/og-theme';
+import { AUTHOR } from '@/config/site';
+import { loadGeistFont } from '@/lib/og-font';
 
 export const alt = `${AUTHOR.name} — ${AUTHOR.jobTitle}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-const BACKGROUND = '#070504';
-const BORDER = '#2a2520';
-const FOREGROUND = '#e8e2d9';
-const MUTED = '#9c938b';
-const BRAND = '#8cb6db';
+const {
+  background: BACKGROUND,
+  foreground: FOREGROUND,
+  muted: MUTED,
+  brand: BRAND,
+} = OG_THEME;
 
 const rootStyle: CSSProperties = {
   width: '100%',
@@ -21,8 +23,6 @@ const rootStyle: CSSProperties = {
   flexDirection: 'column',
   padding: 72,
   background: BACKGROUND,
-  backgroundImage: `radial-gradient(circle at 50% 38%, ${BRAND}33 0%, transparent 55%), radial-gradient(${BORDER} 1px, transparent 1px)`,
-  backgroundSize: '100% 100%, 28px 28px',
   color: FOREGROUND,
   fontFamily: 'Geist',
 };
@@ -35,20 +35,9 @@ const centerColumnStyle: CSSProperties = {
   justifyContent: 'center',
 };
 
-const taglineStyle: CSSProperties = {
-  display: 'flex',
-  marginTop: 56,
-  fontFamily: 'Instrument Serif',
-  fontStyle: 'italic',
-  fontSize: 64,
-  lineHeight: 1,
-  letterSpacing: -1.2,
-  color: BRAND,
-};
-
 const subtitleStyle: CSSProperties = {
   display: 'flex',
-  marginTop: 16,
+  marginTop: 20,
   fontSize: 26,
   color: MUTED,
 };
@@ -76,8 +65,7 @@ const authorNameStyle: CSSProperties = {
 const authorTitleStyle: CSSProperties = {
   display: 'flex',
   marginTop: 4,
-  fontFamily: 'Instrument Serif',
-  fontStyle: 'italic',
+  fontFamily: 'Geist',
   fontSize: 18,
   color: MUTED,
 };
@@ -101,17 +89,9 @@ const locationDotStyle: CSSProperties = {
 };
 
 export default async function Image() {
-  const [
-    geist,
-    geistMedium,
-    instrumentSerif,
-    instrumentSerifItalic,
-    geistMono,
-  ] = await Promise.all([
+  const [geist, geistMedium, geistMono] = await Promise.all([
     loadGeistFont('sans', 'Regular'),
     loadGeistFont('sans', 'Medium'),
-    loadGoogleFont('Instrument Serif', 400),
-    loadGoogleFont('Instrument Serif', 400, 'italic'),
     loadGeistFont('mono', 'Regular'),
   ]);
 
@@ -124,7 +104,6 @@ export default async function Image() {
             <path d="M1060 1001 l0 -911 370 0 370 0 0 668 c-1 750 -3 774 -66 900 -84 165 -239 238 -526 249 l-148 6 0 -912z" />
           </g>
         </svg>
-        <div style={taglineStyle}>{SITE_TAGLINE.accent}</div>
         <div style={subtitleStyle}>My little corner of the internet.</div>
       </div>
 
@@ -144,18 +123,6 @@ export default async function Image() {
       fonts: [
         { name: 'Geist', data: geist, weight: 400, style: 'normal' },
         { name: 'Geist', data: geistMedium, weight: 500, style: 'normal' },
-        {
-          name: 'Instrument Serif',
-          data: instrumentSerif,
-          weight: 400,
-          style: 'normal',
-        },
-        {
-          name: 'Instrument Serif',
-          data: instrumentSerifItalic,
-          weight: 400,
-          style: 'italic',
-        },
         {
           name: 'Geist Mono',
           data: geistMono,

@@ -85,7 +85,7 @@ export type ContributionGraphProps = HTMLAttributes<HTMLDivElement> & {
   className?: string;
 };
 
-export const ContributionGraph = ({
+export function ContributionGraph({
   weeks,
   monthLabels,
   totalCount,
@@ -99,7 +99,7 @@ export const ContributionGraph = ({
   style = EMPTY_STYLE,
   className,
   ...props
-}: ContributionGraphProps) => {
+}: ContributionGraphProps) {
   const maxLevel = Math.max(1, maxLevelProp);
   const LABEL_MARGIN = 8;
 
@@ -138,7 +138,7 @@ export const ContributionGraph = ({
       />
     </ContributionGraphContext.Provider>
   );
-};
+}
 
 export type ContributionGraphBlockProps = HTMLAttributes<SVGRectElement> & {
   activity: Activity;
@@ -146,13 +146,13 @@ export type ContributionGraphBlockProps = HTMLAttributes<SVGRectElement> & {
   weekIndex: number;
 };
 
-export const ContributionGraphBlock = ({
+export function ContributionGraphBlock({
   activity,
   dayIndex,
   weekIndex,
   className,
   ...props
-}: ContributionGraphBlockProps) => {
+}: ContributionGraphBlockProps) {
   const { blockSize, blockMargin, blockRadius, labelHeight, maxLevel } =
     useContributionGraph();
 
@@ -177,7 +177,7 @@ export const ContributionGraphBlock = ({
       {...props}
     />
   );
-};
+}
 
 export type ContributionGraphCalendarProps = Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -192,12 +192,12 @@ export type ContributionGraphCalendarProps = Omit<
   }) => ReactNode;
 };
 
-export const ContributionGraphCalendar = ({
+export function ContributionGraphCalendar({
   hideMonthLabels = false,
   className,
   children,
   ...props
-}: ContributionGraphCalendarProps) => {
+}: ContributionGraphCalendarProps) {
   const { weeks, width, height, blockSize, blockMargin, monthLabels } =
     useContributionGraph();
 
@@ -241,22 +241,24 @@ export const ContributionGraphCalendar = ({
       </svg>
     </div>
   );
-};
+}
 
 export type ContributionGraphFooterProps = HTMLAttributes<HTMLDivElement>;
 
-export const ContributionGraphFooter = ({
+export function ContributionGraphFooter({
   className,
   ...props
-}: ContributionGraphFooterProps) => (
-  <div
-    className={cn(
-      'flex flex-wrap gap-1 whitespace-nowrap sm:gap-x-4',
-      className,
-    )}
-    {...props}
-  />
-);
+}: ContributionGraphFooterProps) {
+  return (
+    <div
+      className={cn(
+        'flex flex-wrap gap-1 whitespace-nowrap sm:gap-x-4',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
 export type ContributionGraphTotalCountProps = Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -265,11 +267,11 @@ export type ContributionGraphTotalCountProps = Omit<
   children?: (props: { totalCount: number; year: number }) => ReactNode;
 };
 
-export const ContributionGraphTotalCount = ({
+export function ContributionGraphTotalCount({
   className,
   children,
   ...props
-}: ContributionGraphTotalCountProps) => {
+}: ContributionGraphTotalCountProps) {
   const { totalCount, year, labels } = useContributionGraph();
 
   if (children) {
@@ -289,7 +291,7 @@ export const ContributionGraphTotalCount = ({
       )}
     </div>
   );
-};
+}
 
 export type ContributionGraphLegendProps = Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -298,11 +300,11 @@ export type ContributionGraphLegendProps = Omit<
   children?: (props: { level: number }) => ReactNode;
 };
 
-export const ContributionGraphLegend = ({
+export function ContributionGraphLegend({
   className,
   children,
   ...props
-}: ContributionGraphLegendProps) => {
+}: ContributionGraphLegendProps) {
   const { labels, maxLevel, blockSize, blockRadius } = useContributionGraph();
 
   return (
@@ -326,7 +328,7 @@ export const ContributionGraphLegend = ({
           >
             <title>{`${level} contributions`}</title>
             <rect
-              className={cn('stroke-[1px] stroke-border', LEVEL_FILL_CLASSES)}
+              className={cn(LEVEL_FILL_CLASSES)}
               data-level={level}
               height={blockSize}
               rx={blockRadius}
@@ -341,4 +343,4 @@ export const ContributionGraphLegend = ({
       </span>
     </div>
   );
-};
+}

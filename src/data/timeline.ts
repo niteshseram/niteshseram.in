@@ -18,11 +18,11 @@ export const TIMELINE: TimelineYear[] = [
         tag: 'Role',
         title: 'Senior Software Engineer at GreatFrontEnd',
         description:
-          'Promoted to Senior and handed the reins on a new consumer product.',
+          'Promoted to Senior and started building a new consumer product.',
         highlights: [
-          'Leading the end-to-end frontend for Socialmon — an AI-powered marketing intelligence platform for discovering, sharing, and saving viral content from LinkedIn, Instagram, and X.',
-          'Sole engineer on the consumer product surface — architecting and building the frontend from zero to launch.',
-          'Establishing the frontend architecture patterns, component abstractions, and API design decisions that will scale with the product.',
+          'Building the consumer frontend for Socialmon — an AI-powered marketing intelligence platform for discovering, sharing, and saving viral content from LinkedIn, Instagram, and X.',
+          'Working across the consumer product surface, from early product decisions through implementation and launch.',
+          'Shaping frontend architecture, component abstractions, and API integration patterns as the product grows.',
           'Tech stack: Next.js, TypeScript, Tailwind, Base UI, Prisma, Supabase, Zod, tRPC, React Query, Cloudflare, Upstash, Motion',
         ],
       },

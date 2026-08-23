@@ -1,7 +1,5 @@
 'use client';
 
-import url from 'url';
-
 import { cva } from 'class-variance-authority';
 import Link, { type LinkProps } from 'next/link';
 import type React from 'react';
@@ -33,7 +31,8 @@ export function Anchor<RouteType>({
   weight,
   ...props
 }: Props<RouteType>) {
-  const isExternalURL =
+  const isExternalURL = typeof href === 'string' && /^https?:/.test(href);
+  const usesNativeAnchor =
     typeof href === 'string' && /^(https?:|mailto:|tel:)/.test(href);
 
   const rel = relProp ?? (isExternalURL ? 'noreferrer noopener' : undefined);
@@ -45,14 +44,12 @@ export function Anchor<RouteType>({
 
   const target = targetProp ?? (isExternalURL ? '_blank' : undefined);
 
-  if (isExternalURL) {
-    const finalHrefString = url.format(href);
-
+  if (usesNativeAnchor) {
     return (
       <a
         ref={ref}
         className={className}
-        href={finalHrefString}
+        href={href}
         rel={rel}
         target={target}
         onClick={onClick}
@@ -78,7 +75,7 @@ export function Anchor<RouteType>({
   );
 }
 
-export type AnchorVariant = 'default' | 'brand' | 'unstyled';
+export type AnchorVariant = 'default' | 'primary' | 'prose' | 'unstyled';
 
 export type AnchorWeight = 'inherit' | 'medium' | 'normal';
 
@@ -86,7 +83,10 @@ const anchorVariantClasses: Record<AnchorVariant, string> = {
   default: cn(
     'text-muted-foreground hover:text-foreground active:text-foreground',
   ),
-  brand: cn(
+  primary: cn(
+    'text-foreground hover:text-muted-foreground active:text-foreground',
+  ),
+  prose: cn(
     'underline underline-offset-[3px] decoration-[1.5px]',
     'text-foreground decoration-link',
     'hover:decoration-foreground',

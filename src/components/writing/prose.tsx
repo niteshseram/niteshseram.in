@@ -7,5 +7,9 @@ export function Prose({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={cn('writing-prose', className)}>{children}</div>;
+  return (
+    <div className={cn('writing-prose', 'text-base', className)}>
+      {children}
+    </div>
+  );
 }

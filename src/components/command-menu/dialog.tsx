@@ -3,7 +3,6 @@
 import { useDocsSearch } from 'fumadocs-core/search/client';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
-import type { ComponentProps } from 'react';
 import { useCallback, useMemo } from 'react';
 
 import {
@@ -26,16 +25,12 @@ type Props = Readonly<{
   posts: PostIndexEntry[];
 }>;
 
-const dialogFilter: ComponentProps<typeof CommandDialog>['filter'] = (
-  value,
-  search,
-  keywords,
-) => {
+function dialogFilter(value: string, search: string, keywords?: string[]) {
   if (value.startsWith(ORAMA_PREFIX)) return 1;
   const haystack = [value, ...(keywords ?? [])].join(' ').toLowerCase();
   const terms = search.toLowerCase().trim().split(/\s+/);
-  return terms.every((t) => haystack.includes(t)) ? 1 : 0;
-};
+  return terms.every((term) => haystack.includes(term)) ? 1 : 0;
+}
 
 export function CommandMenuDialog({ open, onOpenChange, posts }: Props) {
   const { push } = useRouter();
@@ -105,14 +100,14 @@ export function CommandMenuDialog({ open, onOpenChange, posts }: Props) {
         onOpenChange(next);
         if (!next) setSearch('');
       }}
-      title="Command menu"
-      description="Navigate the site, switch theme, or open social links."
-      label="Command menu"
+      title="Search"
+      description="Search writing or navigate the site."
+      label="Search"
       loop={true}
       filter={dialogFilter}
     >
       <CommandInput
-        placeholder="Type a command or search…"
+        placeholder="Search the site…"
         value={search}
         onValueChange={setSearch}
         loading={isSearching && query.isLoading}

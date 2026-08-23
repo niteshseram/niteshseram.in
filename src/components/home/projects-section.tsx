@@ -1,131 +1,97 @@
-import { PiArrowUpRight, PiGithubLogo, PiTerminalWindow } from 'react-icons/pi';
+import { PiArrowUpRight } from 'react-icons/pi';
 
+import { Anchor } from '@/components/ui/anchor';
 import { Button } from '@/components/ui/button';
+import { ContentSection } from '@/components/ui/content-section';
 import { PROJECTS } from '@/data/projects';
 import { cn } from '@/lib/utils';
 
-import { SectionHeading } from './section-heading';
-
 export function ProjectsSection() {
   return (
-    <section
-      id="projects"
-      aria-label="Projects"
-      className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
-    >
-      <SectionHeading eyebrow="ls projects/" icon={PiTerminalWindow}>
-        Things <span className="italic text-brand">I’ve built</span>
-      </SectionHeading>
-      <ul className={cn('grid gap-4')}>
-        {PROJECTS.map((project) => (
-          <li key={project.name}>
-            <article
-              className={cn(
-                'group relative flex h-full flex-col',
-                'p-5',
-                'overflow-hidden rounded-lg border border-border',
-                'bg-surface/30',
-                'transition-colors',
-                'hover:border-brand/40',
-              )}
-            >
-              <div
-                aria-hidden="true"
-                className={cn(
-                  'pointer-events-none absolute -top-20 -right-20 size-40',
-                  'rounded-full bg-brand/10 blur-3xl opacity-0',
-                  'transition-opacity',
-                  'group-hover:opacity-100',
-                )}
-              />
-              <div
-                className={cn(
-                  'relative flex items-start justify-between gap-3',
-                )}
-              >
-                <div className="min-w-0">
-                  <span
-                    className={cn(
-                      'font-mono text-[10px] uppercase tracking-[0.12em]',
-                      'text-muted-foreground',
-                    )}
-                  >
-                    {project.tagline}
-                  </span>
-                  <h3
-                    className={cn(
-                      'mt-1',
-                      'font-serif text-xl leading-tight',
-                      'text-foreground',
-                    )}
-                  >
-                    {project.name}
-                  </h3>
-                </div>
-                <div
-                  className={cn(
-                    'flex shrink-0 items-center gap-x-0.5',
-                    '-mr-1',
-                  )}
-                >
-                  {project.githubUrl && (
+    <ContentSection id="projects" ariaLabel="Projects" title="Selected work">
+      <ul className="flex flex-col gap-y-8">
+        {PROJECTS.map((project) => {
+          const projectUrl = project.liveUrl ?? project.githubUrl;
+
+          return (
+            <li key={project.name}>
+              <article>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <h3
+                      className={cn(
+                        'text-base font-medium leading-6 tracking-[-0.01em]',
+                        'text-foreground',
+                      )}
+                    >
+                      {projectUrl ? (
+                        <Anchor
+                          href={projectUrl}
+                          variant="primary"
+                          weight="inherit"
+                        >
+                          {project.name}
+                        </Anchor>
+                      ) : (
+                        project.name
+                      )}
+                    </h3>
+                    <p
+                      className={cn(
+                        'mt-0.5',
+                        'text-sm leading-5',
+                        'text-muted-foreground',
+                      )}
+                    >
+                      {project.tagline}
+                    </p>
+                  </div>
+                  {projectUrl ? (
                     <Button
-                      href={project.githubUrl}
-                      aria-label={`${project.name} source on GitHub`}
-                      icon={<PiGithubLogo />}
-                      isLabelHidden={true}
-                      label="View source on GitHub"
-                      size="xs"
-                      tooltip="View source"
-                      variant="ghost"
-                    />
-                  )}
-                  {project.liveUrl && (
-                    <Button
-                      href={project.liveUrl}
-                      aria-label={`Visit ${project.name}`}
+                      href={projectUrl}
+                      className={cn('shrink-0', '-mt-1 -mr-1')}
                       icon={<PiArrowUpRight />}
                       isLabelHidden={true}
                       label={`Visit ${project.name}`}
                       size="xs"
-                      tooltip="Visit site"
                       variant="ghost"
                     />
-                  )}
+                  ) : null}
                 </div>
-              </div>
-              <p
-                className={cn(
-                  'relative mt-3',
-                  'text-base leading-relaxed',
-                  'text-muted-foreground',
-                )}
-              >
-                {project.description}
-              </p>
-              <ul
-                className={cn(
-                  'relative mt-auto flex flex-wrap items-center gap-1.5 pt-4',
-                )}
-              >
-                {project.tech.map((item) => (
-                  <li
-                    key={item}
-                    className={cn(
-                      'px-2 py-0.5',
-                      'rounded-full border border-border',
-                      'font-mono text-[10px]',
-                      'text-muted-foreground',
-                    )}
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          </li>
-        ))}
+                <p
+                  className={cn(
+                    'max-w-[56ch]',
+                    'mt-2.5',
+                    'text-[0.9375rem] leading-6',
+                    'text-muted-foreground',
+                  )}
+                >
+                  {project.description}
+                </p>
+                <div
+                  className={cn(
+                    'flex flex-wrap items-center gap-x-4 gap-y-2',
+                    'mt-2.5',
+                    'text-xs leading-relaxed',
+                    'text-muted-foreground',
+                  )}
+                >
+                  <span>{project.tech.join(' · ')}</span>
+                  {project.githubUrl ? (
+                    <Anchor
+                      href={project.githubUrl}
+                      variant="default"
+                      weight="normal"
+                    >
+                      Source
+                    </Anchor>
+                  ) : null}
+                </div>
+              </article>
+            </li>
+          );
+        })}
       </ul>
-    </section>
+    </ContentSection>
   );
 }

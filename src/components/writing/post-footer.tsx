@@ -13,32 +13,21 @@ export function PostFooter({ prev, next }: Props) {
   if (!prev && !next) return null;
 
   return (
-    <footer
-      className={cn(
-        'grid gap-4',
-        'mt-16 pt-8',
-        'sm:grid-cols-2',
-        'border-t border-border',
-      )}
-    >
+    <footer className={cn('grid gap-7 sm:grid-cols-2', 'mt-16')}>
       {prev ? (
         <Anchor
           href={prev.url as never}
           variant="unstyled"
           weight="inherit"
           className={cn(
-            'group flex flex-col gap-y-1.5',
-            'p-4 sm:col-start-1',
-            'rounded-lg border border-border',
-            'bg-surface/30',
+            'group flex flex-col gap-y-2 sm:col-start-1',
             'transition-colors',
-            'hover:border-brand/40',
           )}
         >
           <span
             className={cn(
               'inline-flex items-center gap-x-1',
-              'font-mono text-[10px] uppercase tracking-[0.08em]',
+              'font-mono text-[10px] uppercase tracking-[0.1em]',
               'text-muted-foreground',
             )}
           >
@@ -47,10 +36,10 @@ export function PostFooter({ prev, next }: Props) {
           </span>
           <span
             className={cn(
-              'font-serif text-base leading-snug',
+              'text-base font-medium leading-snug',
               'text-foreground',
               'transition-colors',
-              'group-hover:text-brand',
+              'group-hover:text-muted-foreground',
             )}
           >
             {prev.data.title}
@@ -65,18 +54,15 @@ export function PostFooter({ prev, next }: Props) {
           variant="unstyled"
           weight="inherit"
           className={cn(
-            'group flex flex-col items-end gap-y-1.5',
-            'p-4 sm:col-start-2',
-            'rounded-lg border border-border',
-            'bg-surface/30 text-right',
+            'group flex flex-col items-end gap-y-2 sm:col-start-2',
+            'text-right',
             'transition-colors',
-            'hover:border-brand/40',
           )}
         >
           <span
             className={cn(
               'inline-flex items-center gap-x-1',
-              'font-mono text-[10px] uppercase tracking-[0.08em]',
+              'font-mono text-[10px] uppercase tracking-[0.1em]',
               'text-muted-foreground',
             )}
           >
@@ -85,10 +71,10 @@ export function PostFooter({ prev, next }: Props) {
           </span>
           <span
             className={cn(
-              'font-serif text-base leading-snug',
+              'text-base font-medium leading-snug',
               'text-foreground',
               'transition-colors',
-              'group-hover:text-brand',
+              'group-hover:text-muted-foreground',
             )}
           >
             {next.data.title}

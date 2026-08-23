@@ -1,26 +1,16 @@
-import { PiArrowUpRight, PiCodeSimple } from 'react-icons/pi';
-
-import { Button } from '@/components/ui/button';
+import { Anchor } from '@/components/ui/anchor';
+import { ContentSection } from '@/components/ui/content-section';
 import { PostRow } from '@/components/writing/post-row';
 import { cn } from '@/lib/utils';
 import { getLatestPosts } from '@/lib/writing';
-
-import { SectionHeading } from './section-heading';
 
 export function WritingSection() {
   const posts = getLatestPosts(3);
   if (posts.length === 0) return null;
 
   return (
-    <section
-      id="writing"
-      aria-label="Writing"
-      className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
-    >
-      <SectionHeading eyebrow="tail writing.log" icon={PiCodeSimple}>
-        Lately I’ve been <span className="italic text-brand">writing</span>
-      </SectionHeading>
-      <ul className="flex flex-col divide-y divide-border">
+    <ContentSection id="writing" ariaLabel="Writing" title="Recent writing">
+      <ul className="flex flex-col gap-y-7">
         {posts.map((post) => (
           <PostRow
             key={post.url}
@@ -29,16 +19,16 @@ export function WritingSection() {
           />
         ))}
       </ul>
-      <div className="mt-6 flex justify-end">
-        <Button
+      <div className={cn('flex justify-start', 'mt-6')}>
+        <Anchor
           href="/writing"
-          variant="ghost"
-          size="sm"
-          icon={<PiArrowUpRight />}
-          label="All posts"
-          className="-mr-3"
-        />
+          variant="default"
+          weight="medium"
+          className="text-sm"
+        >
+          All posts →
+        </Anchor>
       </div>
-    </section>
+    </ContentSection>
   );
 }

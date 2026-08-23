@@ -24,7 +24,7 @@ export const navItems: NavItem[] = [
     hide: true,
     keywords: ['start', 'landing'],
   },
-  { href: '/#projects', label: 'Projects', icon: PiFolder },
+  { href: '/#projects', label: 'Work', icon: PiFolder },
   {
     href: '/writing',
     label: 'Writing',

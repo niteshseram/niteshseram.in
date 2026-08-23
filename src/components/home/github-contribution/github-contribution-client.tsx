@@ -25,40 +25,38 @@ export function GithubContributionClient({ graph, className }: Props) {
   const { weeks, monthLabels, totalCount, year, tooltips } = graph;
 
   return (
-    <div
-      className={cn(
-        'text-xs',
-        'border border-border rounded-lg',
-        'p-4',
-        className,
-      )}
-    >
+    <div className={cn('overflow-hidden', 'text-xs', className)}>
       <ContributionGraph
         weeks={weeks}
         monthLabels={monthLabels}
         totalCount={totalCount}
         year={year}
         blockMargin={3}
-        blockRadius={2}
-        blockSize={11}
+        blockRadius={1.5}
+        blockSize={10}
         fontSize={11}
       >
-        <ContributionGraphCalendar>
-          {({ activity, dayIndex, weekIndex }) => (
-            <Tooltip>
-              <TooltipTrigger
-                render={
-                  <ContributionGraphBlock
-                    activity={activity}
-                    dayIndex={dayIndex}
-                    weekIndex={weekIndex}
-                  />
-                }
-              />
-              <TooltipContent>{tooltips[activity.date]}</TooltipContent>
-            </Tooltip>
-          )}
-        </ContributionGraphCalendar>
+        <div
+          aria-label={`Contribution activity calendar for ${year}: ${totalCount} contributions.`}
+          role="img"
+        >
+          <ContributionGraphCalendar>
+            {({ activity, dayIndex, weekIndex }) => (
+              <Tooltip>
+                <TooltipTrigger
+                  render={
+                    <ContributionGraphBlock
+                      activity={activity}
+                      dayIndex={dayIndex}
+                      weekIndex={weekIndex}
+                    />
+                  }
+                />
+                <TooltipContent>{tooltips[activity.date]}</TooltipContent>
+              </Tooltip>
+            )}
+          </ContributionGraphCalendar>
+        </div>
         <ContributionGraphFooter>
           <ContributionGraphTotalCount>
             {(props) => (

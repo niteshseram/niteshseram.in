@@ -40,38 +40,49 @@ function headingAnchor(
 export const baseMdxComponents: MDXComponents = {
   p: ({ className, ...props }) => (
     <p
-      className={cn('my-5 leading-[1.75]', 'text-muted-foreground', className)}
+      className={cn('my-4', 'leading-7', 'text-foreground/90', className)}
       {...props}
     />
   ),
   h1: headingAnchor(
     'h1',
-    cn('scroll-mt-20 mt-12 mb-4', 'text-3xl leading-tight', 'text-foreground'),
+    cn(
+      'scroll-mt-20',
+      'mt-10 mb-3',
+      'text-2xl font-semibold leading-tight tracking-[-0.022em]',
+      'text-foreground',
+    ),
   ),
   h2: headingAnchor(
     'h2',
     cn(
-      'scroll-mt-20 mt-12 mb-3',
-      'text-2xl font-medium leading-tight',
+      'scroll-mt-20',
+      'mt-10 mb-2.5',
+      'text-xl font-semibold leading-7 tracking-[-0.018em]',
       'text-foreground',
     ),
   ),
   h3: headingAnchor(
     'h3',
-    cn('scroll-mt-20 mt-10 mb-2', 'text-xl leading-snug', 'text-foreground'),
+    cn(
+      'scroll-mt-20',
+      'mt-8 mb-2',
+      'text-[1.0625rem] font-semibold leading-6 tracking-[-0.012em]',
+      'text-foreground',
+    ),
   ),
   h4: headingAnchor(
     'h4',
     cn(
-      'scroll-mt-20 mt-8 mb-2',
-      'font-sans text-sm font-medium uppercase tracking-[0.08em]',
+      'scroll-mt-20 mt-7 mb-2',
+      'text-sm font-medium uppercase tracking-[0.08em]',
       'text-foreground',
     ),
   ),
   a: ({ href, className, children, ref: _ref, ...props }) => (
     <Anchor
       href={(href ?? '') as never}
-      variant="brand"
+      variant="prose"
       weight="inherit"
       className={className}
       {...props}
@@ -82,7 +93,7 @@ export const baseMdxComponents: MDXComponents = {
   ul: ({ className, ...props }) => (
     <ul
       className={cn(
-        'my-5 pl-6 space-y-2 list-disc',
+        'my-4 pl-6 space-y-1.5 list-disc',
         'marker:text-muted-foreground',
         className,
       )}
@@ -92,7 +103,7 @@ export const baseMdxComponents: MDXComponents = {
   ol: ({ className, ...props }) => (
     <ol
       className={cn(
-        'my-5 pl-6 space-y-2 list-decimal',
+        'my-4 pl-6 space-y-1.5 list-decimal',
         'marker:text-muted-foreground',
         className,
       )}
@@ -101,17 +112,17 @@ export const baseMdxComponents: MDXComponents = {
   ),
   li: ({ className, ...props }) => (
     <li
-      className={cn('leading-[1.75]', 'text-muted-foreground', className)}
+      className={cn('leading-7', 'text-foreground/90', className)}
       {...props}
     />
   ),
   blockquote: ({ className, ...props }) => (
     <blockquote
       className={cn(
-        'my-6 pl-5',
+        'my-5 pl-4',
         'border-l-2 border-brand/40',
-        'font-serif text-lg italic leading-relaxed',
-        'text-muted-foreground',
+        'text-base italic leading-7',
+        'text-foreground/75',
         className,
       )}
       {...props}
@@ -131,7 +142,7 @@ export const baseMdxComponents: MDXComponents = {
     );
   },
   hr: ({ className, ...props }) => (
-    <hr className={cn('my-12 border-border', className)} {...props} />
+    <hr className={cn('w-8', 'my-10', 'border-border', className)} {...props} />
   ),
   pre: ({ ref: _ref, ...props }) => (
     <CodeBlock {...props}>

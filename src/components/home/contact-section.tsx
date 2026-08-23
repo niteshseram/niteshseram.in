@@ -1,137 +1,63 @@
-import { PiArrowUpRight, PiEnvelope, PiTerminalWindow } from 'react-icons/pi';
+import { PiArrowUpRight } from 'react-icons/pi';
 
 import { Anchor } from '@/components/ui/anchor';
-import { Button } from '@/components/ui/button';
+import { ContentSection } from '@/components/ui/content-section';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
 
-import { SectionHeading } from './section-heading';
+const contactLinks = [
+  SOCIAL_LINKS.github,
+  SOCIAL_LINKS.linkedin,
+  SOCIAL_LINKS.x,
+];
 
 export function ContactSection() {
   return (
-    <section
-      id="contact"
-      aria-label="Contact"
-      className={cn('max-w-2xl scroll-mt-13', 'mx-auto px-4.5 py-16')}
-    >
-      <div
+    <ContentSection id="contact" ariaLabel="Contact" title="Let’s talk">
+      <p
         className={cn(
-          'relative overflow-hidden',
-          'px-6 py-10 sm:px-10 sm:py-12',
-          'rounded-2xl border border-border',
-          'bg-surface/40',
+          'max-w-[54ch]',
+          'text-base leading-7',
+          'text-muted-foreground',
         )}
       >
-        <div
-          aria-hidden="true"
-          className={cn(
-            'absolute inset-0',
-            'bg-[radial-gradient(circle_at_center,var(--border)_1px,transparent_1px)] bg-[size:18px_18px]',
-            'opacity-40',
-          )}
-        />
-        <div
-          aria-hidden="true"
-          className={cn(
-            'absolute -top-24 -right-24 size-64',
-            'rounded-full bg-brand/10 blur-3xl',
-          )}
-        />
-        <div
-          aria-hidden="true"
-          className={cn(
-            'absolute -bottom-32 -left-24 size-64',
-            'rounded-full bg-brand/10 blur-3xl',
-          )}
-        />
-
-        <div className="relative">
-          <SectionHeading
-            className="mb-5"
-            eyebrow='echo "hello"'
-            icon={PiTerminalWindow}
-          >
-            <span className="block">Got something in mind?</span>
-            <span className="block italic text-brand">Let’s talk.</span>
-          </SectionHeading>
-
-          <p className={cn('leading-relaxed', 'text-muted-foreground')}>
-            Open to new conversations — project ideas, collaborations, or
-            anything interesting on the web. I read every message and try to
-            reply within a day or two.
-          </p>
-
+        Open to project ideas, collaborations, and interesting conversations
+        about the web. I read every message and usually reply within a day or
+        two.
+      </p>
+      <Anchor
+        href={SOCIAL_LINKS.email.href}
+        aria-label="Send an email"
+        variant="primary"
+        weight="medium"
+        className={cn(
+          'inline-flex items-center gap-x-1.5',
+          'mt-5',
+          'text-base leading-6',
+        )}
+      >
+        {SOCIAL_LINKS.email.username}
+        <PiArrowUpRight aria-hidden="true" className="size-4" />
+      </Anchor>
+      <div
+        className={cn(
+          'flex flex-wrap items-center gap-x-5 gap-y-2',
+          'mt-5',
+          'text-sm',
+        )}
+        aria-label="Social links"
+      >
+        {contactLinks.map((social) => (
           <Anchor
-            href={SOCIAL_LINKS.email.href}
-            aria-label="Send an email"
-            variant="unstyled"
-            weight="inherit"
-            className={cn(
-              'group mt-8 inline-flex items-center gap-x-3',
-              'rounded-md',
-              'text-base sm:text-lg font-medium',
-              'text-foreground',
-              'transition-colors',
-              'hover:text-brand',
-            )}
+            key={social.label}
+            href={social.href}
+            variant="default"
+            weight="normal"
           >
-            <span
-              aria-hidden="true"
-              className={cn(
-                'inline-flex items-center justify-center size-9',
-                'rounded-lg border border-border',
-                'bg-background text-brand',
-                'transition-colors',
-                'group-hover:border-brand/40 group-hover:bg-brand/10',
-              )}
-            >
-              <PiEnvelope className="size-4" />
-            </span>
-            <span className="underline underline-offset-[5px] decoration-[1.5px] decoration-border group-hover:decoration-brand">
-              {SOCIAL_LINKS.email.username}
-            </span>
-            <PiArrowUpRight
-              aria-hidden="true"
-              className={cn(
-                'size-4 shrink-0',
-                'text-muted-foreground',
-                'transition-transform',
-                'group-hover:text-brand group-hover:-translate-y-0.5 group-hover:translate-x-0.5',
-              )}
-            />
+            {social.label}
           </Anchor>
-
-          <div
-            className={cn('flex items-center gap-x-3', 'mt-8')}
-            role="list"
-            aria-label="Social links"
-          >
-            <span
-              aria-hidden="true"
-              className={cn('text-sm', 'text-muted-foreground')}
-            >
-              Or find me on
-            </span>
-            {[SOCIAL_LINKS.github, SOCIAL_LINKS.x, SOCIAL_LINKS.linkedin].map(
-              (social) => {
-                const Icon = social.icon;
-                return (
-                  <Button
-                    key={social.label}
-                    href={social.href}
-                    icon={<Icon />}
-                    isLabelHidden
-                    label={social.label}
-                    size="sm"
-                    tooltip={social.label}
-                    variant="outline"
-                  />
-                );
-              },
-            )}
-          </div>
-        </div>
+        ))}
       </div>
-    </section>
+    </ContentSection>
   );
 }

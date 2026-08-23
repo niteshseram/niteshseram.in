@@ -55,20 +55,19 @@ export function CommandDialog({
         <Dialog.Backdrop
           className={cn(
             'fixed inset-0 z-50',
-            'bg-background/20 backdrop-blur-xs',
-            'transition-opacity duration-150',
+            'backdrop-blur-sm',
+            'bg-background/65',
+            'transition-opacity duration-[var(--motion-duration-fast)] ease-standard',
             'data-starting-style:opacity-0 data-ending-style:opacity-0',
           )}
         />
         <Dialog.Popup
           initialFocus={initialFocus}
           className={cn(
-            'fixed left-1/2 top-[20%] z-50 -translate-x-1/2',
-            'w-[92vw] max-w-lg',
-            'flex flex-col overflow-hidden',
-            'rounded-xl border border-input',
-            'bg-popover shadow-[0_20px_60px_-15px] shadow-black/40',
-            'transition-[transform,scale,opacity] duration-150',
+            'fixed top-[16%] left-1/2 z-50 flex w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 flex-col overflow-hidden',
+            'rounded-2xl border shadow-[0_24px_80px_-24px]',
+            'border-input bg-popover shadow-shadow/55',
+            'transition-[transform,scale,opacity] duration-[var(--motion-duration-fast)] ease-standard',
             'data-starting-style:scale-[0.98] data-starting-style:opacity-0',
             'data-ending-style:scale-[0.98] data-ending-style:opacity-0',
           )}
@@ -99,7 +98,7 @@ export function CommandInput({
     <div
       className={cn(
         'flex items-center gap-x-2.5',
-        'px-4 h-12',
+        'h-13 px-4',
         'border-b border-border',
       )}
     >
@@ -135,7 +134,7 @@ export function CommandList({
   return (
     <CmdkList className={cn(className)} {...props}>
       <ScrollArea
-        className="max-h-80"
+        className="max-h-[min(24rem,55vh)]"
         viewportClassName="overscroll-contain p-1.5"
       >
         {children}
@@ -197,8 +196,10 @@ export function CommandItem({
       className={cn(
         'group flex items-center gap-x-3',
         'px-2.5 py-2',
-        'rounded-md cursor-pointer',
+        'rounded-md',
         'text-sm text-muted-foreground',
+        'cursor-pointer',
+        'transition-colors',
         'data-[selected=true]:bg-muted',
         'data-[selected=true]:text-foreground',
         '[&_[data-icon]]:data-[selected=true]:text-brand',
@@ -259,17 +260,18 @@ export function CommandShortcut({
   return (
     <span className="inline-flex items-center gap-x-1">
       <span className="inline-flex items-center gap-x-0.5">
-        {keys.map((k) => (
+        {keys.map((key) => (
           <kbd
-            key={k}
+            key={key}
             className={cn(
               'inline-flex h-5 min-w-5 items-center justify-center',
-              'px-1 rounded',
-              'border border-border bg-muted',
-              'font-mono text-sm/none text-foreground/70',
+              'px-1',
+              'rounded border',
+              'font-mono text-sm/none',
+              'border-border bg-muted text-foreground/70',
             )}
           >
-            {k}
+            {key}
           </kbd>
         ))}
       </span>

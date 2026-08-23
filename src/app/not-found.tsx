@@ -1,6 +1,6 @@
 import { PiArrowLeft, PiNotePencil } from 'react-icons/pi';
 
-import { Terminal, TypingAnimation } from '@/components/terminal';
+import { WanderHomeGame } from '@/components/not-found/wander-home-game';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -10,7 +10,9 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <main className={cn('max-w-2xl', 'mx-auto px-4.5 pt-14 sm:pt-20 pb-12')}>
+    <main
+      className={cn('w-full max-w-2xl', 'mx-auto px-4.5 pt-14 pb-12 sm:pt-20')}
+    >
       <p
         className={cn(
           'font-mono text-xs uppercase tracking-[0.22em]',
@@ -22,7 +24,7 @@ export default function NotFound() {
       <h1
         className={cn(
           'mt-5',
-          'font-serif text-[clamp(1.8rem,8vw,2.4rem)] leading-[1.15]',
+          'type-page-title font-semibold',
           'text-foreground',
         )}
       >
@@ -31,9 +33,11 @@ export default function NotFound() {
       </h1>
       <p className={cn('mt-6', 'leading-relaxed', 'text-muted-foreground')}>
         The URL you followed either doesn&rsquo;t exist or has moved somewhere
-        else. No harm done &mdash; here are a couple of places to head instead.
+        else. If you have a moment, help this lost page collect its fragments
+        and find its way home.
       </p>
-      <div className={cn('flex flex-wrap items-center gap-2.5', 'mt-8')}>
+      <WanderHomeGame />
+      <div className={cn('flex flex-wrap items-center gap-2.5', 'mt-6')}>
         <Button
           addonPosition="start"
           href="/"
@@ -51,23 +55,6 @@ export default function NotFound() {
           variant="outline"
         />
       </div>
-      <Terminal className="mt-12 min-h-[203px]" title="404.log">
-        <TypingAnimation duration={35}>
-          {'$ curl -I niteshseram.in/$_'}
-        </TypingAnimation>
-        <TypingAnimation duration={35} className="text-muted-foreground">
-          {'HTTP/2 404'}
-        </TypingAnimation>
-        <TypingAnimation duration={35} className="text-muted-foreground">
-          {'x-status: page-not-found'}
-        </TypingAnimation>
-        <TypingAnimation duration={35} className="text-muted-foreground">
-          {'x-suggestion: "try /"'}
-        </TypingAnimation>
-        <TypingAnimation duration={35} keepCursor>
-          {'$ cd ~'}
-        </TypingAnimation>
-      </Terminal>
     </main>
   );
 }

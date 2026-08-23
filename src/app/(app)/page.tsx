@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { AboutSection } from '@/components/home/about-section';
 import { ContactSection } from '@/components/home/contact-section';
 import { ExperienceSection } from '@/components/home/experience-section';
 import { GithubContributionSection } from '@/components/home/github-contribution/github-contribution-section';
@@ -19,12 +20,13 @@ export default function Page() {
   return (
     <>
       <Hero />
-      <TechStackSection />
       <ProjectsSection />
-      <WritingSection />
       <ExperienceSection />
+      <WritingSection />
       <SpeakingSection />
       <GithubContributionSection />
+      <TechStackSection />
+      <AboutSection />
       <ContactSection />
     </>
   );

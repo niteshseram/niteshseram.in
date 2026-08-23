@@ -2,7 +2,7 @@
 
 import type { PopoverRootChangeEventDetails } from '@base-ui/react/popover';
 import dynamic from 'next/dynamic';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PiCaretDown, PiCheck, PiCopy } from 'react-icons/pi';
 
 import { cn } from '@/lib/utils';
@@ -14,17 +14,19 @@ type Props = Readonly<{
   pageUrl: string;
 }>;
 
+type CopyStatus = 'copied' | 'error' | 'idle';
+
 const markdownCache = new Map<string, Promise<string>>();
 
 function fetchMarkdown(url: string): Promise<string> {
   let cached = markdownCache.get(url);
   if (!cached) {
-    cached = fetch(url).then((res) => {
-      if (!res.ok) {
+    cached = fetch(url).then((response) => {
+      if (!response.ok) {
         markdownCache.delete(url);
-        throw new Error(`Failed to fetch markdown: ${res.status}`);
+        throw new Error(`Failed to fetch markdown: ${response.status}`);
       }
-      return res.text();
+      return response.text();
     });
     markdownCache.set(url, cached);
   }
@@ -32,7 +34,10 @@ function fetchMarkdown(url: string): Promise<string> {
 }
 
 const PostActionsMenu = dynamic(
-  () => import('./post-actions-menu').then((m) => m.PostActionsMenu),
+  () =>
+    import('./post-actions-menu').then(
+      (menuModule) => menuModule.PostActionsMenu,
+    ),
   { ssr: false },
 );
 
@@ -41,21 +46,42 @@ function prefetchMenu() {
 }
 
 export function PostActions({ markdownUrl, githubUrl, pageUrl }: Props) {
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<CopyStatus>('idle');
   const [menuMounted, setMenuMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const copyFeedbackTimerReference = useRef<number | null>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const copied = copyStatus === 'copied';
 
   useIdlePrefetch(prefetchMenu);
+
+  useEffect(() => {
+    return () => {
+      if (copyFeedbackTimerReference.current != null) {
+        window.clearTimeout(copyFeedbackTimerReference.current);
+      }
+    };
+  }, []);
+
+  function showCopyFeedback(nextStatus: Exclude<CopyStatus, 'idle'>) {
+    if (copyFeedbackTimerReference.current != null) {
+      window.clearTimeout(copyFeedbackTimerReference.current);
+    }
+
+    setCopyStatus(nextStatus);
+    copyFeedbackTimerReference.current = window.setTimeout(() => {
+      setCopyStatus('idle');
+      copyFeedbackTimerReference.current = null;
+    }, 1_500);
+  }
 
   async function onCopy() {
     try {
       const text = await fetchMarkdown(markdownUrl);
       await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      showCopyFeedback('copied');
     } catch {
-      // silently ignore — clipboard failures are non-critical
+      showCopyFeedback('error');
     }
   }
 
@@ -88,17 +114,17 @@ export function PostActions({ markdownUrl, githubUrl, pageUrl }: Props) {
     <div
       className={cn(
         'inline-flex items-center',
-        'rounded-md',
-        'border border-border',
+        'rounded-md border',
+        'border-border',
       )}
     >
       <button
         type="button"
         onClick={onCopy}
-        aria-label="Copy page as Markdown"
+        aria-label={copied ? 'Markdown copied' : 'Copy page as Markdown'}
         className={cn(
-          'inline-flex items-center gap-x-1.5',
-          'h-8 px-2.5',
+          'inline-flex h-8 items-center gap-x-1.5',
+          'px-2.5',
           'rounded-l-md',
           'text-xs font-medium',
           'text-muted-foreground',
@@ -113,7 +139,9 @@ export function PostActions({ markdownUrl, githubUrl, pageUrl }: Props) {
         >
           {copied ? <PiCheck /> : <PiCopy />}
         </span>
-        <span>{copied ? 'Copied' : 'Copy Markdown'}</span>
+        <span className="hidden sm:inline">
+          {copied ? 'Copied' : 'Copy Markdown'}
+        </span>
       </button>
       <button
         ref={triggerRef}
@@ -123,12 +151,13 @@ export function PostActions({ markdownUrl, githubUrl, pageUrl }: Props) {
         onMouseEnter={prefetchMenu}
         onFocus={prefetchMenu}
         className={cn(
-          'inline-flex items-center gap-x-1',
-          'h-8 px-2',
-          'border-l border-border',
-          'rounded-r-md',
+          'inline-flex h-8 items-center gap-x-1',
+          'px-2',
+          'rounded-r-md border-l',
           'text-xs font-medium',
-          menuOpen ? 'text-foreground bg-muted' : 'text-muted-foreground',
+          menuOpen
+            ? 'border-border text-foreground bg-muted'
+            : 'border-border text-muted-foreground',
           'cursor-pointer',
           'transition-colors',
           'hover:text-foreground hover:bg-muted',
@@ -152,6 +181,13 @@ export function PostActions({ markdownUrl, githubUrl, pageUrl }: Props) {
           pageUrl={pageUrl}
         />
       )}
+      <span className="sr-only" role="status">
+        {copyStatus === 'copied'
+          ? 'Page Markdown copied to the clipboard.'
+          : copyStatus === 'error'
+            ? 'Could not copy the page Markdown.'
+            : ''}
+      </span>
     </div>
   );
 }

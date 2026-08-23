@@ -2,7 +2,7 @@
 
 # Project overview
 
-Personal portfolio and blog at niteshseram.in. Built with Next.js 16 (App Router), React 19, TypeScript (strict), and Tailwind CSS v4. Blog posts are authored in MDX and processed by fumadocs-mdx. Uses `motion` for animation, `matter-js` for physics, `cmdk` for the command menu, and `@base-ui/react` for headless primitives.
+Personal portfolio and blog at niteshseram.in. Built with Next.js 16 (App Router), React 19, TypeScript (strict), and Tailwind CSS v4. Blog posts are authored in MDX and processed by fumadocs-mdx. Uses `cmdk` for the command menu and `@base-ui/react` for headless primitives.
 
 # Commands
 
@@ -72,12 +72,12 @@ Group Tailwind classes by purpose in `cn()`: Layout > Spacing > Shape > Typograp
 
 Components live in `src/components/` organized by domain:
 
-- `ui/` — primitives: `anchor`, `button`, `tooltip`, `codeblock`, `command`, `contribution-graph`, `falling-stack`.
+- `ui/` — primitives: `anchor`, `button`, `tooltip`, `codeblock`, `command`, `contribution-graph`, `scroll-area`.
 - `home/` — homepage sections: `hero`, `tech-stack-section`, `projects-section`, `writing-section`, `experience-section`, `speaking-section`, `github-contribution/`, `contact-section`, plus the shared `section-heading`.
 - `about/` — `about-intro`, `off-the-clock`, `timeline-section`.
-- `writing/` — post-rendering chrome: `post-header`, `post-meta`, `post-footer`, `post-actions`, `post-row`, `tag-chip`, `prose`, `mdx-components`.
+- `writing/` — post-rendering chrome: `post-header`, `post-meta`, `post-footer`, `post-actions`, `post-row`, `prose`, `mdx-components`.
 - `command-menu/` — ⌘K command menu (`cmdk` + `@base-ui/react` dialog): `index`, `trigger`, `dialog`, `groups`, `search`.
-- Top-level shared: `navbar`, `footer`, `logo`, `theme-provider`, `theme-switcher`, `terminal` (typing animation), `scroll-progress-rail`.
+- Top-level shared: `navbar`, `footer`, `logo`, `theme-provider`, `theme-switcher`.
 
 Key patterns:
 
@@ -86,7 +86,6 @@ Key patterns:
 - `cva()` (class-variance-authority) for variant-driven components (e.g., `Anchor`).
 - `'use client'` only on components that need browser APIs or hooks. Server components are the default.
 - Icons come from `react-icons/pi` (Phosphor Icons).
-- Animations use `motion/react` (the `motion` package, not `framer-motion`).
 - Reusable hooks live in `src/utils/`: `use-copy-button`, `use-global-shortcut`.
 
 ### Button
@@ -136,7 +135,7 @@ Config in `src/config/`: `site.ts` (site constants/author), `nav.ts` (nav items 
 
 - **Named exports for components.** Only Next.js files that require a default export (`page.tsx`, `layout.tsx`, `route.ts`, `opengraph-image.tsx`, `not-found.tsx`, `sitemap.ts`, `robots.ts`) use `export default`. Everything in `src/components/` exports by name.
 - **Plain function declarations** — no `React.FC`, no `FunctionComponent`, no top-level arrow-function components.
-- **File names are kebab-case** (`post-header.tsx`, `falling-stack.tsx`, `scroll-progress-rail.tsx`). Component identifiers are PascalCase.
+- **File names are kebab-case** (`post-header.tsx`, `content-section.tsx`). Component identifiers are PascalCase.
 - **`'use client'` is the first line** of any client file, above imports.
 - **Server components are the default.** Only reach for a client component when you need browser APIs, hooks, event handlers, or a client-only library. Prefer splitting a client leaf off a server parent over making a whole tree client.
 - **JSX props and prop-type members are ordered alphabetically** (including `aria-*`). Event handlers live in their alphabetical slot, not at the end.
@@ -151,8 +150,10 @@ Config in `src/config/`: `site.ts` (site constants/author), `nav.ts` (nav items 
 
 ## Animation & styling
 
-- Avoid the `motion-safe:` prefix — the user's system has Reduce Motion enabled, so those animations never play for them. Either animate unconditionally (when safe) or gate on explicit opt-in.
-- Use `motion/react` (the `motion` package), not `framer-motion`.
+- Semantic motion tokens live in `src/app/globals.css`: duration (`instant`, `fast`, `base`, `slow`, `page`, `playful`), easing (`standard`, `emphasized`, `enter`, `exit`), and distance (`xs`, `sm`, `md`). Do not hardcode timings or easing in components.
+- Tailwind's default transition duration and easing map to the `fast` and `standard` tokens. Use an explicit motion token only when an interaction needs different semantics.
+- Public routes share one opacity-only page transition around the `<main>` content in `src/app/(app)/layout.tsx`. Keep persistent navigation and footer elements outside that transition and preserve the normal-navigation fallback.
+- All motion must respect `prefers-reduced-motion`. Global motion durations and distances collapse to zero, including View Transition pseudo-elements.
 - Class grouping in `cn()` follows AGENTS.md — one string per purpose group, no inline comments.
 
 # Git workflow

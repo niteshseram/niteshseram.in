@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
-import { PiArrowLeft } from 'react-icons/pi';
 
-import { Button } from '@/components/ui/button';
+import { Anchor } from '@/components/ui/anchor';
 import { getMDXComponents } from '@/components/writing/mdx-components';
 import { PostActions } from '@/components/writing/post-actions';
 import { PostFooter } from '@/components/writing/post-footer';
@@ -66,18 +65,25 @@ export default async function WritingDetailPage({ params }: Props) {
         {jsonLdHtml(blogPostingJsonLd(post))}
       </Script>
       <article
-        className={cn('max-w-2xl mx-auto', 'px-4.5 pt-14 sm:pt-20 pb-16')}
+        className={cn(
+          'max-w-2xl',
+          'mx-auto px-4.5 pt-12 pb-20 sm:pt-16 sm:pb-24',
+        )}
       >
-        <div className={cn('flex items-center justify-between gap-3', 'mb-8')}>
-          <Button
+        <div
+          className={cn(
+            'flex items-center justify-between gap-4',
+            'mb-8 sm:mb-10',
+          )}
+        >
+          <Anchor
             href="/writing"
-            variant="ghost"
-            size="xs"
-            icon={<PiArrowLeft />}
-            addonPosition="start"
-            label="All writing"
-            className="-ml-3"
-          />
+            variant="default"
+            weight="normal"
+            className="text-sm"
+          >
+            ← All writing
+          </Anchor>
           <PostActions
             markdownUrl={`/writing/${slug}.mdx`}
             githubUrl={getGithubSourceUrl(post)}
@@ -85,11 +91,11 @@ export default async function WritingDetailPage({ params }: Props) {
           />
         </div>
         <PostHeader
-          title={post.data.title}
-          summary={post.data.summary}
-          publishedAt={post.data.publishedAt}
           minutes={post.data.readingTime.minutes}
+          publishedAt={post.data.publishedAt}
+          summary={post.data.summary}
           tags={post.data.tags}
+          title={post.data.title}
         />
         <Prose>
           <MDXContent components={getMDXComponents()} />

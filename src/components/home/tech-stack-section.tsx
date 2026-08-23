@@ -1,68 +1,39 @@
-import { PiHand, PiTerminalWindow } from 'react-icons/pi';
-
-import {
-  FallingStack,
-  type FallingStackItem,
-} from '@/components/ui/falling-stack';
-import { TECH_STACKS } from '@/data/tech-stack';
+import { ContentSection } from '@/components/ui/content-section';
+import { TECH_STACK_GROUPS } from '@/data/tech-stack';
 import { cn } from '@/lib/utils';
-
-import { SectionHeading } from './section-heading';
 
 export function TechStackSection() {
   return (
-    <section
-      aria-label="Tech stack"
-      className={cn('max-w-2xl mx-auto', 'px-4.5 py-12')}
-    >
-      <div className={cn('mb-8 flex items-end justify-between gap-3')}>
-        <SectionHeading
-          className="mb-0"
-          eyebrow="ls bin/"
-          icon={PiTerminalWindow}
-        >
-          Tools I <span className="italic text-brand">reach for</span>
-        </SectionHeading>
-        <p
-          className={cn(
-            'inline-flex items-center gap-x-1.5',
-            'text-xs',
-            'text-muted-foreground',
-          )}
-        >
-          <PiHand aria-hidden="true" className="size-3.5" />
-          drag to play
-        </p>
+    <ContentSection ariaLabel="Tech stack" title="Tools I reach for">
+      <div className={cn('grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2')}>
+        {TECH_STACK_GROUPS.map((group) => (
+          <div key={group.label}>
+            <h3
+              className={cn(
+                'text-sm font-medium leading-snug',
+                'text-foreground',
+              )}
+            >
+              {group.label}
+            </h3>
+            <ul className={cn('flex flex-wrap gap-x-3 gap-y-1.5', 'mt-2')}>
+              {group.items.map(({ icon: Icon, label }) => (
+                <li
+                  key={label}
+                  className={cn(
+                    'inline-flex items-center gap-1.5',
+                    'text-sm leading-relaxed',
+                    'text-muted-foreground',
+                  )}
+                >
+                  <Icon aria-hidden="true" className="size-3.5 shrink-0" />
+                  {label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-      <FallingStack
-        items={items}
-        className={cn(
-          'h-56 sm:h-44',
-          'rounded-lg border border-border',
-          'bg-surface/30',
-        )}
-      />
-    </section>
+    </ContentSection>
   );
 }
-
-const items: FallingStackItem[] = TECH_STACKS.map(({ icon: Icon, label }) => ({
-  id: label,
-  node: (
-    <div
-      className={cn(
-        'flex items-center gap-x-2',
-        'px-3.5 py-2',
-        'rounded-full border border-brand/30',
-        'bg-surface',
-        'text-sm font-medium whitespace-nowrap',
-        'text-muted-foreground hover:text-foreground',
-        'transition-colors',
-        'cursor-grab select-none active:cursor-grabbing',
-      )}
-    >
-      <Icon className="size-4 shrink-0" />
-      <span>{label}</span>
-    </div>
-  ),
-}));

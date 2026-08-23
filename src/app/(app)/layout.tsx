@@ -1,3 +1,5 @@
+import { ViewTransition } from 'react';
+
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 import { cn } from '@/lib/utils';
@@ -13,18 +15,32 @@ export default function RootLayout({
   return (
     <>
       <a
-        href="#main-content"
         className={cn(
           'sr-only',
-          'focus-visible:not-sr-only focus-visible:fixed focus-visible:top-3 focus-visible:left-3 focus-visible:z-50 focus-visible:px-3 focus-visible:py-2 focus-visible:rounded-md focus-visible:border focus-visible:shadow-md focus-visible:text-sm focus-visible:font-medium focus-visible:bg-background focus-visible:text-foreground focus-visible:border-border',
+          'focus-visible:not-sr-only focus-visible:fixed focus-visible:top-3 focus-visible:left-3 focus-visible:z-[70]',
+          'focus-visible:px-3 focus-visible:py-2',
+          'focus-visible:rounded-md focus-visible:border focus-visible:shadow-md',
+          'focus-visible:text-sm focus-visible:font-medium',
+          'focus-visible:bg-background focus-visible:text-foreground focus-visible:border-border',
         )}
+        href="#main-content"
       >
         Skip to content
       </a>
       <Navbar posts={posts} />
-      <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
-        {children}
-      </main>
+      <ViewTransition
+        default="none"
+        name="page-content"
+        update="page-transition"
+      >
+        <main
+          className={cn('flex-1', 'outline-none')}
+          id="main-content"
+          tabIndex={-1}
+        >
+          {children}
+        </main>
+      </ViewTransition>
       <Footer />
     </>
   );

@@ -40,7 +40,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const anchorVariants: AnchorVariant[] = ['default', 'brand', 'unstyled'];
+const anchorVariants: AnchorVariant[] = [
+  'default',
+  'primary',
+  'prose',
+  'unstyled',
+];
 const anchorWeights: AnchorWeight[] = ['inherit', 'medium', 'normal'];
 const buttonVariants: ButtonVariant[] = [
   'brand',
@@ -89,13 +94,13 @@ type TypeSample = Readonly<{
 
 const typeSamples: TypeSample[] = [
   {
-    family: 'font-serif · 2.4rem',
-    className: 'font-serif text-[2.4rem] leading-[1.1]',
+    family: 'font-sans · page title · semibold',
+    className: 'font-sans type-page-title font-semibold',
     sample: 'The quick brown fox',
   },
   {
-    family: 'font-serif · italic · brand',
-    className: 'font-serif italic text-[2rem] leading-[1.1] text-brand',
+    family: 'font-sans · section label · medium',
+    className: 'font-sans type-section-title font-medium text-muted-foreground',
     sample: 'jumps over the lazy dog.',
   },
   {
@@ -112,7 +117,7 @@ const typeSamples: TypeSample[] = [
   {
     family: 'font-mono · xs',
     className: 'font-mono text-xs text-muted-foreground',
-    sample: 'const vibe = "tactile & warm" as const;',
+    sample: 'const direction = "quiet & precise" as const;',
   },
 ];
 
@@ -133,7 +138,9 @@ const BOTH_SCROLL_ROWS = Array.from({ length: 20 }, (_, index) => ({
 
 export default function DesignPage() {
   return (
-    <div className={cn('max-w-3xl', 'mx-auto px-4.5 pt-14 sm:pt-20 pb-20')}>
+    <main
+      className={cn('w-full max-w-3xl', 'mx-auto px-4.5 pt-14 sm:pt-20 pb-20')}
+    >
       <DesignHeader />
       <ColorsSection />
       <TypographySection />
@@ -142,7 +149,7 @@ export default function DesignPage() {
       <AnchorSection />
       <ScrollAreaSection />
       <CommandSection />
-    </div>
+    </main>
   );
 }
 
@@ -167,7 +174,7 @@ function DesignHeader() {
         <h1
           className={cn(
             'mt-4',
-            'font-serif text-[clamp(1.8rem,6vw,2.4rem)] leading-[1.1]',
+            'font-sans text-[clamp(1.8rem,6vw,2.4rem)] font-semibold leading-[1.1]',
             'text-foreground',
           )}
         >
@@ -465,7 +472,10 @@ function CommandSection() {
           )}
           label="Design reference command palette"
         >
-          <CommandInput placeholder="Type a command or search…" />
+          <CommandInput
+            aria-label="Search design system examples"
+            placeholder="Type a command or search…"
+          />
           <CommandList>
             <CommandEmpty>No results</CommandEmpty>
             <CommandGroup heading="Navigation">
@@ -565,7 +575,10 @@ function Section({
           {eyebrow}
         </span>
         <h2
-          className={cn('font-serif text-2xl leading-none', 'text-foreground')}
+          className={cn(
+            'font-sans text-2xl font-semibold leading-none',
+            'text-foreground',
+          )}
         >
           {title}
         </h2>

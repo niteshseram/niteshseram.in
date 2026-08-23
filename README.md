@@ -6,7 +6,7 @@ Personal site and writing of [Nitesh Seram](https://niteshseram.in) — a fronte
 
 - [Next.js 16](https://nextjs.org) (App Router) with React 19
 - [Tailwind CSS v4](https://tailwindcss.com)
-- [Base UI](https://base-ui.com) for primitives, [Motion](https://motion.dev) for animation
+- [Base UI](https://base-ui.com) for primitives
 - [fumadocs-mdx](https://fumadocs.dev) for writing content
 - [oxlint](https://oxc.rs) and [oxfmt](https://oxc.rs) for linting/formatting
 - [pnpm](https://pnpm.io) for package management

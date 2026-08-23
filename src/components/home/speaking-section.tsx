@@ -1,135 +1,57 @@
-import Image from 'next/image';
-import { PiArrowUpRight, PiPlayFill, PiTerminalWindow } from 'react-icons/pi';
+import { PiArrowUpRight } from 'react-icons/pi';
 
 import { Anchor } from '@/components/ui/anchor';
+import { Button } from '@/components/ui/button';
+import { ContentSection } from '@/components/ui/content-section';
 import { TALKS } from '@/data/talks';
 import { cn } from '@/lib/utils';
 
-import { SectionHeading } from './section-heading';
-
 export function SpeakingSection() {
   return (
-    <section
-      aria-label="Speaking"
-      className={cn('max-w-2xl mx-auto', 'px-4.5 py-12')}
-    >
-      <SectionHeading eyebrow="ls talks/" icon={PiTerminalWindow}>
-        On <span className="italic text-brand">stage</span>
-      </SectionHeading>
-      <ul className="flex flex-col gap-y-8">
+    <ContentSection ariaLabel="Speaking" title="Speaking">
+      <ul className="flex flex-col gap-y-7">
         {TALKS.map((talk) => (
           <li key={talk.youtubeId}>
-            <Anchor
-              href={talk.href}
-              aria-label={`Watch ${talk.title} on YouTube`}
-              variant="unstyled"
-              weight="inherit"
-              className={cn(
-                'group flex gap-4 sm:gap-5',
-                'p-3 sm:p-4',
-                'rounded-lg border border-border',
-                'bg-surface/30',
-                'transition-colors',
-                'hover:border-brand/40',
-              )}
-            >
-              <div
-                className={cn(
-                  'relative shrink-0 aspect-video w-32 sm:w-52 overflow-hidden',
-                  'rounded-md',
-                  'bg-muted',
-                )}
-              >
-                <Image
-                  alt="Video thumbnail from YouTube"
-                  aria-hidden="true"
-                  fill
-                  sizes="(min-width: 640px) 13rem, 8rem"
-                  src={`https://img.youtube.com/vi/${talk.youtubeId}/maxresdefault.jpg`}
-                  className={cn(
-                    'object-cover',
-                    'transition-transform duration-500',
-                    'group-hover:scale-[1.05]',
-                  )}
-                />
-                <div
-                  aria-hidden="true"
-                  className={cn(
-                    'absolute inset-0',
-                    'flex items-center justify-center',
-                    'bg-background/20',
-                  )}
-                >
-                  <span
-                    className={cn(
-                      'inline-flex items-center justify-center size-8 sm:size-10',
-                      'rounded-full',
-                      'bg-brand/95 text-brand-foreground shadow-md shadow-black/30',
-                      'transition-transform',
-                      'group-hover:scale-110',
-                    )}
+            <article className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
+              <div>
+                <p className="text-xs leading-5 text-muted-foreground">
+                  {talk.event} · {talk.year}
+                </p>
+                <h3 className="mt-1.5">
+                  <Anchor
+                    href={talk.href}
+                    variant="primary"
+                    weight="medium"
+                    className="text-base leading-6 tracking-[-0.01em]"
                   >
-                    <PiPlayFill className="size-3.5 sm:size-4 translate-x-[1px]" />
-                  </span>
-                </div>
-              </div>
-
-              <div className={cn('flex flex-1 flex-col min-w-0', 'py-0.5')}>
-                <div
-                  className={cn(
-                    'flex items-center gap-x-2',
-                    'font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.1em]',
-                    'text-muted-foreground',
-                  )}
-                >
-                  <span>{talk.event}</span>
-                  <span aria-hidden="true">·</span>
-                  <span className="tabular-nums">{talk.year}</span>
-                </div>
-                <h3
-                  className={cn(
-                    'mt-1.5',
-                    'text-base leading-snug tracking-tight font-medium',
-                    'text-foreground',
-                    'transition-colors',
-                    'group-hover:text-brand',
-                  )}
-                >
-                  {talk.title}
+                    {talk.title}
+                  </Anchor>
                 </h3>
                 <p
                   className={cn(
+                    'max-w-[56ch] line-clamp-3',
                     'mt-2',
-                    'text-base leading-relaxed line-clamp-3',
+                    'text-[0.9375rem] leading-6',
                     'text-muted-foreground',
                   )}
                 >
                   {talk.brief}
                 </p>
-                <span
-                  className={cn(
-                    'mt-auto inline-flex items-center gap-x-1 pt-2.5',
-                    'text-xs sm:text-sm font-medium',
-                    'text-foreground',
-                    'transition-colors',
-                    'group-hover:text-brand',
-                  )}
-                >
-                  Watch the talk
-                  <PiArrowUpRight
-                    aria-hidden="true"
-                    className={cn(
-                      'size-3.5 sm:size-4',
-                      'transition-transform',
-                      'group-hover:-translate-y-0.5 group-hover:translate-x-0.5',
-                    )}
-                  />
-                </span>
               </div>
-            </Anchor>
+              <Button
+                href={talk.href}
+                aria-label={`Watch ${talk.title} on YouTube`}
+                className={cn('shrink-0', '-mt-1 -mr-1')}
+                icon={<PiArrowUpRight />}
+                isLabelHidden={true}
+                label={`Watch ${talk.title} on YouTube`}
+                size="xs"
+                variant="ghost"
+              />
+            </article>
           </li>
         ))}
       </ul>
-    </section>
+    </ContentSection>
   );
 }

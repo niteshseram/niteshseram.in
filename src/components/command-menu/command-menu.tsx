@@ -2,12 +2,10 @@
 
 import dynamic from 'next/dynamic';
 import { useCallback, useState } from 'react';
-import { createPortal } from 'react-dom';
 
 import type { PostIndexEntry } from '@/lib/writing';
 import { useGlobalShortcut } from '@/utils/use-global-shortcut';
 import { useIdlePrefetch } from '@/utils/use-idle-prefetch';
-import { useMounted } from '@/utils/use-mounted';
 
 import { CommandMenuTrigger } from './trigger';
 
@@ -16,7 +14,8 @@ type Props = Readonly<{
 }>;
 
 const CommandMenuDialog = dynamic(
-  () => import('./dialog').then((m) => m.CommandMenuDialog),
+  () =>
+    import('./dialog').then((dialogModule) => dialogModule.CommandMenuDialog),
   { ssr: false },
 );
 
@@ -27,7 +26,6 @@ function prefetchDialog() {
 export function CommandMenu({ posts }: Props) {
   const [open, setOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const mounted = useMounted();
 
   useIdlePrefetch(prefetchDialog);
 
@@ -37,31 +35,18 @@ export function CommandMenu({ posts }: Props) {
   }, []);
 
   useGlobalShortcut(
-    useCallback((e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
+    useCallback((event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
         setLoaded(true);
-        setOpen((o) => !o);
+        setOpen((previousOpen) => !previousOpen);
       }
     }, []),
   );
 
   return (
     <>
-      <CommandMenuTrigger
-        onClick={openMenu}
-        onPrefetch={prefetchDialog}
-        variant="inline"
-      />
-      {mounted &&
-        createPortal(
-          <CommandMenuTrigger
-            onClick={openMenu}
-            onPrefetch={prefetchDialog}
-            variant="floating"
-          />,
-          document.body,
-        )}
+      <CommandMenuTrigger onClick={openMenu} onPrefetch={prefetchDialog} />
       {loaded && (
         <CommandMenuDialog open={open} onOpenChange={setOpen} posts={posts} />
       )}

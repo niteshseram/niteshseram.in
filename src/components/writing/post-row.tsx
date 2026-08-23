@@ -1,49 +1,46 @@
 import { format } from 'date-fns';
-import Link from 'next/link';
 
+import { Anchor } from '@/components/ui/anchor';
 import { cn } from '@/lib/utils';
 import type { Post } from '@/lib/writing';
 
 type Props = {
+  headingLevel?: 2 | 3;
   post: Post;
   minutes?: number;
 };
 
-export function PostRow({ post, minutes }: Props) {
+export function PostRow({ headingLevel = 3, post, minutes }: Props) {
   const date = new Date(post.data.publishedAt);
+  const Heading = headingLevel === 2 ? 'h2' : 'h3';
 
   return (
     <li>
-      <Link
+      <Anchor
         href={post.url}
+        variant="unstyled"
+        weight="inherit"
         className={cn(
-          'group flex flex-col gap-y-2.5',
-          'py-3',
-          'sm:flex-row sm:items-baseline sm:justify-between sm:gap-x-6',
+          'group flex flex-col gap-y-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-x-6',
         )}
       >
-        <div
-          className={cn(
-            'min-w-0 flex-1',
-            'transition-transform',
-            'group-hover:translate-x-1',
-          )}
-        >
-          <h3
+        <div className={cn('min-w-0 flex-1')}>
+          <Heading
             className={cn(
-              'text-lg tracking-tight leading-snug',
+              'text-base font-medium leading-6 tracking-[-0.01em]',
               'text-foreground',
               'transition-colors',
-              'group-hover:text-brand',
+              'group-hover:text-muted-foreground',
             )}
           >
             {post.data.title}
-          </h3>
+          </Heading>
           {post.data.summary && (
             <p
               className={cn(
+                'line-clamp-2',
                 'mt-1',
-                'text-base leading-relaxed',
+                'text-[0.9375rem] leading-6',
                 'text-muted-foreground',
               )}
             >
@@ -54,7 +51,7 @@ export function PostRow({ post, minutes }: Props) {
         <div
           className={cn(
             'shrink-0',
-            'font-mono text-xs tabular-nums',
+            'text-xs tabular-nums',
             'text-muted-foreground',
           )}
         >
@@ -63,7 +60,7 @@ export function PostRow({ post, minutes }: Props) {
           </time>
           {minutes != null && <span> · {minutes} min</span>}
         </div>
-      </Link>
+      </Anchor>
     </li>
   );
 }

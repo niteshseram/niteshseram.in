@@ -1,36 +1,24 @@
-import { PiTerminalWindow } from 'react-icons/pi';
-
 import { ABOUT_PROSE } from '@/data/about';
 import { cn } from '@/lib/utils';
 
+const EMPHASIS_SPLIT = /(\*\*[^*]+\*\*)/g;
+
 export function AboutIntro() {
   return (
-    <section className={cn('max-w-2xl mx-auto', 'px-4.5 pt-14 sm:pt-20 pb-8')}>
-      <p
-        className={cn(
-          'inline-flex items-center gap-x-1.5',
-          'font-mono text-xs',
-          'text-muted-foreground',
-        )}
-      >
-        <PiTerminalWindow aria-hidden="true" className="size-3.5 text-brand" />
-        whoami
-      </p>
-      <h1
-        className={cn(
-          'mt-3',
-          'font-serif text-[clamp(1.8rem,8vw,2.4rem)] leading-[1.15]',
-          'text-foreground',
-        )}
-      >
-        <span className="block">A few notes</span>
-        <span className="block italic text-brand">about me.</span>
+    <header
+      className={cn(
+        'max-w-2xl',
+        'mx-auto px-4.5 pt-16 pb-20 sm:pt-20 sm:pb-24',
+      )}
+    >
+      <h1 className={cn('type-page-title font-semibold', 'text-foreground')}>
+        About
       </h1>
-
       <div
         className={cn(
-          'mt-8 flex flex-col gap-y-5',
-          'leading-relaxed',
+          'flex max-w-[58ch] flex-col gap-y-4',
+          'mt-6',
+          'text-base leading-7 tracking-[-0.005em]',
           'text-muted-foreground',
         )}
       >
@@ -38,25 +26,25 @@ export function AboutIntro() {
           <ProseParagraph key={paragraph} text={paragraph} />
         ))}
       </div>
-    </section>
+    </header>
   );
 }
 
-const EMPHASIS_SPLIT = /(\*\*[^*]+\*\*)/g;
-
 function ProseParagraph({ text }: Readonly<{ text: string }>) {
   const parts = text.split(EMPHASIS_SPLIT);
+
   return (
     <p>
       {parts.map((part, index) => {
         const key = `${index}-${part}`;
         if (part.startsWith('**') && part.endsWith('**')) {
           return (
-            <span key={key} className="font-medium text-foreground">
+            <strong key={key} className="font-medium text-foreground">
               {part.slice(2, -2)}
-            </span>
+            </strong>
           );
         }
+
         return <span key={key}>{part}</span>;
       })}
     </p>

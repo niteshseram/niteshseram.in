@@ -1,135 +1,85 @@
-import { PiArrowUpRight, PiCodeSimple } from 'react-icons/pi';
+import { PiArrowUpRight } from 'react-icons/pi';
 
 import { Anchor } from '@/components/ui/anchor';
+import { Button } from '@/components/ui/button';
+import { ContentSection } from '@/components/ui/content-section';
 import { EXPERIENCES } from '@/data/experience';
 import { cn } from '@/lib/utils';
 
-import { SectionHeading } from './section-heading';
-
 export function ExperienceSection() {
   return (
-    <section
+    <ContentSection
       id="experience"
-      aria-label="Experience"
-      className={cn('max-w-2xl mx-auto scroll-mt-13', 'px-4.5 py-12')}
+      ariaLabel="Experience"
+      title="Work experience"
     >
-      <SectionHeading eyebrow="cat work.history" icon={PiCodeSimple}>
-        Where <span className="italic text-brand">I’ve been</span>
-      </SectionHeading>
-      <ol className="relative">
-        <div
-          aria-hidden="true"
-          className={cn(
-            'absolute top-1.5 bottom-1.5 left-[5px] w-px',
-            'bg-border',
-          )}
-        />
-        {EXPERIENCES.map((experience, index) => (
-          <li
-            key={experience.company}
-            className={cn(
-              'relative pl-6 sm:pl-8',
-              index !== EXPERIENCES.length - 1 && 'pb-8',
-            )}
-          >
-            <span
-              aria-hidden="true"
-              className={cn(
-                'absolute top-1.5 left-0 size-[11px]',
-                'rounded-full border border-border',
-                'bg-background',
-              )}
-            >
-              <span
+      <ol className="flex flex-col gap-y-9">
+        {EXPERIENCES.map((experience) => (
+          <li key={experience.company}>
+            <div className="flex items-start justify-between gap-4">
+              <h3
                 className={cn(
-                  'absolute inset-[2px]',
-                  'rounded-full',
-                  experience.roles[0].current ? 'bg-brand' : 'bg-muted',
+                  'text-[1.0625rem] font-medium leading-6 tracking-[-0.012em]',
+                  'text-foreground',
                 )}
-              />
-            </span>
-
-            <div className={cn('flex items-baseline gap-x-2')}>
+              >
+                {experience.href ? (
+                  <Anchor
+                    href={experience.href}
+                    variant="primary"
+                    weight="inherit"
+                  >
+                    {experience.company}
+                  </Anchor>
+                ) : (
+                  experience.company
+                )}
+              </h3>
               {experience.href ? (
-                <Anchor
+                <Button
                   href={experience.href}
-                  variant="unstyled"
-                  weight="inherit"
-                  className={cn(
-                    'group inline-flex items-center gap-x-1',
-                    'font-serif text-lg',
-                    'text-foreground',
-                    'transition-colors',
-                    'hover:text-brand',
-                  )}
-                >
-                  {experience.company}
-                  <PiArrowUpRight
-                    aria-hidden="true"
-                    className={cn(
-                      'size-3.5',
-                      'text-muted-foreground',
-                      'transition-all',
-                      'group-hover:text-brand group-hover:-translate-y-0.5 group-hover:translate-x-0.5',
-                    )}
-                  />
-                </Anchor>
-              ) : (
-                <span className={cn('font-serif text-lg', 'text-foreground')}>
-                  {experience.company}
-                </span>
-              )}
+                  className={cn('shrink-0', '-mt-1 -mr-1')}
+                  icon={<PiArrowUpRight />}
+                  isLabelHidden={true}
+                  label={`Visit ${experience.company}`}
+                  size="xs"
+                  variant="ghost"
+                />
+              ) : null}
             </div>
-
-            <ul className="mt-3 flex flex-col gap-y-4">
+            <ul className={cn('flex flex-col gap-y-5', 'mt-4')}>
               {experience.roles.map((role) => (
                 <li key={role.title + role.start}>
                   <div
                     className={cn(
-                      'flex flex-wrap max-sm:flex-col items-baseline justify-between gap-x-3 gap-y-0.5',
+                      'flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-5',
                     )}
                   >
-                    <span
+                    <h4
                       className={cn(
-                        'text-base font-medium',
-                        role.current ? 'text-foreground' : 'text-foreground/90',
+                        'text-[0.9375rem] font-medium leading-5',
+                        'text-foreground',
                       )}
                     >
                       {role.title}
-                    </span>
+                    </h4>
                     <span
                       className={cn(
-                        'inline-flex items-center gap-x-1.5',
-                        'font-mono text-[11px] uppercase tracking-[0.08em] tabular-nums',
-                        role.current ? 'text-brand' : 'text-muted-foreground',
+                        'shrink-0',
+                        'text-xs tabular-nums',
+                        role.current
+                          ? 'text-foreground'
+                          : 'text-muted-foreground',
                       )}
                     >
-                      {role.current && (
-                        <span
-                          aria-hidden="true"
-                          className={cn(
-                            'relative inline-flex size-1.5',
-                            'rounded-full',
-                            'bg-brand',
-                          )}
-                        >
-                          <span
-                            className={cn(
-                              'absolute inset-0',
-                              'rounded-full',
-                              'bg-brand opacity-75',
-                              'animate-ping',
-                            )}
-                          />
-                        </span>
-                      )}
                       {role.start} — {role.end}
                     </span>
                   </div>
                   <p
                     className={cn(
-                      'mt-2',
-                      'text-base leading-relaxed',
+                      'max-w-[56ch]',
+                      'mt-1.5',
+                      'text-[0.9375rem] leading-6',
                       'text-muted-foreground',
                     )}
                   >
@@ -141,6 +91,6 @@ export function ExperienceSection() {
           </li>
         ))}
       </ol>
-    </section>
+    </ContentSection>
   );
 }
