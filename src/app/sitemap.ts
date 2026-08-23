@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const posts: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
     url: `${SITE_URL}${post.url}`,
-    lastModified: new Date(post.data.publishedAt),
+    lastModified: new Date(post.data.updatedAt ?? post.data.publishedAt),
     changeFrequency: 'yearly',
     priority: 0.7,
   }));

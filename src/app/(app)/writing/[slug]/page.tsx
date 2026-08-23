@@ -9,7 +9,12 @@ import { PostFooter } from '@/components/writing/post-footer';
 import { PostHeader } from '@/components/writing/post-header';
 import { Prose } from '@/components/writing/prose';
 import { getCanonicalUrl, getGithubSourceUrl } from '@/lib/get-llm-text';
-import { blogPostingJsonLd, jsonLdHtml } from '@/lib/jsonld';
+import {
+  blogPostingJsonLd,
+  breadcrumbJsonLd,
+  jsonLdGraph,
+  jsonLdHtml,
+} from '@/lib/jsonld';
 import { pageMetadata } from '@/lib/metadata';
 import { cn } from '@/lib/utils';
 import { getAdjacent, getAllPosts, getPostBySlug } from '@/lib/writing';
@@ -26,11 +31,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return {};
-  const { title, summary, publishedAt, tags } = post.data;
+  const { title, summary, publishedAt, updatedAt, tags } = post.data;
 
   const base = pageMetadata({
     pathname: `/writing/${slug}`,
-    title,
+    absoluteTitle: title,
     socialTitle: title,
     description: summary,
   });
@@ -42,6 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ...base.openGraph,
       type: 'article',
       publishedTime: new Date(publishedAt).toISOString(),
+      modifiedTime: new Date(updatedAt ?? publishedAt).toISOString(),
       tags,
     },
   };
@@ -62,7 +68,9 @@ export default async function WritingDetailPage({ params }: Props) {
         type="application/ld+json"
         strategy="beforeInteractive"
       >
-        {jsonLdHtml(blogPostingJsonLd(post))}
+        {jsonLdHtml(
+          jsonLdGraph(blogPostingJsonLd(post), breadcrumbJsonLd(post)),
+        )}
       </Script>
       <article
         className={cn(
@@ -93,6 +101,7 @@ export default async function WritingDetailPage({ params }: Props) {
         <PostHeader
           minutes={post.data.readingTime.minutes}
           publishedAt={post.data.publishedAt}
+          updatedAt={post.data.updatedAt}
           summary={post.data.summary}
           tags={post.data.tags}
           title={post.data.title}

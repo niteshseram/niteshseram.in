@@ -15,6 +15,7 @@ export const writing = defineDocs({
       return frontmatterSchema.extend({
         summary: z.string(),
         publishedAt: z.coerce.date(),
+        updatedAt: z.coerce.date().optional(),
         tags: z.array(z.string()).default([]),
         draft: z.boolean().default(false),
         readingTime: z

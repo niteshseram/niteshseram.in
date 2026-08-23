@@ -4,11 +4,12 @@ import { cn } from '@/lib/utils';
 
 type Props = {
   date: string | Date;
+  label?: string;
   minutes?: number;
   className?: string;
 };
 
-export function PostMeta({ date, minutes, className }: Props) {
+export function PostMeta({ date, label, minutes, className }: Props) {
   const formatted = format(new Date(date), 'MMM d, yyyy');
 
   return (
@@ -21,7 +22,7 @@ export function PostMeta({ date, minutes, className }: Props) {
       )}
     >
       <time dateTime={new Date(date).toISOString()} suppressHydrationWarning>
-        {formatted}
+        {label ? `${label} ${formatted}` : formatted}
       </time>
       {minutes != null && (
         <>

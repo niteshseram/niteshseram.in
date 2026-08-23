@@ -6,6 +6,7 @@ const EMPTY_TAGS: readonly string[] = [];
 type Props = {
   minutes?: number;
   publishedAt: string | Date;
+  updatedAt?: string | Date;
   summary?: string;
   tags?: readonly string[];
   title: string;
@@ -14,6 +15,7 @@ type Props = {
 export function PostHeader({
   minutes,
   publishedAt,
+  updatedAt,
   summary,
   tags = EMPTY_TAGS,
   title,
@@ -40,7 +42,11 @@ export function PostHeader({
       <div
         className={cn('flex flex-wrap items-center gap-x-4 gap-y-2', 'mt-4')}
       >
-        <PostMeta date={publishedAt} minutes={minutes} />
+        <PostMeta
+          date={updatedAt ?? publishedAt}
+          label={updatedAt ? 'Updated' : undefined}
+          minutes={minutes}
+        />
         {tags.length > 0 ? (
           <ul
             aria-label="Topics"

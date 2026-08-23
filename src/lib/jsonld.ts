@@ -17,7 +17,7 @@ export const personJsonLd = {
   '@type': 'Person',
   '@id': personId,
   name: AUTHOR.name,
-  url: SITE_URL,
+  url: `${SITE_URL}/about`,
   jobTitle: AUTHOR.jobTitle,
   worksFor: {
     '@type': 'Organization',
@@ -59,6 +59,9 @@ export function blogJsonLd() {
 export function blogPostingJsonLd(post: Post) {
   const url = `${SITE_URL}${post.url}`;
   const published = new Date(post.data.publishedAt).toISOString();
+  const modified = new Date(
+    post.data.updatedAt ?? post.data.publishedAt,
+  ).toISOString();
 
   return {
     '@context': 'https://schema.org',
@@ -70,14 +73,43 @@ export function blogPostingJsonLd(post: Post) {
     description: post.data.summary,
     image: [`${SITE_URL}/og.webp`],
     datePublished: published,
-    dateModified: published,
+    dateModified: modified,
     keywords: post.data.tags?.join(', '),
     wordCount: post.data.readingTime.words,
     timeRequired: `PT${post.data.readingTime.minutes}M`,
     inLanguage: SITE_LANGUAGE,
-    author: { '@id': personId },
+    author: {
+      '@type': 'Person',
+      '@id': personId,
+      name: AUTHOR.name,
+      url: `${SITE_URL}/about`,
+    },
     publisher: { '@id': personId },
     isPartOf: { '@id': blogId },
+  } as const;
+}
+
+export function breadcrumbJsonLd(post: Post) {
+  const url = `${SITE_URL}${post.url}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': `${url}#breadcrumb`,
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: WRITING.title,
+        item: `${SITE_URL}${WRITING.path}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: post.data.title,
+        item: url,
+      },
+    ],
   } as const;
 }
 
