@@ -1,7 +1,7 @@
 ---
-title: The z-index problem and how to stop having it
+title: Why your CSS z-index is not working
 publishedAt: 2026-05-02
-summary: z-index bugs are usually stacking context bugs in disguise. How to debug them, build a system that prevents them, and skip the whole problem with modern CSS primitives.
+summary: CSS z-index not working, even at 9999? Learn how stacking contexts, positioning, transforms, portals, and the top layer cause and fix layering bugs.
 tags: ['css', 'z-index', 'stacking-context', 'css-debugging', 'frontend']
 ---
 
@@ -19,13 +19,24 @@ You have a modal that won't sit on top of a header. You set `z-index: 9999`. It 
 
 The number isn't where the bug lives. z-index doesn't sort every element on the page against every other element — its effect is scoped by the stacking context your element belongs to. Pick the wrong context and no number on a descendant can move it into a higher one.
 
+## Why your CSS z-index is not working
+
+Start with four checks:
+
+1. **Does `z-index` apply to the element?** It applies to positioned boxes (`relative`, `absolute`, `fixed`, or `sticky`) and to flex and grid items. On an ordinary `position: static` box, a numeric z-index has no effect.
+2. **Are the overlapping elements in the same stacking context?** If not, their numbers are not compared directly. The stacking contexts containing them are compared first.
+3. **Did an ancestor create a new stacking context or fixed-position containing block?** `transform`, `opacity`, `filter`, `contain`, and several less obvious properties can change the answer without touching the broken element.
+4. **Is the element being clipped rather than stacked underneath?** An ancestor's `overflow: hidden`, `overflow: clip`, mask, clip path, or paint containment can cut an overlay off. A larger z-index cannot paint outside a clip that applies to it.
+
+If `z-index: 9999` changes nothing, stop increasing it. Inspect the element and its ancestors in that order; the rest of this guide shows exactly what to look for and which fix fits each cause.
+
 ## The mental model most people start with is wrong
 
 The mental model usually goes like this: every element has a z-index, and the highest number wins.
 
 What's actually happening is closer to this. The page is divided into layers. Each layer has its own ordering, and z-index works the way you'd expect inside a single layer — higher number, higher in the stack. Across layers, none of that matters; the layer's position relative to other layers decides who appears on top.
 
-The technical name for these layers is **stacking context**. Every page has at least one root context, formed by the `<html>` element, and your CSS quietly creates more of them as it goes. When a `z-index: 9999` modal sits below a `z-index: 5` header, it's almost always because the modal lives in a context whose root sits below the header's. The modal won inside its own context — and lost the one that mattered.
+The technical name for these layers is [**stacking context**](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Positioned_layout/Stacking_context). Every page has at least one root context, formed by the `<html>` element, and your CSS quietly creates more of them as it goes. When a `z-index: 9999` modal sits below a `z-index: 5` header, it's almost always because the modal lives in a context whose root sits below the header's. The modal won inside its own context — and lost the one that mattered.
 
 <StackingContextMap />
 
@@ -52,7 +63,7 @@ Notice how innocent some of them look. An `opacity: 0.99` on a fade-in, a `trans
 
 A descendant's z-index can rank it inside its current stacking context; it cannot promote it out of that context.
 
-## A real example of the bug
+## Why z-index: 9999 still sits behind another element
 
 Almost every app has this pattern: a sticky header, content with cards, and a modal that opens from somewhere inside a card.
 
@@ -94,13 +105,19 @@ It isn't — the header sits over it.
 
 <ZIndexEscalation />
 
-The culprit is `transform: translateY(0)` on `.card`. That single property creates a new stacking context on the card and a containing block for its fixed-position descendants. Because the modal is rendered inside the card, it's locked inside that context and is positioned relative to the card instead of the viewport. The card's computed z-index remains `auto`, but a transformed context with no explicit z-index is painted at stack level 0 in its parent — behind the header's `z-index: 10`. The modal's 9999 is doing its job; it's just doing it inside a context that's already losing.
+The culprit is `transform: translateY(0)` on `.card`. As the [CSS Transforms specification](https://drafts.csswg.org/css-transforms-1/#transform-rendering) defines it, that property creates a new stacking context on the card and a containing block for its fixed-position descendants. Because the modal is rendered inside the card, it's locked inside that context and is positioned relative to the card instead of the viewport. The card's computed z-index remains `auto`, but a transformed context with no explicit z-index is painted at stack level 0 in its parent — behind the header's `z-index: 10`. The modal's 9999 is doing its job; it's just doing it inside a context that's already losing.
 
 The frustrating part is that nothing about `.card` looks like a z-index issue. The hover animation got added six months ago by someone debugging a flicker, and now it's silently breaking a modal in a different file. The thing that broke it isn't visible at the broken element.
 
-## How to debug it
+## How to fix z-index not working
 
 When a z-index bug shows up, the instinct is to inspect the broken element and start raising its z-index. That's almost never where the fix is.
+
+### Check whether z-index applies
+
+Inspect the element's computed `position` first. A numeric z-index applies to a positioned box, so an ordinary static block usually needs an appropriate `position` value before z-index can change its stack level. Flex and grid items are the exception: z-index applies to them without changing `position`.
+
+Don't add `position: relative` mechanically. Positioning may be correct, but a non-auto z-index on that newly positioned element also creates a stacking context. Make the change because the layout needs it, then verify the resulting context tree.
 
 ### Find the stacking context the broken element is in
 
@@ -112,11 +129,17 @@ This is tedious by hand. The [CSS Stacking Context Inspector](https://chromewebs
 
 Once you know your broken element's context, find the context of the element appearing on top. They're usually different — your element won inside its own context, but the other one's context outranks yours.
 
+### Check whether an ancestor is clipping the element
+
+If the overlay disappears exactly at a parent's edge, you may have a clipping problem instead of a stacking-order problem. `overflow: hidden` and `overflow: clip` do not, by themselves, create stacking contexts, but they can prevent descendants from painting outside the ancestor's clipping boundary. Masks, clip paths, and `contain: paint` can do the same; `contain: paint` also creates a stacking context.
+
+No z-index can override clipping. Move the overlay outside the clipping ancestor, remove or narrow the clipping rule, or use a portal or top-layer primitive when the UI is supposed to escape that boundary.
+
 ### Pick the right fix
 
 Which fix fits depends on what the element is for.
 
-For global overlays that must escape a component — typically modals and many tooltips, dropdowns, and toasts — the right answer is usually to lift the element out of its broken context entirely. Their DOM node belongs near the document root, not necessarily inside whichever component triggered them. In React, that's what `createPortal` is for:
+For global overlays that must escape a component — typically modals and many tooltips, dropdowns, and toasts — the right answer is usually to lift the element out of its broken context entirely. Their DOM node belongs near the document root, not necessarily inside whichever component triggered them. In React, that's what [`createPortal`](https://react.dev/reference/react-dom/createPortal) is for:
 
 ```jsx title="Modal.tsx"
 import { createPortal } from 'react-dom';
@@ -227,7 +250,7 @@ The `isolation: isolate` line does the work. It creates a new stacking context f
 
 ### Enforce it with a lint rule
 
-A token system that isn't enforced erodes. Someone writes `z-index: 50` instead of `var(--z-sticky)`, ships the PR, and a year later you have a hybrid system that's worse than no system at all. A stylelint rule keeps things honest:
+A token system that isn't enforced erodes. Someone writes `z-index: 50` instead of `var(--z-sticky)`, ships the PR, and a year later you have a hybrid system that's worse than no system at all. Stylelint's [`declaration-property-value-allowed-list`](https://stylelint.io/user-guide/rules/declaration-property-value-allowed-list/) rule keeps things honest:
 
 ```json title=".stylelintrc.json"
 {
@@ -265,6 +288,28 @@ Modern primitives go further. The [`<dialog>`](https://developer.mozilla.org/doc
 That dialog appears above the document's ordinary stacking contexts, regardless of their z-index or transformed ancestors. Another element added later to the top layer can still appear above it because top-layer order is browser-managed. You don't need a z-index for the escape.
 
 For most modals, dropdowns, and tooltips you'd build today, this is the right starting point. The token system is for the cases where the platform's primitives don't fit.
+
+## Common CSS z-index questions
+
+### Why isn't z-index working with position absolute?
+
+`position: absolute` makes z-index apply, but it does not make the value global. If an ancestor creates a lower stacking context, the absolutely positioned element remains inside it. Compare the ancestors' contexts or move the element to a DOM location where it can compete in the intended context.
+
+### Why doesn't z-index: 9999 work?
+
+The number only ranks the element inside its current stacking context. If that whole context sits below another context, `9999`, `999999`, and every larger value lose for the same reason. Raise the context root, remove the accidental context, or move the overlay out of it.
+
+### Does transform affect z-index and position fixed?
+
+Yes. Any computed `transform` other than `none` creates a stacking context. It also establishes the containing block for absolute and fixed descendants, so a fixed modal nested inside a transformed card is positioned relative to that card instead of the viewport.
+
+### Can overflow hidden override z-index?
+
+It does not override the numeric value. It clips content at the ancestor's boundary, which z-index cannot bypass. `overflow: hidden` alone does not create a stacking context, so diagnose clipping and stacking as separate mechanisms.
+
+### What is the maximum z-index?
+
+CSS defines z-index as an integer, while the supported numeric range is implementation-defined. Designing around a browser's largest accepted number is still the wrong fix: even the maximum value cannot escape a lower stacking context or an ancestor's clip. Use a small, named layer scale instead.
 
 ## Putting it together
 
