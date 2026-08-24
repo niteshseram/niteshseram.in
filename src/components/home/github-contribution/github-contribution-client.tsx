@@ -2,19 +2,14 @@
 
 import {
   ContributionGraph,
-  ContributionGraphBlock,
-  ContributionGraphCalendar,
   ContributionGraphFooter,
   ContributionGraphLegend,
   ContributionGraphTotalCount,
 } from '@/components/ui/contribution-graph';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import type { ContributionGraphData } from '@/lib/contribution-graph';
 import { cn } from '@/lib/utils';
+
+import { ContributionWaveCalendar } from './contribution-wave-calendar';
 
 type Props = {
   graph: ContributionGraphData;
@@ -40,22 +35,7 @@ export function GithubContributionClient({ graph, className }: Props) {
           aria-label={`Contribution activity calendar for ${year}: ${totalCount} contributions.`}
           role="img"
         >
-          <ContributionGraphCalendar>
-            {({ activity, dayIndex, weekIndex }) => (
-              <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <ContributionGraphBlock
-                      activity={activity}
-                      dayIndex={dayIndex}
-                      weekIndex={weekIndex}
-                    />
-                  }
-                />
-                <TooltipContent>{tooltips[activity.date]}</TooltipContent>
-              </Tooltip>
-            )}
-          </ContributionGraphCalendar>
+          <ContributionWaveCalendar tooltips={tooltips} />
         </div>
         <ContributionGraphFooter>
           <ContributionGraphTotalCount>
