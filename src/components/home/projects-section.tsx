@@ -1,8 +1,9 @@
-import { PiArrowUpRight } from 'react-icons/pi';
-
 import { Anchor } from '@/components/ui/anchor';
-import { Button } from '@/components/ui/button';
 import { ContentSection } from '@/components/ui/content-section';
+import {
+  ExternalLinkArrow,
+  externalLinkTitleClassName,
+} from '@/components/ui/external-link-row';
 import { PROJECTS } from '@/data/projects';
 import { cn } from '@/lib/utils';
 
@@ -14,28 +15,28 @@ export function ProjectsSection() {
           const projectUrl = project.liveUrl ?? project.githubUrl;
 
           return (
-            <li key={project.name}>
-              <article>
+            <li key={project.name} className="group/external-link">
+              <article className="relative">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <h3
                       className={cn(
                         'text-base font-medium leading-6 tracking-[-0.01em]',
                         'text-foreground',
+                        externalLinkTitleClassName,
                       )}
                     >
-                      {projectUrl ? (
-                        <Anchor
-                          href={projectUrl}
-                          variant="primary"
-                          weight="inherit"
-                        >
-                          {project.name}
-                        </Anchor>
-                      ) : (
-                        project.name
-                      )}
+                      {project.name}
                     </h3>
+                    {projectUrl ? (
+                      <Anchor
+                        href={projectUrl}
+                        aria-label={`Visit ${project.name}`}
+                        className="absolute inset-0 z-10"
+                        variant="unstyled"
+                        weight="inherit"
+                      />
+                    ) : null}
                     <p
                       className={cn(
                         'mt-0.5',
@@ -46,17 +47,7 @@ export function ProjectsSection() {
                       {project.tagline}
                     </p>
                   </div>
-                  {projectUrl ? (
-                    <Button
-                      href={projectUrl}
-                      className={cn('shrink-0', '-mt-1 -mr-1')}
-                      icon={<PiArrowUpRight />}
-                      isLabelHidden={true}
-                      label={`Visit ${project.name}`}
-                      size="xs"
-                      variant="ghost"
-                    />
-                  ) : null}
+                  {projectUrl ? <ExternalLinkArrow /> : null}
                 </div>
                 <p
                   className={cn(
@@ -80,6 +71,7 @@ export function ProjectsSection() {
                   {project.githubUrl ? (
                     <Anchor
                       href={project.githubUrl}
+                      className="relative z-20"
                       variant="default"
                       weight="normal"
                     >

@@ -2,6 +2,7 @@ import { PiArrowUpRight } from 'react-icons/pi';
 
 import { Anchor } from '@/components/ui/anchor';
 import { ContentSection } from '@/components/ui/content-section';
+import { externalLinkArrowClassName } from '@/components/ui/external-link-row';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
 
@@ -34,10 +35,14 @@ export function ContactSection() {
           'inline-flex items-center gap-x-1.5',
           'mt-5',
           'text-base leading-6',
+          'group/external-link',
         )}
       >
         {SOCIAL_LINKS.email.username}
-        <PiArrowUpRight aria-hidden="true" className="size-4" />
+        <PiArrowUpRight
+          aria-hidden="true"
+          className={cn('size-4', externalLinkArrowClassName)}
+        />
       </Anchor>
       <div
         className={cn(

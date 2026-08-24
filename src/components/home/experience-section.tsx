@@ -1,8 +1,9 @@
-import { PiArrowUpRight } from 'react-icons/pi';
-
 import { Anchor } from '@/components/ui/anchor';
-import { Button } from '@/components/ui/button';
 import { ContentSection } from '@/components/ui/content-section';
+import {
+  ExternalLinkArrow,
+  externalLinkTitleClassName,
+} from '@/components/ui/external-link-row';
 import { EXPERIENCES } from '@/data/experience';
 import { cn } from '@/lib/utils';
 
@@ -16,36 +17,31 @@ export function ExperienceSection() {
       <ol className="flex flex-col gap-y-9">
         {EXPERIENCES.map((experience) => (
           <li key={experience.company}>
-            <div className="flex items-start justify-between gap-4">
+            <div
+              className={cn(
+                'flex items-start justify-between gap-4 relative',
+                'group/external-link',
+              )}
+            >
               <h3
                 className={cn(
                   'text-[1.0625rem] font-medium leading-6 tracking-[-0.012em]',
                   'text-foreground',
+                  externalLinkTitleClassName,
                 )}
               >
-                {experience.href ? (
-                  <Anchor
-                    href={experience.href}
-                    variant="primary"
-                    weight="inherit"
-                  >
-                    {experience.company}
-                  </Anchor>
-                ) : (
-                  experience.company
-                )}
+                {experience.company}
               </h3>
               {experience.href ? (
-                <Button
+                <Anchor
                   href={experience.href}
-                  className={cn('shrink-0', '-mt-1 -mr-1')}
-                  icon={<PiArrowUpRight />}
-                  isLabelHidden={true}
-                  label={`Visit ${experience.company}`}
-                  size="xs"
-                  variant="ghost"
+                  aria-label={`Visit ${experience.company}`}
+                  className="absolute inset-0 z-10"
+                  variant="unstyled"
+                  weight="inherit"
                 />
               ) : null}
+              {experience.href ? <ExternalLinkArrow /> : null}
             </div>
             <ul className={cn('flex flex-col gap-y-5', 'mt-4')}>
               {experience.roles.map((role) => (

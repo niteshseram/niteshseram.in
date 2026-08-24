@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 
 import { Anchor } from '@/components/ui/anchor';
+import { externalLinkTitleClassName } from '@/components/ui/external-link-row';
 import { cn } from '@/lib/utils';
 import type { Post } from '@/lib/writing';
 
@@ -21,7 +22,8 @@ export function PostRow({ headingLevel = 3, post, minutes }: Props) {
         variant="unstyled"
         weight="inherit"
         className={cn(
-          'group flex flex-col gap-y-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-x-6',
+          'flex flex-col gap-y-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-x-6',
+          'group/external-link',
         )}
       >
         <div className={cn('min-w-0 flex-1')}>
@@ -29,8 +31,7 @@ export function PostRow({ headingLevel = 3, post, minutes }: Props) {
             className={cn(
               'text-base font-medium leading-6 tracking-[-0.01em]',
               'text-foreground',
-              'transition-colors',
-              'group-hover:text-muted-foreground',
+              externalLinkTitleClassName,
             )}
           >
             {post.data.title}
