@@ -150,23 +150,37 @@ export const baseMdxComponents: MDXComponents = {
     </CodeBlock>
   ),
   table: ({ className, ...props }) => (
-    <div className="my-6 overflow-x-auto">
-      <table
+    <div className="my-7">
+      <div
         className={cn(
-          'w-full text-sm border-collapse',
-          'text-foreground/90',
-          className,
+          'flex items-center justify-end gap-1 sm:hidden',
+          'mb-2 px-1',
+          'text-[0.6875rem] font-medium tracking-wide',
+          'text-muted-foreground',
         )}
-        {...props}
-      />
+      >
+        Scroll to explore <span aria-hidden="true">→</span>
+      </div>
+      <div className="overflow-x-auto">
+        <table
+          className={cn(
+            'w-full min-w-144 border-separate border-spacing-0',
+            'text-sm leading-6',
+            'text-foreground/90',
+            className,
+          )}
+          {...props}
+        />
+      </div>
     </div>
   ),
   th: ({ className, ...props }) => (
     <th
       className={cn(
-        'px-3 py-2 text-left',
-        'border-b border-border',
-        'font-medium text-foreground',
+        'px-4 py-3 align-middle',
+        'first:rounded-l-xl last:rounded-r-xl border-y first:border-l last:border-r',
+        'text-left text-sm font-medium leading-5',
+        'border-border bg-surface/80 text-foreground',
         className,
       )}
       {...props}
@@ -175,9 +189,10 @@ export const baseMdxComponents: MDXComponents = {
   td: ({ className, ...props }) => (
     <td
       className={cn(
-        'px-3 py-2',
-        'border-b border-border',
-        'text-foreground/90',
+        'px-4 py-4 align-top',
+        'border-b first:border-b-0',
+        'first:font-semibold',
+        'border-border/70 text-foreground/80 first:text-foreground',
         className,
       )}
       {...props}
