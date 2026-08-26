@@ -122,6 +122,8 @@ The `ReactPaginate` component renders a pagination UI with previous and next but
 
 Now, when you run the application, you will see that the data is rendered in pages, with only a subset of records shown at a time. This helps to improve the performance of the application by reducing the number of rendered DOM elements.
 
+The pagination component only controls what the user can request. If records can change between requests, the API also needs a [pagination strategy that avoids duplicate and missing records](/writing/why-pagination-skips-and-duplicates-changing-data).
+
 ## Infinite Scroll: Loading Data on Demand
 
 Another approach to handling large datasets is through the infinite scroll. Infinite scroll involves loading data incrementally as the user scrolls down the page. Initially, only a subset of data is loaded, and more data is appended as the user reaches the end of the list.

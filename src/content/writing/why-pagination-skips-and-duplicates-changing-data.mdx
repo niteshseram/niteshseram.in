@@ -1,0 +1,206 @@
+---
+title: 'Offset vs Cursor Pagination: Why Records Duplicate or Go Missing'
+publishedAt: '2026-08-23'
+updatedAt: '2026-08-26'
+summary: 'Why LIMIT/OFFSET skips or duplicates records when data changes, how a cursor keeps the boundary stable, and when you need a snapshot.'
+tags:
+  [
+    'pagination',
+    'frontend-system-design',
+    'offset-pagination',
+    'cursor-pagination',
+    'keyset-pagination',
+    'api-design',
+    'postgresql',
+  ]
+---
+
+import {
+  CursorBoundaryDemo,
+  OffsetBoundaryDemo,
+  SnapshotSessionDemo,
+} from '@/components/writing/interactive/pagination-consistency-explainers';
+
+Offset pagination can return duplicate or missing records even when every database query is correct.
+
+You scroll an infinite feed and see the same card twice. Or an item you know exists never appears. Refreshing fixes it, so the frontend gets blamed. But sometimes it is rendering exactly what the API returned.
+
+Both page requests were valid, but each ran against a different version of the list. Something was inserted, deleted, or reordered between them. The API knew that the frontend wanted page two, but it did not know which item page one ended on.
+
+Pagination is the agreement between the client and server about where the next page begins. That agreement gets harder when the list keeps moving.
+
+For a large, changing feed, start with a cursor built from fields that create one stable order, such as `(created_at, id)`. Offset pagination still works well for stable lists where people need to jump to a specific page. If a job must cover one fixed set of records without gaps or repeats, add a snapshot too.
+
+## Offset vs cursor pagination at a glance
+
+**Offset remembers a number. A cursor remembers where the last page ended.**
+
+Use offset for stable lists that need page numbers. Use a cursor for feeds that change while someone scrolls.
+
+The cursor is the bookmark passed between the frontend and API. Keyset pagination is the database query that continues from that bookmark.
+
+## Why offset pagination skips or duplicates records
+
+Page one is already in the browser. Insert or delete a record before loading page two.
+
+<OffsetBoundaryDemo />
+
+After an insertion, `D` moves to position `4` and appears again on page two. After a deletion, `E` moves before position `4`, so page two starts at `F` and skips `E`.
+
+The database did exactly what the offset requested. It counted from the start of the list as it looked at that moment.
+
+Suppose a feed is ordered from newest to oldest:
+
+```sql title="get-posts.sql"
+SELECT id, title, created_at
+FROM posts
+WHERE status = 'published'
+ORDER BY created_at DESC, id DESC
+LIMIT 20 OFFSET 20;
+```
+
+The first request uses offset `0`; the second uses offset `20`. Offset does not mean “continue after the last post I saw.” It means “run the query again, then discard the first 20 rows in the result that exists now.”
+
+Those are only equivalent if rows before the boundary have not moved.
+
+PostgreSQL allows this by default. Under Read Committed isolation, [each `SELECT` can see data committed before that query began](https://www.postgresql.org/docs/current/transaction-iso.html#XACT-READ-COMMITTED). Page one and page two can therefore see different versions of the list. “The 20th row” may not mean the same thing in both requests.
+
+## How cursor pagination fixes offset drift
+
+Run the same insert and delete with a cursor anchored at `D`.
+
+<CursorBoundaryDemo />
+
+In both cases, page two still starts at `E`. The boundary follows `D`, not its position in the list.
+
+The API puts the values that place `D` in the list inside a cursor and sends it to the frontend.
+
+When the frontend asks for page two, it sends that cursor back. The API reads it and asks the database for the next records after `D`. That database query is keyset pagination. It is also called seek pagination.
+
+```sql title="get-posts-after-cursor.sql"
+SELECT id, title, created_at
+FROM posts
+WHERE status = 'published'
+  AND (created_at, id) < ($1, $2)
+ORDER BY created_at DESC, id DESC
+LIMIT 21;
+```
+
+PostgreSQL compares the two values from left to right. It checks `created_at` first, then uses `id` when two timestamps match. PostgreSQL calls this a [row constructor comparison](https://www.postgresql.org/docs/current/functions-comparisons.html#ROW-WISE-COMPARISON).
+
+This comparison is simplest when both cursor fields are `NOT NULL`. If nulls are valid, the query must match its `NULLS FIRST` or `NULLS LAST` rule.
+
+The cursor can also make later pages cheaper. PostgreSQL still has to compute the rows discarded by a large offset. With the right B-tree index, it can instead move near the cursor and read the next small group of rows. PostgreSQL calls out `ORDER BY` with `LIMIT` as a case where [a matching index can retrieve the first rows directly](https://www.postgresql.org/docs/current/indexes-ordering.html).
+
+The index should follow the filter and order used by the query:
+
+```sql title="posts-feed-index.sql"
+CREATE INDEX posts_published_feed_order_idx
+ON posts (created_at DESC, id DESC)
+WHERE status = 'published';
+```
+
+This partial index works because the query always asks for published posts. It is a starting point, not a universal recipe. Check the real query with `EXPLAIN ANALYZE` because the best index depends on the data and workload.
+
+## Stable pagination needs a unique ORDER BY
+
+An ambiguous `ORDER BY` can return duplicate or missing records even when the data does not change. Several posts can share the same `created_at` value. A cursor containing only that timestamp cannot tell which post comes next.
+
+Add a unique field such as `id` as the final tie-breaker, then store both values in the cursor. [Microsoft's pagination guidance](https://learn.microsoft.com/en-us/ef/core/querying/pagination) and Elasticsearch's `search_after` documentation both warn that pagination needs a fully unique order and a [unique tie-breaker](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/paginate-search-results).
+
+The cursor should carry both values:
+
+```ts title="post-cursor.ts"
+type PostCursor = Readonly<{
+  version: 1;
+  createdAt: string;
+  id: string;
+  filtersHash: string;
+}>;
+```
+
+The `filtersHash` stops a cursor from one list being reused after the filters or sort order change. Encode the cursor as a URL-safe string and validate it on the server. The [GraphQL Cursor Connections specification](https://relay.dev/graphql/connections.htm) keeps cursors opaque so clients store and return them without depending on their contents.
+
+## Cursor pagination does not freeze the feed
+
+A cursor stops changes above the boundary from shifting the next page. It does not make every page read the same version of the list.
+
+You see that limit when the sort field can change. Imagine sorting support tickets by `updated_at`. A ticket from page three receives a reply and jumps above the cursor before the client reaches it. The reader may never see it in the remaining pages. A ticket already loaded can move below the cursor and appear again later.
+
+Keyset pagination works best when the sort fields do not change, as with `(created_at, id)`. Relevance, rank, and recent activity can change. If the product sorts by one of them, choose the behavior you need:
+
+- A live feed accepts that items can move. Refreshing or showing a “new activity” affordance is part of the product behavior.
+- An export or background job needs a stable snapshot if it must visit one fixed set of records.
+
+Neither choice is always better. A live feed can accept movement. An invoice export cannot accept missing rows.
+
+## A snapshot protects the session
+
+The live list and the paging session start with the same records. Change the live list, then compare the two views.
+
+<SnapshotSessionDemo />
+
+The live list changes. The paging session does not. Every page in that session reads the same view that page one used.
+
+Elasticsearch calls this a [point in time](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/paginate-search-results), or PIT. Open the PIT before page one, then send it with later `search_after` requests. New refreshes can no longer reorder that paging session.
+
+PostgreSQL Repeatable Read also gives one transaction a stable view. But keeping a database transaction open while a person scrolls is usually a poor API design. The person may leave, the connection remains occupied, and an old snapshot can delay database cleanup.
+
+A web API usually needs an expiring snapshot, such as a search-engine PIT, a database version token, or a stored list of result IDs.
+
+A high-water mark is a lighter option. When page one loads, remember the first record's ordering values. Add them as an upper limit to every later query: `(created_at, id) <= ($upper_created_at, $upper_id)`. Records added above that original starting point stay out of the session.
+
+This does not block a backfilled row with an older timestamp. A high-water mark is only as reliable as the field used to build it. Use a true snapshot when the set must stay fixed.
+
+Snapshots also need lifecycle rules:
+
+- Put the snapshot identifier and expiry inside the cursor.
+- Carry forward any new snapshot identifier returned by the store.
+- Restart from page one when the snapshot expires or the query changes.
+- Close the snapshot when paging finishes.
+
+Snapshots need more server state and cleanup. Use them where missing a record would be worse than showing slightly old data: exports, audit views, checks against another system, large bulk selections, and background jobs over a fixed set.
+
+## The API should make the next request obvious
+
+A useful cursor response tells the frontend two things: where this page ended, and whether another page exists.
+
+```ts title="pagination-contract.ts"
+type ConnectionPage<Item> = Readonly<{
+  items: Item[];
+  pageInfo: {
+    endCursor: string | null;
+    hasNextPage: boolean;
+  };
+}>;
+```
+
+To calculate `hasNextPage`, ask the database for one more row than the page needs. If the page size is 20, request 21 and return only the first 20. The extra row proves that another page exists without running a separate count query. The [GraphQL connection pagination algorithm](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo) uses the same idea.
+
+The frontend should not increment the cursor, edit it, or turn it into a page number. It stores `endCursor` and sends that exact value with the next request.
+
+For an infinite query, the filters and sort order belong in the shared cache key. The cursor belongs in the next-page parameter. TanStack Query's [infinite-query guide](https://tanstack.com/query/latest/docs/framework/react/guides/infinite-queries) uses this split between `queryKey` and `pageParam`.
+
+The client can merge records by stable ID as a safety net. That can hide a duplicate, but it cannot recover a record the server skipped.
+
+## Common offset and cursor pagination questions
+
+### Can cursor pagination still skip or duplicate records?
+
+Yes. A cursor cannot fix an unclear order, stop a sort field from changing, or make every page read the same historical view. Use a unique order such as `(created_at, id)`. Add a snapshot when every page must read one fixed set.
+
+### Is cursor pagination the same as keyset pagination?
+
+No. A cursor is the bookmark passed through the API. Keyset pagination is the database query that continues from its ordered values. A cursor can hide an offset, so the API name alone does not guarantee keyset pagination.
+
+### Is cursor pagination faster than offset pagination?
+
+At shallow pages, the difference may not matter. At deep pages, a keyset query with a matching index can seek near the boundary, while an offset query still has to compute and discard the skipped rows. Measure the real query plan with `EXPLAIN ANALYZE`; the word “cursor” by itself does not make a query fast.
+
+## When offset pagination is still useful
+
+Offset is reasonable when people need numbered pages or direct page jumps and the list changes rarely. Admin directories and small search results often fit that shape. Prisma's pagination guide describes the same trade-off: [offset supports page jumps, while cursors scale better through large result sets](https://www.prisma.io/docs/orm/prisma-client/queries/pagination).
+
+Use a cursor for a changing feed. Add a snapshot when a job must cover one fixed set of records.
+
+Before shipping, insert, delete, and reorder a record between page one and page two. Check that the API returns every record the product promises, once and in the intended order.
