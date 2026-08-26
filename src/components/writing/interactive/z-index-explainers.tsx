@@ -2,9 +2,11 @@
 
 import type { ChangeEvent, ReactNode, RefObject } from 'react';
 import { useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { createPortal, flushSync } from 'react-dom';
 
 import { cn } from '@/lib/utils';
+
+import './z-index-explainers.css';
 
 function ExplainerHeader({
   eyebrow,
@@ -83,6 +85,17 @@ function ScopeButton({
   );
 }
 
+const stackingContextLabels = {
+  card: 'Card context',
+  cardLevel: 'stack level: 0',
+  document: 'document',
+  header: 'Header',
+  headerLevel: 'z-index: 10',
+  modal: 'Modal',
+  modalLevel: 'z-index: 9999',
+  root: 'ROOT',
+} as const;
+
 export function StackingContextMap() {
   const [activeScope, setActiveScope] = useState<'card' | 'root'>('root');
   const isRootActive = activeScope === 'root';
@@ -121,14 +134,26 @@ export function StackingContextMap() {
         <div className={cn('grid gap-3 sm:hidden')}>
           <div
             className={cn(
-              'w-fit',
+              'flex w-fit flex-col',
               'px-3 py-2',
-              'rounded-md border-2',
+              isRootActive
+                ? 'rounded-md border-2 opacity-100'
+                : 'rounded-md border-2 opacity-45',
               'font-mono text-[11px] font-semibold',
               'border-brand bg-background text-foreground',
+              'transition-opacity duration-300 motion-reduce:transition-none',
             )}
           >
-            ROOT
+            <span>{stackingContextLabels.root}</span>
+            <span
+              className={cn(
+                'mt-0.5',
+                'text-[10px] font-normal',
+                'text-muted-foreground',
+              )}
+            >
+              {stackingContextLabels.document}
+            </span>
           </div>
           <div
             className={cn(
@@ -142,50 +167,80 @@ export function StackingContextMap() {
               className={cn(
                 'flex items-center justify-between gap-3',
                 'px-3 py-2',
-                'rounded-md border',
-                isRootActive ? 'opacity-100' : 'opacity-45',
+                isRootActive
+                  ? 'rounded-md border-2 opacity-100'
+                  : 'rounded-md border opacity-45',
                 'text-xs',
                 'border-brand bg-background text-foreground',
-                'transition-opacity motion-reduce:transition-none',
+                'transition-opacity duration-300 motion-reduce:transition-none',
               )}
             >
-              <span className={cn('font-medium')}>Header</span>
-              <code className={cn('font-mono text-[10px]')}>10</code>
+              <span className={cn('font-medium')}>
+                {stackingContextLabels.header}
+              </span>
+              <span
+                className={cn('font-mono text-[10px]', 'text-muted-foreground')}
+              >
+                {stackingContextLabels.headerLevel}
+              </span>
             </div>
-            <div
-              className={cn(
-                'grid gap-2',
-                'px-3 py-2',
-                'rounded-md border',
-                isRootActive ? 'opacity-100' : 'opacity-65',
-                'border-brand bg-background text-foreground',
-                'transition-opacity motion-reduce:transition-none',
-              )}
-            >
-              <div className={cn('flex items-center justify-between gap-3')}>
-                <span className={cn('text-xs font-medium')}>Card context</span>
-                <code className={cn('font-mono text-[10px]')}>0 (auto)</code>
+            <div className={cn('grid gap-2')}>
+              <div
+                className={cn(
+                  'flex items-center justify-between gap-3',
+                  'px-3 py-2',
+                  isRootActive
+                    ? 'rounded-md border-2 opacity-100'
+                    : 'rounded-md border opacity-55',
+                  'text-xs',
+                  isRootActive
+                    ? 'border-brand bg-background text-foreground'
+                    : 'border-border bg-background text-foreground',
+                  'transition-[border-color,opacity] duration-300 motion-reduce:transition-none',
+                )}
+              >
+                <span className={cn('font-medium')}>
+                  {stackingContextLabels.card}
+                </span>
+                <span
+                  className={cn(
+                    'font-mono text-[10px]',
+                    'text-muted-foreground',
+                  )}
+                >
+                  {stackingContextLabels.cardLevel}
+                </span>
               </div>
               <div
                 className={cn(
                   'ml-3 pl-3',
                   'border-l border-dashed',
-                  'border-brand/50',
+                  'border-border',
                 )}
               >
                 <div
                   className={cn(
                     'flex items-center justify-between gap-3',
                     'px-3 py-2',
-                    'rounded-md',
-                    isRootActive ? 'opacity-40' : 'opacity-100',
+                    isRootActive
+                      ? 'rounded-md border opacity-35'
+                      : 'rounded-md border-2 opacity-100',
                     'text-xs',
-                    'bg-brand-muted text-foreground',
-                    'transition-opacity motion-reduce:transition-none',
+                    'border-brand bg-brand-muted text-foreground',
+                    'transition-[border-width,opacity] duration-300 motion-reduce:transition-none',
                   )}
                 >
-                  <span className={cn('font-medium')}>Modal</span>
-                  <code className={cn('font-mono text-[10px]')}>9999</code>
+                  <span className={cn('font-medium')}>
+                    {stackingContextLabels.modal}
+                  </span>
+                  <span
+                    className={cn(
+                      'font-mono text-[10px]',
+                      'text-muted-foreground',
+                    )}
+                  >
+                    {stackingContextLabels.modalLevel}
+                  </span>
                 </div>
               </div>
             </div>
@@ -251,7 +306,7 @@ export function StackingContextMap() {
               fontWeight="600"
               textAnchor="middle"
             >
-              ROOT
+              {stackingContextLabels.root}
             </text>
             <text
               x="64"
@@ -261,7 +316,7 @@ export function StackingContextMap() {
               fontSize="10"
               textAnchor="middle"
             >
-              document
+              {stackingContextLabels.document}
             </text>
 
             <rect
@@ -282,7 +337,7 @@ export function StackingContextMap() {
               fontSize="12"
               fontWeight="600"
             >
-              Header
+              {stackingContextLabels.header}
             </text>
             <text
               x="244"
@@ -291,7 +346,7 @@ export function StackingContextMap() {
               fontFamily="var(--font-mono)"
               fontSize="10"
             >
-              z-index: 10
+              {stackingContextLabels.headerLevel}
             </text>
           </g>
 
@@ -319,7 +374,7 @@ export function StackingContextMap() {
               fontSize="12"
               fontWeight="600"
             >
-              Card context
+              {stackingContextLabels.card}
             </text>
             <text
               x="244"
@@ -328,7 +383,7 @@ export function StackingContextMap() {
               fontFamily="var(--font-mono)"
               fontSize="10"
             >
-              stack level: 0
+              {stackingContextLabels.cardLevel}
             </text>
           </g>
 
@@ -356,7 +411,7 @@ export function StackingContextMap() {
               fontSize="12"
               fontWeight="600"
             >
-              Modal
+              {stackingContextLabels.modal}
             </text>
             <text
               x="438"
@@ -365,7 +420,7 @@ export function StackingContextMap() {
               fontFamily="var(--font-mono)"
               fontSize="10"
             >
-              z-index: 9999
+              {stackingContextLabels.modalLevel}
             </text>
           </g>
         </svg>
@@ -434,8 +489,8 @@ export function ZIndexEscalation() {
       >
         <div
           className={cn(
-            'absolute inset-x-4 top-4 z-10 flex h-12 items-center justify-between',
-            'px-3',
+            'sticky top-4 z-10 flex h-12 items-center justify-between',
+            'mx-4 px-3',
             'rounded-md border',
             'font-mono text-[10px]',
             'border-border bg-foreground text-background',
@@ -527,8 +582,8 @@ function PortalModal({ isAtRoot }: Readonly<{ isAtRoot: boolean }>) {
         'px-3 py-3',
         'rounded-md border shadow-lg',
         'border-brand/40 bg-popover text-popover-foreground',
-        'transition-all duration-300 ease-emphasized motion-reduce:transition-none',
       )}
+      style={{ viewTransitionName: 'portal-modal' }}
     >
       <div className={cn('flex items-center justify-between gap-3')}>
         <span className={cn('text-xs font-semibold')}>Account settings</span>
@@ -544,6 +599,24 @@ function PortalModal({ isAtRoot }: Readonly<{ isAtRoot: boolean }>) {
 export function PortalEscapeDemo() {
   const [isPortaled, setIsPortaled] = useState(false);
   const [portalTarget, setPortalTarget] = useState<HTMLDivElement | null>(null);
+
+  function handlePortalToggle() {
+    function commitPortalState() {
+      flushSync(() => {
+        setIsPortaled((currentValue) => !currentValue);
+      });
+    }
+
+    if (
+      typeof document.startViewTransition !== 'function' ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      commitPortalState();
+      return;
+    }
+
+    document.startViewTransition(commitPortalState);
+  }
 
   return (
     <figure
@@ -563,7 +636,7 @@ export function PortalEscapeDemo() {
           <button
             type="button"
             aria-pressed={isPortaled}
-            onClick={() => setIsPortaled((currentValue) => !currentValue)}
+            onClick={handlePortalToggle}
             className={cn(
               'shrink-0',
               'px-3 py-2',

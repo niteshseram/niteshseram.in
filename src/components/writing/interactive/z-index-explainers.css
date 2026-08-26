@@ -1,0 +1,10 @@
+::view-transition-group(portal-modal),
+::view-transition-old(portal-modal),
+::view-transition-new(portal-modal) {
+  animation-duration: var(--motion-duration-slow);
+  animation-timing-function: var(--motion-ease-emphasized);
+}
+
+::view-transition-group(portal-modal) {
+  z-index: 1;
+}
