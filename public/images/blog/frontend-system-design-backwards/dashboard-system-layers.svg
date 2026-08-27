@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" fill="none">
+  <title>The system behind a user action</title>
+  <desc>A six-step sequence from user intent through browser state, rendering, request orchestration, the API contract, and the source of truth.</desc>
+
+  <rect width="1200" height="560" fill="#1A1A1A"/>
+  <line x1="96" y1="58" x2="96" y2="502" stroke="#4A4A4A" stroke-width="1"/>
+
+  <g font-family="Inter, ui-sans-serif, system-ui, sans-serif">
+    <circle cx="96" cy="65" r="4" fill="#D5D5D5"/>
+    <text x="62" y="72" text-anchor="end" fill="#767676" font-size="16" font-variant-numeric="tabular-nums">01</text>
+    <text x="140" y="74" fill="#E5E5E5" font-size="27" font-weight="560">User intent</text>
+    <text x="1128" y="72" text-anchor="end" fill="#858585" font-size="17">product</text>
+    <line x1="140" y1="103" x2="1128" y2="103" stroke="#333333" stroke-width="1"/>
+
+    <circle cx="96" cy="151" r="4" fill="#BDBDBD"/>
+    <text x="62" y="158" text-anchor="end" fill="#767676" font-size="16" font-variant-numeric="tabular-nums">02</text>
+    <text x="140" y="160" fill="#DCDCDC" font-size="27" font-weight="520">URL state + local interaction state</text>
+    <text x="1128" y="158" text-anchor="end" fill="#858585" font-size="17">browser</text>
+    <line x1="140" y1="189" x2="1128" y2="189" stroke="#333333" stroke-width="1"/>
+
+    <circle cx="96" cy="237" r="4" fill="#A9A9A9"/>
+    <text x="62" y="244" text-anchor="end" fill="#767676" font-size="16" font-variant-numeric="tabular-nums">03</text>
+    <text x="140" y="246" fill="#D4D4D4" font-size="27" font-weight="520">Rendering + component boundaries</text>
+    <text x="1128" y="244" text-anchor="end" fill="#858585" font-size="17">browser</text>
+    <line x1="140" y1="275" x2="1128" y2="275" stroke="#333333" stroke-width="1"/>
+
+    <circle cx="96" cy="323" r="4" fill="#969696"/>
+    <text x="62" y="330" text-anchor="end" fill="#767676" font-size="16" font-variant-numeric="tabular-nums">04</text>
+    <text x="140" y="332" fill="#CCCCCC" font-size="27" font-weight="520">Server-state cache + request orchestration</text>
+    <text x="1128" y="330" text-anchor="end" fill="#858585" font-size="17">client / server boundary</text>
+    <line x1="140" y1="361" x2="1128" y2="361" stroke="#333333" stroke-width="1"/>
+
+    <circle cx="96" cy="409" r="4" fill="#838383"/>
+    <text x="62" y="416" text-anchor="end" fill="#767676" font-size="16" font-variant-numeric="tabular-nums">05</text>
+    <text x="140" y="418" fill="#C4C4C4" font-size="27" font-weight="520">API contract + authorization</text>
+    <text x="1128" y="416" text-anchor="end" fill="#858585" font-size="17">server</text>
+    <line x1="140" y1="447" x2="1128" y2="447" stroke="#333333" stroke-width="1"/>
+
+    <circle cx="96" cy="495" r="4" fill="#707070"/>
+    <text x="62" y="502" text-anchor="end" fill="#767676" font-size="16" font-variant-numeric="tabular-nums">06</text>
+    <text x="140" y="504" fill="#BCBCBC" font-size="27" font-weight="520">Services + database</text>
+    <text x="1128" y="502" text-anchor="end" fill="#858585" font-size="17">source of truth</text>
+  </g>
+</svg>
