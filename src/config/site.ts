@@ -24,3 +24,9 @@ export const SITE_TAGLINE =
   'Building interfaces for the web, down to the details.';
 
 export const SITE_LANGUAGE = 'en';
+
+export const FEED = {
+  path: '/rss.xml',
+  title: `${WRITING.title} by ${AUTHOR.name}`,
+  description: WRITING.description,
+} as const;

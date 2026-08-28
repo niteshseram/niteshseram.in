@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { ThemeProvider } from '@/components/theme-provider';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ATMOSPHERE_INIT_SCRIPT } from '@/config/atmosphere';
-import { AUTHOR, SITE_DESCRIPTION, SITE_URL } from '@/config/site';
+import { AUTHOR, FEED, SITE_DESCRIPTION, SITE_URL } from '@/config/site';
 import { fontVariables } from '@/lib/fonts';
 
 import './globals.css';
@@ -30,6 +30,11 @@ export const metadata: Metadata = {
     template: `%s | ${AUTHOR.name}`,
   },
   description: SITE_DESCRIPTION,
+  alternates: {
+    types: {
+      'application/rss+xml': [{ title: FEED.title, url: FEED.path }],
+    },
+  },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },

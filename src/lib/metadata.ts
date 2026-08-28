@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { SITE_DESCRIPTION, AUTHOR } from '@/config/site';
+import { AUTHOR, FEED, SITE_DESCRIPTION } from '@/config/site';
 
 type PageMetadataInput = Readonly<{
   pathname: string;
@@ -34,7 +34,12 @@ export function pageMetadata({
       ? { absolute: absoluteTitle }
       : (title ?? { absolute: `${AUTHOR.name} - ${AUTHOR.jobTitle}` }),
     description,
-    alternates: { canonical: pathname },
+    alternates: {
+      canonical: pathname,
+      types: {
+        'application/rss+xml': [{ title: FEED.title, url: FEED.path }],
+      },
+    },
     openGraph: {
       type: 'website',
       url: pathname,

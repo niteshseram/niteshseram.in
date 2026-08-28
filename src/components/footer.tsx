@@ -1,7 +1,7 @@
 import { cacheLife } from 'next/cache';
 
 import { Anchor } from '@/components/ui/anchor';
-import { AUTHOR } from '@/config/site';
+import { AUTHOR, FEED } from '@/config/site';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
 
@@ -48,6 +48,16 @@ export async function Footer() {
               {social.label}
             </Anchor>
           ))}
+          <a
+            className={cn(
+              'font-normal',
+              'transition-colors',
+              'hover:text-foreground',
+            )}
+            href={FEED.path}
+          >
+            RSS
+          </a>
           <Anchor
             href="#main-content"
             variant="unstyled"
