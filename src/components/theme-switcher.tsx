@@ -113,117 +113,111 @@ export function ThemeSwitcher() {
   }
 
   return (
-    <>
-      <Button
-        ref={triggerReference}
-        aria-expanded={open}
-        aria-haspopup="dialog"
-        className="group"
-        icon={<PiPalette />}
-        iconClassName="text-brand group-hover:animate-wiggle"
-        isLabelHidden={true}
-        label="Customize theme"
-        onClick={() => handleOpenChange(!open)}
-        size="sm"
-        tooltip={
-          <span className="inline-flex items-center gap-x-1.5">
-            Theme settings
-            <kbd
-              className={cn(
-                'inline-flex h-5 min-w-5 items-center justify-center',
-                'px-1',
-                'font-mono text-sm/none',
-                'bg-background/10 text-background',
-              )}
-            >
-              T
-            </kbd>
-          </span>
+    <Popover.Root open={open} onOpenChange={handleOpenChange}>
+      <Popover.Trigger
+        render={
+          <Button
+            ref={triggerReference}
+            className="group"
+            icon={<PiPalette />}
+            iconClassName="text-brand group-hover:animate-wiggle"
+            isLabelHidden={true}
+            label="Customize theme"
+            size="sm"
+            tooltip={
+              <span className="inline-flex items-center gap-x-1.5">
+                Theme settings
+                <kbd
+                  className={cn(
+                    'inline-flex h-5 min-w-5 items-center justify-center',
+                    'px-1',
+                    'font-mono text-sm/none',
+                    'bg-background/10 text-background',
+                  )}
+                >
+                  T
+                </kbd>
+              </span>
+            }
+            tooltipSide="bottom"
+            variant="ghost"
+          />
         }
-        tooltipSide="bottom"
-        variant="ghost"
       />
-      <Popover.Root open={open} onOpenChange={handleOpenChange}>
-        <Popover.Portal>
-          <Popover.Positioner
-            align="end"
-            anchor={triggerReference}
-            className="z-[60]"
-            sideOffset={8}
+      <Popover.Portal>
+        <Popover.Positioner align="end" className="z-[60]" sideOffset={8}>
+          <Popover.Popup
+            ref={popupReference}
+            initialFocus={(interactionType) => interactionType === 'keyboard'}
+            className={cn(
+              'flex max-h-[min(32rem,calc(100vh-5rem))] w-[min(22rem,calc(100vw-2rem))] flex-col overflow-y-auto origin-(--transform-origin)',
+              'p-2.5',
+              'rounded-xl border shadow-lg',
+              'border-border bg-popover text-popover-foreground shadow-shadow/25',
+              'transition-[transform,scale,opacity,background-color,color,border-color] duration-[var(--motion-duration-fast)] ease-standard',
+              'data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0',
+            )}
           >
-            <Popover.Popup
-              ref={popupReference}
-              initialFocus={(interactionType) => interactionType === 'keyboard'}
-              className={cn(
-                'flex max-h-[min(32rem,calc(100vh-5rem))] w-[min(22rem,calc(100vw-2rem))] flex-col overflow-y-auto origin-(--transform-origin)',
-                'p-2.5',
-                'rounded-xl border shadow-lg',
-                'border-border bg-popover text-popover-foreground shadow-shadow/25',
-                'transition-[transform,scale,opacity,background-color,color,border-color] duration-[var(--motion-duration-fast)] ease-standard',
-                'data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0',
-              )}
-            >
-              <Popover.Title className="sr-only">Theme settings</Popover.Title>
-              <Popover.Description className="sr-only">
-                Choose an appearance and atmosphere for the site.
-              </Popover.Description>
+            <Popover.Title className="sr-only">Theme settings</Popover.Title>
+            <Popover.Description className="sr-only">
+              Choose an appearance and atmosphere for the site.
+            </Popover.Description>
 
-              <section aria-labelledby="appearance-heading">
+            <section aria-labelledby="appearance-heading">
+              <h2
+                className={cn(
+                  'px-1 pb-2',
+                  'text-xs font-medium uppercase tracking-[0.08em]',
+                  'text-muted-foreground',
+                )}
+                id="appearance-heading"
+              >
+                Appearance
+              </h2>
+              <div className="grid grid-cols-3 gap-1">
+                {APPEARANCE_OPTIONS.map((option) => (
+                  <AppearanceOption
+                    key={option.value}
+                    option={option}
+                    selected={option.value === selectedAppearance}
+                    onSelect={handleAppearanceChange}
+                  />
+                ))}
+              </div>
+            </section>
+
+            <section className="mt-5" aria-labelledby="atmosphere-heading">
+              <div className="flex items-baseline justify-between gap-3 px-1 pb-2">
                 <h2
                   className={cn(
-                    'px-1 pb-2',
                     'text-xs font-medium uppercase tracking-[0.08em]',
                     'text-muted-foreground',
                   )}
-                  id="appearance-heading"
+                  id="atmosphere-heading"
                 >
-                  Appearance
+                  Atmosphere
                 </h2>
-                <div className="grid grid-cols-3 gap-1">
-                  {APPEARANCE_OPTIONS.map((option) => (
-                    <AppearanceOption
-                      key={option.value}
-                      option={option}
-                      selected={option.value === selectedAppearance}
-                      onSelect={handleAppearanceChange}
-                    />
-                  ))}
-                </div>
-              </section>
-
-              <section className="mt-5" aria-labelledby="atmosphere-heading">
-                <div className="flex items-baseline justify-between gap-3 px-1 pb-2">
-                  <h2
-                    className={cn(
-                      'text-xs font-medium uppercase tracking-[0.08em]',
-                      'text-muted-foreground',
-                    )}
-                    id="atmosphere-heading"
-                  >
-                    Atmosphere
-                  </h2>
-                  <p className="text-[11px] text-muted-foreground">
-                    Preview on hover
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 gap-1.5">
-                  {ATMOSPHERE_OPTIONS.map((option) => (
-                    <AtmosphereOptionButton
-                      key={option.value}
-                      automaticAtmosphere={automaticAtmosphere}
-                      option={option}
-                      selected={option.value === selectedAtmosphere}
-                      onPreview={previewAtmosphere}
-                      onSelect={setAtmosphere}
-                    />
-                  ))}
-                </div>
-              </section>
-            </Popover.Popup>
-          </Popover.Positioner>
-        </Popover.Portal>
-      </Popover.Root>
-    </>
+                <p className="text-[11px] text-muted-foreground">
+                  Preview on hover
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-1.5">
+                {ATMOSPHERE_OPTIONS.map((option) => (
+                  <AtmosphereOptionButton
+                    key={option.value}
+                    automaticAtmosphere={automaticAtmosphere}
+                    option={option}
+                    selected={option.value === selectedAtmosphere}
+                    onPreview={previewAtmosphere}
+                    onSelect={setAtmosphere}
+                  />
+                ))}
+              </div>
+            </section>
+          </Popover.Popup>
+        </Popover.Positioner>
+      </Popover.Portal>
+    </Popover.Root>
   );
 }
 
