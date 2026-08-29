@@ -1,19 +1,19 @@
-import { PiDesktop, PiMoon, PiSun } from 'react-icons/pi';
+import { Monitor, Moon, Sun } from 'lucide-react';
 
 export const THEMES = {
   system: {
     label: 'System',
-    icon: PiDesktop,
+    icon: Monitor,
     keywords: ['theme', 'mode', 'auto'],
   },
   dark: {
     label: 'Dark',
-    icon: PiMoon,
+    icon: Moon,
     keywords: ['theme', 'mode', 'night'],
   },
   light: {
     label: 'Light',
-    icon: PiSun,
+    icon: Sun,
     keywords: ['theme', 'mode', 'bright'],
   },
 };

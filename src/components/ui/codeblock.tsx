@@ -2,14 +2,16 @@
 // Reference: https://github.com/fuma-nama/fumadocs/blob/0e2b5b666c4d7a43ec49b594a901b7ccdf7cdcbd/packages/base-ui/src/components/codeblock.tsx
 'use client';
 
+import { Check, Clipboard } from 'lucide';
+import { MorphIcon } from 'morphicons/react';
 import {
+  useId,
   useRef,
   type ComponentProps,
   type HTMLAttributes,
   type ReactNode,
   type RefObject,
 } from 'react';
-import { PiCheck, PiClipboard } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -81,6 +83,7 @@ export function CodeBlock({
   Actions = DefaultActions,
   ...props
 }: CodeBlockProps) {
+  const captionId = useId();
   const areaRef = useRef<HTMLDivElement>(null);
   const {
     className: viewportClassNameProp,
@@ -126,7 +129,9 @@ export function CodeBlock({
           ) : (
             icon
           )}
-          <figcaption className="flex-1 truncate">{title}</figcaption>
+          <figcaption className="flex-1 truncate" id={captionId}>
+            {title}
+          </figcaption>
           {Actions({
             className: '-me-2',
             children: allowCopy && <CopyButton containerRef={areaRef} />,
@@ -154,6 +159,9 @@ export function CodeBlock({
         viewportProps={{
           ref: areaRef,
           role: 'region',
+          ...(title
+            ? { 'aria-labelledby': captionId }
+            : { 'aria-label': 'Code example' }),
           ...viewportPropsRest,
           style: {
             // space for toolbar
@@ -196,7 +204,14 @@ function CopyButton({
       size="xs"
       isLabelHidden={true}
       label={checked ? 'Copied' : 'Copy code'}
-      icon={checked ? <PiCheck /> : <PiClipboard />}
+      icon={
+        <MorphIcon
+          icon={checked ? Check : Clipboard}
+          reducedMotion="user"
+          size="100%"
+          spring="snappy"
+        />
+      }
       tooltip={checked ? 'Copied!' : 'Copy code'}
       onClick={onClick}
       className={className}

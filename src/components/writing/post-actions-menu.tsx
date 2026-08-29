@@ -1,40 +1,24 @@
 'use client';
 
-import {
-  Popover,
-  type PopoverRootChangeEventDetails,
-} from '@base-ui/react/popover';
-import { type RefObject, useMemo } from 'react';
-import {
-  PiArrowSquareOut,
-  PiGithubLogo,
-  PiMarkdownLogo,
-  PiOpenAiLogo,
-} from 'react-icons/pi';
-import { SiClaude } from 'react-icons/si';
+import { Menu } from '@base-ui/react/menu';
+import { SquareArrowOutUpRight } from 'lucide-react';
+import { useMemo } from 'react';
 
+import {
+  ClaudeIcon,
+  GitHubIcon,
+  MarkdownIcon,
+  OpenAiIcon,
+} from '@/components/icons/brand-icons';
 import { cn } from '@/lib/utils';
 
 type Props = Readonly<{
-  anchor: RefObject<HTMLElement | null>;
-  open: boolean;
-  onOpenChange: (
-    open: boolean,
-    eventDetails: PopoverRootChangeEventDetails,
-  ) => void;
   markdownUrl: string;
   githubUrl: string;
   pageUrl: string;
 }>;
 
-export function PostActionsMenu({
-  anchor,
-  open,
-  onOpenChange,
-  markdownUrl,
-  githubUrl,
-  pageUrl,
-}: Props) {
+export function PostActionsMenu({ markdownUrl, githubUrl, pageUrl }: Props) {
   const aiLinks = useMemo(() => {
     const query = `Read ${pageUrl}, I want to ask questions about it.`;
     return {
@@ -45,54 +29,47 @@ export function PostActionsMenu({
   }, [pageUrl]);
 
   return (
-    <Popover.Root open={open} onOpenChange={onOpenChange}>
-      <Popover.Portal>
-        <Popover.Positioner
-          anchor={anchor}
-          sideOffset={6}
-          align="end"
-          className="z-50"
+    <Menu.Portal>
+      <Menu.Positioner sideOffset={6} align="end" className="z-50">
+        <Menu.Popup
+          className={cn(
+            'flex min-w-52 flex-col origin-(--transform-origin)',
+            'p-1',
+            'rounded-lg border border-border shadow-lg',
+            'bg-popover text-popover-foreground',
+            'transition-[transform,scale,opacity]',
+            'data-starting-style:scale-95 data-starting-style:opacity-0',
+            'data-ending-style:scale-95 data-ending-style:opacity-0',
+          )}
         >
-          <Popover.Popup
-            className={cn(
-              'flex min-w-52 flex-col origin-(--transform-origin)',
-              'p-1',
-              'rounded-lg border border-border shadow-lg',
-              'bg-popover text-popover-foreground',
-              'transition-[transform,scale,opacity]',
-              'data-starting-style:scale-95 data-starting-style:opacity-0',
-              'data-ending-style:scale-95 data-ending-style:opacity-0',
-            )}
-          >
-            <MenuLink
-              href={githubUrl}
-              label="Open in GitHub"
-              icon={<PiGithubLogo />}
-            />
-            <MenuLink
-              href={markdownUrl}
-              label="View as Markdown"
-              icon={<PiMarkdownLogo />}
-            />
-            <MenuLink
-              href={aiLinks.chatgpt}
-              label="Open in ChatGPT"
-              icon={<PiOpenAiLogo />}
-            />
-            <MenuLink
-              href={aiLinks.claude}
-              label="Open in Claude"
-              icon={<SiClaude />}
-            />
-            <MenuLink
-              href={aiLinks.cursor}
-              label="Open in Cursor"
-              icon={<CursorIcon />}
-            />
-          </Popover.Popup>
-        </Popover.Positioner>
-      </Popover.Portal>
-    </Popover.Root>
+          <MenuLink
+            href={githubUrl}
+            label="Open in GitHub"
+            icon={<GitHubIcon />}
+          />
+          <MenuLink
+            href={markdownUrl}
+            label="View as Markdown"
+            icon={<MarkdownIcon />}
+          />
+          <MenuLink
+            href={aiLinks.chatgpt}
+            label="Open in ChatGPT"
+            icon={<OpenAiIcon />}
+          />
+          <MenuLink
+            href={aiLinks.claude}
+            label="Open in Claude"
+            icon={<ClaudeIcon />}
+          />
+          <MenuLink
+            href={aiLinks.cursor}
+            label="Open in Cursor"
+            icon={<CursorIcon />}
+          />
+        </Menu.Popup>
+      </Menu.Positioner>
+    </Menu.Portal>
   );
 }
 
@@ -102,8 +79,10 @@ function MenuLink({
   icon,
 }: Readonly<{ href: string; label: string; icon: React.ReactNode }>) {
   return (
-    <a
+    <Menu.LinkItem
+      closeOnClick={true}
       href={href}
+      label={label}
       target="_blank"
       rel="noreferrer noopener"
       className={cn(
@@ -112,8 +91,10 @@ function MenuLink({
         'rounded-md',
         'text-sm',
         'text-foreground',
+        'outline-none',
         'transition-colors',
-        'hover:bg-muted focus-visible:bg-muted focus-visible:outline-none',
+        'hover:bg-muted focus-visible:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-popover',
+        'data-highlighted:bg-muted',
       )}
     >
       <span className="inline-flex items-center gap-x-2.5">
@@ -124,14 +105,15 @@ function MenuLink({
           {icon}
         </span>
         <span>{label}</span>
+        <span className="sr-only"> (opens in a new tab)</span>
       </span>
       <span
         aria-hidden="true"
         className="inline-flex size-3.5 items-center justify-center text-muted-foreground"
       >
-        <PiArrowSquareOut />
+        <SquareArrowOutUpRight />
       </span>
-    </a>
+    </Menu.LinkItem>
   );
 }
 

@@ -4,7 +4,7 @@ publishedAt: '2021-09-14'
 summary: 'This is a walk-through of how to implement an email contact form with Next.js and Nodemailer'
 ---
 
-![Contact Form in Nextjs with Nodemailer](/images/blog/nextjs-with-nodemailer/banner.webp)
+![](/images/blog/nextjs-with-nodemailer/banner.webp)
 
 ## Introduction
 
@@ -385,16 +385,16 @@ You can use your personal Gmail account if you want. But, I will suggest you cre
 
 You can go ahead and create the Gmail account by yourself like we do normally.
 
-![Manage Google Account](/images/blog/nextjs-with-nodemailer/img1.webp)
+![Gmail account menu with the Manage your Google Account button](/images/blog/nextjs-with-nodemailer/img1.webp)
 After creating the account, go to _Manage Google Account_, then go to _Security_
 option and configure the 2-Step Verification. If you have configured from before,
 then you will see the _App passwords_ option.
 
-![2 Step Verification](/images/blog/nextjs-with-nodemailer/img2.webp)
-![App passwords](/images/blog/nextjs-with-nodemailer/img3.webp)
+![Google Account Security page showing 2-Step Verification turned off](/images/blog/nextjs-with-nodemailer/img2.webp)
+![Google Account Security page showing 2-Step Verification on and the App passwords option](/images/blog/nextjs-with-nodemailer/img3.webp)
 Click on App passwords and select the options as below image.
 
-![App passwords options](/images/blog/nextjs-with-nodemailer/img4.webp)
+![Google App passwords form with Mail and Windows Computer selected](/images/blog/nextjs-with-nodemailer/img4.webp)
 Then, we will get your password which is going to be your `SMTP_PASSWORD`. And your
 `SMTP_USER` will be that Gmail address.
 
@@ -420,11 +420,11 @@ see how can we set the environment variables in Vercel.
 
 In Vercel, go to your Project settings and then go to the Environment Variables option from the left.
 
-![Vercel Project settings](/images/blog/nextjs-with-nodemailer/img5.webp)
+![Vercel Project Settings page showing the General settings](/images/blog/nextjs-with-nodemailer/img5.webp)
 
 Then, you have to provide the name and value for that environment variables `SMTP_USER` and `SMTP_PASSWORD` like below image.
 
-![Vercel Environment variables](/images/blog/nextjs-with-nodemailer/img6.webp)
+![Vercel Environment Variables form with SMTP_USER configured for all environments](/images/blog/nextjs-with-nodemailer/img6.webp)
 
 After adding the environment variables, make sure to redeploy the project. Otherwise, it won't work.
 

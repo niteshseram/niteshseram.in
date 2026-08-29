@@ -10,8 +10,8 @@ import {
   CommandList as CmdkList,
   Command as CmdkRoot,
 } from 'cmdk';
+import { Search } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
-import { PiMagnifyingGlass } from 'react-icons/pi';
 
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
@@ -102,7 +102,7 @@ export function CommandInput({
         'border-b border-border',
       )}
     >
-      <PiMagnifyingGlass
+      <Search
         aria-hidden="true"
         aria-busy={loading || undefined}
         className={cn(

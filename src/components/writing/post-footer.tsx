@@ -1,4 +1,4 @@
-import { PiArrowLeft, PiArrowRight } from 'react-icons/pi';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 import { Anchor } from '@/components/ui/anchor';
 import { cn } from '@/lib/utils';
@@ -31,7 +31,7 @@ export function PostFooter({ prev, next }: Props) {
               'text-muted-foreground',
             )}
           >
-            <PiArrowLeft aria-hidden="true" className="size-3" />
+            <ArrowLeft aria-hidden="true" className="size-3" />
             Previous
           </span>
           <span
@@ -67,7 +67,7 @@ export function PostFooter({ prev, next }: Props) {
             )}
           >
             Next
-            <PiArrowRight aria-hidden="true" className="size-3" />
+            <ArrowRight aria-hidden="true" className="size-3" />
           </span>
           <span
             className={cn(

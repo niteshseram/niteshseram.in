@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect, useReducer, useRef } from 'react';
 import {
-  PiArrowCounterClockwise,
-  PiArrowDown,
-  PiArrowLeft,
-  PiArrowRight,
-  PiArrowUp,
-  PiDiamondFill,
-  PiHouseSimpleFill,
-} from 'react-icons/pi';
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  Diamond,
+  House,
+  RotateCcw,
+} from 'lucide-react';
+import { useReducer, useRef } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -91,28 +91,7 @@ export function WanderHomeGame() {
   const statusMessage = hasWon
     ? `Made it home in ${formatMoveCount(gameState.moves)}.`
     : gameState.announcement ||
-      'Use arrow keys or WASD anywhere. You can also swipe.';
-
-  useEffect(() => {
-    function handleWindowKeyDown(event: KeyboardEvent) {
-      if (event.altKey || event.ctrlKey || event.metaKey) {
-        return;
-      }
-
-      const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
-      const direction = KEY_DIRECTIONS[key];
-
-      if (direction == null || isEditableTarget(event.target)) {
-        return;
-      }
-
-      event.preventDefault();
-      dispatch({ direction, type: 'move' });
-    }
-
-    window.addEventListener('keydown', handleWindowKeyDown);
-    return () => window.removeEventListener('keydown', handleWindowKeyDown);
-  }, []);
+      'Focus the maze, then use arrow keys or WASD. You can also swipe.';
 
   function move(direction: Direction) {
     dispatch({ direction, type: 'move' });
@@ -123,6 +102,7 @@ export function WanderHomeGame() {
   }
 
   function handlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
+    event.currentTarget.focus();
     pointerStartRef.current = {
       pointerId: event.pointerId,
       x: event.clientX,
@@ -159,6 +139,22 @@ export function WanderHomeGame() {
     pointerStartRef.current = null;
   }
 
+  function handleBoardKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    if (event.altKey || event.ctrlKey || event.metaKey) {
+      return;
+    }
+
+    const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+    const direction = KEY_DIRECTIONS[key];
+
+    if (direction == null) {
+      return;
+    }
+
+    event.preventDefault();
+    move(direction);
+  }
+
   return (
     <section
       aria-labelledby="wander-home-title"
@@ -185,13 +181,14 @@ export function WanderHomeGame() {
               'text-muted-foreground',
             )}
           >
-            Collect the fragments, then find home.
+            Focus the maze, collect the fragments, then find home. Use arrow
+            keys or WASD to move.
           </p>
         </div>
         <Button
           addonPosition="start"
           className={cn('shrink-0', 'bg-background')}
-          icon={<PiArrowCounterClockwise />}
+          icon={<RotateCcw />}
           label="Reset"
           onClick={reset}
           size="xs"
@@ -221,12 +218,16 @@ export function WanderHomeGame() {
           'mx-3 mt-3 p-2 sm:mx-4 sm:p-3',
           'rounded-xl',
           'bg-background',
-          'touch-none select-none',
+          'touch-none select-none outline-none',
+          'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface',
         )}
+        onKeyDown={handleBoardKeyDown}
         onPointerCancel={handlePointerCancel}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
-        role="group"
+        role="application"
+        // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- The game only captures movement keys while this board has focus.
+        tabIndex={0}
       >
         {MAZE.flatMap((row, rowIndex) =>
           Array.from(row).map((cell, columnIndex) => {
@@ -250,9 +251,10 @@ export function WanderHomeGame() {
                 key={key}
               >
                 {isGoal && (
-                  <PiHouseSimpleFill
+                  <House
                     className={cn(
                       'absolute size-[46%]',
+                      'fill-current',
                       collectedCount === FRAGMENT_KEYS.length
                         ? 'text-brand'
                         : 'text-muted-foreground/45',
@@ -260,8 +262,11 @@ export function WanderHomeGame() {
                   />
                 )}
                 {cell === 'F' && !isCollected && (
-                  <PiDiamondFill
-                    className={cn('absolute size-[34%]', 'text-brand')}
+                  <Diamond
+                    className={cn(
+                      'absolute size-[34%]',
+                      'fill-current text-brand',
+                    )}
                   />
                 )}
                 {hasPlayer && (
@@ -312,7 +317,7 @@ export function WanderHomeGame() {
           <span aria-hidden="true" className="size-10" />
           <Button
             disabled={hasWon || !canMove(gameState.playerPosition, 'up')}
-            icon={<PiArrowUp />}
+            icon={<ArrowUp />}
             isLabelHidden={true}
             label="Move up"
             onClick={() => move('up')}
@@ -323,7 +328,7 @@ export function WanderHomeGame() {
           <span aria-hidden="true" className="size-10" />
           <Button
             disabled={hasWon || !canMove(gameState.playerPosition, 'left')}
-            icon={<PiArrowLeft />}
+            icon={<ArrowLeft />}
             isLabelHidden={true}
             label="Move left"
             onClick={() => move('left')}
@@ -333,7 +338,7 @@ export function WanderHomeGame() {
           />
           <Button
             disabled={hasWon || !canMove(gameState.playerPosition, 'down')}
-            icon={<PiArrowDown />}
+            icon={<ArrowDown />}
             isLabelHidden={true}
             label="Move down"
             onClick={() => move('down')}
@@ -343,7 +348,7 @@ export function WanderHomeGame() {
           />
           <Button
             disabled={hasWon || !canMove(gameState.playerPosition, 'right')}
-            icon={<PiArrowRight />}
+            icon={<ArrowRight />}
             isLabelHidden={true}
             label="Move right"
             onClick={() => move('right')}
@@ -421,16 +426,6 @@ function formatMoveCount(moveCount: number) {
 function canMove(position: Position, direction: Direction) {
   const nextCell = getCell(positionAfterMove(position, direction));
   return nextCell != null && nextCell !== '#';
-}
-
-function isEditableTarget(target: EventTarget | null) {
-  return (
-    target instanceof HTMLElement &&
-    (target.isContentEditable ||
-      target instanceof HTMLInputElement ||
-      target instanceof HTMLSelectElement ||
-      target instanceof HTMLTextAreaElement)
-  );
 }
 
 function positionAfterMove(position: Position, direction: Direction) {

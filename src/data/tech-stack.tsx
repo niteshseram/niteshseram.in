@@ -1,17 +1,19 @@
-import type { ComponentType, SVGProps } from 'react';
+import type { SVGProps } from 'react';
+
 import {
-  SiJavascript,
-  SiNextdotjs,
-  SiPrisma,
-  SiReact,
-  SiReactquery,
-  SiSupabase,
-  SiTailwindcss,
-  SiTrpc,
-  SiTurborepo,
-  SiTypescript,
-  SiZod,
-} from 'react-icons/si';
+  JavaScriptIcon,
+  NextJsIcon,
+  PrismaIcon,
+  ReactIcon,
+  ReactQueryIcon,
+  SupabaseIcon,
+  TailwindCssIcon,
+  TrpcIcon,
+  TurborepoIcon,
+  TypeScriptIcon,
+  ZodIcon,
+} from '@/components/icons/brand-icons';
+import type { IconComponent } from '@/lib/icon-types';
 
 function BaseUIIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -29,7 +31,7 @@ function BaseUIIcon(props: SVGProps<SVGSVGElement>) {
 
 export type TechStack = {
   label: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  icon: IconComponent;
 };
 
 export type TechStackGroup = {
@@ -41,33 +43,33 @@ export const TECH_STACK_GROUPS: TechStackGroup[] = [
   {
     label: 'Frontend',
     items: [
-      { label: 'React', icon: SiReact },
-      { label: 'Next.js', icon: SiNextdotjs },
-      { label: 'Tailwind', icon: SiTailwindcss },
+      { label: 'React', icon: ReactIcon },
+      { label: 'Next.js', icon: NextJsIcon },
+      { label: 'Tailwind', icon: TailwindCssIcon },
       { label: 'Base UI', icon: BaseUIIcon },
-      { label: 'React Query', icon: SiReactquery },
+      { label: 'React Query', icon: ReactQueryIcon },
     ],
   },
   {
     label: 'Languages',
     items: [
-      { label: 'TypeScript', icon: SiTypescript },
-      { label: 'JavaScript', icon: SiJavascript },
+      { label: 'TypeScript', icon: TypeScriptIcon },
+      { label: 'JavaScript', icon: JavaScriptIcon },
     ],
   },
   {
     label: 'Backend',
     items: [
-      { label: 'tRPC', icon: SiTrpc },
-      { label: 'Prisma', icon: SiPrisma },
-      { label: 'Supabase', icon: SiSupabase },
+      { label: 'tRPC', icon: TrpcIcon },
+      { label: 'Prisma', icon: PrismaIcon },
+      { label: 'Supabase', icon: SupabaseIcon },
     ],
   },
   {
     label: 'Tooling',
     items: [
-      { label: 'Zod', icon: SiZod },
-      { label: 'Turborepo', icon: SiTurborepo },
+      { label: 'Zod', icon: ZodIcon },
+      { label: 'Turborepo', icon: TurborepoIcon },
     ],
   },
 ];

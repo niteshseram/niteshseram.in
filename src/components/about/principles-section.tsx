@@ -5,25 +5,40 @@ import { cn } from '@/lib/utils';
 export function PrinciplesSection() {
   return (
     <ContentSection ariaLabel="Principles" title="Principles">
-      <ol className="flex flex-col gap-y-7">
-        {PRINCIPLES.map((principle, index) => (
+      <ol className={cn('border-y', 'border-border/55')}>
+        {PRINCIPLES.map((principle, principleIndex) => (
           <li
             key={principle.hash}
-            className="grid gap-3 sm:grid-cols-[2.5rem_1fr] sm:gap-5"
+            className={cn(
+              'grid grid-cols-[2rem_minmax(0,1fr)] gap-x-3',
+              'px-3 py-5',
+              principleIndex > 0 ? 'border-t' : '',
+              'border-border/55',
+            )}
           >
             <span
               aria-hidden="true"
               className={cn(
-                'font-mono text-xs tabular-nums',
-                'text-muted-foreground',
+                'pt-0.5',
+                'font-mono text-[0.6875rem] font-medium tabular-nums',
+                'text-brand',
               )}
             >
-              {String(index + 1).padStart(2, '0')}
+              {String(principleIndex + 1).padStart(2, '0')}
             </span>
             <div>
+              <p
+                className={cn(
+                  'font-mono text-[0.625rem] font-medium tracking-[0.1em] uppercase',
+                  'text-muted-foreground',
+                )}
+              >
+                {principle.type}
+              </p>
               <h3
                 className={cn(
-                  'text-[1.0625rem] font-medium leading-6 tracking-[-0.012em]',
+                  'mt-2',
+                  'text-[1.0625rem] font-semibold leading-6 tracking-[-0.012em]',
                   'text-foreground',
                 )}
               >
@@ -31,9 +46,9 @@ export function PrinciplesSection() {
               </h3>
               <p
                 className={cn(
-                  'max-w-[56ch]',
+                  'max-w-[54ch]',
                   'mt-1.5',
-                  'text-[0.9375rem] leading-6',
+                  'text-sm leading-6',
                   'text-muted-foreground',
                 )}
               >

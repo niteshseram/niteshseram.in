@@ -9,8 +9,11 @@ import { cn } from '@/lib/utils';
 
 export type Props<RouteType> = LinkProps &
   Readonly<{
+    'aria-label'?: string;
     children?: React.ReactNode;
     className?: string;
+    onPointerDown?: React.PointerEventHandler<HTMLAnchorElement>;
+    onPointerLeave?: React.PointerEventHandler<HTMLAnchorElement>;
     rel?: string;
     target?: HTMLAttributeAnchorTarget;
     variant?: AnchorVariant;
@@ -20,6 +23,7 @@ export type Props<RouteType> = LinkProps &
   }>;
 
 export function Anchor<RouteType>({
+  'aria-label': ariaLabelProp,
   children,
   className: classNameProp,
   href,
@@ -35,18 +39,27 @@ export function Anchor<RouteType>({
   const usesNativeAnchor =
     typeof href === 'string' && /^(https?:|mailto:|tel:)/.test(href);
 
-  const rel = relProp ?? (isExternalURL ? 'noreferrer noopener' : undefined);
+  const target = targetProp ?? (isExternalURL ? '_blank' : undefined);
+  const opensInNewTab = target === '_blank';
+  const rel = relProp ?? (opensInNewTab ? 'noreferrer noopener' : undefined);
+  const ariaLabel =
+    opensInNewTab && ariaLabelProp
+      ? `${ariaLabelProp} (opens in a new tab)`
+      : ariaLabelProp;
+  const newTabDescription =
+    opensInNewTab && !ariaLabelProp ? (
+      <span className="sr-only"> (opens in a new tab)</span>
+    ) : null;
   const className = anchorVariants({
     className: cn(classNameProp),
     variant,
     weight,
   });
 
-  const target = targetProp ?? (isExternalURL ? '_blank' : undefined);
-
   if (usesNativeAnchor) {
     return (
       <a
+        aria-label={ariaLabel}
         ref={ref}
         className={className}
         href={href}
@@ -56,12 +69,14 @@ export function Anchor<RouteType>({
         {...props}
       >
         {children}
+        {newTabDescription}
       </a>
     );
   }
 
   return (
     <Link
+      aria-label={ariaLabel}
       ref={ref}
       className={className}
       href={href}
@@ -71,6 +86,7 @@ export function Anchor<RouteType>({
       {...props}
     >
       {children}
+      {newTabDescription}
     </Link>
   );
 }

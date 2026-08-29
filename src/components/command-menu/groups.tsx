@@ -1,16 +1,16 @@
-import type { IconType } from 'react-icons';
-import { PiArrowSquareOut, PiFileText } from 'react-icons/pi';
+import { FileText, SquareArrowOutUpRight } from 'lucide-react';
 
 import { CommandItem, CommandItemIcon } from '@/components/ui/command';
 import { navItems } from '@/config/nav';
 import { THEMES } from '@/config/theme';
 import { SOCIAL_LINKS } from '@/data/social-links';
+import type { IconComponent } from '@/lib/icon-types';
 import type { PostIndexEntry } from '@/lib/writing';
 
 export type CommandItemDef = Readonly<{
   id: string;
   label: string;
-  icon: IconType;
+  icon: IconComponent;
   keywords?: string[];
   external?: boolean;
   run: () => void;
@@ -58,7 +58,7 @@ export function buildGroups({
       items: posts.map((post) => ({
         id: `post-${post.slug}`,
         label: post.title,
-        icon: PiFileText,
+        icon: FileText,
         keywords: ['blog', 'post', 'writing', post.slug.replace(/-/g, ' ')],
         run: () => navigate(post.url),
       })),
@@ -99,7 +99,7 @@ export function CommandEntryRow({
       </CommandItemIcon>
       <span className="flex-1 truncate">{item.label}</span>
       {item.external && (
-        <PiArrowSquareOut
+        <SquareArrowOutUpRight
           aria-hidden="true"
           className="size-3.5 shrink-0 opacity-60"
         />

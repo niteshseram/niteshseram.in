@@ -1,6 +1,6 @@
+import { AppearanceToggle } from '@/components/appearance-toggle';
 import { CommandMenu } from '@/components/command-menu';
 import { Logo } from '@/components/logo';
-import { ThemeSwitcher } from '@/components/theme-switcher';
 import { Anchor } from '@/components/ui/anchor';
 import { cn } from '@/lib/utils';
 import type { PostIndexEntry } from '@/lib/writing';
@@ -40,7 +40,7 @@ export function Navbar({ posts }: Props) {
         <div className={cn('flex items-center gap-x-1.5', 'ml-auto')}>
           <NavLinks />
           <CommandMenu posts={posts} />
-          <ThemeSwitcher />
+          <AppearanceToggle />
         </div>
       </div>
     </header>

@@ -1,5 +1,5 @@
 import type { ClassValue } from 'clsx';
-import { PiArrowUpRight } from 'react-icons/pi';
+import { ArrowUpRight } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
@@ -30,7 +30,7 @@ export function ExternalLinkArrow({ className }: Props) {
         className,
       )}
     >
-      <PiArrowUpRight className="size-4" />
+      <ArrowUpRight className="size-4" />
     </span>
   );
 }

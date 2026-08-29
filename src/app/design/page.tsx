@@ -1,20 +1,19 @@
+import {
+  ArrowUpRight,
+  FilePenLine,
+  House,
+  Monitor,
+  Moon,
+  Plus,
+  SquareArrowOutUpRight,
+  Sun,
+  User,
+} from 'lucide-react';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import {
-  PiArrowSquareOut,
-  PiArrowUpRight,
-  PiDesktop,
-  PiGithubLogo,
-  PiHouse,
-  PiMoon,
-  PiNotePencil,
-  PiPlus,
-  PiSun,
-  PiUser,
-  PiXLogo,
-} from 'react-icons/pi';
 
-import { ThemeSwitcher } from '@/components/theme-switcher';
+import { AppearanceToggle } from '@/components/appearance-toggle';
+import { GitHubIcon, XIcon } from '@/components/icons/brand-icons';
 import { Anchor } from '@/components/ui/anchor';
 import type { AnchorVariant, AnchorWeight } from '@/components/ui/anchor';
 import { Button } from '@/components/ui/button';
@@ -191,7 +190,7 @@ function DesignHeader() {
           across the site.
         </p>
       </div>
-      <ThemeSwitcher />
+      <AppearanceToggle />
     </header>
   );
 }
@@ -269,7 +268,7 @@ function ButtonsSection() {
               {buttonSizes.map((size) => (
                 <Button
                   key={size}
-                  icon={<PiPlus />}
+                  icon={<Plus />}
                   isLabelHidden={true}
                   label={`Add (${size})`}
                   size={size}
@@ -280,14 +279,14 @@ function ButtonsSection() {
             <DemoRow label="With addon">
               <Button
                 addonPosition="start"
-                icon={<PiPlus />}
+                icon={<Plus />}
                 label="Leading icon"
                 size="md"
                 variant={variant}
               />
               <Button
                 addonPosition="end"
-                icon={<PiArrowUpRight />}
+                icon={<ArrowUpRight />}
                 label="Trailing icon"
                 size="md"
                 variant={variant}
@@ -301,7 +300,7 @@ function ButtonsSection() {
             <Button label="Send an email" size="xl" variant="brand" />
             <Button
               addonPosition="start"
-              icon={<PiPlus />}
+              icon={<Plus />}
               label="Follow along"
               size="lg"
               variant="outline"
@@ -481,19 +480,19 @@ function CommandSection() {
             <CommandGroup heading="Navigation">
               <CommandItem value="home">
                 <CommandItemIcon>
-                  <PiHouse aria-hidden="true" />
+                  <House aria-hidden="true" />
                 </CommandItemIcon>
                 <span className="flex-1 truncate">Home</span>
               </CommandItem>
               <CommandItem value="about">
                 <CommandItemIcon>
-                  <PiUser aria-hidden="true" />
+                  <User aria-hidden="true" />
                 </CommandItemIcon>
                 <span className="flex-1 truncate">About</span>
               </CommandItem>
               <CommandItem value="writing">
                 <CommandItemIcon>
-                  <PiNotePencil aria-hidden="true" />
+                  <FilePenLine aria-hidden="true" />
                 </CommandItemIcon>
                 <span className="flex-1 truncate">Writing</span>
               </CommandItem>
@@ -501,19 +500,19 @@ function CommandSection() {
             <CommandGroup heading="Theme">
               <CommandItem value="light">
                 <CommandItemIcon>
-                  <PiSun aria-hidden="true" />
+                  <Sun aria-hidden="true" />
                 </CommandItemIcon>
                 <span className="flex-1 truncate">Light</span>
               </CommandItem>
               <CommandItem value="dark">
                 <CommandItemIcon>
-                  <PiMoon aria-hidden="true" />
+                  <Moon aria-hidden="true" />
                 </CommandItemIcon>
                 <span className="flex-1 truncate">Dark</span>
               </CommandItem>
               <CommandItem value="system">
                 <CommandItemIcon>
-                  <PiDesktop aria-hidden="true" />
+                  <Monitor aria-hidden="true" />
                 </CommandItemIcon>
                 <span className="flex-1 truncate">System</span>
               </CommandItem>
@@ -521,20 +520,20 @@ function CommandSection() {
             <CommandGroup heading="Social">
               <CommandItem value="github">
                 <CommandItemIcon>
-                  <PiGithubLogo aria-hidden="true" />
+                  <GitHubIcon aria-hidden="true" />
                 </CommandItemIcon>
                 <span className="flex-1 truncate">GitHub</span>
-                <PiArrowSquareOut
+                <SquareArrowOutUpRight
                   aria-hidden="true"
                   className="size-3.5 shrink-0 opacity-60"
                 />
               </CommandItem>
               <CommandItem value="twitter">
                 <CommandItemIcon>
-                  <PiXLogo aria-hidden="true" />
+                  <XIcon aria-hidden="true" />
                 </CommandItemIcon>
                 <span className="flex-1 truncate">X / Twitter</span>
-                <PiArrowSquareOut
+                <SquareArrowOutUpRight
                   aria-hidden="true"
                   className="size-3.5 shrink-0 opacity-60"
                 />

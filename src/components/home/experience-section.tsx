@@ -1,9 +1,7 @@
+import { ArrowUpRight } from 'lucide-react';
+
 import { Anchor } from '@/components/ui/anchor';
 import { ContentSection } from '@/components/ui/content-section';
-import {
-  ExternalLinkArrow,
-  externalLinkTitleClassName,
-} from '@/components/ui/external-link-row';
 import { EXPERIENCES } from '@/data/experience';
 import { cn } from '@/lib/utils';
 
@@ -14,20 +12,30 @@ export function ExperienceSection() {
       ariaLabel="Experience"
       title="Work experience"
     >
-      <ol className="flex flex-col gap-y-9">
-        {EXPERIENCES.map((experience) => (
+      <ol className={cn('flex flex-col gap-y-10')}>
+        {EXPERIENCES.map((experience, experienceIndex) => (
           <li key={experience.company}>
             <div
               className={cn(
-                'flex items-start justify-between gap-4 relative',
-                'group/external-link',
+                'grid grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-x-3',
+                'pb-3',
+                'border-b',
+                'border-border/55',
               )}
             >
+              <span
+                aria-hidden="true"
+                className={cn(
+                  'font-mono text-[0.6875rem] font-medium tabular-nums',
+                  'text-brand',
+                )}
+              >
+                {String(experienceIndex + 1).padStart(2, '0')}
+              </span>
               <h3
                 className={cn(
-                  'text-[1.0625rem] font-medium leading-6 tracking-[-0.012em]',
+                  'text-base font-semibold leading-6 tracking-[-0.012em]',
                   'text-foreground',
-                  externalLinkTitleClassName,
                 )}
               >
                 {experience.company}
@@ -36,21 +44,43 @@ export function ExperienceSection() {
                 <Anchor
                   href={experience.href}
                   aria-label={`Visit ${experience.company}`}
-                  className="absolute inset-0 z-10"
+                  className={cn(
+                    'inline-flex items-center gap-1',
+                    'text-xs',
+                    'text-muted-foreground',
+                    'hover:text-foreground',
+                  )}
                   variant="unstyled"
-                  weight="inherit"
-                />
+                  weight="normal"
+                >
+                  Company
+                  <ArrowUpRight aria-hidden="true" className="size-3.5" />
+                </Anchor>
               ) : null}
-              {experience.href ? <ExternalLinkArrow /> : null}
             </div>
-            <ul className={cn('flex flex-col gap-y-5', 'mt-4')}>
+
+            <ol className={cn('flex flex-col gap-y-6', 'mt-5')}>
               {experience.roles.map((role) => (
-                <li key={role.title + role.start}>
-                  <div
+                <li
+                  key={role.title + role.start}
+                  className={cn(
+                    'grid grid-cols-1 gap-x-5 sm:grid-cols-[6.5rem_minmax(0,1fr)]',
+                    'pl-11',
+                  )}
+                >
+                  <span
                     className={cn(
-                      'flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-5',
+                      'hidden sm:block',
+                      'pt-0.5',
+                      'text-[0.6875rem] font-medium leading-5 tabular-nums',
+                      role.current ? 'text-brand' : 'text-muted-foreground',
                     )}
                   >
+                    {role.start}
+                    <br />
+                    {role.end}
+                  </span>
+                  <article>
                     <h4
                       className={cn(
                         'text-[0.9375rem] font-medium leading-5',
@@ -61,29 +91,28 @@ export function ExperienceSection() {
                     </h4>
                     <span
                       className={cn(
-                        'shrink-0',
-                        'text-xs tabular-nums',
-                        role.current
-                          ? 'text-foreground'
-                          : 'text-muted-foreground',
+                        'sm:hidden',
+                        'mt-1',
+                        'text-[0.6875rem] font-medium leading-4 tabular-nums',
+                        role.current ? 'text-brand' : 'text-muted-foreground',
                       )}
                     >
                       {role.start} — {role.end}
                     </span>
-                  </div>
-                  <p
-                    className={cn(
-                      'max-w-[56ch]',
-                      'mt-1.5',
-                      'text-[0.9375rem] leading-6',
-                      'text-muted-foreground',
-                    )}
-                  >
-                    {role.brief}
-                  </p>
+                    <p
+                      className={cn(
+                        'max-w-[47ch]',
+                        'mt-1.5',
+                        'text-sm leading-6',
+                        'text-muted-foreground',
+                      )}
+                    >
+                      {role.brief}
+                    </p>
+                  </article>
                 </li>
               ))}
-            </ul>
+            </ol>
           </li>
         ))}
       </ol>

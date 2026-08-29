@@ -20,7 +20,7 @@ export const EXPERIENCES: ExperienceCompany[] = [
       {
         title: 'Senior Software Engineer',
         brief:
-          'Building the consumer frontend for Socialmon — an AI-powered marketing intelligence product — from early product work through launch.',
+          'Building the consumer frontend for Socialmon — an AI-powered marketing intelligence product — from early product decisions through implementation.',
         start: 'Mar 2026',
         end: 'Present',
         current: true,

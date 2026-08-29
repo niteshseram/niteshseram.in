@@ -5,45 +5,69 @@ import { cn } from '@/lib/utils';
 export function TimelineSection() {
   return (
     <ContentSection ariaLabel="Timeline" title="How I got here">
-      <ol className="flex flex-col gap-y-9">
-        {TIMELINE.map((group) => (
-          <li
-            key={group.year}
-            className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-4"
-          >
+      <ol className={cn('flex flex-col gap-y-10')}>
+        {TIMELINE.map((group, groupIndex) => (
+          <li key={group.year}>
             <div
               className={cn(
-                'font-mono text-sm font-medium tabular-nums',
-                'text-muted-foreground',
+                'grid grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-x-3',
+                'pb-3',
+                'border-b',
+                'border-border/55',
               )}
             >
-              {group.year}
+              <span
+                aria-hidden="true"
+                className={cn(
+                  'font-mono text-[0.6875rem] font-medium tabular-nums',
+                  'text-brand',
+                )}
+              >
+                {String(groupIndex + 1).padStart(2, '0')}
+              </span>
+              <h3
+                className={cn(
+                  'font-mono text-sm font-semibold tabular-nums',
+                  'text-foreground',
+                )}
+              >
+                {group.year}
+              </h3>
+              <span
+                className={cn(
+                  'font-mono text-[0.625rem] tabular-nums',
+                  'text-muted-foreground',
+                )}
+              >
+                {group.entries.length}{' '}
+                {group.entries.length === 1 ? 'entry' : 'entries'}
+              </span>
             </div>
-            <ul className="flex flex-col gap-y-6">
+            <ul className={cn('flex flex-col gap-y-7', 'mt-5 pl-11')}>
               {group.entries.map((entry) => (
                 <li key={entry.title}>
                   <p
                     className={cn(
-                      'text-[11px] font-medium uppercase tracking-[0.12em]',
-                      'text-muted-foreground',
+                      'font-mono text-[0.625rem] font-medium tracking-[0.1em] uppercase',
+                      'text-brand',
                     )}
                   >
                     {entry.tag}
                   </p>
-                  <h3
+                  <h4
                     className={cn(
-                      'mt-1.5',
-                      'text-base font-medium leading-6 tracking-[-0.01em]',
+                      'mt-2',
+                      'text-base font-semibold leading-6 tracking-[-0.01em]',
                       'text-foreground',
                     )}
                   >
                     {entry.title}
-                  </h3>
+                  </h4>
                   <p
                     className={cn(
-                      'max-w-[56ch]',
+                      'max-w-[54ch]',
                       'mt-1.5',
-                      'text-[0.9375rem] leading-6',
+                      'text-sm leading-6',
                       'text-muted-foreground',
                     )}
                   >
@@ -52,7 +76,7 @@ export function TimelineSection() {
                   {entry.highlights ? (
                     <ul
                       className={cn(
-                        'flex max-w-[56ch] flex-col gap-y-2.5',
+                        'flex max-w-[54ch] flex-col gap-y-2',
                         'mt-3',
                       )}
                     >
@@ -63,8 +87,8 @@ export function TimelineSection() {
                             'relative before:absolute before:top-[0.65em] before:left-0 before:size-1',
                             'pl-4',
                             'before:rounded-full',
-                            'text-sm leading-[1.65]',
-                            'text-muted-foreground before:bg-muted-foreground/55',
+                            'text-sm leading-6',
+                            'text-muted-foreground before:bg-brand/60',
                           )}
                         >
                           {highlight}

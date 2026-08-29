@@ -1,4 +1,4 @@
-import { PiMagnifyingGlass } from 'react-icons/pi';
+import { Search } from 'lucide-react';
 
 import {
   Tooltip,
@@ -26,7 +26,8 @@ export function CommandMenuTrigger({
             onFocus={onPrefetch}
             onTouchStart={onPrefetch}
             className={cn(
-              'inline-flex size-8.5 items-center justify-center',
+              'inline-flex h-8.5 items-center justify-center gap-1.5',
+              'px-2 sm:px-2.5',
               'rounded-full',
               'text-muted-foreground',
               'cursor-pointer',
@@ -34,7 +35,19 @@ export function CommandMenuTrigger({
               'hover:bg-muted hover:text-foreground',
             )}
           >
-            <PiMagnifyingGlass aria-hidden="true" className="size-4 shrink-0" />
+            <Search aria-hidden="true" className="size-4 shrink-0" />
+            <kbd
+              aria-hidden="true"
+              className={cn(
+                'hidden h-5 items-center sm:inline-flex',
+                'px-1',
+                'rounded-sm border',
+                'font-mono text-[0.625rem] leading-none',
+                'bg-muted text-muted-foreground border-border',
+              )}
+            >
+              ⌘K
+            </kbd>
           </button>
         }
       />
@@ -47,7 +60,7 @@ export function CommandMenuTrigger({
               'px-1',
               'rounded-sm border',
               'font-mono text-[11px] leading-none',
-              'border-background/25 bg-background/10 text-background',
+              'border-border bg-muted text-muted-foreground',
             )}
           >
             ⌘K

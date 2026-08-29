@@ -21,7 +21,7 @@ export const TIMELINE: TimelineYear[] = [
           'Promoted to Senior and started building a new consumer product.',
         highlights: [
           'Building the consumer frontend for Socialmon — an AI-powered marketing intelligence platform for discovering, sharing, and saving viral content from LinkedIn, Instagram, and X.',
-          'Working across the consumer product surface, from early product decisions through implementation and launch.',
+          'Working across the consumer product surface, from early product decisions through implementation.',
           'Shaping frontend architecture, component abstractions, and API integration patterns as the product grows.',
           'Tech stack: Next.js, TypeScript, Tailwind, Base UI, Prisma, Supabase, Zod, tRPC, React Query, Cloudflare, Upstash, Motion',
         ],

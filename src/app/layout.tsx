@@ -3,6 +3,7 @@ import Script from 'next/script';
 import { Suspense } from 'react';
 
 import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeSwitcher } from '@/components/theme-switcher';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ATMOSPHERE_INIT_SCRIPT } from '@/config/atmosphere';
 import { AUTHOR, FEED, SITE_DESCRIPTION, SITE_URL } from '@/config/site';
@@ -81,6 +82,7 @@ export default function RootLayout({
           <Suspense>
             <TooltipProvider delay={400} closeDelay={0}>
               {children}
+              <ThemeSwitcher />
             </TooltipProvider>
           </Suspense>
         </ThemeProvider>

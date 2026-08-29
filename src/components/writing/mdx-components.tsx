@@ -161,7 +161,18 @@ export const baseMdxComponents: MDXComponents = {
       >
         Scroll to explore <span aria-hidden="true">→</span>
       </div>
-      <div className="overflow-x-auto">
+      <div
+        aria-label="Scrollable table"
+        role="region"
+        // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Wide tables need a keyboard focus target for horizontal scrolling.
+        tabIndex={0}
+        className={cn(
+          'overflow-x-auto',
+          'rounded-sm',
+          'outline-none',
+          'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+        )}
+      >
         <table
           className={cn(
             'w-full min-w-144 border-separate border-spacing-0',

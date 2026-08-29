@@ -1,9 +1,10 @@
 'use client';
 
-import type { PopoverRootChangeEventDetails } from '@base-ui/react/popover';
+import { Menu } from '@base-ui/react/menu';
+import { Check, ChevronDown, ChevronUp, Copy } from 'lucide';
+import { MorphIcon } from 'morphicons/react';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
-import { PiCaretDown, PiCheck, PiCopy } from 'react-icons/pi';
 
 import { cn } from '@/lib/utils';
 import { useIdlePrefetch } from '@/utils/use-idle-prefetch';
@@ -50,7 +51,6 @@ export function PostActions({ markdownUrl, githubUrl, pageUrl }: Props) {
   const [menuMounted, setMenuMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const copyFeedbackTimerReference = useRef<number | null>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
   const copied = copyStatus === 'copied';
 
   useIdlePrefetch(prefetchMenu);
@@ -85,28 +85,8 @@ export function PostActions({ markdownUrl, githubUrl, pageUrl }: Props) {
     }
   }
 
-  async function toggleMenu() {
-    if (!menuMounted) {
-      await import('./post-actions-menu');
-      setMenuMounted(true);
-      setMenuOpen(true);
-      return;
-    }
-    setMenuOpen(!menuOpen);
-  }
-
-  function handleOpenChange(
-    next: boolean,
-    eventDetails: PopoverRootChangeEventDetails,
-  ) {
-    if (
-      !next &&
-      eventDetails.reason === 'outside-press' &&
-      triggerRef.current?.contains(eventDetails.event.target as Node)
-    ) {
-      eventDetails.cancel();
-      return;
-    }
+  function handleOpenChange(next: boolean) {
+    if (next) setMenuMounted(true);
     setMenuOpen(next);
   }
 
@@ -137,50 +117,61 @@ export function PostActions({ markdownUrl, githubUrl, pageUrl }: Props) {
           aria-hidden="true"
           className="inline-flex size-3.5 items-center justify-center"
         >
-          {copied ? <PiCheck /> : <PiCopy />}
+          <MorphIcon
+            icon={copied ? Check : Copy}
+            reducedMotion="user"
+            size="100%"
+            spring="snappy"
+          />
         </span>
-        <span className="hidden sm:inline">
+        <span className="hidden sm:inline w-[91px]">
           {copied ? 'Copied' : 'Copy Markdown'}
         </span>
       </button>
-      <button
-        ref={triggerRef}
-        type="button"
-        aria-label="Open page in another app"
-        onClick={toggleMenu}
-        onMouseEnter={prefetchMenu}
-        onFocus={prefetchMenu}
-        className={cn(
-          'inline-flex h-8 items-center gap-x-1',
-          'px-2',
-          'rounded-r-md border-l',
-          'text-xs font-medium',
-          menuOpen
-            ? 'border-border text-foreground bg-muted'
-            : 'border-border text-muted-foreground',
-          'cursor-pointer',
-          'transition-colors',
-          'hover:text-foreground hover:bg-muted',
-        )}
-      >
-        <span>Open</span>
-        <span
-          aria-hidden="true"
-          className="inline-flex size-3 items-center justify-center"
-        >
-          <PiCaretDown />
-        </span>
-      </button>
-      {menuMounted && (
-        <PostActionsMenu
-          anchor={triggerRef}
-          open={menuOpen}
-          onOpenChange={handleOpenChange}
-          githubUrl={githubUrl}
-          markdownUrl={markdownUrl}
-          pageUrl={pageUrl}
+      <Menu.Root open={menuOpen} onOpenChange={handleOpenChange}>
+        <Menu.Trigger
+          render={
+            <button
+              type="button"
+              aria-label="Open page in another app"
+              onMouseEnter={prefetchMenu}
+              onFocus={prefetchMenu}
+              className={cn(
+                'inline-flex h-8 items-center gap-x-1',
+                'px-2',
+                'rounded-r-md border-l',
+                'text-xs font-medium',
+                menuOpen
+                  ? 'border-border text-foreground bg-muted'
+                  : 'border-border text-muted-foreground',
+                'cursor-pointer',
+                'transition-colors',
+                'hover:text-foreground hover:bg-muted',
+              )}
+            >
+              <span>Open</span>
+              <span
+                aria-hidden="true"
+                className="inline-flex size-3 items-center justify-center"
+              >
+                <MorphIcon
+                  icon={menuOpen ? ChevronUp : ChevronDown}
+                  reducedMotion="user"
+                  size="100%"
+                  spring="snappy"
+                />
+              </span>
+            </button>
+          }
         />
-      )}
+        {menuMounted && (
+          <PostActionsMenu
+            githubUrl={githubUrl}
+            markdownUrl={markdownUrl}
+            pageUrl={pageUrl}
+          />
+        )}
+      </Menu.Root>
       <span className="sr-only" role="status">
         {copyStatus === 'copied'
           ? 'Page Markdown copied to the clipboard.'

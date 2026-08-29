@@ -1,5 +1,3 @@
-import { ViewTransition } from 'react';
-
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 import { cn } from '@/lib/utils';
@@ -28,19 +26,13 @@ export default function RootLayout({
         Skip to content
       </a>
       <Navbar posts={posts} />
-      <ViewTransition
-        default="none"
-        name="page-content"
-        update="page-transition"
+      <main
+        className={cn('flex-1', 'outline-none')}
+        id="main-content"
+        tabIndex={-1}
       >
-        <main
-          className={cn('flex-1', 'outline-none')}
-          id="main-content"
-          tabIndex={-1}
-        >
-          {children}
-        </main>
-      </ViewTransition>
+        {children}
+      </main>
       <Footer />
     </>
   );

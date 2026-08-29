@@ -4,7 +4,7 @@ publishedAt: '2021-09-26'
 summary: 'This is a walk-through of those steps required in setting up ESLint, Prettier, and Husky with lint-staged for a Next.js project'
 ---
 
-![Blog Banner](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/banner.webp)
+![](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/banner.webp)
 
 ## Introduction
 
@@ -37,7 +37,7 @@ Select **Strict**, if you want a Next.js base ESLint configuration with a strict
 
 Now, run the command `yarn lint` in your terminal again and this time it will show some warning like in the below image.
 
-![ESLint Warning Picture](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/1.webp)
+![Terminal output from yarn lint showing an import/no-anonymous-default-export warning in pages/api/hello.js](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/1.webp)
 
 I won't be going into details on explaining how to remove those warnings. You can check about the warning by hovering over the code and going through the link present in the popup.
 
@@ -45,10 +45,10 @@ Now, we can see that our linting is working but we are not done. This linting ch
 
 You can try by going to your `pages/index.js` and declaring any variables or import something that you are not using in that file and then, you would be seeing that there is no error in the code editor and as well as not shown in the console when you run `yarn lint` as shown in the below images.
 
-![ESLint in Code Editor](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/2.webp)
+![VS Code showing an unused abc variable without an ESLint warning](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/2.webp)
 In the above image, you can see that a variable `abc` is declared but not used anywhere
 in that file. But, the variable `abc` is not underline which means no issue was found.
-![ESLint in Console](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/1.webp)
+![Terminal output from yarn lint showing an import/no-anonymous-default-export warning in pages/api/hello.js](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/1.webp)
 
 In the above image, the warning in the console is related to files inside `api` directory and not related to `pages/index.js` file. So, it is not caught by ESLint.
 
@@ -62,10 +62,10 @@ So, to add more rules to your existing ESLint, you have to extends `eslint:recom
 
 `eslint:recommended` add more rules to your existing ESLint configuration. Now, you would see some warning in your code editor where you have declared the variables or imported something and not using it. You can also run the command yarn lint and now it should show you the warning in your console too as you can see in the below image.
 
-![ESLint in VS Code](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/3.webp)
+![VS Code showing the unused abc variable flagged by ESLint](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/3.webp)
 In the above image, you can see that the variable `abc` is now underline and is being
 caught by ESLint.
-![ESLint in Console](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/4.webp)
+![Terminal output from yarn lint showing the no-unused-vars error for abc in pages/index.js](/images/blog/setting-up-eslint-prettier-and-husky-with-lint-staged-for-your-nextjs-project/4.webp)
 In the above image, a warning can be seen regarding the unused variable `abc`.
 
 **Note:** By default, Next.js runs ESLint for all the files in the `pages/`, `components/`, and `lib/` directories.

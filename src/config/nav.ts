@@ -1,17 +1,18 @@
-import type { IconType } from 'react-icons';
 import {
-  PiBriefcase,
-  PiEnvelope,
-  PiFolder,
-  PiHouse,
-  PiNotePencil,
-  PiUser,
-} from 'react-icons/pi';
+  Briefcase,
+  FilePenLine,
+  Folder,
+  House,
+  Mail,
+  User,
+} from 'lucide-react';
+
+import type { IconComponent } from '@/lib/icon-types';
 
 export type NavItem = {
   href: string;
   label: string;
-  icon: IconType;
+  icon: IconComponent;
   hide?: boolean;
   keywords?: string[];
 };
@@ -20,24 +21,24 @@ export const navItems: NavItem[] = [
   {
     href: '/',
     label: 'Home',
-    icon: PiHouse,
+    icon: House,
     hide: true,
     keywords: ['start', 'landing'],
   },
-  { href: '/#projects', label: 'Work', icon: PiFolder },
+  { href: '/#projects', label: 'Work', icon: Folder },
   {
     href: '/writing',
     label: 'Writing',
-    icon: PiNotePencil,
+    icon: FilePenLine,
     keywords: ['blog', 'blogs', 'posts'],
   },
   {
     href: '/#experience',
     label: 'Experience',
-    icon: PiBriefcase,
+    icon: Briefcase,
     hide: true,
     keywords: ['work', 'career', 'jobs'],
   },
-  { href: '/about', label: 'About', icon: PiUser },
-  { href: '/#contact', label: 'Contact', icon: PiEnvelope, hide: true },
+  { href: '/about', label: 'About', icon: User },
+  { href: '/#contact', label: 'Contact', icon: Mail, hide: true },
 ];

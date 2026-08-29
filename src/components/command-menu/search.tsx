@@ -1,8 +1,8 @@
 import { create } from '@orama/orama';
-import type { IconType } from 'react-icons';
-import { PiFileText, PiHash, PiTextAlignLeft } from 'react-icons/pi';
+import { AlignLeft, FileText, Hash } from 'lucide-react';
 
 import { CommandItem, CommandItemIcon } from '@/components/ui/command';
+import type { IconComponent } from '@/lib/icon-types';
 import { cn } from '@/lib/utils';
 
 export const ORAMA_PREFIX = 'orama:';
@@ -21,10 +21,10 @@ export type OramaResult = {
   content: string;
 };
 
-const ICONS: Record<OramaResult['type'], IconType> = {
-  page: PiFileText,
-  heading: PiHash,
-  text: PiTextAlignLeft,
+const ICONS: Record<OramaResult['type'], IconComponent> = {
+  page: FileText,
+  heading: Hash,
+  text: AlignLeft,
 };
 
 export function OramaResultRow({

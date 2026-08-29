@@ -5,9 +5,6 @@ const withMDX = createMDX();
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
-  experimental: {
-    viewTransition: true,
-  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'img.youtube.com', pathname: '/vi/**' },

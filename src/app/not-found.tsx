@@ -1,4 +1,4 @@
-import { PiArrowLeft, PiNotePencil } from 'react-icons/pi';
+import { ArrowLeft, FilePenLine } from 'lucide-react';
 
 import { WanderHomeGame } from '@/components/not-found/wander-home-game';
 import { Button } from '@/components/ui/button';
@@ -41,7 +41,7 @@ export default function NotFound() {
         <Button
           addonPosition="start"
           href="/"
-          icon={<PiArrowLeft />}
+          icon={<ArrowLeft />}
           label="Back to home"
           size="md"
           variant="brand"
@@ -49,7 +49,7 @@ export default function NotFound() {
         <Button
           addonPosition="start"
           href="/writing"
-          icon={<PiNotePencil />}
+          icon={<FilePenLine />}
           label="Read the writing"
           size="md"
           variant="outline"

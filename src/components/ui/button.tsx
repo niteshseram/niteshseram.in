@@ -22,6 +22,7 @@ type BaseProps = Readonly<{
   'aria-current'?: AriaAttributes['aria-current'];
   'aria-expanded'?: AriaAttributes['aria-expanded'];
   'aria-haspopup'?: AriaAttributes['aria-haspopup'];
+  'aria-keyshortcuts'?: AriaAttributes['aria-keyshortcuts'];
   'aria-label'?: string;
   children?: ReactNode;
   className?: ClassValue;
@@ -140,6 +141,7 @@ export function Button<RouteType>({
   'aria-current': ariaCurrent,
   'aria-expanded': ariaExpanded,
   'aria-haspopup': ariaHasPopup,
+  'aria-keyshortcuts': ariaKeyShortcuts,
   'aria-label': ariaLabel,
   children: children_USE_SPARINGLY,
   className,
@@ -216,6 +218,7 @@ export function Button<RouteType>({
     'aria-current': ariaCurrent,
     'aria-expanded': ariaExpanded,
     'aria-haspopup': ariaHasPopup,
+    'aria-keyshortcuts': ariaKeyShortcuts,
     'aria-label': ariaLabel,
   };
 

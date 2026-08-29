@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import {
   ContributionGraphBlock,
@@ -20,6 +20,7 @@ type CellPosition = Readonly<{
 }>;
 
 type Props = Readonly<{
+  animationState: 'idle' | 'playing' | 'waiting';
   tooltips: Record<string, string>;
 }>;
 
@@ -36,36 +37,8 @@ function getWaveDistance(
   return distance <= 2 ? distance : undefined;
 }
 
-export function ContributionWaveCalendar({ tooltips }: Props) {
-  const calendarReference = useRef<HTMLDivElement>(null);
+export function ContributionWaveCalendar({ animationState, tooltips }: Props) {
   const [hoveredCell, setHoveredCell] = useState<CellPosition | null>(null);
-
-  useEffect(() => {
-    const calendarElement = calendarReference.current;
-
-    if (
-      !calendarElement ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ) {
-      return;
-    }
-
-    calendarElement.dataset.waveState = 'waiting';
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0]?.isIntersecting) return;
-
-        calendarElement.dataset.waveState = 'playing';
-        observer.disconnect();
-      },
-      { rootMargin: '0px 0px -12% 0px', threshold: 0.15 },
-    );
-
-    observer.observe(calendarElement);
-
-    return () => observer.disconnect();
-  }, []);
 
   function handlePointerLeave() {
     setHoveredCell(null);
@@ -73,8 +46,8 @@ export function ContributionWaveCalendar({ tooltips }: Props) {
 
   return (
     <div
-      ref={calendarReference}
       className={styles.wave}
+      data-wave-state={animationState === 'idle' ? undefined : animationState}
       onPointerLeave={handlePointerLeave}
     >
       <ContributionGraphCalendar>

@@ -6,6 +6,9 @@ export const ABOUT_PROSE: readonly string[] = [
   "I work best when I can trace a thread all the way through — from a rough idea, to the interaction that expresses it, to the edge cases nobody asks about until they hit one. I've come to trust boring code that never surprises anyone, and careful restraint over another dependency. Most of the craft, I think, is in what you choose to leave out.",
 ];
 
+export const HOME_ABOUT_SUMMARY =
+  'I enjoy taking a product from a rough idea to a clear, dependable interface. Most of my work is in the details: shaping interactions, handling edge cases, and keeping the code straightforward.';
+
 export type Principle = {
   hash: string;
   type: string;

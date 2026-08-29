@@ -103,6 +103,7 @@
   --brand: #5856d6;
   --brand-foreground: #ffffff;
   --brand-muted: #5856d614;
+  --hero-glow: #7068ff;
   --ring: #5856d6;
   --link: #505050;
 
@@ -162,6 +163,7 @@
   --brand: #8e8cf1;
   --brand-foreground: #1a1a1a;
   --brand-muted: #8e8cf11f;
+  --hero-glow: #9288ff;
   --ring: #8e8cf1;
   --link: #b5b5b5;
 
@@ -196,6 +198,7 @@
   --brand: #2f7065;
   --brand-foreground: #ffffff;
   --brand-muted: #2f706518;
+  --hero-glow: #1fa98e;
   --ring: #2f7065;
   --link: #485049;
 
@@ -237,6 +240,7 @@
   --brand: #7ebfaf;
   --brand-foreground: #142019;
   --brand-muted: #7ebfaf22;
+  --hero-glow: #38d6b2;
   --ring: #7ebfaf;
   --link: #b8c3bc;
 }
@@ -265,6 +269,7 @@
   --brand: #2369a8;
   --brand-foreground: #ffffff;
   --brand-muted: #2369a818;
+  --hero-glow: #2f8fe8;
   --ring: #2369a8;
   --link: #43505e;
 
@@ -306,6 +311,7 @@
   --brand: #78b5e6;
   --brand-foreground: #10202d;
   --brand-muted: #78b5e622;
+  --hero-glow: #4aa8ff;
   --ring: #78b5e6;
   --link: #b3bfca;
 }
@@ -334,6 +340,7 @@
   --brand: #935938;
   --brand-foreground: #ffffff;
   --brand-muted: #93593818;
+  --hero-glow: #cf713a;
   --ring: #935938;
   --link: #4c433c;
 
@@ -376,6 +383,7 @@
   --brand: #d79a6c;
   --brand-foreground: #25150b;
   --brand-muted: #d79a6c22;
+  --hero-glow: #ff995c;
   --ring: #d79a6c;
   --link: #c1b5aa;
 }
@@ -404,6 +412,7 @@
   --brand: #52658c;
   --brand-foreground: #ffffff;
   --brand-muted: #52658c1c;
+  --hero-glow: #5e72d8;
   --ring: #52658c;
   --link: #404857;
 
@@ -445,6 +454,7 @@
   --brand: #8da3c7;
   --brand-foreground: #101827;
   --brand-muted: #8da3c722;
+  --hero-glow: #7188ff;
   --ring: #8da3c7;
   --link: #a9b5c7;
 }
@@ -561,31 +571,8 @@
 
 ::view-transition-group(root),
 ::view-transition-old(root),
-::view-transition-new(root),
-::view-transition-group(page-content) {
+::view-transition-new(root) {
   animation: none;
-}
-
-::view-transition-old(.page-transition) {
-  animation: page-fade-out var(--motion-duration-fast) var(--motion-ease-exit)
-    both;
-}
-
-::view-transition-new(.page-transition) {
-  animation: page-fade-in var(--motion-duration-base) var(--motion-ease-enter)
-    both;
-}
-
-@keyframes page-fade-out {
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes page-fade-in {
-  from {
-    opacity: 0;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -724,4 +711,8 @@
     color: var(--shiki-dark);
     font-style: var(--shiki-dark-font-style);
   }
+}
+
+body:has(nextjs-portal) .theme-switcher-floating {
+  bottom: max(4rem, env(safe-area-inset-bottom)) !important;
 }
