@@ -189,7 +189,7 @@ export default async function Image({ params }: Props) {
       <div style={footerRowStyle}>
         <div style={authorColumnStyle}>
           <div style={authorNameStyle}>{AUTHOR.name}</div>
-          <div style={authorRoleStyle}>Software Engineer</div>
+          <div style={authorRoleStyle}>{AUTHOR.jobTitle}</div>
         </div>
         <div style={metaRowStyle}>
           <div style={{ display: 'flex' }}>{publishedLabel}</div>

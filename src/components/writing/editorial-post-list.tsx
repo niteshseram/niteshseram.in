@@ -65,7 +65,7 @@ export function EditorialPostList({
                 {post.data.summary ? (
                   <p
                     className={cn(
-                      'line-clamp-2',
+                      'line-clamp-3',
                       'mt-1.5',
                       'text-sm leading-5',
                       'text-muted-foreground',

@@ -61,7 +61,7 @@ export function Hero() {
           'text-foreground',
         )}
       >
-        I’m {AUTHOR.name} — a {AUTHOR.jobTitle.toLowerCase()} based in{' '}
+        I’m {AUTHOR.name}, a {AUTHOR.jobTitle.toLowerCase()} based in{' '}
         {AUTHOR.location}.
       </p>
       <p

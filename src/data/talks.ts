@@ -13,7 +13,7 @@ export const TALKS: Talk[] = [
     event: 'React India',
     year: '2025',
     brief:
-      'Translating web apps has long been a painful, manual effort — strings scattered across code, Markdown, and more. I walked through Langnostic, a fast, scalable translation system built at GreatFrontEnd that continuously translates thousands of strings across React components and Markdown docs using AI — now powering all of GreatFrontEnd\u2019s localized content.',
+      'At React India, I talked about Langnostic, a translation system built at GreatFrontEnd that translates thousands of strings across React components and Markdown docs using AI. It now powers GreatFrontEnd\u2019s localized content.',
     youtubeId: '4WawRIS85yo',
     href: 'https://youtu.be/4WawRIS85yo',
   },

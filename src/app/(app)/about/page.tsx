@@ -11,7 +11,7 @@ export const metadata: Metadata = pageMetadata({
   pathname: '/about',
   title: 'About',
   description:
-    'A few notes about me — what I do, what I care about, and a year-by-year walk through how I got here.',
+    'How I moved from medicine to frontend engineering, the principles I work by, the tools I use, and my career timeline.',
   imageUrl: '/og.webp',
 });
 

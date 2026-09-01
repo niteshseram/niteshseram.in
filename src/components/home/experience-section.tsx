@@ -97,7 +97,7 @@ export function ExperienceSection() {
                         role.current ? 'text-brand' : 'text-muted-foreground',
                       )}
                     >
-                      {role.start} — {role.end}
+                      {role.start}–{role.end}
                     </span>
                     <p
                       className={cn(

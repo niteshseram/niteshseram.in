@@ -25,7 +25,6 @@ export function AboutJsonSection() {
             <span className={cn('size-1.5', 'rounded-full', 'bg-brand')} />
             profile.json
           </span>
-          <span>{ABOUT_FACTS.length} keys</span>
         </div>
         <dl className={cn('grid sm:grid-cols-2')}>
           {ABOUT_FACTS.map((fact, factIndex) => (

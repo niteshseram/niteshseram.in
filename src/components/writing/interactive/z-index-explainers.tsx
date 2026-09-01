@@ -437,7 +437,7 @@ export function StackingContextMap() {
       >
         {isRootActive
           ? 'At the root, the browser compares header 10 with the transformed card at stack level 0. The header wins.'
-          : 'Inside the card, modal 9999 wins—but that result cannot escape the card context.'}
+          : 'Inside the card, modal 9999 wins. That result cannot escape the card context.'}
       </figcaption>
     </figure>
   );

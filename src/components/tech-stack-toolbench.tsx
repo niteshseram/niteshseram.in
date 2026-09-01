@@ -35,7 +35,6 @@ export function TechStackToolbench({
           />
           {label}
         </span>
-        <span>{TECH_STACK_GROUPS.length} groups</span>
       </div>
       <div className={cn('grid gap-3 sm:grid-cols-2', 'p-3')}>
         {TECH_STACK_GROUPS.map((group, groupIndex) => {

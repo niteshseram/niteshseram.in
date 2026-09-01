@@ -18,7 +18,7 @@ export const WRITING = {
 
 export const SITE_URL = 'https://niteshseram.in';
 
-export const SITE_DESCRIPTION = `Frontend engineer based in ${AUTHOR.location}. Building for the web with a soft spot for performance, restraint, and the small details that make software feel considered.`;
+export const SITE_DESCRIPTION = `Senior software engineer based in ${AUTHOR.location}. I build frontend products and write about state, data flow, performance, browser behavior, and the systems behind interfaces.`;
 
 export const SITE_TAGLINE =
   'Building interfaces for the web, down to the details.';

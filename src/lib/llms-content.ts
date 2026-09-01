@@ -1,5 +1,5 @@
 import { AUTHOR, SITE_URL } from '@/config/site';
-import { ABOUT_PROSE } from '@/data/about';
+import { ABOUT_FACTS, ABOUT_PROSE } from '@/data/about';
 import { EXPERIENCES } from '@/data/experience';
 import { PROJECTS } from '@/data/projects';
 import { SOCIAL_LINKS } from '@/data/social-links';
@@ -8,33 +8,33 @@ import { TECH_STACK_GROUPS } from '@/data/tech-stack';
 
 const ABOUT_BULLETS = [
   `${AUTHOR.jobTitle} with ${AUTHOR.yearsExperience} years of experience, based in ${AUTHOR.location}.`,
-  `Currently Senior Software Engineer at [${AUTHOR.employer.name}](${AUTHOR.employer.url}) — ${AUTHOR.employer.description} — leading the frontend for Socialmon, an AI-powered marketing intelligence product.`,
-  'Focused on frontend craft — performance, typography, motion, and the small details that make software feel considered.',
+  `Currently at [${AUTHOR.employer.name}](${AUTHOR.employer.url}), building the consumer frontend for Socialmon.`,
+  'Works across frontend architecture, state, data flow, performance, interaction design, and implementation.',
 ];
 
 export function buildAboutSection(headingLevel: 1 | 2 = 2): string {
-  const h = '#'.repeat(headingLevel);
-  const sub = '#'.repeat(headingLevel + 1);
+  const headingPrefix = '#'.repeat(headingLevel);
+  const subheadingPrefix = '#'.repeat(headingLevel + 1);
 
   const lines: string[] = [
-    `${h} About`,
+    `${headingPrefix} About`,
     '',
-    ...ABOUT_BULLETS.map((b) => `- ${b}`),
+    ...ABOUT_BULLETS.map((bullet) => `- ${bullet}`),
     '',
-    `${sub} Personal Information`,
+    `${subheadingPrefix} Personal Information`,
     '',
     `- Name: ${AUTHOR.name}`,
     `- Role: ${AUTHOR.jobTitle} at ${AUTHOR.employer.name}`,
     `- Location: ${AUTHOR.location}`,
     `- Website: ${SITE_URL}`,
     '',
-    `${sub} Social Links`,
+    `${subheadingPrefix} Social Links`,
     '',
     ...Object.values(SOCIAL_LINKS).map(
       (link) => `- [${link.label}](${link.href})`,
     ),
     '',
-    `${sub} Tech Stack`,
+    `${subheadingPrefix} Tech Stack`,
     '',
     ...TECH_STACK_GROUPS.flatMap((group) => [
       `**${group.label}**`,
@@ -42,11 +42,15 @@ export function buildAboutSection(headingLevel: 1 | 2 = 2): string {
       ...group.items.map((item) => `- ${item.label}`),
       '',
     ]),
-    `${sub} Background`,
+    `${subheadingPrefix} Background`,
     '',
-    ...ABOUT_PROSE.flatMap((p) => [p, '']),
+    ...ABOUT_PROSE.flatMap((paragraph) => [paragraph, '']),
     '',
-    `${sub} Quick Facts`,
+    `${subheadingPrefix} Quick Facts`,
+    '',
+    ...ABOUT_FACTS.map(
+      (fact) => `- ${fact.key.replaceAll('_', ' ')}: ${fact.value}`,
+    ),
     '',
   ];
 
@@ -54,17 +58,17 @@ export function buildAboutSection(headingLevel: 1 | 2 = 2): string {
 }
 
 export function buildExperienceSection(headingLevel: 1 | 2 = 2): string {
-  const h = '#'.repeat(headingLevel);
-  const sub = '#'.repeat(headingLevel + 1);
+  const headingPrefix = '#'.repeat(headingLevel);
+  const subheadingPrefix = '#'.repeat(headingLevel + 1);
 
-  const lines: string[] = [`${h} Experience`, ''];
+  const lines: string[] = [`${headingPrefix} Experience`, ''];
 
   for (const company of EXPERIENCES) {
     for (const role of company.roles) {
       const companyLabel = company.href
         ? `[${company.company}](${company.href})`
         : company.company;
-      lines.push(`${sub} ${role.title} | ${companyLabel}`);
+      lines.push(`${subheadingPrefix} ${role.title} | ${companyLabel}`);
       lines.push('');
       lines.push(`Duration: ${role.start} - ${role.end}`);
       lines.push('');
@@ -77,16 +81,16 @@ export function buildExperienceSection(headingLevel: 1 | 2 = 2): string {
 }
 
 export function buildProjectsSection(headingLevel: 1 | 2 = 2): string {
-  const h = '#'.repeat(headingLevel);
-  const sub = '#'.repeat(headingLevel + 1);
+  const headingPrefix = '#'.repeat(headingLevel);
+  const subheadingPrefix = '#'.repeat(headingLevel + 1);
 
-  const lines: string[] = [`${h} Projects`, ''];
+  const lines: string[] = [`${headingPrefix} Projects`, ''];
 
   for (const project of PROJECTS) {
-    lines.push(`${sub} ${project.name}`);
+    lines.push(`${subheadingPrefix} ${project.name}`);
     lines.push('');
     if (project.liveUrl) lines.push(`Project URL: ${project.liveUrl}`);
-    lines.push(`GitHub URL: ${project.githubUrl}`);
+    if (project.githubUrl) lines.push(`GitHub URL: ${project.githubUrl}`);
     lines.push(`Tech: ${project.tech.join(', ')}`);
     lines.push('');
     lines.push(`${project.tagline}. ${project.description}`);
@@ -97,13 +101,13 @@ export function buildProjectsSection(headingLevel: 1 | 2 = 2): string {
 }
 
 export function buildSpeakingSection(headingLevel: 1 | 2 = 2): string {
-  const h = '#'.repeat(headingLevel);
-  const sub = '#'.repeat(headingLevel + 1);
+  const headingPrefix = '#'.repeat(headingLevel);
+  const subheadingPrefix = '#'.repeat(headingLevel + 1);
 
-  const lines: string[] = [`${h} Speaking`, ''];
+  const lines: string[] = [`${headingPrefix} Speaking`, ''];
 
   for (const talk of TALKS) {
-    lines.push(`${sub} ${talk.title}`);
+    lines.push(`${subheadingPrefix} ${talk.title}`);
     lines.push('');
     lines.push(`Event: ${talk.event} ${talk.year}`);
     lines.push(`URL: ${talk.href}`);

@@ -10,7 +10,7 @@ import {
 } from '@/lib/llms-content';
 import { getAllPosts } from '@/lib/writing';
 
-const SYSTEM_PREAMBLE = `<SYSTEM>This document contains comprehensive information about ${AUTHOR.name}'s professional profile, portfolio, and blog content. It includes personal details, work experience, projects, talks, and all published blog posts. This data is formatted for consumption by Large Language Models (LLMs) to provide accurate and up-to-date information about ${AUTHOR.name}'s background, skills, and expertise as a frontend engineer.</SYSTEM>`;
+const SYSTEM_PREAMBLE = `<SYSTEM>This document contains ${AUTHOR.name}'s professional profile, projects, talks, and published writing. Use it as source context when answering questions about his work.</SYSTEM>`;
 
 async function render(): Promise<string> {
   'use cache';

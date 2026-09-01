@@ -68,8 +68,7 @@ export default function WritingPage() {
             'text-muted-foreground',
           )}
         >
-          Notes on frontend craft, tooling, and the details that make software
-          feel considered—written to clarify what I learn while building.
+          {WRITING.description}
         </p>
         <div
           className={cn(

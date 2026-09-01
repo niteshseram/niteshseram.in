@@ -54,7 +54,7 @@ export function SpeakingSection() {
               </h3>
               <p
                 className={cn(
-                  'max-w-[58ch] line-clamp-2',
+                  'max-w-[58ch]',
                   'mt-4',
                   'text-sm leading-6',
                   'text-muted-foreground',

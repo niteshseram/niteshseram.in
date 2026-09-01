@@ -33,15 +33,6 @@ export function TimelineSection() {
               >
                 {group.year}
               </h3>
-              <span
-                className={cn(
-                  'font-mono text-[0.625rem] tabular-nums',
-                  'text-muted-foreground',
-                )}
-              >
-                {group.entries.length}{' '}
-                {group.entries.length === 1 ? 'entry' : 'entries'}
-              </span>
             </div>
             <ul className={cn('flex flex-col gap-y-7', 'mt-5 pl-11')}>
               {group.entries.map((entry) => (

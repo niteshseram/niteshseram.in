@@ -64,7 +64,7 @@ export function AboutIntro() {
         <ProfileDetail label="Based in" value={AUTHOR.location} />
         <ProfileDetail
           label="Currently"
-          value={`${AUTHOR.jobTitle} · ${AUTHOR.employer.name}`}
+          value={`${AUTHOR.jobTitle} - ${AUTHOR.employer.name}`}
         />
       </div>
     </header>
