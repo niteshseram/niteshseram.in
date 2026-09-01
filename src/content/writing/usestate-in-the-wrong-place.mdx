@@ -1,7 +1,8 @@
 ---
 title: Why your useState is in the wrong place
 publishedAt: '2026-05-01'
-summary: Where you put useState matters more than how you use it. A practical guide to derived state, lifting state up, colocation, and URL state — the four React state placement mistakes that cause most bugs.
+updatedAt: '2026-09-01'
+summary: Where you put useState matters more than how you use it. A practical guide to derived state, lifting state up, colocation, and URL state.
 tags: ['react', 'react-hooks', 'state-management', 'usestate', 'performance']
 ---
 
@@ -9,13 +10,11 @@ Most React state bugs I've seen aren't state bugs. They're placement bugs.
 
 A value that should be computed from props is stored as state instead. Or it sits in a component too low for its siblings to read. Or too high, so a single keystroke re-renders half the tree. Or it lives in component memory when the user expects it in the URL.
 
-`useState` is the easiest hook in React. You import it, you call it, you have state. The hard part is deciding where it goes — and whether it needs to exist at all. That call is one of the highest-leverage decisions in your component tree, and most of the bugs and performance issues I run into come from getting it wrong.
+`useState` is the easiest hook in React. You import it, you call it, you have state. The hard part is deciding where it goes and whether it needs to exist at all. Where it lives determines which components can read it, what re-renders, and whether the state survives a refresh.
 
 ## Some state shouldn't exist at all
 
-This is the most common one — derived state that got stored as real state by accident. The value can already be computed from existing state or props, but someone wrote a `useState` for it anyway and a `useEffect` to keep it in sync.
-
-Here's the pattern:
+Derived state gets stored as real state by accident. The value can already be computed from existing state or props, but someone wrote a `useState` for it anyway and a `useEffect` to keep it in sync.
 
 ```jsx title="ProductList.tsx"
 function ProductList({ products }) {
@@ -43,15 +42,13 @@ function ProductList({ products }) {
 
 This looks reasonable. Each piece of state has a clear job. Each effect keeps the next state in sync.
 
-It's also quietly broken.
-
 Every change to `products` triggers an effect that calls `setFilteredItems`, which triggers another render, which triggers another effect that calls `setCount`, which triggers another render. One prop update, three renders. And it gets worse the more pieces of derived state you pile on.
 
-There's a staleness problem too. Between the moment `products` changes and the moment the effects fire, `filteredItems` and `count` hold the old values. Anything that reads them in that window — another effect, a render, a child component — gets data that doesn't match.
+There's a staleness problem too. Between the moment `products` changes and the moment the effects fire, `filteredItems` and `count` hold the old values. Anything that reads them in that window, including another effect, a render, or a child component, gets data that doesn't match.
 
-And nothing enforces that `filteredItems` and `count` stay aligned with `products`. Add another effect that updates `filteredItems` directly, change a dep array during a refactor, fork the filter for a feature flag — and you'll end up with the heading showing one number while the list renders another, silently, with no warning.
+Nothing enforces that `filteredItems` and `count` stay aligned with `products`. Add another effect that updates `filteredItems` directly, change a dep array during a refactor, or fork the filter for a feature flag, and you'll end up with the heading showing one number while the list renders another, silently, with no warning.
 
-Just compute it instead:
+Compute it instead:
 
 ```jsx title="ProductList.tsx"
 function ProductList({ products }) {
@@ -71,19 +68,17 @@ function ProductList({ products }) {
 
 Same logic, but two state values disappeared along with both effects. There's nothing to synchronize because `filteredItems` and `count` are computed fresh on every render, directly from `products`.
 
-If the computation is genuinely expensive, wrap it in `useMemo`. Otherwise, just write the expression. Most computations are cheap — running `.filter()` over a hundred items every render is so close to zero-cost that it isn't worth optimizing until you've measured a problem.
+If the computation is genuinely expensive, wrap it in `useMemo`. Otherwise, write the expression. A `.filter()` over a hundred items may not be worth memoizing until you've measured a problem.
 
-A useful heuristic: if the only thing your effect does is call `setState` based on other state or props, you don't need the effect, and you probably don't need the state either.
+If the only thing your effect does is call `setState` based on other state or props, you don't need the effect, and you probably don't need the state either.
 
-A close cousin worth flagging is the _initial-state-from-props_ trap. You take a prop, store it as local state so the user can edit it, then add a `useEffect` to keep them in sync — `const [name, setName] = useState(user.name)` plus `useEffect(() => setName(user.name), [user.name])`. It looks innocent and ships in production constantly.
+The _initial-state-from-props_ trap is a close cousin. You take a prop, store it as local state so the user can edit it, then add a `useEffect` to keep them in sync: `const [name, setName] = useState(user.name)` plus `useEffect(() => setName(user.name), [user.name])`. It looks innocent.
 
-The bug is that `name` and `user.name` disagree for one render after the prop changes, and the effect fires on every prop update — silently overwriting whatever the user was typing. If you don't need a local copy, just use the prop directly. If you do need one because it's editable, pass `key={user.id}` from the parent instead. React will unmount and remount with fresh state, and the sync effect disappears.
+The bug is that `name` and `user.name` disagree for one render after the prop changes, and the effect fires on every prop update, silently overwriting whatever the user was typing. If you don't need a local copy, use the prop directly. If you do need one because it's editable, pass `key={user.id}` from the parent instead. React will unmount and remount with fresh state, and the sync effect disappears.
 
 ## Some state is too low
 
-The opposite problem. State lives in one component, but a sibling or cousin needs to read or write it too. The fix is what the React docs call _lifting state up_ — moving it to a shared parent.
-
-Here's a common version:
+State can also live too low in the tree. A sibling or cousin needs to read or write it, so the owner has to move to a shared parent. The React docs call this _lifting state up_.
 
 ```jsx title="ProductList.tsx"
 function ProductList({ products }) {
@@ -108,7 +103,7 @@ This works fine in isolation. But three weeks later, the design changes. The hea
 
 Now the state in `ProductList` is in the wrong place. It needs to be available to siblings.
 
-The first instinct is usually to start passing things around — props for the search value, callbacks for changes, prop-drilling through three levels of components. It works, but it ages badly. Every new component that needs the search has to be threaded through the same path.
+Passing around props for the search value and callbacks for changes works, but it ages badly across three levels of components. Every new component that needs the search has to be threaded through the same path.
 
 Lift the state to the lowest common ancestor of every component that touches it:
 
@@ -130,9 +125,9 @@ Now every component reads from the same source. The search is one piece of state
 
 Think of it as a conversation. If the conversation happens between siblings, or between a parent and grandchild, the state belongs at their common ancestor.
 
-The trap a lot of people fall into is lifting state to the top of the tree by default, "just in case." Don't. Lifted state is shared state, and shared state means every component below the owner re-renders whenever it changes — even the ones that never read the value. Start as low as you can and lift only when something needs it lifted. Lifting preemptively produces the opposite problem, which is the next section.
+Lifting state to the top of the tree by default, "just in case," creates a different problem. Lifted state is shared state, and every component below the owner re-renders whenever it changes, including the ones that never read the value. Start as low as you can and lift only when something needs it lifted.
 
-If you find yourself dragging the same piece of state through five layers of components, that's a signal to use Context — or, depending on the kind of state, a tool like Zustand or Jotai. Context isn't state management; it's a way to skip prop drilling. The state itself still has a single owner.
+If you find yourself dragging the same piece of state through five layers of components, that's a signal to use Context or, depending on the kind of state, a tool like Zustand or Jotai. Context lets you skip prop drilling; the state itself still has a single owner.
 
 There's a third option besides lifting and Context: composition. The clearest example is a dialog. Without composition, you'd typically hold the open/close state in the page that uses the dialog:
 
@@ -151,7 +146,7 @@ function ProductPage() {
 }
 ```
 
-`ProductPage` has to hold a boolean, wire up the button, and pass an `onClose` callback — just to coordinate two components that have nothing to do with what the page is for.
+`ProductPage` has to hold a boolean, wire up the button, and pass an `onClose` callback to coordinate two components that have nothing to do with what the page is for.
 
 With a composed dialog, none of that lives in the page:
 
@@ -168,13 +163,13 @@ function ProductPage() {
 }
 ```
 
-`<Dialog>` owns the open state and shares it with its children through context internal to itself. The page doesn't hold a boolean and doesn't wire up handlers. Every modern dialog library — Radix, Headless UI, Base UI — is built on this pattern. And the idea generalizes: any time you find yourself holding state in a parent only to coordinate two children, ask whether a wrapper could own that state instead.
+`<Dialog>` owns the open state and shares it with its children through context internal to itself. The page doesn't hold a boolean and doesn't wire up handlers. Libraries such as Radix, Headless UI, and Base UI use this pattern. The same idea applies whenever you hold state in a parent only to coordinate two children: ask whether a wrapper could own that state instead.
 
 ## Some state is too high
 
-The other direction. State sits higher in the tree than it needs to, so every change cascades through components that don't care about it. The fix here is what people call _state colocation_ — pushing the state back down to where it's used.
+State can sit higher in the tree than it needs to, so every change cascades through components that don't care about it. _State colocation_ pushes the state back down to where it's used.
 
-Here's an example I've seen more times than I'd like:
+I've seen this example more times than I'd like:
 
 ```jsx title="App.tsx"
 function App() {
@@ -210,9 +205,9 @@ function App() {
 }
 ```
 
-The form state lives in `App`. Every keystroke in any field triggers a re-render of `App`, which re-renders `Layout`, `Header`, `Sidebar`, `MainContent`, and everything below them — even though only the form changed.
+The form state lives in `App`. Every keystroke in any field triggers a re-render of `App`, which re-renders `Layout`, `Header`, `Sidebar`, `MainContent`, and everything below them, even though only the form changed.
 
-In a small app, you'll never notice; the renders are cheap and the user can't tell. But as the app grows — heavier components, more data, more children — this pattern starts to hurt. The header re-renders 30 times while someone types their name, and the sidebar burns cycles even though nothing in it depends on the form.
+In a small app, you may never notice because the renders are cheap. As the app grows to include heavier components, more data, and more children, this pattern starts to hurt. The header re-renders 30 times while someone types their name, and the sidebar burns cycles even though nothing in it depends on the form.
 
 Push the state down to the component that owns it:
 
@@ -247,29 +242,29 @@ function ContactForm() {
 
 Now keystrokes only re-render the form. The header, sidebar, and main content stay put.
 
-If you're not sure whether this kind of waste is hurting you, the React DevTools Profiler will tell you in under a minute. Record a few seconds of typing, look at the flamegraph, and find the components that flash on every commit but never visibly change. That's wasted work — and it's almost always state living higher than it needs to.
+If you're not sure whether this kind of waste is hurting you, record a few seconds of typing with the React DevTools Profiler. Look at the flamegraph and find the components that flash on every commit but never visibly change. That's wasted work, often caused by state living higher than it needs to.
 
-The rule of thumb: state should live as close as possible to where it's used. Don't lift it until something else needs it, and when something does, lift only as far as the nearest common ancestor.
+State should live as close as possible to where it's used. Don't lift it until something else needs it, and when something does, lift only as far as the nearest common ancestor.
 
-There are legitimate reasons to keep state higher than feels natural, though. A parent that has to show an "unsaved changes" warning needs to read the form's dirty state. Multi-step wizards have to keep earlier steps' answers around while the user navigates forward. Autosave means the parent has to react to every change. The principle isn't "always push state down" — it's "don't push state up beyond what needs to read it." Those three are real reasons; "in case I need it later" isn't.
+There are legitimate reasons to keep state higher than feels natural, though. A parent that has to show an "unsaved changes" warning needs to read the form's dirty state. Multi-step wizards have to keep earlier steps' answers around while the user navigates forward. Autosave means the parent has to react to every change. Keep state no higher than the components that need to read it. Those three are real reasons; "in case I need it later" isn't.
 
-A related case: state that doesn't need to trigger a re-render at all. If you're tracking a value across renders but never displaying it — a previous value, a timer ID, a DOM measurement — `useRef` is usually the right tool. Refs hold values without subscribing to re-renders.
+A related case is state that doesn't need to trigger a re-render at all. If you're tracking a value across renders but never displaying it, such as a previous value, a timer ID, or a DOM measurement, `useRef` is usually the right tool. Refs hold values without subscribing to re-renders.
 
 ```jsx
-// useState — re-renders the component every time setTimerId is called
+// useState re-renders the component every time setTimerId is called
 const [timerId, setTimerId] = useState(null);
 ```
 
 ```jsx
-// useRef — holds the value across renders without triggering one
+// useRef holds the value across renders without triggering one
 const timerId = useRef(null);
 ```
 
-Refs aren't a replacement for state — they don't update the UI when they change. But for values that only matter to your code and not to your render output, they're the right choice.
+Refs hold values without updating the UI. Use them for values that matter to your code but not to your render output.
 
 ## Some state should live in the URL
 
-This is the one I think most teams get wrong, and it's the most consequential.
+I see teams miss URL state more often than the other placement cases.
 
 Look at the kinds of state you'd find in a typical app:
 
@@ -281,11 +276,11 @@ Look at the kinds of state you'd find in a typical app:
 - Whether a modal is open
 - The selected item in a master-detail view
 
-Most apps put all of these in `useState`, and the consequences pile up: the back button stops working the way users expect, refreshing the page wipes everything, links can't be shared with the current filters intact, and two tabs can't hold independent views. The user's progress through the app lives only in component memory — the moment that component unmounts, it's gone.
+When all of these go into `useState`, the consequences pile up: the back button stops working the way users expect, refreshing the page wipes everything, links can't be shared with the current filters intact, and two tabs can't hold independent views. The user's progress through the app lives only in component memory. The moment that component unmounts, it's gone.
 
-But the URL is already a state container. It's persistent across refreshes, shareable as a link, navigable with the back button, and visible to the user. For state that represents _where the user is in the app_, the URL is almost always the right home.
+The URL is already a state container. It's persistent across refreshes, shareable as a link, navigable with the back button, and visible to the user. For state that represents _where the user is in the app_, the URL is usually the right home.
 
-Here's a concrete example. A typical filter UI:
+A typical filter UI starts like this:
 
 ```jsx title="ProductList.tsx"
 function ProductList() {
@@ -327,25 +322,23 @@ function ProductList() {
 }
 ```
 
-It's a bit more code, but now the URL reflects exactly where the user is — sharing a link works, refreshes preserve state, the back button does what people expect, and the page is bookmarkable.
+It's a bit more code, but now the URL reflects exactly where the user is. Sharing a link works, refreshes preserve state, the back button does what people expect, and the page is bookmarkable.
 
-Every `router.push` in that snippet adds a browser history entry. That's correct for state changes the user might want to reverse — switching tabs, applying a filter. It's wrong for high-frequency updates like a slider being dragged, where you'll bloat the back button with intermediate states and bury the real navigation history. Use `router.replace` for transient updates and `push` for the ones that should count as navigation.
+Every `router.push` in that snippet adds a browser history entry. That's correct for state changes the user might want to reverse, such as switching tabs or applying a filter. It's wrong for high-frequency updates like a slider being dragged, where you'll bloat the back button with intermediate states and bury the real navigation history. Use `router.replace` for transient updates and `push` for the ones that should count as navigation.
 
-For React Router, the API is similar — `useSearchParams` returns `[searchParams, setSearchParams]` and the pattern works the same way.
+For React Router, the API is similar. `useSearchParams` returns `[searchParams, setSearchParams]`, and the pattern works the same way.
 
-And if you find yourself writing this kind of plumbing a lot, libraries like [`nuqs`](https://nuqs.dev/) give you a `useState`-like API on top of URL search params and remove most of the boilerplate.
+If you find yourself writing this kind of plumbing a lot, libraries like [`nuqs`](https://nuqs.dev/) give you a `useState`-like API on top of URL search params and remove most of the boilerplate.
 
-There's a benefit that doesn't show up in any boilerplate comparison, though: URL state is the only kind of UI state your server can read on the first request. If you server-render a filtered product list, the URL means the server can produce the right HTML directly — no flash of unfiltered content, no client-side reshuffle to apply the filter after hydration. The same property gives you indexable URLs, which matters if you care about SEO for any view that's a category-and-filter page. State that lives in `useState` doesn't get either.
+URL state is available to the server on the first request. If you server-render a filtered product list, the server can produce the right HTML directly. There is no flash of unfiltered content or client-side reshuffle to apply the filter after hydration. The same property gives you indexable URLs, which matters if you care about SEO for any view that's a category-and-filter page. State that lives in `useState` doesn't get either.
 
-This isn't right for every piece of state. A user typing into a search input shouldn't update the URL on every keystroke — debounce it, or only commit on blur. Transient UI like a confirmation dialog or a tooltip doesn't need to be in the URL either. My rule: if a user would expect this state to persist or be shareable, it belongs in the URL; if it's interaction state that resets the moment they look away, `useState` is fine.
+URL state doesn't fit every value. A user typing into a search input shouldn't update the URL on every keystroke; debounce it, or only commit on blur. Transient UI like a confirmation dialog or a tooltip doesn't need to be in the URL either. My rule: if a user would expect this state to persist or be shareable, it belongs in the URL; if it's interaction state that resets the moment they look away, `useState` is fine.
 
 The way I think about it: the URL is a public API for your application. It's how users link to specific views. State that affects which view they're looking at should be reflected there. State that's pure UI machinery shouldn't.
 
 ## Questions to ask before reaching for `useState`
 
-Most placement mistakes happen because nobody asks. The default move is "I need a value, I'll add `useState`." If you build a habit of running through a few questions first, most of these problems disappear.
-
-Here's the checklist:
+Many placement mistakes begin with the default move: "I need a value, I'll add `useState`." Run through these questions first:
 
 **Can I compute this from existing state or props?**
 If yes, don't store it. Compute it during render. Use `useMemo` if it's expensive.
@@ -365,12 +358,6 @@ If no, use `useRef` instead.
 **Is this state that should survive a route change?**
 If yes, you need URL state, a parent component that doesn't unmount, or a global store.
 
-Six questions, a few seconds each. Between them they cover the patterns behind most of the state-related bugs and performance issues I run into.
+One category I've deliberately left out is server state: fetched data, mutations, and cached responses. Putting that in `useState` with a `useEffect` to fetch is a separate problem. [TanStack Query](https://tanstack.com/query) and SWR model fetched data separately, while React Server Components can move some fetching out of the client. The placement rules in this post are about state that lives entirely on the client.
 
-## Putting it together
-
-State placement isn't a separate skill from writing React — it's the same skill, just paid more attention to. Every `useState` call is a decision about who owns a piece of data and what happens when it changes, and most of the bugs I see don't come from misunderstanding hooks. They come from someone adding `useState` to whichever component happened to be open, without asking whether the state belonged there.
-
-One category I've deliberately left out: server state — fetched data, mutations, cached responses. Putting that in `useState` with a `useEffect` to fetch is its own well-known mistake. Tools like [TanStack Query](https://tanstack.com/query), SWR, and React Server Components handle it better than anything you'll write by hand. The placement rules in this post are about state that lives entirely on the client.
-
-There's no library or pattern that fixes the placement question for you. What does fix it is the small habit of pausing for a few seconds before every `useState` call to ask where the data belongs. Repeat that a few hundred times and you end up with a codebase that ages well, instead of one you spend the next year patching.
+No library answers the placement question for you. Before each `useState` call, ask who owns the data, who needs it, and whether it should survive a refresh or navigation.
