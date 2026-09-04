@@ -8,12 +8,14 @@ import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useGlobalShortcut } from '@/utils/use-global-shortcut';
+import { useMounted } from '@/utils/use-mounted';
 
 export function AppearanceToggle() {
   const { resolvedTheme, setTheme } = useTheme();
+  const mounted = useMounted();
   const audioContextReference = useRef<AudioContext | null>(null);
-  const label =
-    resolvedTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+  const isDark = mounted && resolvedTheme === 'dark';
+  const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
 
   useEffect(() => {
     return () => {
@@ -59,7 +61,7 @@ export function AppearanceToggle() {
       className="group"
       icon={
         <MorphIcon
-          icon={resolvedTheme === 'dark' ? Sun : Moon}
+          icon={isDark ? Sun : Moon}
           reducedMotion="user"
           spring="snappy"
         />
