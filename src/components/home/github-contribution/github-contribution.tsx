@@ -18,45 +18,46 @@ type Props = {
   className?: string;
 };
 
-async function getContributionsGraph(): Promise<ContributionGraphData> {
+async function getContributionsGraph(): Promise<ContributionGraphData | null> {
   'use cache';
   cacheLife('hours');
-  const response = await fetch(
-    `https://github-contributions-api.jogruber.de/v4/${SOCIAL_LINKS.github.username}?y=last`,
-    { signal: AbortSignal.timeout(5_000) },
-  );
 
-  if (!response.ok) {
-    throw new Error(`GitHub contribution request failed: ${response.status}`);
-  }
-
-  const data = (await response.json()) as GithubContributionsResponse;
-
-  if (!Array.isArray(data.contributions)) {
-    throw new TypeError(
-      'GitHub contribution response is missing activity data.',
+  try {
+    const response = await fetch(
+      `https://github-contributions-api.jogruber.de/v4/${SOCIAL_LINKS.github.username}?y=last`,
+      { signal: AbortSignal.timeout(5_000) },
     );
-  }
 
-  return buildContributionGraph(data.contributions);
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = (await response.json()) as GithubContributionsResponse;
+
+    if (!Array.isArray(data.contributions)) {
+      return null;
+    }
+
+    return buildContributionGraph(data.contributions);
+  } catch {
+    return null;
+  }
 }
 
 export async function GithubContribution({ className }: Props) {
-  try {
-    const graph = await getContributionsGraph();
+  const graph = await getContributionsGraph();
 
+  if (graph) {
     return <GithubContributionClient className={className} graph={graph} />;
-  } catch {
-    return (
-      <p
-        className={cn('text-sm leading-6', 'text-muted-foreground', className)}
-      >
-        GitHub activity is temporarily unavailable.{' '}
-        <Anchor href={SOCIAL_LINKS.github.href} variant="prose">
-          View contributions on GitHub
-        </Anchor>
-        .
-      </p>
-    );
   }
+
+  return (
+    <p className={cn('text-sm leading-6', 'text-muted-foreground', className)}>
+      GitHub activity is temporarily unavailable.{' '}
+      <Anchor href={SOCIAL_LINKS.github.href} variant="prose">
+        View contributions on GitHub
+      </Anchor>
+      .
+    </p>
+  );
 }
