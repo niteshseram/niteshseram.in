@@ -15,7 +15,8 @@ export function getCanonicalUrl(post: Post): string {
 export async function getLLMText(post: Post): Promise<string> {
   const raw = await post.data.getText('raw');
   const body = stripFrontmatter(raw);
-  const { title, summary, publishedAt, tags, readingTime } = post.data;
+  const { title, summary, publishedAt, updatedAt, tags, readingTime } =
+    post.data;
   const minutes = Math.max(1, Math.round(readingTime.minutes));
 
   const header = [
@@ -24,6 +25,10 @@ export async function getLLMText(post: Post): Promise<string> {
     `> ${summary}`,
     '',
     `Published: ${new Date(publishedAt).toISOString()}`,
+    updatedAt &&
+    new Date(updatedAt).getTime() !== new Date(publishedAt).getTime()
+      ? `Updated: ${new Date(updatedAt).toISOString()}`
+      : null,
     `Reading time: ${minutes} min`,
     tags.length > 0 ? `Tags: ${tags.join(', ')}` : null,
     `URL: ${getCanonicalUrl(post)}`,

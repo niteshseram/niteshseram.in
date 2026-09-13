@@ -1,5 +1,5 @@
-import { AUTHOR, SITE_URL } from '@/config/site';
-import { ABOUT_FACTS, ABOUT_PROSE } from '@/data/about';
+import { AUTHOR, PROJECTS_LABEL, SITE_URL } from '@/config/site';
+import { ABOUT_FACTS, ABOUT_PROSE, PRINCIPLES } from '@/data/about';
 import { EXPERIENCES } from '@/data/experience';
 import { PROJECTS } from '@/data/projects';
 import { SOCIAL_LINKS } from '@/data/social-links';
@@ -8,7 +8,7 @@ import { TECH_STACK_GROUPS } from '@/data/tech-stack';
 
 const ABOUT_BULLETS = [
   `${AUTHOR.jobTitle} with ${AUTHOR.yearsExperience} years of experience, based in ${AUTHOR.location}.`,
-  `Currently at [${AUTHOR.employer.name}](${AUTHOR.employer.url}), building the consumer frontend for Socialmon.`,
+  `Currently at [${AUTHOR.employer.name}](${AUTHOR.employer.url}), building frontend products.`,
   'Works across frontend architecture, state, data flow, performance, interaction design, and implementation.',
 ];
 
@@ -46,6 +46,14 @@ export function buildAboutSection(headingLevel: 1 | 2 = 2): string {
     '',
     ...ABOUT_PROSE.flatMap((paragraph) => [paragraph, '']),
     '',
+    `${subheadingPrefix} How I Work`,
+    '',
+    ...PRINCIPLES.flatMap((principle) => [
+      `**${principle.title}**`,
+      '',
+      principle.description,
+      '',
+    ]),
     `${subheadingPrefix} Quick Facts`,
     '',
     ...ABOUT_FACTS.map(
@@ -84,13 +92,14 @@ export function buildProjectsSection(headingLevel: 1 | 2 = 2): string {
   const headingPrefix = '#'.repeat(headingLevel);
   const subheadingPrefix = '#'.repeat(headingLevel + 1);
 
-  const lines: string[] = [`${headingPrefix} Projects`, ''];
+  const lines: string[] = [`${headingPrefix} ${PROJECTS_LABEL}`, ''];
 
   for (const project of PROJECTS) {
     lines.push(`${subheadingPrefix} ${project.name}`);
     lines.push('');
     if (project.liveUrl) lines.push(`Project URL: ${project.liveUrl}`);
     if (project.githubUrl) lines.push(`GitHub URL: ${project.githubUrl}`);
+    lines.push(`Featured on homepage: ${project.featured ? 'Yes' : 'No'}`);
     lines.push(`Tech: ${project.tech.join(', ')}`);
     lines.push('');
     lines.push(`${project.tagline}. ${project.description}`);

@@ -97,13 +97,15 @@ export type AnchorWeight = 'inherit' | 'medium' | 'normal';
 
 const anchorVariantClasses: Record<AnchorVariant, string> = {
   default: cn(
-    'text-muted-foreground hover:text-foreground active:text-foreground',
+    'text-muted-foreground',
+    'hover:text-foreground active:text-foreground',
   ),
   primary: cn(
-    'text-foreground hover:text-muted-foreground active:text-foreground',
+    'text-foreground',
+    'hover:text-muted-foreground active:text-foreground',
   ),
   prose: cn(
-    'underline underline-offset-[3px] decoration-[1.5px]',
+    'underline underline-offset-4 decoration-1',
     'text-foreground decoration-link',
     'hover:decoration-foreground',
   ),
@@ -116,13 +118,21 @@ const anchorWeightClasses: Record<AnchorWeight, string> = {
   normal: 'font-normal',
 };
 
-export const anchorVariants = cva(cn('transition-colors', 'break-words'), {
-  defaultVariants: {
-    variant: 'default',
-    weight: 'medium',
+export const anchorVariants = cva(
+  cn(
+    'rounded-xs',
+    'break-words',
+    'transition-colors',
+    'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring',
+  ),
+  {
+    defaultVariants: {
+      variant: 'default',
+      weight: 'normal',
+    },
+    variants: {
+      variant: anchorVariantClasses,
+      weight: anchorWeightClasses,
+    },
   },
-  variants: {
-    variant: anchorVariantClasses,
-    weight: anchorWeightClasses,
-  },
-});
+);

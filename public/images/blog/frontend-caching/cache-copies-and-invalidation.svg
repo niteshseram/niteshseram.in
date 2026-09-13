@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1220" viewBox="0 0 800 1220" fill="none">
+  <title>Optional cache layers and their repair paths</title>
+  <desc>A read travels from a source of truth to the interface and may be answered by several optional caches. After a write, the frontend data cache, server and CDN caches, and browser HTTP cache each use a different repair mechanism.</desc>
+
+  <rect width="800" height="1180" fill="#1A1A1A"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="48" y="62" fill="#E7E7E7" font-size="27" font-weight="700">A read can meet several caches</text>
+    <line x1="48" y1="88" x2="752" y2="88" stroke="#333333"/>
+
+    <g>
+      <rect x="48" y="118" width="704" height="96" rx="3" fill="#222222" stroke="#505050"/>
+      <text x="72" y="150" fill="#8B8B8B" font-size="13" letter-spacing="1.1">SOURCE</text>
+      <text x="72" y="185" fill="#E0E0E0" font-size="19" font-weight="700">Source of truth</text>
+      <text x="728" y="185" text-anchor="end" fill="#929292" font-size="15">for example, a database</text>
+    </g>
+
+    <path d="M400 214V238" stroke="#696969" stroke-width="1.5"/>
+    <path d="M394 231L400 238L406 231" stroke="#696969" stroke-width="1.5"/>
+
+    <g>
+      <rect x="48" y="238" width="704" height="286" rx="3" fill="#1E1E1E" stroke="#444444"/>
+      <text x="72" y="272" fill="#8B8B8B" font-size="13" letter-spacing="1.1">OPTIONAL CACHE COPIES</text>
+      <text x="728" y="272" text-anchor="end" fill="#858585" font-size="14">not every app uses every layer</text>
+
+      <rect x="72" y="296" width="316" height="92" rx="2" fill="#242424" stroke="#4A4A4A"/>
+      <text x="96" y="331" fill="#D8D8D8" font-size="18" font-weight="700">Server / framework</text>
+      <text x="96" y="362" fill="#929292" font-size="15">tag + cache life</text>
+
+      <rect x="412" y="296" width="316" height="92" rx="2" fill="#242424" stroke="#4A4A4A"/>
+      <text x="436" y="331" fill="#D2D2D2" font-size="18" font-weight="700">CDN / shared HTTP</text>
+      <text x="436" y="362" fill="#929292" font-size="15">URL + Vary + age</text>
+
+      <rect x="72" y="408" width="316" height="92" rx="2" fill="#242424" stroke="#4A4A4A"/>
+      <text x="96" y="443" fill="#CCCCCC" font-size="18" font-weight="700">Browser HTTP</text>
+      <text x="96" y="474" fill="#929292" font-size="15">response headers + age</text>
+
+      <rect x="412" y="408" width="316" height="92" rx="2" fill="#242424" stroke="#4A4A4A"/>
+      <text x="436" y="443" fill="#C6C6C6" font-size="18" font-weight="700">Frontend data</text>
+      <text x="436" y="474" fill="#929292" font-size="15">query key + stale time</text>
+    </g>
+
+    <path d="M400 524V548" stroke="#696969" stroke-width="1.5"/>
+    <path d="M394 541L400 548L406 541" stroke="#696969" stroke-width="1.5"/>
+
+    <g>
+      <rect x="48" y="548" width="704" height="96" rx="3" fill="#222222" stroke="#505050"/>
+      <text x="72" y="580" fill="#8B8B8B" font-size="13" letter-spacing="1.1">VIEW</text>
+      <text x="72" y="615" fill="#C0C0C0" font-size="21" font-weight="700">UI</text>
+      <text x="728" y="615" text-anchor="end" fill="#929292" font-size="15">what users see</text>
+    </g>
+
+    <text x="48" y="712" fill="#E7E7E7" font-size="27" font-weight="700">A write repairs each cache differently</text>
+    <line x1="48" y1="738" x2="752" y2="738" stroke="#333333"/>
+
+    <text x="48" y="778" fill="#858585" font-size="13" letter-spacing="1.1">WRITE PATH</text>
+    <text x="48" y="815" fill="#DCDCDC" font-size="18" font-weight="700">UI action</text>
+    <path d="M140 809H224" stroke="#666666" stroke-width="1.5"/>
+    <path d="M217 803L224 809L217 815" stroke="#666666" stroke-width="1.5"/>
+    <text x="248" y="815" fill="#DCDCDC" font-size="18" font-weight="700">API mutation</text>
+    <path d="M374 809H458" stroke="#666666" stroke-width="1.5"/>
+    <path d="M451 803L458 809L451 815" stroke="#666666" stroke-width="1.5"/>
+    <text x="482" y="815" fill="#DCDCDC" font-size="18" font-weight="700">Source of truth</text>
+
+    <g>
+      <rect x="48" y="850" width="704" height="88" rx="3" fill="#222222" stroke="#505050"/>
+      <text x="72" y="882" fill="#8B8B8B" font-size="13" letter-spacing="1.1">FRONTEND DATA CACHE</text>
+      <text x="72" y="916" fill="#D5D5D5" font-size="17" font-weight="700">Client mutation handler</text>
+      <text x="384" y="894" fill="#929292" font-size="15">Updates known values or</text>
+      <text x="384" y="918" fill="#929292" font-size="15">invalidates affected queries</text>
+    </g>
+
+    <g>
+      <rect x="48" y="958" width="704" height="88" rx="3" fill="#222222" stroke="#505050"/>
+      <text x="72" y="990" fill="#8B8B8B" font-size="13" letter-spacing="1.1">SERVER AND CDN CACHES</text>
+      <text x="72" y="1024" fill="#D0D0D0" font-size="17" font-weight="700">Write handler or webhook</text>
+      <text x="384" y="1002" fill="#929292" font-size="15">Revalidates or purges the</text>
+      <text x="384" y="1026" fill="#929292" font-size="15">affected cache entries</text>
+    </g>
+
+    <g>
+      <rect x="48" y="1066" width="704" height="88" rx="3" fill="#222222" stroke="#505050"/>
+      <text x="72" y="1098" fill="#8B8B8B" font-size="13" letter-spacing="1.1">BROWSER HTTP CACHE</text>
+      <text x="72" y="1132" fill="#CBCBCB" font-size="17" font-weight="700">HTTP policy</text>
+      <text x="384" y="1110" fill="#929292" font-size="15">Controls reuse, validation,</text>
+      <text x="384" y="1134" fill="#929292" font-size="15">and expiry of stored responses</text>
+    </g>
+
+    <text x="48" y="1180" fill="#777777" font-size="14">Each cache has its own key, freshness rule, and repair path.</text>
+  </g>
+</svg>

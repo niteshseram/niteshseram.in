@@ -30,10 +30,12 @@ export function TooltipTrigger({
 export function TooltipContent({
   className,
   sideOffset = 8,
+  showArrow = true,
   children,
   ...props
 }: Omit<ComponentProps<typeof TooltipPrimitive.Positioner>, 'className'> & {
   className?: ClassValue;
+  showArrow?: boolean;
 }) {
   return (
     <TooltipPrimitive.Portal>
@@ -46,9 +48,9 @@ export function TooltipContent({
           className={cn(
             'flex w-fit max-w-64 origin-(--transform-origin) flex-col',
             'px-2.5 py-1.5',
-            'rounded-md border shadow-sm backdrop-blur-md',
+            'rounded-md border shadow-sm',
             'text-xs font-medium leading-tight',
-            'border-border bg-popover/95 text-popover-foreground shadow-shadow/15',
+            'border-border bg-popover text-popover-foreground shadow-shadow/15',
             'transition-[transform,opacity,background-color,color,border-color] duration-[var(--motion-duration-fast)] ease-enter',
             'data-starting-style:scale-95 data-starting-style:opacity-0',
             'data-ending-style:scale-95 data-ending-style:opacity-0',
@@ -57,42 +59,21 @@ export function TooltipContent({
           )}
         >
           {children}
-          <TooltipPrimitive.Arrow
-            className={cn(
-              'data-[side=bottom]:-top-2 data-[side=top]:-bottom-2',
-              'data-[side=left]:right-[-13px] data-[side=right]:left-[-13px]',
-              'data-[side=left]:rotate-90 data-[side=right]:-rotate-90 data-[side=top]:rotate-180',
-            )}
-          >
-            <ArrowSvg />
-          </TooltipPrimitive.Arrow>
+          {showArrow && (
+            <TooltipPrimitive.Arrow
+              aria-hidden="true"
+              className={cn(
+                'size-2 rotate-45',
+                'border-border bg-popover',
+                'data-[side=top]:-bottom-[5px] data-[side=top]:border-r data-[side=top]:border-b',
+                'data-[side=bottom]:-top-[5px] data-[side=bottom]:border-t data-[side=bottom]:border-l',
+                'data-[side=left]:-right-[5px] data-[side=left]:border-t data-[side=left]:border-r',
+                'data-[side=right]:-left-[5px] data-[side=right]:border-b data-[side=right]:border-l',
+              )}
+            />
+          )}
         </TooltipPrimitive.Popup>
       </TooltipPrimitive.Positioner>
     </TooltipPrimitive.Portal>
-  );
-}
-
-function ArrowSvg(props: ComponentProps<'svg'>) {
-  return (
-    <svg
-      aria-hidden={true}
-      width="20"
-      height="10"
-      viewBox="0 0 20 10"
-      fill="none"
-      className="block"
-      {...props}
-    >
-      <g transform="translate(0 10) scale(1 -1)">
-        <path
-          d="M10.3356 7.39793L15.1924 3.02682C15.9269 2.36577 16.8801 2 17.8683 2H20V0H0V2H1.4651C2.4532 2 3.4064 2.36577 4.1409 3.02682L8.9977 7.39793C9.378 7.7402 9.9553 7.74021 10.3356 7.39793Z"
-          className="fill-popover"
-        />
-        <path
-          d="M9.6667 6.65461L14.5235 2.28352C15.4416 1.45721 16.6331 1 17.8683 1H20V2H17.8683C16.8801 2 15.9269 2.36577 15.1924 3.02682L10.3356 7.39793C9.9553 7.74021 9.378 7.7402 8.9977 7.39793L4.1409 3.02682C3.4064 2.36577 2.4532 2 1.4651 2H0V1H1.4651C2.7002 1 3.8917 1.45722 4.8099 2.28352L9.6667 6.65461Z"
-          className="fill-border"
-        />
-      </g>
-    </svg>
   );
 }

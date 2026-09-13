@@ -1,7 +1,6 @@
 import type { SVGProps } from 'react';
-import type { SimpleIcon } from 'simple-icons';
 
-export type BrandIconData = Readonly<Pick<SimpleIcon, 'path'>>;
+export type BrandIconData = Readonly<{ path: string }>;
 
 type Props = Omit<SVGProps<SVGSVGElement>, 'children'> &
   Readonly<{

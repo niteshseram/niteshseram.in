@@ -9,6 +9,7 @@ type ContentSectionProps = Readonly<{
   contentClassName?: string;
   id?: string;
   title: ReactNode;
+  action?: ReactNode;
 }>;
 
 export function ContentSection({
@@ -18,32 +19,29 @@ export function ContentSection({
   contentClassName,
   id,
   title,
+  action,
 }: ContentSectionProps) {
   const headingId = id ? `${id}-heading` : undefined;
-
   return (
     <section
       id={id}
       aria-label={headingId ? undefined : ariaLabel}
       aria-labelledby={headingId}
-      className={cn(
-        'max-w-2xl scroll-mt-18',
-        'mx-auto px-4.5 pb-16 sm:pb-20',
-        className,
-      )}
+      className={cn('site-container scroll-mt-8', 'pb-10 sm:pb-12', className)}
     >
-      <div className="flex flex-col gap-y-6 sm:gap-y-7">
+      <div className={cn('flex items-center justify-between gap-4', 'mb-3')}>
         <h2
           id={headingId}
           className={cn(
-            'text-lg font-semibold leading-6 tracking-[-0.015em]',
-            'text-foreground',
+            'text-sm font-normal leading-6',
+            'text-muted-foreground',
           )}
         >
           {title}
         </h2>
-        <div className={contentClassName}>{children}</div>
+        {action}
       </div>
+      <div className={contentClassName}>{children}</div>
     </section>
   );
 }

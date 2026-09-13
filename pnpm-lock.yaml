@@ -23,9 +23,6 @@ importers:
       cmdk:
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@19.2.7(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      date-fns:
-        specifier: ^4.1.0
-        version: 4.1.0
       fumadocs-core:
         specifier: ^16.7.16
         version: 16.7.16(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.18)(lucide-react@1.35.0(react@19.2.8))(next@16.3.4(@types/node@20.19.39)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.3.6)
@@ -59,9 +56,6 @@ importers:
       reading-time:
         specifier: ^1.5.0
         version: 1.5.0
-      simple-icons:
-        specifier: ^16.29.0
-        version: 16.29.0
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.5.0
@@ -1905,10 +1899,6 @@ packages:
   shiki@4.0.2:
     resolution: {integrity: sha512-eAVKTMedR5ckPo4xne/PjYQYrU3qx78gtJZ+sHlXEg5IHhhoQhMfZVzetTYuaJS0L2Ef3AcCRzCHV8T0WI6nIQ==}
     engines: {node: '>=20'}
-
-  simple-icons@16.29.0:
-    resolution: {integrity: sha512-4H94f5ZgcCcgJroc902TFlFdgPu2IU2eD7+WebN2Z14xKYrKHeJ4UQcZwzgSuH4Rgzw+jp7sbHl40NefuIEYsg==}
-    engines: {node: '>=0.12.18'}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -3941,8 +3931,6 @@ snapshots:
       '@shikijs/types': 4.0.2
       '@shikijs/vscode-textmate': 10.0.2
       '@types/hast': 3.0.4
-
-  simple-icons@16.29.0: {}
 
   source-map-js@1.2.1: {}
 

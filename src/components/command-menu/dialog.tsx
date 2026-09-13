@@ -46,9 +46,12 @@ export function CommandMenuDialog({ open, onOpenChange, posts }: Props) {
         (href.startsWith('/#') || href.startsWith('#')) &&
         window.location.pathname === '/'
       ) {
-        document
-          .getElementById(href.split('#')[1])
-          ?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById(href.split('#')[1])?.scrollIntoView({
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
+            .matches
+            ? 'instant'
+            : 'smooth',
+        });
         return;
       }
       push(href);

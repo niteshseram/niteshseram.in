@@ -1,6 +1,11 @@
 import { cacheLife } from 'next/cache';
 
-import { AUTHOR, SITE_DESCRIPTION, SITE_URL } from '@/config/site';
+import {
+  AUTHOR,
+  PROJECTS_LABEL,
+  SITE_DESCRIPTION,
+  SITE_URL,
+} from '@/config/site';
 import { getAllPosts } from '@/lib/writing';
 
 async function render(): Promise<string> {
@@ -14,9 +19,9 @@ async function render(): Promise<string> {
     '',
     `> ${SITE_DESCRIPTION}`,
     '',
-    `- [About](${SITE_URL}/about.md): Bio, personal info, interests, and year-by-year timeline.`,
+    `- [About](${SITE_URL}/about.md): Bio, working principles, interests, and social links.`,
     `- [Experience](${SITE_URL}/experience.md): Roles I've held and what I built in each.`,
-    `- [Projects](${SITE_URL}/projects.md): Selected personal projects.`,
+    `- [${PROJECTS_LABEL}](${SITE_URL}/projects.md): Personal projects, with homepage selections marked.`,
     `- [Speaking](${SITE_URL}/speaking.md): Talks I've given.`,
     '',
     '## Writing',

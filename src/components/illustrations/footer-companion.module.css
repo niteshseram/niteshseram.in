@@ -1,0 +1,173 @@
+.body {
+  transform-origin: 50% 80%;
+  transform: rotate(var(--lean, 0deg));
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pupils {
+  transform: translate(var(--gaze-x, 0px), var(--gaze-y, 0px));
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 8s ease-in-out infinite;
+}
+
+.awakeEyes {
+  display: none;
+}
+
+.sunglasses {
+  display: inline;
+}
+
+:global(.dark) .awakeEyes {
+  display: inline;
+}
+
+:global(.dark) .sunglasses {
+  display: none;
+}
+
+.lensShine {
+  stroke: var(--puppy-paper);
+  opacity: 0.55;
+}
+
+@keyframes blink {
+  0%,
+  45%,
+  49%,
+  100% {
+    transform: scaleY(1);
+  }
+  47% {
+    transform: scaleY(0.1);
+  }
+}
+
+.reveal {
+  transform: translateY(50px);
+  transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.paws {
+  transform: translateY(14px);
+  transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1) 220ms;
+}
+
+:global([data-revealed='true']) .reveal {
+  transform: translateY(0);
+  transition-duration: 1000ms;
+  transition-delay: 360ms;
+}
+
+:global([data-revealed='true']) .paws {
+  transform: translateY(0);
+  transition-duration: 520ms;
+  transition-delay: 0ms;
+}
+
+.sleepMarks {
+  opacity: 0;
+  stroke: var(--muted-foreground);
+  transition: opacity 180ms ease;
+}
+
+:global([data-revealed='true']) .sleepMarks {
+  opacity: 1;
+  transition-delay: 1100ms;
+}
+
+.sleepMark {
+  animation: doze 3.6s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.sleepMark:nth-child(2) {
+  animation-delay: -2.4s;
+}
+
+.sleepMark:nth-child(3) {
+  animation-delay: -1.2s;
+}
+
+:global([data-revealed='true']) .sleepMark {
+  animation-play-state: running;
+}
+
+:global([data-sleeping='true']) .body {
+  animation: breathe 4s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+:global([data-sleeping='true'][data-revealed='true']) .body {
+  animation-play-state: running;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0.7px);
+  }
+}
+
+@keyframes doze {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateY(1px);
+  }
+  45% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.4;
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyes,
+  .sleepMark,
+  :global([data-sleeping='true']) .body {
+    animation: none;
+  }
+  .body,
+  .pupils {
+    transform: none;
+    transition: none;
+  }
+  .reveal,
+  .paws,
+  .sleepMarks,
+  :global([data-revealed='true']) .sleepMarks,
+  :global([data-revealed='true']) .reveal,
+  :global([data-revealed='true']) .paws {
+    transition: none;
+  }
+}
+.character {
+  color: var(--foreground);
+  --puppy-paper: var(--background);
+  --puppy-outline: var(--foreground);
+}
+
+:global(.dark) .character {
+  color: var(--background);
+  --puppy-paper: var(--foreground);
+  --puppy-outline: var(--foreground-subtle);
+}
+
+.outline {
+  stroke: var(--puppy-outline);
+}
+
+.coat {
+  fill: var(--puppy-paper);
+}

@@ -1,144 +1,65 @@
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide';
 
+import { ProjectDoodle } from '@/components/illustrations/project-doodle';
 import { Anchor } from '@/components/ui/anchor';
 import { ContentSection } from '@/components/ui/content-section';
+import { SiteIcon } from '@/components/ui/site-icon';
+import { PROJECTS_LABEL } from '@/config/site';
 import { PROJECTS } from '@/data/projects';
 import { cn } from '@/lib/utils';
 
+const homepageProjects = PROJECTS.filter((project) => project.featured);
+
 export function ProjectsSection() {
   return (
-    <ContentSection id="projects" ariaLabel="Projects" title="Selected work">
-      <ol className={cn('border-y', 'border-border/55')}>
-        {PROJECTS.map((project, projectIndex) => {
-          const projectUrl = project.liveUrl ?? project.githubUrl;
-          const projectHeadingId = `project-${projectIndex + 1}-title`;
-
+    <ContentSection
+      id="projects"
+      ariaLabel={PROJECTS_LABEL}
+      title={PROJECTS_LABEL}
+    >
+      <ul className="focus-list">
+        {homepageProjects.map((project) => {
           return (
             <li
               key={project.name}
-              className={cn(
-                'py-1',
-                projectIndex > 0 ? 'border-t' : '',
-                'border-border/55',
-              )}
+              className={cn('border-b last:border-b-0', 'border-divider')}
             >
-              <article
-                aria-labelledby={projectHeadingId}
+              <Anchor
+                href={project.liveUrl ?? project.githubUrl ?? '/about'}
+                variant="unstyled"
+                weight="normal"
                 className={cn(
-                  'group/project',
-                  'p-4 sm:p-5',
-                  'rounded-lg',
-                  'bg-transparent',
-                  'transition-colors',
-                  'hover:bg-brand-muted focus-within:bg-brand-muted',
+                  'group grid grid-cols-[2.5rem_minmax(0,1fr)_1rem] items-start gap-x-4',
+                  '-mx-2 px-2 py-4',
+                  'rounded-sm',
                 )}
               >
-                <div
-                  className={cn(
-                    'grid grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-x-3',
-                  )}
-                >
-                  <span
-                    aria-hidden="true"
-                    className={cn(
-                      'font-mono text-[0.6875rem] font-medium tabular-nums',
-                      'text-brand',
-                    )}
-                  >
-                    {String(projectIndex + 1).padStart(2, '0')}
-                  </span>
-                  <p
-                    className={cn(
-                      'font-mono text-[0.6875rem] font-medium tracking-[0.1em] uppercase',
-                      'text-muted-foreground',
-                    )}
-                  >
-                    {project.tagline}
-                  </p>
-                  {projectUrl ? (
-                    <ArrowUpRight
-                      aria-hidden="true"
-                      className={cn(
-                        'size-4',
-                        'text-muted-foreground',
-                        'transition-transform duration-200',
-                        'group-hover/project:translate-x-0.5 group-hover/project:-translate-y-0.5 group-focus-within/project:translate-x-0.5 group-focus-within/project:-translate-y-0.5',
-                      )}
-                    />
-                  ) : null}
-                </div>
-                <div className={cn('pl-11')}>
-                  <h3
-                    id={projectHeadingId}
-                    className={cn(
-                      'mt-4',
-                      'text-xl font-semibold leading-7 tracking-[-0.02em]',
-                    )}
-                  >
-                    {projectUrl ? (
-                      <Anchor
-                        href={projectUrl}
-                        className={cn(
-                          'inline-flex min-h-7 items-center',
-                          '-mx-1 px-1',
-                          'rounded-sm',
-                          'text-foreground',
-                          'outline-none',
-                          'transition-colors',
-                          'hover:text-brand focus-visible:text-brand focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-                        )}
-                        variant="unstyled"
-                        weight="inherit"
-                      >
-                        {project.name}
-                      </Anchor>
-                    ) : (
-                      project.name
-                    )}
+                <ProjectDoodle name={project.name} />
+                <div>
+                  <h3 className={cn('text-base font-normal leading-6')}>
+                    {project.name}
                   </h3>
                   <p
                     className={cn(
-                      'max-w-[54ch]',
-                      'mt-2',
+                      'mt-1',
                       'text-sm leading-6',
                       'text-muted-foreground',
                     )}
                   >
-                    {project.description}
+                    {project.summary}
                   </p>
-                  <div
-                    className={cn(
-                      'flex flex-wrap items-center justify-between gap-x-4 gap-y-2',
-                      'mt-5 pt-3',
-                      'font-mono text-[0.6875rem] leading-4',
-                      'text-muted-foreground',
-                    )}
-                  >
-                    <span>{project.tech.join(' · ')}</span>
-                    {project.liveUrl && project.githubUrl ? (
-                      <Anchor
-                        href={project.githubUrl}
-                        aria-label={`View ${project.name} source on GitHub`}
-                        className={cn(
-                          'inline-flex min-h-6 items-center',
-                          '-mx-1 px-1',
-                          'rounded-sm',
-                          'outline-none',
-                          'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-                        )}
-                        variant="default"
-                        weight="normal"
-                      >
-                        Source
-                      </Anchor>
-                    ) : null}
-                  </div>
                 </div>
-              </article>
+                <SiteIcon
+                  icon={ArrowUpRight}
+                  aria-hidden="true"
+                  className={cn('size-4', 'mt-1', 'text-muted-foreground')}
+                  strokeWidth={1.5}
+                />
+              </Anchor>
             </li>
           );
         })}
-      </ol>
+      </ul>
     </ContentSection>
   );
 }

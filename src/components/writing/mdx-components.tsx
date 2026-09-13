@@ -24,7 +24,7 @@ function headingAnchor(
               'no-underline',
               'text-inherit',
               'transition-colors',
-              'hover:text-brand',
+              'hover:underline hover:underline-offset-4',
             )}
           >
             {children}
@@ -40,43 +40,44 @@ function headingAnchor(
 export const baseMdxComponents: MDXComponents = {
   p: ({ className, ...props }) => (
     <p
-      className={cn('my-4', 'leading-7', 'text-foreground/90', className)}
+      className={cn('my-4', 'leading-7', 'text-inherit', className)}
       {...props}
     />
   ),
   h1: headingAnchor(
     'h1',
     cn(
-      'scroll-mt-20',
+      'scroll-mt-8',
       'mt-10 mb-3',
-      'text-2xl font-semibold leading-tight tracking-[-0.022em]',
-      'text-foreground',
+      'text-[1.375rem] font-[550] leading-8 tracking-[-0.015em]',
+      'text-foreground-strong',
     ),
   ),
   h2: headingAnchor(
     'h2',
     cn(
-      'scroll-mt-20',
-      'mt-10 mb-2.5',
-      'text-xl font-semibold leading-7 tracking-[-0.018em]',
-      'text-foreground',
+      'scroll-mt-8',
+      'mt-12 mb-3',
+      'text-xl font-[550] leading-7 tracking-[-0.015em]',
+      'text-foreground-strong',
     ),
   ),
   h3: headingAnchor(
     'h3',
     cn(
-      'scroll-mt-20',
-      'mt-8 mb-2',
-      'text-[1.0625rem] font-semibold leading-6 tracking-[-0.012em]',
-      'text-foreground',
+      'scroll-mt-8',
+      'mt-8 mb-2.5',
+      'text-[1.0625rem] font-[550] leading-6',
+      'text-foreground-strong',
     ),
   ),
   h4: headingAnchor(
     'h4',
     cn(
-      'scroll-mt-20 mt-7 mb-2',
-      'text-sm font-medium uppercase tracking-[0.08em]',
-      'text-foreground',
+      'scroll-mt-8',
+      'mt-6 mb-2',
+      'text-base font-[550] leading-6',
+      'text-foreground-strong',
     ),
   ),
   a: ({ href, className, children, ref: _ref, ...props }) => (
@@ -93,7 +94,8 @@ export const baseMdxComponents: MDXComponents = {
   ul: ({ className, ...props }) => (
     <ul
       className={cn(
-        'my-4 pl-6 space-y-1.5 list-disc',
+        'my-4 pl-5 space-y-2',
+        'list-disc',
         'marker:text-muted-foreground',
         className,
       )}
@@ -103,7 +105,8 @@ export const baseMdxComponents: MDXComponents = {
   ol: ({ className, ...props }) => (
     <ol
       className={cn(
-        'my-4 pl-6 space-y-1.5 list-decimal',
+        'my-4 pl-5 space-y-2',
+        'list-decimal',
         'marker:text-muted-foreground',
         className,
       )}
@@ -111,18 +114,15 @@ export const baseMdxComponents: MDXComponents = {
     />
   ),
   li: ({ className, ...props }) => (
-    <li
-      className={cn('leading-7', 'text-foreground/90', className)}
-      {...props}
-    />
+    <li className={cn('leading-7', 'text-inherit', className)} {...props} />
   ),
   blockquote: ({ className, ...props }) => (
     <blockquote
       className={cn(
         'my-5 pl-4',
-        'border-l-2 border-brand/40',
-        'text-base italic leading-7',
-        'text-foreground/75',
+        'border-l-2',
+        'text-base leading-7',
+        'text-foreground-subtle border-link',
         className,
       )}
       {...props}
@@ -136,13 +136,22 @@ export const baseMdxComponents: MDXComponents = {
         src={src}
         width={typeof width === 'number' ? width : Number(width) || 1280}
         height={typeof height === 'number' ? height : Number(height) || 720}
-        className={cn('my-8 rounded-lg border border-border', className)}
+        className={cn(
+          'h-auto max-w-full',
+          'my-7',
+          'rounded-sm border',
+          'border-border',
+          className,
+        )}
         {...props}
       />
     );
   },
   hr: ({ className, ...props }) => (
-    <hr className={cn('w-8', 'my-10', 'border-border', className)} {...props} />
+    <hr
+      className={cn('w-8', 'my-10', 'border-divider', className)}
+      {...props}
+    />
   ),
   pre: ({ ref: _ref, ...props }) => (
     <CodeBlock {...props}>
@@ -155,7 +164,7 @@ export const baseMdxComponents: MDXComponents = {
         className={cn(
           'flex items-center justify-end gap-1 sm:hidden',
           'mb-2 px-1',
-          'text-[0.6875rem] font-medium tracking-wide',
+          'text-sm',
           'text-muted-foreground',
         )}
       >
@@ -177,7 +186,7 @@ export const baseMdxComponents: MDXComponents = {
           className={cn(
             'w-full min-w-144 border-separate border-spacing-0',
             'text-sm leading-6',
-            'text-foreground/90',
+            'text-foreground-secondary',
             className,
           )}
           {...props}
@@ -188,10 +197,10 @@ export const baseMdxComponents: MDXComponents = {
   th: ({ className, ...props }) => (
     <th
       className={cn(
-        'px-4 py-3 align-middle',
-        'first:rounded-l-xl last:rounded-r-xl border-y first:border-l last:border-r',
-        'text-left text-sm font-medium leading-5',
-        'border-border bg-surface/80 text-foreground',
+        'px-4 py-3',
+        'border-b',
+        'text-left text-sm font-medium leading-6 align-top',
+        'border-border bg-surface text-foreground-strong',
         className,
       )}
       {...props}
@@ -200,10 +209,10 @@ export const baseMdxComponents: MDXComponents = {
   td: ({ className, ...props }) => (
     <td
       className={cn(
-        'px-4 py-4 align-top',
-        'border-b first:border-b-0',
-        'first:font-semibold',
-        'border-border/70 text-foreground/80 first:text-foreground',
+        'px-4 py-3',
+        'border-b',
+        'align-top',
+        'border-border text-inherit',
         className,
       )}
       {...props}

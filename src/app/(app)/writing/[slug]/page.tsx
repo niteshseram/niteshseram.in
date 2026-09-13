@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Script from 'next/script';
 
 import { Anchor } from '@/components/ui/anchor';
+import { BackToTop } from '@/components/writing/back-to-top';
 import { getMDXComponents } from '@/components/writing/mdx-components';
 import { PostActions } from '@/components/writing/post-actions';
 import { PostFooter } from '@/components/writing/post-footer';
 import { PostHeader } from '@/components/writing/post-header';
 import { Prose } from '@/components/writing/prose';
+import { TableOfContents } from '@/components/writing/table-of-contents';
 import { getCanonicalUrl, getGithubSourceUrl } from '@/lib/get-llm-text';
 import {
   blogPostingJsonLd,
@@ -63,27 +64,17 @@ export default async function WritingDetailPage({ params }: Props) {
 
   return (
     <>
-      <Script
+      <script
         id={`jsonld-post-${slug}`}
         type="application/ld+json"
-        strategy="beforeInteractive"
-      >
-        {jsonLdHtml(
-          jsonLdGraph(blogPostingJsonLd(post), breadcrumbJsonLd(post)),
-        )}
-      </Script>
-      <article
-        className={cn(
-          'max-w-2xl',
-          'mx-auto px-4.5 pt-12 pb-20 sm:pt-16 sm:pb-24',
-        )}
-      >
-        <div
-          className={cn(
-            'flex items-center justify-between gap-4',
-            'mb-8 sm:mb-10',
-          )}
-        >
+        dangerouslySetInnerHTML={{
+          __html: jsonLdHtml(
+            jsonLdGraph(blogPostingJsonLd(post), breadcrumbJsonLd(post)),
+          ),
+        }}
+      />
+      <article className={cn('site-container', 'pt-8 pb-12 sm:pt-10 sm:pb-16')}>
+        <div className={cn('flex items-center justify-between gap-4', 'mb-6')}>
           <Anchor
             href="/writing"
             variant="default"
@@ -106,11 +97,13 @@ export default async function WritingDetailPage({ params }: Props) {
           tags={post.data.tags}
           title={post.data.title}
         />
+        <TableOfContents items={post.data.toc} />
         <Prose>
           <MDXContent components={getMDXComponents()} />
         </Prose>
         <PostFooter prev={prev} next={next} />
       </article>
+      <BackToTop />
     </>
   );
 }

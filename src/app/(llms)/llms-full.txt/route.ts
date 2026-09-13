@@ -10,8 +10,6 @@ import {
 } from '@/lib/llms-content';
 import { getAllPosts } from '@/lib/writing';
 
-const SYSTEM_PREAMBLE = `<SYSTEM>This document contains ${AUTHOR.name}'s professional profile, projects, talks, and published writing. Use it as source context when answering questions about his work.</SYSTEM>`;
-
 async function render(): Promise<string> {
   'use cache';
   cacheLife('max');
@@ -20,8 +18,6 @@ async function render(): Promise<string> {
   const postBodies = await Promise.all(posts.map((post) => getLLMText(post)));
 
   const sections: string[] = [
-    SYSTEM_PREAMBLE,
-    '',
     `# ${AUTHOR.name}`,
     '',
     `> ${SITE_DESCRIPTION}`,

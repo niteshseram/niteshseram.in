@@ -35,14 +35,21 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ### Structure
 
-- [src/app/](src/app/) — routes (home, about, writing, design, `llms.txt` endpoints)
+- [src/app/](src/app/) — routes (home, about, writing, and Markdown endpoints)
 - [src/components/](src/components/) — UI components
 - [src/content/writing/](src/content/writing/) — MDX posts
 - [src/config/site.ts](src/config/site.ts) — site metadata
-- [src/data/](src/data/) — static data (about, projects, experience, talks, timeline)
+- [src/data/](src/data/) — static data (about, projects, experience, talks, social links)
 - [src/lib/](src/lib/) — fonts, JSON-LD, metadata, content helpers
 - [src/utils/](src/utils/) — reusable hooks
 
 ### Conventions
 
 Project-specific conventions (Tailwind class grouping, Next.js notes) live in [AGENTS.md](AGENTS.md).
+
+### Content and controls
+
+Published articles live in `src/content/writing/`; their MDX imports also power
+the interactive examples. The Markdown endpoints (`/llms.txt`, `/llms-full.txt`,
+`/about.md`, `/experience.md`, `/projects.md`, `/speaking.md`, and
+`/writing/<slug>.mdx`) are active public routes, generated from shared content.

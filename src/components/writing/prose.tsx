@@ -8,7 +8,14 @@ export function Prose({
   className?: string;
 }) {
   return (
-    <div className={cn('writing-prose', 'text-base', className)}>
+    <div
+      className={cn(
+        'writing-prose',
+        'text-base',
+        'text-foreground-secondary',
+        className,
+      )}
+    >
       {children}
     </div>
   );

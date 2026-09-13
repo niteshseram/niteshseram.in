@@ -1,71 +1,61 @@
-import { cacheLife } from 'next/cache';
+import { ArrowUpRight } from 'lucide';
 
+import { LocalClock } from '@/components/local-clock';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { Anchor } from '@/components/ui/anchor';
-import { AUTHOR, FEED } from '@/config/site';
+import { SiteIcon } from '@/components/ui/site-icon';
+import { FEED } from '@/config/site';
 import { SOCIAL_LINKS } from '@/data/social-links';
 import { cn } from '@/lib/utils';
 
-const footerLinks = [
-  SOCIAL_LINKS.github,
-  SOCIAL_LINKS.linkedin,
-  SOCIAL_LINKS.x,
-];
-
-export async function Footer() {
-  'use cache';
-  cacheLife('days');
-
-  const year = new Date().getFullYear();
-
+export function Footer() {
   return (
-    <footer>
+    <footer className={cn('site-container', 'pb-8 sm:pb-12')}>
       <div
         className={cn(
-          'flex max-w-2xl flex-col gap-3 sm:flex-row sm:items-center sm:gap-6',
-          'mx-auto px-4.5 py-6 sm:py-7',
-          'text-xs',
-          'text-muted-foreground',
+          'relative flex flex-wrap items-center justify-between gap-x-8 gap-y-4',
+          'pt-6',
+          'border-t',
+          'text-sm',
+          'border-divider text-muted-foreground',
         )}
       >
-        <p>
-          <span aria-hidden="true">©</span> {year} {AUTHOR.name}
-        </p>
-        <p>{AUTHOR.location}</p>
+        <LocalClock />
         <nav
-          aria-label="Footer navigation"
-          className={cn(
-            'flex flex-wrap items-center gap-x-4 gap-y-2 sm:ml-auto',
-          )}
+          aria-label="Footer"
+          className={cn('flex flex-wrap items-center gap-x-4', '-mr-3')}
         >
-          {footerLinks.map((social) => (
-            <Anchor
-              key={social.label}
-              href={social.href}
-              variant="unstyled"
-              weight="normal"
-              className="hover:text-foreground"
-            >
-              {social.label}
-            </Anchor>
-          ))}
+          <Anchor
+            href={SOCIAL_LINKS.email.href}
+            weight="normal"
+            className={cn('inline-flex min-h-11 items-center gap-1.5')}
+          >
+            Say hello
+            <SiteIcon
+              icon={ArrowUpRight}
+              aria-hidden="true"
+              className="size-3.5"
+              strokeWidth={1.5}
+            />
+          </Anchor>
+          <Anchor
+            href="/about"
+            weight="normal"
+            className={cn('inline-flex min-h-11 items-center')}
+          >
+            About
+          </Anchor>
           <a
+            href={FEED.path}
             className={cn(
-              'font-normal',
+              'inline-flex min-h-11 items-center',
               'transition-colors',
               'hover:text-foreground',
             )}
-            href={FEED.path}
           >
             RSS
           </a>
-          <Anchor
-            href="#main-content"
-            variant="unstyled"
-            weight="normal"
-            className="hover:text-foreground"
-          >
-            Back to top ↑
-          </Anchor>
+          <ThemeToggle />
         </nav>
       </div>
     </footer>

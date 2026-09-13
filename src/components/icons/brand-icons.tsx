@@ -5,19 +5,8 @@ import type { BrandIconData } from '@/components/ui/brand-mark';
 import {
   claudeIconData,
   githubIconData,
-  javaScriptIconData,
   markdownIconData,
-  nextJsIconData,
-  prismaIconData,
-  reactIconData,
-  reactQueryIconData,
-  supabaseIconData,
-  tailwindCssIconData,
-  trpcIconData,
-  turborepoIconData,
-  typeScriptIconData,
   xIconData,
-  zodIconData,
 } from '@/data/simple-icon-subset';
 import type { IconComponent } from '@/lib/icon-types';
 
@@ -29,19 +18,8 @@ function createBrandIcon(icon: BrandIconData): IconComponent {
 
 export const ClaudeIcon = createBrandIcon(claudeIconData);
 export const GitHubIcon = createBrandIcon(githubIconData);
-export const JavaScriptIcon = createBrandIcon(javaScriptIconData);
 export const MarkdownIcon = createBrandIcon(markdownIconData);
-export const NextJsIcon = createBrandIcon(nextJsIconData);
-export const PrismaIcon = createBrandIcon(prismaIconData);
-export const ReactIcon = createBrandIcon(reactIconData);
-export const ReactQueryIcon = createBrandIcon(reactQueryIconData);
-export const SupabaseIcon = createBrandIcon(supabaseIconData);
-export const TailwindCssIcon = createBrandIcon(tailwindCssIconData);
-export const TrpcIcon = createBrandIcon(trpcIconData);
-export const TurborepoIcon = createBrandIcon(turborepoIconData);
-export const TypeScriptIcon = createBrandIcon(typeScriptIconData);
 export const XIcon = createBrandIcon(xIconData);
-export const ZodIcon = createBrandIcon(zodIconData);
 
 export function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
   return (

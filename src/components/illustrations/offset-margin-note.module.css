@@ -1,0 +1,18 @@
+@media (min-width: 1280px) {
+  @container (max-width: 620px) {
+    .note {
+      position: absolute;
+      top: 3rem;
+      left: calc(100% + 2rem);
+      display: block;
+      width: 10rem;
+      margin-top: 0;
+    }
+    .sketch {
+      width: 9.25rem;
+    }
+    .caption {
+      margin-top: 0.5rem;
+    }
+  }
+}

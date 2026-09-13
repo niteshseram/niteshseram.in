@@ -3,10 +3,9 @@ import Script from 'next/script';
 import { Suspense } from 'react';
 
 import { ThemeProvider } from '@/components/theme-provider';
-import { ThemeSwitcher } from '@/components/theme-switcher';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { ATMOSPHERE_INIT_SCRIPT } from '@/config/atmosphere';
 import { AUTHOR, FEED, SITE_DESCRIPTION, SITE_URL } from '@/config/site';
+import { THEME_INIT_SCRIPT } from '@/config/theme';
 import { fontVariables } from '@/lib/fonts';
 
 import './globals.css';
@@ -61,18 +60,18 @@ export default function RootLayout({
     >
       <head>
         <script
-          dangerouslySetInnerHTML={{ __html: ATMOSPHERE_INIT_SCRIPT }}
-          id="atmosphere-init"
+          id="theme-init"
+          dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
         />
       </head>
-      <body className="flex min-h-full flex-col" suppressHydrationWarning>
-        <Script
+      <body className={cn('flex min-h-full flex-col')} suppressHydrationWarning>
+        <script
           id="jsonld-site-graph"
           type="application/ld+json"
-          strategy="beforeInteractive"
-        >
-          {jsonLdHtml(jsonLdGraph(personJsonLd, websiteJsonLd))}
-        </Script>
+          dangerouslySetInnerHTML={{
+            __html: jsonLdHtml(jsonLdGraph(personJsonLd, websiteJsonLd)),
+          }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -82,7 +81,6 @@ export default function RootLayout({
           <Suspense>
             <TooltipProvider delay={400} closeDelay={0}>
               {children}
-              <ThemeSwitcher />
             </TooltipProvider>
           </Suspense>
         </ThemeProvider>

@@ -30,8 +30,8 @@ export const SOCIAL_LINKS: Record<string, SocialLink> = {
     icon: LinkedInIcon,
   },
   x: {
-    label: 'Twitter/X',
-    href: 'https://twitter.com/niteshseram',
+    label: 'X',
+    href: 'https://x.com/niteshseram',
     username: 'niteshseram',
     icon: XIcon,
   },

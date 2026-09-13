@@ -13,7 +13,7 @@ import {
   type RefObject,
 } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { IconButton } from '@/components/ui/icon-button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { useCopyButton } from '@/utils/use-copy-button';
@@ -99,10 +99,10 @@ export function CodeBlock({
       tabIndex={-1}
       className={cn(
         'shiki relative overflow-hidden',
-        'my-4 rounded-xl',
-        'border border-border',
+        'my-6',
+        'rounded-md border',
         'text-sm',
-        'bg-code',
+        'bg-code border-border',
         keepBackground && 'bg-(--shiki-light-bg) dark:bg-(--shiki-dark-bg)',
         'not-prose',
         props.className,
@@ -111,11 +111,11 @@ export function CodeBlock({
       {title ? (
         <div
           className={cn(
-            'flex items-center gap-2 h-9.5',
+            'flex h-11 items-center gap-2',
             'px-4',
-            'bg-code-bar',
-            'border-b border-border',
-            'text-foreground/80',
+            'border-b',
+            'text-sm',
+            'bg-code-bar border-border text-muted-foreground',
           )}
         >
           {typeof icon === 'string' ? (
@@ -141,9 +141,8 @@ export function CodeBlock({
         Actions({
           className: cn(
             'absolute top-2 right-2 z-2',
-            'rounded-lg',
+            'rounded-sm backdrop-blur',
             'text-muted-foreground',
-            'backdrop-blur-lg',
           ),
           children: allowCopy && <CopyButton containerRef={areaRef} />,
         })
@@ -153,7 +152,7 @@ export function CodeBlock({
         orientation="both"
         viewportClassName={cn(
           'py-3.5',
-          'text-[0.8125rem]',
+          'text-sm leading-6',
           viewportClassNameProp,
         )}
         viewportProps={{
@@ -199,10 +198,8 @@ function CopyButton({
   });
 
   return (
-    <Button
-      variant="ghost"
-      size="xs"
-      isLabelHidden={true}
+    <IconButton
+      size="sm"
       label={checked ? 'Copied' : 'Copy code'}
       icon={
         <MorphIcon

@@ -1,5 +1,4 @@
-import { format } from 'date-fns';
-
+import { formatPostDate } from '@/lib/date';
 import { cn } from '@/lib/utils';
 
 type Props = {
@@ -10,24 +9,23 @@ type Props = {
 };
 
 export function PostMeta({ date, label, minutes, className }: Props) {
-  const formatted = format(new Date(date), 'MMM d, yyyy');
-
   return (
     <div
       className={cn(
-        'inline-flex items-center gap-x-2',
-        'font-mono text-xs tabular-nums',
-        'text-muted-foreground',
+        'inline-flex flex-wrap items-center gap-x-2 gap-y-1',
+        'text-[0.8125rem] leading-6 tabular-nums',
+        'text-foreground-subtle',
         className,
       )}
     >
-      <time dateTime={new Date(date).toISOString()} suppressHydrationWarning>
-        {label ? `${label} ${formatted}` : formatted}
+      <time dateTime={new Date(date).toISOString()}>
+        {label ? `${label} ` : ''}
+        {formatPostDate(date)}
       </time>
       {minutes != null && (
         <>
           <span aria-hidden="true">·</span>
-          <span>{minutes}&nbsp;min read</span>
+          <span>{minutes} min read</span>
         </>
       )}
     </div>

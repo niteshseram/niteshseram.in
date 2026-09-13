@@ -1,46 +1,32 @@
-import { AppearanceToggle } from '@/components/appearance-toggle';
 import { CommandMenu } from '@/components/command-menu';
-import { Logo } from '@/components/logo';
 import { Anchor } from '@/components/ui/anchor';
+import { AUTHOR } from '@/config/site';
 import { cn } from '@/lib/utils';
 import type { PostIndexEntry } from '@/lib/writing';
 
 import { NavLinks } from './nav-links';
 
-type Props = Readonly<{
-  posts: PostIndexEntry[];
-}>;
-
-export function Navbar({ posts }: Props) {
+export function Navbar({ posts }: Readonly<{ posts: PostIndexEntry[] }>) {
   return (
-    <header
-      className={cn(
-        'sticky top-0 z-50 h-[58px]',
-        'backdrop-blur-md',
-        'bg-background/85',
-        'transition-colors duration-[var(--motion-duration-base)] ease-standard',
-      )}
-    >
+    <header className={cn('site-container', 'pt-7 sm:pt-14')}>
       <div
-        className={cn('flex h-full max-w-2xl items-center', 'mx-auto px-4.5')}
+        className={cn(
+          'flex flex-wrap items-center justify-between gap-x-4 gap-y-2',
+        )}
       >
         <Anchor
           href="/"
-          aria-label="Home"
           variant="unstyled"
-          weight="inherit"
-          className={cn(
-            'inline-flex size-8 items-center justify-start',
-            'text-foreground',
-            'group/logo',
-          )}
+          weight="medium"
+          className={cn('inline-flex min-h-11 items-center', 'text-base')}
         >
-          <Logo size={23} />
+          {AUTHOR.name}
         </Anchor>
-        <div className={cn('flex items-center gap-x-1.5', 'ml-auto')}>
+        <div
+          className={cn('flex min-w-0 flex-wrap items-center gap-2 sm:gap-4')}
+        >
           <NavLinks />
           <CommandMenu posts={posts} />
-          <AppearanceToggle />
         </div>
       </div>
     </header>

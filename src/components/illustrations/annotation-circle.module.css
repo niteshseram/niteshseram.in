@@ -1,0 +1,18 @@
+.stroke {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: circle-in 650ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@keyframes circle-in {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stroke {
+    animation: none;
+  }
+}

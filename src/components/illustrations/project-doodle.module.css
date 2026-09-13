@@ -1,0 +1,63 @@
+.doodle path {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease;
+}
+.doodle .selection {
+  opacity: 0;
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  transition:
+    stroke-dashoffset 450ms ease,
+    opacity 220ms ease;
+}
+.tileOne {
+  transform: translateY(-1px) rotate(-3deg);
+}
+.tileTwo {
+  transform: translateY(1px) rotate(3deg);
+}
+.tileThree {
+  transform: translateY(1px) rotate(2deg);
+}
+.tileFour {
+  transform: translateY(-1px) rotate(-2deg);
+}
+
+:global(a:focus-visible) .selection {
+  opacity: 1;
+  stroke-dashoffset: 0;
+}
+:global(a:focus-visible) .cursor {
+  transform: translate(-2px, -2px);
+}
+:global(a:focus-visible) .tileOne,
+:global(a:focus-visible) .tileTwo,
+:global(a:focus-visible) .tileThree,
+:global(a:focus-visible) .tileFour {
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :global(a:hover) .selection {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+  :global(a:hover) .cursor {
+    transform: translate(-2px, -2px);
+  }
+  :global(a:hover) .tileOne,
+  :global(a:hover) .tileTwo,
+  :global(a:hover) .tileThree,
+  :global(a:hover) .tileFour {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .doodle path {
+    transition: none !important;
+    transform: none !important;
+  }
+}

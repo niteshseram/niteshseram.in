@@ -7,6 +7,7 @@ import {
   User,
 } from 'lucide-react';
 
+import { PROJECTS_LABEL } from '@/config/site';
 import type { IconComponent } from '@/lib/icon-types';
 
 export type NavItem = {
@@ -25,7 +26,7 @@ export const navItems: NavItem[] = [
     hide: true,
     keywords: ['start', 'landing'],
   },
-  { href: '/#projects', label: 'Work', icon: Folder },
+  { href: '/#projects', label: PROJECTS_LABEL, icon: Folder, hide: true },
   {
     href: '/writing',
     label: 'Writing',
@@ -33,7 +34,7 @@ export const navItems: NavItem[] = [
     keywords: ['blog', 'blogs', 'posts'],
   },
   {
-    href: '/#experience',
+    href: '/about#experience',
     label: 'Experience',
     icon: Briefcase,
     hide: true,

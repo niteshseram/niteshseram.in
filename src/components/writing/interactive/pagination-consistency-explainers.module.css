@@ -1,0 +1,25 @@
+.scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.record {
+  transition:
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 260ms ease;
+}
+.record[data-hidden='true'] {
+  opacity: 0;
+  pointer-events: none;
+}
+.record[data-missing='true'] > span:first-child {
+  border-style: dashed;
+}
+.boundary {
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .record,
+  .boundary {
+    transition: none;
+  }
+}
