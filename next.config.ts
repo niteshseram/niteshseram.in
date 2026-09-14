@@ -5,6 +5,12 @@ const withMDX = createMDX();
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
+  outputFileTracingIncludes: {
+    '/**/opengraph-image*': [
+      './node_modules/geist/dist/fonts/geist-sans/Geist-Medium.ttf',
+      './node_modules/geist/dist/fonts/geist-sans/Geist-Regular.ttf',
+    ],
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'img.youtube.com', pathname: '/vi/**' },
